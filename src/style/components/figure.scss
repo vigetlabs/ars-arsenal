@@ -24,6 +24,11 @@
     width: 100%;
     z-index: 1;
   }
+
+  @media screen and (max-width: 568px) {
+    width: 32%;
+    padding-top: 32%;
+  }
 }
 
 .ars-fig-picked:after {

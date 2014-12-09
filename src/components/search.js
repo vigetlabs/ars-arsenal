@@ -35,7 +35,7 @@ var Search = React.createClass({
       <div className="ars-search">
         <label className="ars-search-label" htmlFor={ inputId }>Search</label>
 
-        <input ref="input" type="search" className="ars-search-input" onChange={ this._onChange } list={ listId } />
+        <input ref="input" type="search" className="ars-search-input" onChange={ this._onChange } placeholder="Search" list={ listId } />
 
         <DataList id={ listId } items={ this.props.datalist } />
       </div>

@@ -12,10 +12,13 @@
 .ars-search-input {
   border: 1px solid #d9d9d9;
   border-width: 0 0 1px;
+  font-size: 16px;
+  line-height: 24px;
   width: 100%;
 
   &:focus {
     border-bottom: 2px solid $ars-primary;
+    margin-bottom: -1px;
     outline: none;
   }
 }
