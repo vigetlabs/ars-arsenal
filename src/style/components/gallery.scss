@@ -8,28 +8,4 @@ $ars-gallery-height: 432px;
   max-height: 100%;
   max-width: 100%;
   overflow: scroll;
- }
-
-// Transitions
-// -------------------------------------------------- //
-
-.ars-gallery-enter {
-  opacity: 0.01;
-  transform: scale(0.98) translateY(-5px);
-  transition: 0.48s all;
-}
-
-.ars-gallery-enter.ars-gallery-enter-active {
-  opacity: 1;
-  transform: none;
-}
-
-.ars-gallery-leave {
-  opacity: 1;
-  transition: 0.48s all;
-}
-
-.ars-gallery-leave.ars-gallery-leave-active {
-  opacity: 0.01;
-  transform: scale(0.95);
 }

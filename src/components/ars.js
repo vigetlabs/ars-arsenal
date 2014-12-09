@@ -70,7 +70,7 @@ var Ars = React.createClass({
   },
 
   _onSearchChange(search) {
-    this.setState({ search, picked: false })
+    this.setState({ search })
   }
 
 })

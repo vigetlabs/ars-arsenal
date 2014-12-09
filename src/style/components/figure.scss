@@ -52,3 +52,28 @@
   width: 100%;
   z-index: 1;
 }
+
+
+// Transitions
+// -------------------------------------------------- //
+
+.ars-fig-enter {
+  opacity: 0.01;
+  transform: scale(0.98) translateY(-5px);
+  transition: 0.48s all;
+}
+
+.ars-fig-enter.ars-fig-enter-active {
+  opacity: 1;
+  transform: none;
+}
+
+.ars-fig-leave {
+  opacity: 1;
+  transition: 0.48s all;
+}
+
+.ars-fig-leave.ars-fig-leave-active {
+  opacity: 0.01;
+  transform: scale(0.95);
+}

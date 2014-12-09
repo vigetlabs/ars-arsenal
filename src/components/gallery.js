@@ -21,6 +21,10 @@ var Gallery = React.createClass({
     }
   },
 
+  componentWillReceiveProps() {
+    this.setState({ picked: false})
+  },
+
   getItem(record) {
     return (
       <Figure key={ 'photo_' + record.id }
@@ -32,7 +36,7 @@ var Gallery = React.createClass({
 
   render() {
     return (
-      <Animation component="div" className="ars-gallery" transitionName="ars-gallery">
+      <Animation component="div" className="ars-gallery" transitionName="ars-fig">
         { this.props.items.map(this.getItem) }
       </Animation>
     )
