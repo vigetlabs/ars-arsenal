@@ -7,6 +7,7 @@ var React     = require('react/addons')
 var Animation = React.addons.CSSTransitionGroup
 var Photo     = require('../stores/photo')
 var Error     = require('./error')
+var Image     = require('./image')
 
 var Gallery = React.createClass({
 
@@ -35,9 +36,7 @@ var Gallery = React.createClass({
   },
 
   getItem(record) {
-    return (
-      <img key={ "photo_" + record.id } src={ record.url } />
-    )
+    return <Image key={ 'photo_' + record.id } src={ record.url } />
   },
 
   render() {
