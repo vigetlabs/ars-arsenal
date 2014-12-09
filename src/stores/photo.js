@@ -14,6 +14,14 @@ var Photo = {
     })
 
     return request
+  },
+
+  filter(items, query) {
+    return query ? items.filter(i => i.caption.match(query)) : items
+  },
+
+  datalist(items) {
+    return items.map(i => i.caption)
   }
 
 }

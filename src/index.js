@@ -13,11 +13,11 @@ require('./patch')
  */
 require('style/ars-arsenal')
 
-var React   = require('react')
-var Gallery = require('./components/gallery')
+var React = require('react')
+var Ars   = require('./components/ars')
 
-module.exports = function(selector) {
+module.exports = function(selector, options) {
   var el = document.querySelector(selector)
 
-  React.render(<Gallery />, el)
+  React.render(<Ars options={ options } />, el)
 }

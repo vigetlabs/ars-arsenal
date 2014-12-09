@@ -9,12 +9,10 @@ $ars-muted-dark  : rgba(#000, 0.5) !default;
 
 @import 'generators/functions';
 
-.ars {
-  box-sizing: border-box;
+@import "components/ars";
 
-  *,
-  *:after,
-  *:before {
-    box-sizing: inherit;
-  }
+.ars {
+  @import "components/gallery";
+  @import "components/figure";
+  @import "components/search";
 }

@@ -1,0 +1,17 @@
+.ars-search {
+  display: flex;
+  justify-content: center;
+  padding: 0.5%;
+}
+
+.ars-search-label {
+  font-size: 14px;
+  font-family: $ars-font-family;
+  padding-right: 16px;
+  text-transform: uppercase;
+  line-height: 20px;
+}
+
+.ars-search-input {
+  flex: 1 1;
+}

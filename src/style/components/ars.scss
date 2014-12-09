@@ -1,0 +1,16 @@
+.ars {
+  background: rgba(#000, 0.54);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+
+  *,
+  *:after,
+  *:before {
+    box-sizing: inherit;
+  }
+}

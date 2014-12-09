@@ -7,7 +7,8 @@ var React     = require('react/addons')
 var Animation = React.addons.CSSTransitionGroup
 var Photo     = require('../stores/photo')
 var Error     = require('./error')
-var Image     = require('./image')
+var Figure    = require('./figure')
+var Search    = require('./search')
 
 var Gallery = React.createClass({
 
@@ -36,18 +37,26 @@ var Gallery = React.createClass({
   },
 
   getItem(record) {
-    return <Image key={ 'photo_' + record.id } src={ record.url } />
+    return <Figure key={ 'photo_' + record.id } src={ record.url } />
   },
 
   render() {
-    var { error, items } = this.state
+    var { error, items, search } = this.state
+
+    var filtered = Photo.filter(items, search)
+    var datalist = Photo.datalist(items)
 
     return (
-      <Animation component="div" className="col-gallery" transitionName="col-gallery">
+      <Animation component="div" className="ars-gallery" transitionName="ars-gallery">
+        <Search key="search" datalist={ datalist } onChange={ this._onSearchChange } />
         <Error key="error" error={ error } />
-        { items.map(this.getItem) }
+        { filtered.map(this.getItem) }
       </Animation>
     )
+  },
+
+  _onSearchChange(search) {
+    this.setState({ search })
   }
 
 })

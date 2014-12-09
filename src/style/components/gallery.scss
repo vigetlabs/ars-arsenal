@@ -1,0 +1,39 @@
+$ars-gallery-height: 432px;
+$ars-gallery-width: 768px;
+
+.ars-gallery {
+  background: #f2f2f2;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(#fff, 0.875) inset, 0 1px 3px rgba(#000, 0.18);
+  height: $ars-gallery-height;
+  padding: 0.25%;
+  margin: 0 auto;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: scroll;
+  width: $ars-gallery-width;
+}
+
+// Transitions
+// -------------------------------------------------- //
+
+.ars-gallery-enter {
+  opacity: 0.01;
+  transform: scale(0.98) translateY(-5px);
+  transition: 0.48s all;
+}
+
+.ars-gallery-enter.ars-gallery-enter-active {
+  opacity: 1;
+  transform: none;
+}
+
+.ars-gallery-leave {
+  opacity: 1;
+  transition: 0.48s all;
+}
+
+.ars-gallery-leave.ars-gallery-leave-active {
+  opacity: 0.01;
+  transform: scale(0.95);
+}
