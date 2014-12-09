@@ -56,6 +56,6 @@
     "array.prototype.find": "latest",
     "object-assign": "^2.0.0",
     "react": ">= 0.12.1",
-    "superagent": "^0.21.0"
+    "xhr": "^1.17.0"
   }
 }
