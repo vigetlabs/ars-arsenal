@@ -17,7 +17,9 @@ var Photo = {
   },
 
   filter(items, query) {
-    return query ? items.filter(i => i.caption.match(query)) : items
+    var pattern = new RegExp(query, 'i')
+
+    return query ? items.filter(i => i.caption.match(pattern)) : items
   },
 
   datalist(items) {
