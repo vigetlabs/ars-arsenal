@@ -1,0 +1,61 @@
+{
+  "name": "ars-arsenal",
+  "version": "0.0.0",
+  "description": "A gallery picker",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "NODE_ENV=production webpack -p --optimize-occurence-order --optimize-dedupe",
+    "test": "jest src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vigetlabs/ars-arsenal.git"
+  },
+  "keywords": [
+    "gallery",
+    "react"
+  ],
+  "contributors": [
+    {
+      "name": "Nate Hunzaker",
+      "email": "nate.hunzaker@viget.com",
+      "url": "http://viget.com"
+    }
+  ],
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/lib/jestPreprocessor.js",
+    "setupEnvScriptFile": "<rootDir>/lib/jestSetup.js",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/object-assign",
+      "<rootDir>/node_modules/array.prototype.find"
+    ],
+    "globals": {
+      "__DEV__": true
+    }
+  },
+  "license": "MIT",
+  "bugs": "https://github.com/vigetlabs/colonel-kurtz/issues",
+  "homepage": "https://github.com/vigetlabs/colonel-kurtz",
+  "devDependencies": {
+    "autoprefixer-loader": "^1.0.0",
+    "css-loader": "^0.9.0",
+    "envify-loader": "^0.1.0",
+    "extract-text-webpack-plugin": "^0.3.5",
+    "jest-cli": "^0.1.18",
+    "json-loader": "^0.5.1",
+    "jsx-loader": "^0.12.2",
+    "react-tools": "^0.12.1",
+    "sass-loader": "^0.3.1",
+    "style-loader": "^0.8.2",
+    "webpack": "^1.4.13",
+    "webpack-dev-server": "^1.6.6"
+  },
+  "dependencies": {
+    "array.prototype.find": "latest",
+    "object-assign": "^2.0.0",
+    "react": ">= 0.12.1",
+    "superagent": "^0.21.0"
+  }
+}
