@@ -5,6 +5,22 @@
   padding: 24% 2px 2px;
   position: relative;
   width: 24%;
+
+  &:after {
+    border: 0 solid transparent;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: 0.28s all;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
+.ars-fig-picked:after {
+  border: 4px solid gold;
 }
 
 .ars-fig-img {
@@ -12,4 +28,20 @@
   position: absolute;
   right: 0;
   width: 100%;
+  user-select: none;
+}
+
+.ars-fig-caption {
+  background: rgba(#000, 0.54);
+  bottom: 0;
+  color: rgba(#fff, 0.875);
+  font-size: 12px;
+  left: 0;
+  overflow: hidden;
+  padding: 8px;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 1;
 }

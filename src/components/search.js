@@ -35,19 +35,17 @@ var Search = React.createClass({
       <div className="ars-search">
         <label className="ars-search-label" htmlFor={ inputId }>Search</label>
 
-        <input ref="input" type="search" className="ars-search-input" onKeyUp={ this._onKeyUp } list={ listId } />
+        <input ref="input" type="search" className="ars-search-input" onChange={ this._onChange } list={ listId } />
 
         <DataList id={ listId } items={ this.props.datalist } />
       </div>
     )
   },
 
-  _onKeyUp(e) {
+  _onChange(e) {
     var query = this.refs.input.getDOMNode().value
 
-    if (query.length >= this.props.threshold) {
-      this.props.onChange(query)
-    }
+    this.props.onChange(query.length >= this.props.threshold ? query : '')
   }
 
 })

@@ -37,7 +37,12 @@ var Gallery = React.createClass({
   },
 
   getItem(record) {
-    return <Figure key={ 'photo_' + record.id } src={ record.url } />
+    return (
+      <Figure key={ 'photo_' + record.id }
+              picked={ record.id === this.state.picked }
+              record={ record }
+              onClick={ this._onFigureClick } />
+    )
   },
 
   render() {
@@ -56,7 +61,13 @@ var Gallery = React.createClass({
   },
 
   _onSearchChange(search) {
-    this.setState({ search })
+    this.setState({ search, picked: false })
+  },
+
+  _onFigureClick(picked) {
+    this.setState({
+      picked: picked !== this.state.picked && picked
+    })
   }
 
 })

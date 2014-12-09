@@ -3,6 +3,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  font-family: $ars-font-family;
   height: 100%;
   justify-content: center;
   position: relative;
@@ -12,5 +13,12 @@
   *:after,
   *:before {
     box-sizing: inherit;
+  }
+
+  button {
+    &::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+    }
   }
 }
