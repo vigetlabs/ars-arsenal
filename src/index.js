@@ -20,8 +20,6 @@ require('style/ars-arsenal')
 var React = require('react')
 var Ars   = require('./components/ars')
 
-module.exports = function(selector, options) {
-  var el = document.querySelector(selector)
-
+module.exports = function(el, options) {
   React.render(<Ars { ...options } />, el)
 }

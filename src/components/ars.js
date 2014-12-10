@@ -13,7 +13,16 @@ var Types     = React.PropTypes
 var Ars = React.createClass({
 
   propTypes: {
-    url: Types.string.isRequired
+    url      : Types.string.isRequired,
+    onChange : Types.func,
+    onFetch  : Types.func
+  },
+
+  getDefaultProps() {
+    return {
+      onFetch  : data => data,
+      onChange : () => {}
+    }
   },
 
   getInitialState() {
@@ -31,7 +40,7 @@ var Ars = React.createClass({
   },
 
   responseDidSucceed(items) {
-    this.setState({ items, error: false })
+    this.setState({ items: this.props.onFetch(items), error: false })
   },
 
   responseDidFail(error) {
@@ -39,7 +48,7 @@ var Ars = React.createClass({
   },
 
   getDialog() {
-    var { items, search, picked } = this.state
+    var { error, items, search, picked } = this.state
 
     var allowed  = Photo.filter(items, search)
     var datalist = Photo.datalist(items)
@@ -48,6 +57,7 @@ var Ars = React.createClass({
       <Dialog datalist={ datalist }
               items={ allowed }
               key="dialog"
+              error={ error }
               onSearch={ this._onSearchChange }
               onChange={ this._onGalleryPicked }
               onExit={ this._onExit }

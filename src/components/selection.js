@@ -22,7 +22,7 @@ var Selection = React.createClass({
     var hasPhoto = this.props.photo
 
     return (
-      <Button className="ars-selection" onClick={ this.props.onClick }>
+      <Button className="ars-selection" onClick={ this._onClick }>
         { hasPhoto && this.getPhoto() }
 
         <span className="ars-selection-caption">
@@ -30,6 +30,11 @@ var Selection = React.createClass({
         </span>
       </Button>
     )
+  },
+
+  _onClick(e) {
+    e.preventDefault()
+    this.props.onClick(e)
   }
 
 })

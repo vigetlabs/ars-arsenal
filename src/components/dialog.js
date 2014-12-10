@@ -40,8 +40,16 @@ var GalleryDialog = React.createClass({
     this.props.onExit()
   },
 
+  getError() {
+    var error = this.props.error
+
+    return error ? (
+      <p className="ars-error">{ error }</p>
+    ) : null
+  },
+
   render() {
-    var { datalist, items, onSearch, onChange, search } = this.props
+    var { datalist, error, items, onSearch, onChange, search } = this.props
 
     return (
       <Dialog onExit={ this.props.onExit }>
@@ -50,6 +58,8 @@ var GalleryDialog = React.createClass({
           <h1 className="ars-dialog-title">Please select a photo</h1>
           <Search key="search" datalist={ datalist } onChange={ onSearch } />
         </header>
+
+        { this.getError() }
 
         <Gallery items={ items } picked={ this.state.picked } onPicked={ this._onPicked } onKeyDown={ this._onKeyDown } />
 
