@@ -1,6 +1,7 @@
 $ars-dialog-width: 768px;
 
 .ars-dialog {
+  animation: 0.4s ars-dialog-fade;
   display: flex;
   flex-direction: column;
   font-family: $ars-font-family;
@@ -10,11 +11,7 @@ $ars-dialog-width: 768px;
   position: fixed;
   top: 0;
   width: 100%;
-
-  &:focus .ars-dialog-inner {
-    box-shadow: 0 1px 3px rgba(#000, 0.24);
-  }
-
+  z-index: 1000;
 }
 
 .ars-dialog-blackout {
@@ -30,7 +27,7 @@ $ars-dialog-width: 768px;
 .ars-dialog-inner {
   background: #fff;
   border-radius: 2px;
-  box-shadow: none;
+  box-shadow: 0 1px 3px rgba(#000, 0.24);
   margin: 0 auto;
   max-height: 100%;
   max-width: $ars-dialog-width;
@@ -48,9 +45,9 @@ $ars-dialog-width: 768px;
   display: flex;
   padding: 16px;
   position: relative;
-  z-index: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  z-index: 1;
 }
 
 .ars-dialog-title {

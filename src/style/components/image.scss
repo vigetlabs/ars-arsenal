@@ -1,14 +1,14 @@
+$ars-img-easing: cubic-bezier(.01,.3,.12,.93);
+
 .ars-img {
   filter: brightness(1.25) saturate(0.2);
-  -webkit-filter: brightness(1.25) saturate(0);
   opacity: 0.1;
-  transition: 2.5s all cubic-bezier(.01,.3,.12,.93);
+  transition: 2.5s all $ars-img-easing;
   user-select: none;
   width: 100%;
 }
 
 .ars-img-loaded {
   filter: none;
-  -webkit-filter: none;
   opacity: 1;
 }

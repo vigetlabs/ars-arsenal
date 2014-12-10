@@ -10,6 +10,7 @@ $ars-muted-dark  : rgba(#000, 0.5) !default;
 @import 'generators/functions';
 @import 'generators/extends';
 
+@import "components/animation";
 @import "components/ars";
 
 .ars {

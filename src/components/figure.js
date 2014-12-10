@@ -3,9 +3,9 @@
  * An individual gallery tile
  */
 
+var Image = require('./ui/image')
 var React = require('react')
 var Types = React.PropTypes
-var Image = require('./ui/image')
 
 var Figure = React.createClass({
 

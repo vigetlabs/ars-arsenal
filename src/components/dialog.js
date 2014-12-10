@@ -65,7 +65,7 @@ var GalleryDialog = React.createClass({
 
         <footer className="ars-dialog-footer">
           <Button onClick={ this.props.onExit }>Cancel</Button>
-          <Button onClick={ this._onConfirm }>Okay</Button>
+          <Button onClick={ this._onConfirm } raised>Okay</Button>
         </footer>
 
       </Dialog>
