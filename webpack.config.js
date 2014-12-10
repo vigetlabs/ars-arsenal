@@ -6,7 +6,7 @@ module.exports = {
   devtool : 'source-map',
 
   entry: {
-    'build/ars-arsenal' : './src/index.js'
+    'build/js/ars-arsenal' : './src/index.js'
   },
 
   output: {
@@ -23,7 +23,7 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin("build/style.css"),
+    new ExtractTextPlugin("build/css/ars-arsenal.css"),
     new WebPack.DefinePlugin({
       '__DEV__' : process.env.NODE_ENV !== 'production'
     })

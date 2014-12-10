@@ -3,9 +3,9 @@
  * A reuseable modal
  */
 
+var Focus = require('../../mixins/focus')
 var React = require('react')
 var Types = React.PropTypes
-var Focus = require('../../mixins/focus')
 
 var Dialog = React.createClass({
 
