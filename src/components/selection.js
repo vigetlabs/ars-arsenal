@@ -3,7 +3,7 @@
  */
 
 var Button = require('./ui/button')
-var Image  = require('./image')
+var Image  = require('./ui/image')
 var React  = require('react')
 
 var SHOULD_SELECT = 'Select an image'

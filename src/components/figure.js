@@ -5,7 +5,8 @@
 
 var React = require('react')
 var Types = React.PropTypes
-var Image = require('./image')
+var Image = require('./ui/image')
+
 var Figure = React.createClass({
 
   propTypes: {
