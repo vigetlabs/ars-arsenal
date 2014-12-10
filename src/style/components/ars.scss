@@ -5,6 +5,8 @@
   position: relative;
   text-align: left;
   width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   *,
   *:after,
