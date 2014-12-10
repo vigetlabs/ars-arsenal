@@ -8,8 +8,13 @@ var Dialog    = require('./dialog')
 var Photo     = require('../stores/photo')
 var React     = require('react')
 var Selection = require('./selection')
+var Types     = React.PropTypes
 
 var Ars = React.createClass({
+
+  propTypes: {
+    url: Types.string.isRequired
+  },
 
   getInitialState() {
     return {
@@ -18,12 +23,6 @@ var Ars = React.createClass({
       items      : [],
       picked     : null,
       search     : ''
-    }
-  },
-
-  getDefaultProps() {
-    return {
-      url : 'photos.json',
     }
   },
 

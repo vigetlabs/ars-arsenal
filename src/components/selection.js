@@ -5,6 +5,9 @@
 var Button = require('./ui/button')
 var React  = require('react')
 
+var SHOULD_SELECT = 'Select an image'
+var PICK_ANOTHER  = 'Choose another image'
+
 var Selection = React.createClass({
 
   getPhoto() {
@@ -23,7 +26,7 @@ var Selection = React.createClass({
         { hasPhoto && this.getPhoto() }
 
         <span className="ars-selection-caption">
-          { hasPhoto ? 'Pick another image' : 'Select an image' }
+          { hasPhoto ? PICK_ANOTHER : SHOULD_SELECT }
         </span>
       </Button>
     )
