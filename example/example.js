@@ -1,4 +1,4 @@
-ArsArsenal('#app', {
+ArsArsenal(app, {
 
   url: 'photos.json',
 
