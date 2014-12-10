@@ -22,6 +22,12 @@ var Photo = {
     return query ? items.filter(i => i.caption.match(pattern)) : items
   },
 
+  find(items, id) {
+    if (id == void 0) return null
+
+    return items.find(i => i.id.toString() === id.toString())
+  },
+
   datalist(items) {
     return items.map(i => i.caption)
   }

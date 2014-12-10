@@ -21,7 +21,8 @@ var Ars = React.createClass({
   getDefaultProps() {
     return {
       onFetch  : data => data,
-      onChange : () => {}
+      onChange : () => {},
+      picked   : null
     }
   },
 
@@ -30,7 +31,7 @@ var Ars = React.createClass({
       dialogOpen : false,
       error      : false,
       items      : [],
-      picked     : null,
+      picked     : this.props.picked,
       search     : ''
     }
   },
@@ -68,7 +69,7 @@ var Ars = React.createClass({
   render() {
     var { dialogOpen, items, picked, search } = this.state
 
-    var record = items.find(i => i.id === picked)
+    var record = Photo.find(items, picked)
 
     return (
       <div className="ars">

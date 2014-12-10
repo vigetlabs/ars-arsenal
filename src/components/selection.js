@@ -3,6 +3,7 @@
  */
 
 var Button = require('./ui/button')
+var Image  = require('./image')
 var React  = require('react')
 
 var SHOULD_SELECT = 'Select an image'
@@ -14,7 +15,7 @@ var Selection = React.createClass({
     var { caption, url } = this.props.photo
 
     return (
-      <img className="ars-selection-photo" alt={ caption } src={ url } />
+      <Image className="ars-selection-photo" alt={ caption } src={ url } />
     )
   },
 

@@ -21,7 +21,7 @@ var Figure = React.createClass({
 
     return (
       <button className={ className } onClick={ this._onClick }>
-        <Image src={ record.url } />
+        <Image className="ars-fig-img" src={ record.url } />
 
         <span className="ars-fig-caption">
           { record.caption }
