@@ -5,7 +5,7 @@
 
 var React = require('react')
 var Types = React.PropTypes
-
+var Image = require('./image')
 var Figure = React.createClass({
 
   propTypes: {
@@ -21,7 +21,7 @@ var Figure = React.createClass({
 
     return (
       <button className={ className } onClick={ this._onClick }>
-        <img className="ars-fig-img" src={ record.url } />
+        <Image src={ record.url } />
 
         <span className="ars-fig-caption">
           { record.caption }

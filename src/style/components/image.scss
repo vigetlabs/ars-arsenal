@@ -1,0 +1,17 @@
+.ars-img {
+  bottom: 0;
+  filter: brightness(1.25) saturate(0.2);
+  -webkit-filter: brightness(1.25) saturate(0);
+  opacity: 0.1;
+  position: absolute;
+  right: 0;
+  transition: 2.5s all cubic-bezier(.01,.3,.12,.93);
+  user-select: none;
+  width: 100%;
+}
+
+.ars-img-loaded {
+  filter: none;
+  -webkit-filter: none;
+  opacity: 1;
+}

@@ -4,14 +4,19 @@
   border-radius: 3px;
   border: 0;
   color: $ars-primary;
-  font: 500 14px/16px $ars-font-family;
   display: inline-block;
+  font: 500 14px/16px $ars-font-family;
+  letter-spacing: 0.05em;
   line-height: 16px;
   margin: 6px 8px;
   padding: 10px 16px;
-  width: auto;
   text-align: center;
-  text-transform: uppercase;
   text-shadow: none;
-  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  width: auto;
+
+  &:hover,
+  &:focus {
+    background: #fff;
+  }
 }

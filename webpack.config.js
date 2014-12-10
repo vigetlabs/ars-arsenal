@@ -33,7 +33,7 @@ module.exports = {
     loaders: [
       {
         test    : /\.s(c|a)ss$/,
-        loader  : ExtractTextPlugin.extract('style-loader', 'css-loader?autoprefixer-loader!sass-loader')
+        loader  : ExtractTextPlugin.extract('style-loader', 'css-loader?autoprefixer-loader?browsers=last 2 versions!sass-loader')
       },
       {
         test    : /\.jsx*$/,
