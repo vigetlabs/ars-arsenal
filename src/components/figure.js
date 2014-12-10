@@ -20,13 +20,13 @@ var Figure = React.createClass({
     var className = `ars-fig ${ picked ? 'ars-fig-picked' : '' }`
 
     return (
-      <figure className={ className } onClick={ this._onClick }>
+      <button className={ className } onClick={ this._onClick }>
         <img className="ars-fig-img" src={ record.url } />
 
-        <figcaption className="ars-fig-caption">
+        <span className="ars-fig-caption">
           { record.caption }
-        </figcaption>
-      </figure>
+        </span>
+      </button>
     )
   },
 

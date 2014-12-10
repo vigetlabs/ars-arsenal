@@ -3,20 +3,21 @@
  * The main element for Ars Arsenal
  */
 
-var React   = require('react/addons')
-var Photo   = require('../stores/photo')
-var Gallery = require('./gallery')
-var Error   = require('./error')
-
-var Search  = require('./search')
+var Button    = require('./ui/button')
+var Dialog    = require('./dialog')
+var Photo     = require('../stores/photo')
+var React     = require('react')
+var Selection = require('./selection')
 
 var Ars = React.createClass({
 
   getInitialState() {
     return {
-      error  : false,
-      items  : [],
-      search : ''
+      dialogOpen : false,
+      error      : false,
+      items      : [],
+      picked     : null,
+      search     : ''
     }
   },
 
@@ -38,39 +39,50 @@ var Ars = React.createClass({
     this.setState({ error })
   },
 
-  render() {
-    var { error, items, search } = this.state
+  getDialog() {
+    var { items, search, picked } = this.state
 
-    var filtered = Photo.filter(items, search)
+    var allowed  = Photo.filter(items, search)
     var datalist = Photo.datalist(items)
 
     return (
+      <Dialog datalist={ datalist }
+              items={ allowed }
+              key="dialog"
+              onSearch={ this._onSearchChange }
+              onChange={ this._onGalleryPicked }
+              onExit={ this._onExit }
+              picked={ picked } />
+    )
+  },
+
+  render() {
+    var { dialogOpen, items, picked, search } = this.state
+
+    var record = items.find(i => i.id === picked)
+
+    return (
       <div className="ars">
-        <section className="ars-dialog" role="dialog">
-
-          <header className="ars-dialog-header">
-            <h1 className="ars-dialog-title">
-              Please select a photo
-            </h1>
-            <Search key="search" datalist={ datalist } onChange={ this._onSearchChange } />
-          </header>
-
-          <Error key="error" error={ error } />
-
-          <Gallery items={ filtered } />
-
-          <footer className="ars-dialog-footer">
-            <button className="ars-button">Cancel</button>
-            <button className="ars-button">Okay</button>
-          </footer>
-
-        </section>
+        <Selection onClick={ this._onOpenClick } photo={ record }/>
+        { dialogOpen && this.getDialog() }
       </div>
     )
   },
 
+  _onOpenClick() {
+    this.setState({ dialogOpen: true, search: null })
+  },
+
   _onSearchChange(search) {
     this.setState({ search })
+  },
+
+  _onGalleryPicked(picked) {
+    this.setState({ picked }, () => this.props.onChange(this.state.picked))
+  },
+
+  _onExit() {
+    this.setState({ dialogOpen: false, search: null })
   }
 
 })

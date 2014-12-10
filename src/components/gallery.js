@@ -6,46 +6,36 @@
 var React     = require('react/addons')
 var Animation = React.addons.CSSTransitionGroup
 var Figure    = require('./figure')
+var Types     = React.PropTypes
 
 var Gallery = React.createClass({
 
+  propTypes: {
+    items    : Types.array,
+    onPicked : Types.func.isRequired
+  },
+
   getDefaultProps() {
     return {
-      items: []
+      items  : [],
+      picked : false
     }
-  },
-
-  getInitialState() {
-    return {
-      picked: false
-    }
-  },
-
-  componentWillReceiveProps() {
-    this.setState({ picked: false})
   },
 
   getItem(record) {
+    var isPicked = record.id === this.props.picked
+
     return (
-      <Figure key={ 'photo_' + record.id }
-              picked={ record.id === this.state.picked }
-              record={ record }
-              onClick={ this._onFigureClick } />
+      <Figure key={ 'photo_' + record.id } picked={ isPicked } record={ record } onClick={ this.props.onPicked } />
     )
   },
 
   render() {
     return (
-      <Animation component="div" className="ars-gallery" transitionName="ars-fig">
+      <Animation component="div" className="ars-gallery" transitionName="ars-fig" onKeyDown={ this.props.onKeyDown }>
         { this.props.items.map(this.getItem) }
       </Animation>
     )
-  },
-
-  _onFigureClick(picked) {
-    this.setState({
-      picked: picked !== this.state.picked && picked
-    })
   }
 
 })

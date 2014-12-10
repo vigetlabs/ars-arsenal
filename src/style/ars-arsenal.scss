@@ -1,4 +1,4 @@
-$ars-font-family : Roboto, sans-sergallerif;
+$ars-font-family : Roboto, sans-serif;
 $ars-primary     : #009688 !default;
 $ars-accent      : #cddc39 !default;
 $ars-danger      : #f44336 !default;
@@ -8,6 +8,7 @@ $ars-muted-light : rgba(#fff, 0.4) !default;
 $ars-muted-dark  : rgba(#000, 0.5) !default;
 
 @import 'generators/functions';
+@import 'generators/extends';
 
 @import "components/ars";
 
@@ -17,4 +18,5 @@ $ars-muted-dark  : rgba(#000, 0.5) !default;
   @import "components/figure";
   @import "components/search";
   @import "components/button";
+  @import "components/selection";
 }

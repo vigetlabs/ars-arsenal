@@ -1,4 +1,5 @@
 .ars-button {
+  @extend %focusable;
   background: #fff;
   border-radius: 3px;
   border: 0;
@@ -9,6 +10,7 @@
   margin: 6px 8px;
   padding: 10px 16px;
   width: auto;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
