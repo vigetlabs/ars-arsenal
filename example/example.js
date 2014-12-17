@@ -1,7 +1,5 @@
 var ArsArsenal = require('../build/js/ars-arsenal');
 
-console.log(ArsArsenal)
-
 ArsArsenal.render(app, {
 
   url: 'photos.json',
