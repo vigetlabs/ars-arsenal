@@ -16,6 +16,10 @@ module.exports = {
     path: '.',
   },
 
+  externals: {
+    react: 'react'
+  },
+
   resolve: {
     extensions: ['', '.js', '.jsx', '.json', '.scss'],
     modulesDirectories: [ 'web_modules', 'node_modules', 'src']
