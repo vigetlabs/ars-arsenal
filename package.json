@@ -2,10 +2,11 @@
   "name": "ars-arsenal",
   "version": "0.0.0",
   "description": "A gallery picker",
-  "main": "src/index.js",
+  "main": "build/js/ars-arsenal.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "NODE_ENV=production webpack -p --optimize-occurence-order --optimize-dedupe",
+    "start" : "webpack -wd",
+    "example": "webpack-dev-server --config webpack.example.config.js",
+    "prepublish": "NODE_ENV=production webpack -p --optimize-occurence-order --optimize-dedupe",
     "test": "jest src"
   },
   "repository": {

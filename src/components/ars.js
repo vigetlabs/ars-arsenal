@@ -3,24 +3,24 @@
  * The main element for Ars Arsenal
  */
 
-var Button    = require('./ui/button')
-var Dialog    = require('./dialog')
+var Picker    = require('./picker')
 var Photo     = require('../stores/photo')
 var React     = require('react')
 var Selection = require('./selection')
+var Sync      = require('../mixins/sync')
 var Types     = React.PropTypes
 
 var Ars = React.createClass({
 
+  mixins: [ Sync ],
+
   propTypes: {
     url      : Types.string.isRequired,
-    onChange : Types.func,
-    onFetch  : Types.func
+    onChange : Types.func
   },
 
   getDefaultProps() {
     return {
-      onFetch  : data => data,
       onChange : () => {},
       picked   : null
     }
@@ -29,36 +29,20 @@ var Ars = React.createClass({
   getInitialState() {
     return {
       dialogOpen : false,
-      error      : false,
-      items      : [],
       picked     : this.props.picked,
       search     : ''
     }
   },
 
-  componentWillMount() {
-    Photo.fetch(this.props.url, this.responseDidSucceed, this.responseDidFail)
-  },
-
-  responseDidSucceed(items) {
-    this.setState({ items: this.props.onFetch(items), error: false })
-  },
-
-  responseDidFail(error) {
-    this.setState({ error })
-  },
-
-  getDialog() {
+  getPicker() {
     var { error, items, search, picked } = this.state
 
     var allowed  = Photo.filter(items, search)
-    var datalist = Photo.datalist(items)
 
     return (
-      <Dialog datalist={ datalist }
+      <Picker error={ error }
               items={ allowed }
               key="dialog"
-              error={ error }
               onSearch={ this._onSearchChange }
               onChange={ this._onGalleryPicked }
               onExit={ this._onExit }
@@ -74,7 +58,7 @@ var Ars = React.createClass({
     return (
       <div className="ars">
         <Selection onClick={ this._onOpenClick } photo={ record }/>
-        { dialogOpen && this.getDialog() }
+        { dialogOpen && this.getPicker() }
       </div>
     )
   },

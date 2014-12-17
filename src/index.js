@@ -16,10 +16,12 @@ require('./patch')
 
 require('style/ars-arsenal')
 
-
 var React = require('react')
 var Ars   = require('./components/ars')
 
-module.exports = function(el, options) {
-  React.render(<Ars { ...options } />, el)
+module.exports = {
+  component : Ars,
+  render    : function(el, options) {
+    React.render(<Ars { ...options } />, el)
+  }
 }

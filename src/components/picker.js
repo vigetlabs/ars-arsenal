@@ -1,5 +1,5 @@
 /**
- * Dialog
+ * Picker
  * The a modal that appears to select a gallery image
  */
 
@@ -10,7 +10,7 @@ var React   = require('react')
 var Search  = require('./search')
 var Types   = React.PropTypes
 
-var GalleryDialog = React.createClass({
+var Picker = React.createClass({
 
   propTypes: {
     onChange : Types.func.isRequired,
@@ -49,14 +49,14 @@ var GalleryDialog = React.createClass({
   },
 
   render() {
-    var { datalist, error, items, onSearch, onChange, search } = this.props
+    var { error, items, onSearch, onChange, search } = this.props
 
     return (
       <Dialog onExit={ this.props.onExit }>
 
         <header className="ars-dialog-header">
           <h1 className="ars-dialog-title">Please select a photo</h1>
-          <Search key="search" datalist={ datalist } onChange={ onSearch } />
+          <Search key="search" onChange={ onSearch } />
         </header>
 
         { this.getError() }
@@ -94,4 +94,4 @@ var GalleryDialog = React.createClass({
 
 })
 
-module.exports = GalleryDialog
+module.exports = Picker

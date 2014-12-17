@@ -6,13 +6,13 @@ module.exports = {
   devtool : 'source-map',
 
   entry: {
-    'build/js/ars-arsenal' : './src/index.js'
+    'example/example.build' : './example/example.js'
   },
 
   output: {
-    filename: '[name].js',
-    libraryTarget: 'umd',
     path: '.',
+    filename: '[name].js',
+    publicPath: '/'
   },
 
   resolve: {

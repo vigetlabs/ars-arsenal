@@ -5,6 +5,7 @@
 
 var Focus = require('../../mixins/focus')
 var React = require('react')
+
 var Types = React.PropTypes
 
 var Dialog = React.createClass({

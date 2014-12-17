@@ -4,8 +4,9 @@
  */
 
 var Image = require('./ui/image')
-var React = require('react')
+var React = require('react/addons')
 var Types = React.PropTypes
+var cx    = React.addons.classSet
 
 var Figure = React.createClass({
 
@@ -18,7 +19,10 @@ var Figure = React.createClass({
   render() {
     var { record, picked } = this.props
 
-    var className = `ars-fig ${ picked ? 'ars-fig-picked' : '' }`
+    var className = cx({
+      'ars-fig'        : true,
+      'ars-fig-picked' : picked
+    })
 
     return (
       <button className={ className } onClick={ this._onClick }>
