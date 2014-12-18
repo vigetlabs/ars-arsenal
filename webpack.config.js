@@ -11,8 +11,7 @@ module.exports = {
 
   output: {
     filename: '[name].js',
-    libraryTarget: 'umd',
-    library: 'ArsArsenal',
+    libraryTarget: 'commonjs2',
     path: '.',
   },
 
