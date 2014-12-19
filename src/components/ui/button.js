@@ -9,7 +9,8 @@ var Button = React.createClass({
 
   getDefaultProps() {
     return {
-      raised : false
+      raised : false,
+      type   : 'button'
     }
   },
 
