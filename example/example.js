@@ -1,5 +1,5 @@
 var React      = require('react/addons');
-var ArsArsenal = require('../build/js/ars-arsenal');
+var ArsArsenal = require('../src/index');
 
 ArsArsenal.render(app, {
 
