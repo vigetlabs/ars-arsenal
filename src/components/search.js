@@ -19,7 +19,7 @@ let Search = React.createClass({
   mixins: [ UniqueID ],
 
   propTypes: {
-    onChange  : Types.func.isRequired
+    onChange : Types.func.isRequired
   },
 
   getInitialState() {
