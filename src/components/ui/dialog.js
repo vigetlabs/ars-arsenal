@@ -3,12 +3,12 @@
  * A reuseable modal
  */
 
-var Focus = require('../../mixins/focus')
-var React = require('react')
+import Focus from '../../mixins/focus'
+import React from 'react'
 
-var Types = React.PropTypes
+let Types = React.PropTypes
 
-var Dialog = React.createClass({
+let Dialog = React.createClass({
 
   mixins: [ Focus ],
 

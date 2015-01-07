@@ -4,26 +4,26 @@
  * the API endpoint for images.
  */
 
-var xhr = require('xhr')
+import xhr from 'xhr'
 
-var Photo = {
+let Photo = {
 
   fetch(url, success, error) {
-    var request = xhr({ url, json: true }, function(err, response, body) {
+    let request = xhr({ url, json: true }, function(err, response, body) {
       err ? error(err) : success(body)
     })
 
     return request
   },
 
-  filter(items, query) {
-    var pattern = new RegExp(query, 'i')
+  filter(items, query = false) {
+    let pattern = new RegExp(query, 'i')
 
     return query ? items.filter(i => i.caption.match(pattern)) : items
   },
 
-  find(items, id) {
-    if (id == void 0) return null
+  find(items, id = false) {
+    if (!id) return null
 
     return items.find(i => i.id.toString() === id.toString())
   },
@@ -34,4 +34,4 @@ var Photo = {
 
 }
 
-module.exports = Photo
+export default Photo

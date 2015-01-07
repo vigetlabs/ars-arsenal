@@ -2,10 +2,11 @@
  * Button
  */
 
-var React = require('react/addons')
-var cx    = React.addons.classSet
+import React from 'react/addons'
 
-var Button = React.createClass({
+let cx = React.addons.classSet
+
+let Button = React.createClass({
 
   getDefaultProps() {
     return {
@@ -15,7 +16,7 @@ var Button = React.createClass({
   },
 
   getClassName(base) {
-    var mods = cx({
+    let mods = cx({
       'ars-button' : true,
       'ars-button-raised' : this.props.raised
     })
@@ -24,7 +25,7 @@ var Button = React.createClass({
   },
 
   render() {
-    var { className, children, ...attrs} = this.props
+    let { className, children, ...attrs} = this.props
 
     return (
       <button className={ this.getClassName(className) } { ...attrs }>
@@ -35,4 +36,4 @@ var Button = React.createClass({
 
 })
 
-module.exports = Button
+export default Button

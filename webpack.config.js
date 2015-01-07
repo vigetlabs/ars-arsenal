@@ -1,4 +1,4 @@
-var WebPack           = require('webpack')
+var Webpack           = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
@@ -27,7 +27,7 @@ module.exports = {
 
   plugins: [
     new ExtractTextPlugin("build/css/ars-arsenal.css"),
-    new WebPack.DefinePlugin({
+    new Webpack.DefinePlugin({
       '__DEV__' : process.env.NODE_ENV !== 'production'
     })
   ],
@@ -43,17 +43,18 @@ module.exports = {
         loader  : 'envify-loader'
       },
       {
-        test    : /\.jsx*$/,
-        exclude : /node_modules/,
-        loader  : 'jsx-loader',
-        query   : {
-          harmony: true,
-          stripTypes: true
-        }
-      },
-      {
         test    : /\.json$/,
         loader  : 'json-loader'
+      },
+      {
+        test    : /\.jsx*$/,
+        exclude : /node_modules/,
+        loader  : '6to5-loader?experimental=true&runtime=true',
+        options : {
+          experimental : true,
+          runtime      : true,
+          modules      : 'common'
+        }
       }
     ]
   }

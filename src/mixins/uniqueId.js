@@ -3,9 +3,9 @@
  * Provides a unique identifier for components
  */
 
-var _id = 0
+let _id = 0
 
-module.exports = {
+export default {
 
   getInitialState() {
     return {

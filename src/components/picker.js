@@ -3,14 +3,15 @@
  * The a modal that appears to select a gallery image
  */
 
-var Button  = require('./ui/button')
-var Dialog  = require('./ui/dialog')
-var Gallery = require('./gallery')
-var React   = require('react')
-var Search  = require('./search')
-var Types   = React.PropTypes
+import Button  from './ui/button'
+import Dialog  from './ui/dialog'
+import Gallery from './gallery'
+import React   from 'react'
+import Search  from './search'
 
-var Picker = React.createClass({
+let Types = React.PropTypes
+
+let Picker = React.createClass({
 
   propTypes: {
     onChange : Types.func.isRequired,
@@ -41,7 +42,7 @@ var Picker = React.createClass({
   },
 
   getError() {
-    var error = this.props.error
+    let error = this.props.error
 
     return error ? (
       <p className="ars-error">{ error }</p>
@@ -49,7 +50,7 @@ var Picker = React.createClass({
   },
 
   render() {
-    var { error, items, onSearch, onChange, search } = this.props
+    let { error, items, onSearch, onChange, search } = this.props
 
     return (
       <Dialog onExit={ this.props.onExit }>
@@ -94,4 +95,4 @@ var Picker = React.createClass({
 
 })
 
-module.exports = Picker
+export default Picker

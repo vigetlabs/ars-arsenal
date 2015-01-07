@@ -3,12 +3,13 @@
  * Displays tiles of photos
  */
 
-var React     = require('react/addons')
-var Animation = React.addons.CSSTransitionGroup
-var Figure    = require('./figure')
+import React  from 'react/addons'
+import Figure from './figure'
+
+let Animation = React.addons.CSSTransitionGroup
 var Types     = React.PropTypes
 
-var Gallery = React.createClass({
+let Gallery = React.createClass({
 
   propTypes: {
     items    : Types.array,
@@ -23,7 +24,7 @@ var Gallery = React.createClass({
   },
 
   getItem(record) {
-    var isPicked = record.id === this.props.picked
+    let isPicked = record.id === this.props.picked
 
     return (
       <Figure key={ 'photo_' + record.id } picked={ isPicked } record={ record } onClick={ this.props.onPicked } />
@@ -40,4 +41,4 @@ var Gallery = React.createClass({
 
 })
 
-module.exports = Gallery
+export default Gallery

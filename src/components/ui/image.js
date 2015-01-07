@@ -4,10 +4,11 @@
  * and transitions
  */
 
-var React = require('react/addons')
-var cx    = React.addons.classSet
+import React from "react/addons";
 
-var Image = React.createClass({
+let cx = React.addons.classSet
+
+let Image = React.createClass({
 
   getInitialState() {
     return {
@@ -16,8 +17,8 @@ var Image = React.createClass({
   },
 
   getClassName(root) {
-    var base   = cx('ars-img', root)
-    var states = cx({
+    let base   = cx('ars-img', root)
+    let states = cx({
       'ars-img-loaded' : this.state.isLoaded
     })
 
@@ -25,9 +26,11 @@ var Image = React.createClass({
   },
 
   render() {
-    var { className, onLoad, ...props} = this.props
+    let { className, onLoad, ...props} = this.props
 
-    return <img className={ this.getClassName(className) } onLoad={ this._onLoad } {...props } />
+    return (
+      <img className={ this.getClassName(className) } onLoad={ this._onLoad } {...props } />
+    )
   },
 
   _onLoad() {
@@ -40,4 +43,4 @@ var Image = React.createClass({
 
 })
 
-module.exports = Image
+export default Image

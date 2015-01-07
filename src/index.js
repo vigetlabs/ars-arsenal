@@ -7,7 +7,8 @@
  * All necessary polyfills
  */
 
-require('./patch')
+import '6to5/runtime'
+import './patch'
 
 
 /**
@@ -16,8 +17,8 @@ require('./patch')
 
 require('style/ars-arsenal')
 
-var React = require('react')
-var Ars   = require('./components/ars')
+import Ars   from './components/ars'
+import React from 'react'
 
 module.exports = {
   component : Ars,

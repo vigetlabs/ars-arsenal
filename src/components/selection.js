@@ -2,17 +2,17 @@
  * Selection
  */
 
-var Button = require('./ui/button')
-var Image  = require('./ui/image')
-var React  = require('react')
+import Button from "./ui/button";
+import Image from "./ui/image";
+import React from "react";
 
-var SHOULD_SELECT = 'Select an image'
-var PICK_ANOTHER  = 'Choose another image'
+const SHOULD_SELECT = 'Select an image'
+const PICK_ANOTHER  = 'Choose another image'
 
-var Selection = React.createClass({
+let Selection = React.createClass({
 
   getPhoto() {
-    var { caption, url } = this.props.photo
+    let { caption, url } = this.props.photo
 
     return (
       <Image className="ars-selection-photo" alt={ caption } src={ url } />
@@ -20,7 +20,7 @@ var Selection = React.createClass({
   },
 
   render() {
-    var hasPhoto = this.props.photo
+    let hasPhoto = this.props.photo
 
     return (
       <Button className="ars-selection" onClick={ this._onClick }>
@@ -40,4 +40,4 @@ var Selection = React.createClass({
 
 })
 
-module.exports = Selection
+export default Selection

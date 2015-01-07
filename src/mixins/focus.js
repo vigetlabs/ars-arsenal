@@ -5,7 +5,7 @@
  * when it is unmounted
  */
 
-module.exports = {
+export default {
 
   _pushFocus() {
     this.setState({
@@ -33,7 +33,7 @@ module.exports = {
   },
 
   componentDidMount() {
-    var el = this.getDOMNode()
+    let el = this.getDOMNode()
 
     el.addEventListener('focusin', this._clearTrap);
     el.addEventListener('focusout', this._trapFocus);
@@ -42,7 +42,7 @@ module.exports = {
   },
 
   componentWillUnmount() {
-    var el = this.getDOMNode()
+    let el = this.getDOMNode()
 
     this._popFocus()
 

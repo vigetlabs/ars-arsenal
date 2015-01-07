@@ -3,10 +3,12 @@
  * Encapsulates data operations required for retrieving photos
  */
 
-var Photo = require('../stores/photo')
-var Types = require('react').PropTypes
+import Photo from '../stores/photo'
+import React from 'react'
 
-module.exports = {
+let Types = React.PropTypes
+
+export default {
 
   propTypes: {
     onFetch : Types.func
@@ -30,7 +32,7 @@ module.exports = {
   },
 
   responseDidSucceed(raw) {
-    var items = this.props.onFetch(raw)
+    let items = this.props.onFetch(raw)
 
     this.setState({ items, error: false })
   },

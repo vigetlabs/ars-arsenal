@@ -2,14 +2,15 @@
  * Search
  */
 
-var React    = require('react')
-var Types    = React.PropTypes
-var UniqueID = require('../mixins/uniqueId')
+import React    from 'react'
+import UniqueID from '../mixins/uniqueId'
+
+let Types = React.PropTypes
 
 // The minimum number of characters before searching
-var THRESHOLD = 2
+const THRESHOLD = 2
 
-var Search = React.createClass({
+let Search = React.createClass({
 
   mixins: [ UniqueID ],
 
@@ -18,7 +19,7 @@ var Search = React.createClass({
   },
 
   render() {
-    var id = "ars_search_" + this.state.id
+    let id = "ars_search_" + this.state.id
 
     return (
       <div className="ars-search">
@@ -29,8 +30,8 @@ var Search = React.createClass({
   },
 
   _onChange(e) {
-    var query  = this.refs.input.getDOMNode().value || ''
-    var result = query.length >= THRESHOLD ? query : ''
+    let query  = this.refs.input.getDOMNode().value || ''
+    let result = query.length >= THRESHOLD ? query : ''
 
     this.props.onChange(result)
   }

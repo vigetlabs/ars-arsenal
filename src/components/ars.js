@@ -3,14 +3,15 @@
  * The main element for Ars Arsenal
  */
 
-var Picker    = require('./picker')
-var Photo     = require('../stores/photo')
-var React     = require('react')
-var Selection = require('./selection')
-var Sync      = require('../mixins/sync')
-var Types     = React.PropTypes
+import Photo     from "../stores/photo"
+import Picker    from "./picker"
+import React     from "react"
+import Selection from "./selection"
+import Sync      from '../mixins/sync'
 
-var Ars = React.createClass({
+let Types = React.PropTypes
+
+let Ars = React.createClass({
 
   mixins: [ Sync ],
 
@@ -35,9 +36,9 @@ var Ars = React.createClass({
   },
 
   getPicker() {
-    var { error, items, search, picked } = this.state
+    let { error, items, search, picked } = this.state
 
-    var allowed  = Photo.filter(items, search)
+    let allowed  = Photo.filter(items, search)
 
     return (
       <Picker error={ error }
@@ -51,9 +52,9 @@ var Ars = React.createClass({
   },
 
   render() {
-    var { dialogOpen, items, picked, search } = this.state
+    let { dialogOpen, items, picked, search } = this.state
 
-    var record = Photo.find(items, picked)
+    let record = Photo.find(items, picked)
 
     return (
       <div className="ars">
@@ -81,4 +82,4 @@ var Ars = React.createClass({
 
 })
 
-module.exports = Ars
+export default Ars
