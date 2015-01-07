@@ -15,7 +15,11 @@ import './patch'
  * Style information compiled via Webpack
  */
 
-require('style/ars-arsenal')
+import 'style/ars-arsenal'
+
+/**
+ * Finally, begin
+ */
 
 import Ars   from './components/ars'
 import React from 'react'
