@@ -16,12 +16,6 @@ let Photo = {
     return request
   },
 
-  filter(items, query = false) {
-    let pattern = new RegExp(query, 'i')
-
-    return query ? items.filter(i => i.caption.match(pattern)) : items
-  },
-
   find(items, id = false) {
     if (!id) return null
 

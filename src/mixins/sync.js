@@ -11,24 +11,39 @@ let Types = React.PropTypes
 export default {
 
   propTypes: {
-    onFetch : Types.func
+    buildQuery : Types.func,
+    onFetch    : Types.func
   },
 
   getDefaultProps() {
     return {
-      onFetch : data => data
+      onFetch    : data => data,
+      urlBuilder : (url, query) => `${ url }?q=${ query }`
     }
   },
 
   getInitialState() {
     return {
-      items : [],
-      error : false
+      error  : false,
+      items  : [],
+      search : ''
     }
   },
 
+  fetch() {
+    let url = this.props.urlBuilder(this.props.url, this.state.search)
+
+    if (this.state.request) {
+      this.state.request.abort()
+    }
+
+    this.setState({
+      request: Photo.fetch(url, this.responseDidSucceed, this.responseDidFail)
+    })
+  },
+
   componentWillMount() {
-    Photo.fetch(this.props.url, this.responseDidSucceed, this.responseDidFail)
+    this.fetch()
   },
 
   responseDidSucceed(raw) {

@@ -12,7 +12,7 @@ let Image = React.createClass({
 
   getInitialState() {
     return {
-      isLoaded: false
+      isLoaded : false
     }
   },
 

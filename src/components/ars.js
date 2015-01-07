@@ -30,19 +30,16 @@ let Ars = React.createClass({
   getInitialState() {
     return {
       dialogOpen : false,
-      picked     : this.props.picked,
-      search     : ''
+      picked     : this.props.picked
     }
   },
 
   getPicker() {
     let { error, items, search, picked } = this.state
 
-    let allowed  = Photo.filter(items, search)
-
     return (
       <Picker error={ error }
-              items={ allowed }
+              items={ items }
               key="dialog"
               onSearch={ this._onSearchChange }
               onChange={ this._onGalleryPicked }
@@ -69,7 +66,7 @@ let Ars = React.createClass({
   },
 
   _onSearchChange(search) {
-    this.setState({ search })
+    this.setState({ search }, this.fetch)
   },
 
   _onGalleryPicked(picked) {

@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "array.prototype.find": "latest",
+    "debounce": "^1.0.0",
     "object-assign": "^2.0.0",
     "react": ">= 0.12.1",
     "xhr": "^1.17.0"
