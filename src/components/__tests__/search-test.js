@@ -1,3 +1,4 @@
+jest.dontMock('debounce')
 jest.dontMock('../search')
 jest.dontMock('../../mixins/uniqueId')
 
@@ -12,7 +13,10 @@ describe('Search', function() {
 
     Test.Simulate.change(component.refs.input.getDOMNode())
 
-    expect(callback).lastCalledWith('')
+    // remember the change callback is debounced
+    setTimeout(function() {
+      expect(callback).lastCalledWith('')
+    }, 100)
   })
 
   it ('triggers the full term above 2 characters', function() {
@@ -24,7 +28,10 @@ describe('Search', function() {
 
     Test.Simulate.change(input)
 
-    expect(callback).lastCalledWith('Large Enough')
+    // remember the change callback is debounced
+    setTimeout(function() {
+      expect(callback).lastCalledWith('Large Enough')
+    }, 100)
   })
 
 })
