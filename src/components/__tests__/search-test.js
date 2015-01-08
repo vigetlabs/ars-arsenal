@@ -16,7 +16,7 @@ describe('Search', function() {
     // remember the change callback is debounced
     setTimeout(function() {
       expect(callback).lastCalledWith('')
-    }, 100)
+    }, Search.INTERVAL)
   })
 
   it ('triggers the full term above 2 characters', function() {
@@ -31,7 +31,7 @@ describe('Search', function() {
     // remember the change callback is debounced
     setTimeout(function() {
       expect(callback).lastCalledWith('Large Enough')
-    }, 100)
+    }, Search.INTERVAL)
   })
 
 })

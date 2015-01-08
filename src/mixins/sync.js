@@ -3,14 +3,16 @@
  * Encapsulates data operations required for retrieving photos
  */
 
-import Photo from '../stores/photo'
-import React from 'react'
+import Photo     from "../stores/photo"
+import React     from "react"
+import invariant from "react/lib/invariant"
 
 let Types = React.PropTypes
 
 export default {
 
   propTypes: {
+    url        : Types.string.isRequired,
     buildQuery : Types.func,
     onError    : Types.func,
     onFetch    : Types.func
@@ -18,46 +20,35 @@ export default {
 
   getDefaultProps() {
     return {
-      onFetch    : data => data,
-      onError    : response => response,
-      urlBuilder : (url, query) => `${ url }?q=${ query }`
+      onFetch   : data => data,
+      onError   : response => response,
+      makeURL   : (url, id = false) => url + (id ? "/" + id : ""),
+      makeQuery : (query) => `q=${ query }`
     }
   },
 
   getInitialState() {
     return {
       error  : false,
-      items  : [],
-      search : ''
+      search : ""
     }
   },
 
-  fetch() {
-    let url = this.state.search? this.props.urlBuilder(this.props.url, this.state.search) : this.props.url
+  componentWillMount() {
+    invariant(this.responseDidSucceed, 'Component requires a responseDidSucceed method')
+    invariant(this.responseDidFail, 'Component requires a responseDidFail method')
+  },
+
+  fetch(slug) {
+    let url = this.props.makeURL(this.props.url, slug)
 
     if (this.state.request) {
-      this.state.request.abort()
+      url = url + "?" + this.props.makeQuery(this.state.search)
     }
 
     this.setState({
       request: Photo.fetch(url, this.responseDidSucceed, this.responseDidFail)
     })
-  },
-
-  componentWillMount() {
-    this.fetch()
-  },
-
-  responseDidSucceed(response) {
-    let items = this.props.onFetch(response)
-
-    this.setState({ items, error: false })
-  },
-
-  responseDidFail(response) {
-    let error = this.props.onError(response)
-
-    this.setState({ error })
   }
 
 }

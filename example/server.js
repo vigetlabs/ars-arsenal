@@ -30,9 +30,9 @@ server.get('/photos/:id', function(req, res) {
 
   var payload = photos.filter(function(photo) {
     return pattern.test(photo.id);
-  });
+  })[0];
 
-  res.send(payload);
+  payload? res.send(payload) : res.error(404);
 });
 
 server.listen(7000, function() {

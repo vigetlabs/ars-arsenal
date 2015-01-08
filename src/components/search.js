@@ -9,15 +9,16 @@ import UniqueID from '../mixins/uniqueId'
 
 let Types = React.PropTypes
 
-// The minimum number of characters before searching
-const THRESHOLD = 2
-
-// The minimum time between change events
-const INTERVAL  = 50
-
 let Search = React.createClass({
 
   mixins: [ UniqueID ],
+
+  statics: {
+    // The minimum number of characters before searching
+    THRESHOLD: 2,
+    // The minimum time between change events
+    INTERVAL: 150
+  },
 
   propTypes: {
     onChange : Types.func.isRequired
@@ -25,7 +26,7 @@ let Search = React.createClass({
 
   getInitialState() {
     return {
-      debouncedChange: debounce(this.props.onChange, INTERVAL)
+      debouncedChange: debounce(this.props.onChange, Search.INTERVAL)
     }
   },
 
@@ -43,7 +44,7 @@ let Search = React.createClass({
 
   _onChange(e) {
     let query  = this.refs.input.getDOMNode().value || ''
-    let result = query.length >= THRESHOLD ? query : ''
+    let result = query.length >= Search.THRESHOLD ? query : ''
 
     this.state.debouncedChange(result)
   },

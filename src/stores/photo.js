@@ -14,12 +14,6 @@ let Photo = {
     })
 
     return request
-  },
-
-  find(items, id = false) {
-    if (!id) return null
-
-    return items.find(i => i.id.toString() === id.toString())
   }
 
 }

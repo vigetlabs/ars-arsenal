@@ -1,18 +1,22 @@
 /**
  * Selection
  */
-
-import Button from "./ui/button";
-import Image from "./ui/image";
-import React from "react";
-
-const SHOULD_SELECT = 'Select an image'
-const PICK_ANOTHER  = 'Choose another image'
+import Button from "./ui/button"
+import Image  from "./ui/image"
+import React  from "react"
+import Record from "../mixins/record"
 
 let Selection = React.createClass({
 
+  mixins: [ Record ],
+
+  statics: {
+    PICK_ANOTHER  : "Choose another image",
+    SHOULD_SELECT : "Select an image"
+  },
+
   getPhoto() {
-    let { caption, url } = this.props.photo
+    let { caption, url } = this.state.item
 
     return (
       <Image className="ars-selection-photo" alt={ caption } src={ url } />
@@ -20,14 +24,14 @@ let Selection = React.createClass({
   },
 
   render() {
-    let hasPhoto = this.props.photo
+    let hasPhoto = !!this.state.item
 
     return (
       <Button className="ars-selection" onClick={ this._onClick }>
         { hasPhoto && this.getPhoto() }
 
         <span className="ars-selection-caption">
-          { hasPhoto ? PICK_ANOTHER : SHOULD_SELECT }
+          { hasPhoto ? Selection.PICK_ANOTHER : Selection.SHOULD_SELECT }
         </span>
       </Button>
     )

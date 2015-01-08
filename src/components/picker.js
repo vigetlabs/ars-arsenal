@@ -3,20 +3,22 @@
  * The a modal that appears to select a gallery image
  */
 
-import Button  from './ui/button'
-import Dialog  from './ui/dialog'
-import Gallery from './gallery'
-import React   from 'react'
-import Search  from './search'
+import Button     from './ui/button'
+import Collection from '../mixins/collection'
+import Dialog     from './ui/dialog'
+import Gallery    from './gallery'
+import React      from 'react'
+import Search     from './search'
 
 let Types = React.PropTypes
 
 let Picker = React.createClass({
 
+  mixins: [ Collection ],
+
   propTypes: {
     onChange : Types.func.isRequired,
-    onExit   : Types.func.isRequired,
-    onSearch : Types.func.isRequired
+    onExit   : Types.func.isRequired
   },
 
   getDefaultProps() {
@@ -50,14 +52,15 @@ let Picker = React.createClass({
   },
 
   render() {
-    let { error, items, onSearch, onChange, search } = this.props
+    let { onChange } = this.props
+    let { error, items, search } = this.state
 
     return (
       <Dialog onExit={ this.props.onExit }>
 
         <header className="ars-dialog-header">
           <h1 className="ars-dialog-title">Please select a photo</h1>
-          <Search key="search" onChange={ onSearch } />
+          <Search key="search" onChange={ this._onSearchChange } />
         </header>
 
         { this.getError() }
@@ -71,6 +74,10 @@ let Picker = React.createClass({
 
       </Dialog>
     )
+  },
+
+  _onSearchChange(search) {
+    this.setState({ search }, this.fetch)
   },
 
   _onPicked(picked) {

@@ -3,17 +3,14 @@
  * The main element for Ars Arsenal
  */
 
-import Photo     from "../stores/photo"
-import Picker    from "./picker"
-import React     from "react"
-import Selection from "./selection"
-import Sync      from '../mixins/sync'
+import Photo      from "../stores/photo"
+import Picker     from "./picker"
+import React      from "react"
+import Selection  from "./selection"
 
 let Types = React.PropTypes
 
 let Ars = React.createClass({
-
-  mixins: [ Sync ],
 
   propTypes: {
     url      : Types.string.isRequired,
@@ -35,27 +32,24 @@ let Ars = React.createClass({
   },
 
   getPicker() {
-    let { error, items, search, picked } = this.state
+    let { search, picked } = this.state
+    let { url } = this.props
 
     return (
-      <Picker error={ error }
-              items={ items }
-              key="dialog"
-              onSearch={ this._onSearchChange }
+      <Picker key="dialog"
               onChange={ this._onGalleryPicked }
               onExit={ this._onExit }
-              picked={ picked } />
+              picked={ picked }
+              url={ url } />
     )
   },
 
   render() {
-    let { dialogOpen, items, picked, search } = this.state
-
-    let record = Photo.find(items, picked)
+    let { dialogOpen, picked, search } = this.state
 
     return (
       <div className="ars">
-        <Selection onClick={ this._onOpenClick } photo={ record }/>
+        <Selection onClick={ this._onOpenClick } slug={ picked } url={ this.props.url } />
         { dialogOpen && this.getPicker() }
       </div>
     )
@@ -63,10 +57,6 @@ let Ars = React.createClass({
 
   _onOpenClick() {
     this.setState({ dialogOpen: true, search: null })
-  },
-
-  _onSearchChange(search) {
-    this.setState({ search }, this.fetch)
   },
 
   _onGalleryPicked(picked) {

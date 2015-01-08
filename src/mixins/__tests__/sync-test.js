@@ -12,72 +12,40 @@ describe('Sync Mixin', function() {
     })
   }
 
-  beforeEach(function() {
-    Sync = require('../sync')
-  })
-
   it ("has a default onFetch method", function() {
     let onFetch = Sync.getDefaultProps().onFetch
 
-    expect(onFetch(true)).toEqual(true)
+    expect(onFetch('success')).toEqual('success')
   })
 
-  it ("has a default urlBuilder method", function() {
-    let urlBuilder = Sync.getDefaultProps().urlBuilder
+  it ("has a default onError method", function() {
+    let onError = Sync.getDefaultProps().onError
 
-    expect(urlBuilder('route', 'query')).toEqual('route?q=query')
+    expect(onError('error')).toEqual('error')
   })
 
-  it ("fetches on mount", function() {
-    Sync.fetch = jest.genMockFunction();
+  describe('makeUrl', function() {
 
-    let Component = makeComponent()
-    let component = Test.renderIntoDocument(<Component url="test" />)
+    it ("returns a url when no slug is given", function() {
+      let makeURL = Sync.getDefaultProps().makeURL
 
-    expect(Sync.fetch).toBeCalled()
-  })
-
-  describe('responseDidSucceed', function() {
-    let Component = makeComponent()
-    let onFetch   = jest.genMockFunction();
-
-    it ("calls onFetch when a response succeeds", function() {
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
-
-      component.responseDidSucceed('body')
-
-      expect(onFetch).toBeCalledWith('body')
+      expect(makeURL('route')).toEqual('route')
     })
 
-    it ("sets the error state to false", function() {
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
+    it ("appends a slug when provided", function() {
+      let makeURL = Sync.getDefaultProps().makeURL
 
-      component.responseDidSucceed()
-
-      expect(component.state.error).toEqual(false)
-    })
-
-    it ("sets the items state to the returned value of onFetch", function() {
-      let onFetch   = () => 'fetched';
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
-
-      component.responseDidSucceed()
-
-      expect(component.state.items).toEqual('fetched')
+      expect(makeURL('route', 'fiz')).toEqual('route/fiz')
     })
 
   })
 
-  describe('responseDidFail', function() {
-    let Component = makeComponent()
+  describe('makeQuery', function() {
 
-    it ("sets the error state to the returned value of onError", function() {
-      let onError   = (response) => `${ response } error!`
-      let component = Test.renderIntoDocument(<Component onError={ onError }/>)
+    it ("constructs a query given a term", function() {
+      let makeQuery = Sync.getDefaultProps().makeQuery
 
-      component.responseDidFail('terrible')
-
-      expect(component.state.error).toEqual('terrible error!')
+      expect(makeQuery('term')).toEqual('q=term')
     })
 
   })

@@ -10,7 +10,7 @@ ArsArsenal.render(app, {
   },
 
   onChange(value) {
-    console.log(value);
+    console.log("Value changed to %s", value);
   }
 
 });
