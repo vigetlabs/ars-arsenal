@@ -4,6 +4,7 @@
 
 import debounce from 'debounce'
 import React    from 'react'
+import Button   from './ui/button'
 import UniqueID from '../mixins/uniqueId'
 
 let Types = React.PropTypes
@@ -32,10 +33,11 @@ let Search = React.createClass({
     let id = "ars_search_" + this.state.id
 
     return (
-      <div className="ars-search">
+      <form className="ars-search" onSubmit={ this._onSubmit }>
         <label className="ars-search-label" htmlFor={ id }>Search</label>
         <input id={ id } ref="input" type="search" className="ars-search-input" onChange={ this._onChange } placeholder="Search" />
-      </div>
+        <Button className="ars-hidden">Submit</Button>
+      </form>
     )
   },
 
@@ -44,6 +46,11 @@ let Search = React.createClass({
     let result = query.length >= THRESHOLD ? query : ''
 
     this.state.debouncedChange(result)
+  },
+
+  _onSubmit(e) {
+    e.preventDefault()
+    this._onChange()
   }
 
 })

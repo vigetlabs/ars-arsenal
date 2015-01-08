@@ -13,6 +13,8 @@ $ars-muted-dark  : rgba(#000, 0.5) !default;
 @import "components/animation";
 @import "components/ars";
 
+@import "utils/hidden";
+
 .ars {
   @import "components/dialog";
   @import "components/gallery";
