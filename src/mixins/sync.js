@@ -12,12 +12,14 @@ export default {
 
   propTypes: {
     buildQuery : Types.func,
+    onError    : Types.func,
     onFetch    : Types.func
   },
 
   getDefaultProps() {
     return {
       onFetch    : data => data,
+      onError    : response => response,
       urlBuilder : (url, query) => `${ url }?q=${ query }`
     }
   },
@@ -31,7 +33,7 @@ export default {
   },
 
   fetch() {
-    let url = this.props.urlBuilder(this.props.url, this.state.search)
+    let url = this.state.search? this.props.urlBuilder(this.props.url, this.state.search) : this.props.url
 
     if (this.state.request) {
       this.state.request.abort()
@@ -46,13 +48,15 @@ export default {
     this.fetch()
   },
 
-  responseDidSucceed(raw) {
-    let items = this.props.onFetch(raw)
+  responseDidSucceed(response) {
+    let items = this.props.onFetch(response)
 
     this.setState({ items, error: false })
   },
 
-  responseDidFail(error) {
+  responseDidFail(response) {
+    let error = this.props.onError(response)
+
     this.setState({ error })
   }
 

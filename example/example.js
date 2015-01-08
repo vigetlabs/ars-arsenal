@@ -1,11 +1,15 @@
-var React      = require('react/addons');
-var ArsArsenal = require('../src/index');
+let React      = require('react/addons');
+let ArsArsenal = require('../src/index');
 
 ArsArsenal.render(app, {
 
-  url: 'photos.json',
+  url: 'http://localhost:7000/photos',
 
-  onChange: function(value) {
+  onError(response) {
+    return `${ response.code }: ${ response.message }`;
+  },
+
+  onChange(value) {
     console.log(value);
   }
 

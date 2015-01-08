@@ -71,12 +71,13 @@ describe('Sync Mixin', function() {
   describe('responseDidFail', function() {
     let Component = makeComponent()
 
-    it ("sets the error state to the response", function() {
-      let component = Test.renderIntoDocument(<Component />)
+    it ("sets the error state to the returned value of onError", function() {
+      let onError   = (response) => `${ response } error!`
+      let component = Test.renderIntoDocument(<Component onError={ onError }/>)
 
-      component.responseDidFail('terribly')
+      component.responseDidFail('terrible')
 
-      expect(component.state.error).toEqual('terribly')
+      expect(component.state.error).toEqual('terrible error!')
     })
 
   })
