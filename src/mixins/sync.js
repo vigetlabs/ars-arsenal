@@ -12,10 +12,11 @@ let Types = React.PropTypes
 export default {
 
   propTypes: {
-    url        : Types.string.isRequired,
-    buildQuery : Types.func,
-    onError    : Types.func,
-    onFetch    : Types.func
+    url       : Types.string.isRequired,
+    makeQuery : Types.func,
+    makeURL   : Types.func,
+    onError   : Types.func,
+    onFetch   : Types.func
   },
 
   getDefaultProps() {
