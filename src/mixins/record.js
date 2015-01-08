@@ -3,7 +3,9 @@
  * Sync operations for a single record
  */
 
-import Sync from "./sync"
+import Sync      from "./sync"
+import React     from "react"
+import invariant from "react/lib/invariant"
 
 export default {
 
@@ -22,6 +24,9 @@ export default {
   },
 
   componentWillMount() {
+    invariant(this.responseDidSucceed, 'Component requires a responseDidSucceed method')
+    invariant(this.responseDidFail, 'Component requires a responseDidFail method')
+
     this.fetchIf(this.props.slug)
   },
 

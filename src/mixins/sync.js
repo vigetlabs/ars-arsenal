@@ -5,7 +5,6 @@
 
 import Photo     from "../stores/photo"
 import React     from "react"
-import invariant from "react/lib/invariant"
 
 let Types = React.PropTypes
 
@@ -35,9 +34,9 @@ export default {
     }
   },
 
-  componentWillMount() {
-    invariant(this.responseDidSucceed, 'Component requires a responseDidSucceed method')
-    invariant(this.responseDidFail, 'Component requires a responseDidFail method')
+  syncProps() {
+    let { makeURL, makeQuery, onError, onFetch, url } = this.props
+    return { makeURL, makeQuery, onError, onFetch, url }
   },
 
   fetch(slug) {

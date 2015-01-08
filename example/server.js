@@ -12,7 +12,7 @@ server.use(function(req, res, next) {
 
 server.get('/photos', function(req, res) {
   var payload = photos;
-  var query   = req.query.q;
+  var query   = req.query.term;
 
   if (query) {
     var pattern = new RegExp('^' + escape(query), 'i');

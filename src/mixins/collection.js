@@ -3,7 +3,9 @@
  * Sync operations for a list of items
  */
 
-import Sync from './sync'
+import Sync      from './sync'
+import React     from "react"
+import invariant from "react/lib/invariant"
 
 export default {
 
@@ -15,6 +17,11 @@ export default {
 
   componentDidMount() {
     this.fetch()
+  },
+
+  componentWillMount() {
+    invariant(this.responseDidSucceed, 'Component requires a responseDidSucceed method')
+    invariant(this.responseDidFail, 'Component requires a responseDidFail method')
   },
 
   responseDidSucceed(response) {

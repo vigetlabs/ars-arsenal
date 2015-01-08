@@ -7,13 +7,15 @@ import Photo      from "../stores/photo"
 import Picker     from "./picker"
 import React      from "react"
 import Selection  from "./selection"
+import Sync       from "../mixins/sync"
 
 let Types = React.PropTypes
 
 let Ars = React.createClass({
 
+  mixins: [ Sync ],
+
   propTypes: {
-    url      : Types.string.isRequired,
     onChange : Types.func
   },
 
@@ -32,31 +34,26 @@ let Ars = React.createClass({
   },
 
   getPicker() {
-    let { search, picked } = this.state
-    let { url } = this.props
+    let { picked } = this.state
 
     return (
-      <Picker key="dialog"
-              onChange={ this._onGalleryPicked }
-              onExit={ this._onExit }
-              picked={ picked }
-              url={ url } />
+      <Picker key="dialog" { ...this.syncProps() } onChange={ this._onGalleryPicked } onExit={ this._onExit } picked={ picked } />
     )
   },
 
   render() {
-    let { dialogOpen, picked, search } = this.state
+    let { dialogOpen, picked } = this.state
 
     return (
       <div className="ars">
-        <Selection onClick={ this._onOpenClick } slug={ picked } url={ this.props.url } />
+        <Selection { ...this.syncProps() } onClick={ this._onOpenClick } slug={ picked } />
         { dialogOpen && this.getPicker() }
       </div>
     )
   },
 
   _onOpenClick() {
-    this.setState({ dialogOpen: true, search: null })
+    this.setState({ dialogOpen: true })
   },
 
   _onGalleryPicked(picked) {
@@ -64,7 +61,7 @@ let Ars = React.createClass({
   },
 
   _onExit() {
-    this.setState({ dialogOpen: false, search: null })
+    this.setState({ dialogOpen: false })
   }
 
 })
