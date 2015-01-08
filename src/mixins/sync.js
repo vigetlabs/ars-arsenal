@@ -44,6 +44,10 @@ export default {
     let url = this.props.makeURL(this.props.url, slug)
 
     if (this.state.request) {
+      this.state.request.abort()
+    }
+
+    if (this.state.search) {
       url = url + "?" + this.props.makeQuery(this.state.search)
     }
 
