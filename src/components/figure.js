@@ -3,12 +3,13 @@
  * An individual gallery tile
  */
 
-var Image = require('./ui/image')
-var React = require('react/addons')
-var Types = React.PropTypes
-var cx    = React.addons.classSet
+import Image from './ui/image';
+import React from 'react/addons';
 
-var Figure = React.createClass({
+let Types = React.PropTypes
+let cx    = React.addons.classSet
+
+let Figure = React.createClass({
 
   propTypes: {
     record  : Types.object.isRequired,
@@ -17,9 +18,9 @@ var Figure = React.createClass({
   },
 
   render() {
-    var { record, picked } = this.props
+    let { record, picked } = this.props
 
-    var className = cx({
+    let className = cx({
       'ars-fig'        : true,
       'ars-fig-picked' : picked
     })
@@ -42,4 +43,4 @@ var Figure = React.createClass({
 
 })
 
-module.exports = Figure
+export default Figure

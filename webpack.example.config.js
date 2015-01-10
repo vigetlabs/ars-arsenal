@@ -10,46 +10,37 @@ module.exports = {
   },
 
   output: {
-    path: '.',
     filename: '[name].js',
+    path: '.',
     publicPath: '/'
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json', '.scss'],
+    extensions: ['', '.js', '.jsx', '.json', '.scss', '.css'],
     modulesDirectories: [ 'web_modules', 'node_modules', 'src']
   },
 
   plugins: [
     new ExtractTextPlugin("build/css/ars-arsenal.css"),
-    new Webpack.DefinePlugin({
-      '__DEV__' : process.env.NODE_ENV !== 'production'
+    new Webpack.ProvidePlugin({
+      to5Runtime: "imports?global=>{}!exports-loader?global.to5Runtime!6to5/runtime"
     })
   ],
 
   module: {
     loaders: [
       {
-        test    : /\.s(c|a)ss$/,
+        test    : /\.s*(c|a)ss$/,
         loader  : ExtractTextPlugin.extract('style-loader', 'css-loader!autoprefixer-loader!sass-loader')
       },
       {
         test    : /\.jsx*$/,
-        loader  : 'envify-loader'
+        exclude : /node_modules/,
+        loader  : '6to5-loader?experimental&runtime&modules=common',
       },
       {
         test    : /\.json$/,
         loader  : 'json-loader'
-      },
-      {
-        test    : /\.jsx*$/,
-        exclude : /node_modules/,
-        loader  : '6to5-loader?experimental=true&runtime=true',
-        options : {
-          experimental : true,
-          runtime      : true,
-          modules      : 'common'
-        }
       }
     ]
   }

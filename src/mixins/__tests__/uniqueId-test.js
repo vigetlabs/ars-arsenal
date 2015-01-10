@@ -1,5 +1,3 @@
-jest.dontMock('../uniqueId')
-
 describe('UniqueId Mixin', function() {
   let React    = require('react/addons')
   let Test     = React.addons.TestUtils
@@ -14,7 +12,7 @@ describe('UniqueId Mixin', function() {
     let first  = Test.renderIntoDocument(<Component />)
     let second = Test.renderIntoDocument(<Component />)
 
-    expect(first.state.id).not.toEqual(second.state.id)
+    first.state.id.should.not.equal(second.state.id)
   })
 
 })

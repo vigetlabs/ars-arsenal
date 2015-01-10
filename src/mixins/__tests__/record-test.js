@@ -1,5 +1,3 @@
-jest.autoMockOff()
-
 describe('Record Mixin', function() {
   let Sync   = require('../sync')
   let Record = require('../record')
@@ -8,6 +6,7 @@ describe('Record Mixin', function() {
 
   function makeComponent() {
     return React.createClass({
+      displayName: 'RecordTest',
       mixins: [ Record ],
       render: () => (<p />)
     })
@@ -16,52 +15,78 @@ describe('Record Mixin', function() {
   describe("componentWillMount", function() {
 
     it ("fetches on mount if given a slug", function() {
-      Sync.fetch = jest.genMockFunction()
-
+      let stub      = sinon.stub(Sync, 'fetch')
       let Component = makeComponent()
-      let component = Test.renderIntoDocument(<Component url="test" slug="test" />)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
 
-      expect(Sync.fetch).toBeCalledWith("test")
+      stub.should.have.been.calledWith('test')
+      stub.restore()
     })
 
     it ("does not fetch on mount if no slug is provided", function() {
-      Sync.fetch = jest.genMockFunction()
-
+      let stub      = sinon.stub(Sync, 'fetch')
       let Component = makeComponent()
-      let component = Test.renderIntoDocument(<Component url="test" />)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" />)
 
-      expect(Sync.fetch).not.toBeCalled()
+      stub.should.not.have.been.called
+      stub.restore()
+    })
+
+  })
+
+  describe("componentWillReceiveProps", function() {
+
+    it ("fetches when given a new slug", function() {
+      let stub      = sinon.stub(Sync, 'fetch')
+      let Component = makeComponent()
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
+
+      component.setProps({ slug: 'different slug' })
+
+      stub.should.have.been.calledTwice
+      stub.restore()
+    })
+
+    it ("does not fetch when given the same slug", function() {
+      let stub      = sinon.stub(Sync, 'fetch')
+      let Component = makeComponent()
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
+
+      component.setProps({ slug: 'test' })
+
+      stub.should.have.been.calledOnce
+      stub.restore()
     })
 
   })
 
   describe('responseDidSucceed', function() {
     let Component = makeComponent()
-    let onFetch   = jest.genMockFunction();
+    let onFetch   = sinon.spy()
 
     it ("calls onFetch when a response succeeds", function() {
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed('body')
 
-      expect(onFetch).toBeCalledWith('body')
+      onFetch.should.have.been.calledWith('body')
     })
 
     it ("sets the error state to false", function() {
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed()
 
-      expect(component.state.error).toEqual(false)
+      component.state.should.have.property('error', false)
     })
 
     it ("sets the item state to the returned value of onFetch", function() {
       let onFetch   = () => 'fetched';
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed()
 
-      expect(component.state.item).toEqual('fetched')
+      component.state.should.have.property('item', 'fetched')
     })
 
   })
@@ -71,12 +96,12 @@ describe('Record Mixin', function() {
 
     it ("sets the error state to the returned value of onError, and item to false", function() {
       let onError   = (response) => `${ response } error!`
-      let component = Test.renderIntoDocument(<Component onError={ onError }/>)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onError={ onError }/>)
 
       component.responseDidFail('terrible')
 
-      expect(component.state.error).toEqual('terrible error!')
-      expect(component.state.item).toEqual(false)
+      component.state.should.have.property('error', 'terrible error!')
+      component.state.should.have.property('item', false)
     })
 
   })

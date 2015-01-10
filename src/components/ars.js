@@ -21,8 +21,7 @@ let Ars = React.createClass({
 
   getDefaultProps() {
     return {
-      onChange : () => {},
-      picked   : null
+      picked : null
     }
   },
 
@@ -37,7 +36,7 @@ let Ars = React.createClass({
     let { picked } = this.state
 
     return (
-      <Picker key="dialog" { ...this.syncProps() } onChange={ this._onGalleryPicked } onExit={ this._onExit } picked={ picked } />
+      <Picker key="dialog" ref="picker" { ...this.syncProps() } onChange={ this._onGalleryPicked } onExit={ this._onExit } picked={ picked } />
     )
   },
 
@@ -46,10 +45,14 @@ let Ars = React.createClass({
 
     return (
       <div className="ars">
-        <Selection { ...this.syncProps() } onClick={ this._onOpenClick } slug={ picked } />
+        <Selection ref="selection" { ...this.syncProps() } onClick={ this._onOpenClick } slug={ picked } />
         { dialogOpen && this.getPicker() }
       </div>
     )
+  },
+
+  _triggerChange() {
+    if (this.props.onChange) this.props.onChange(this.state.picked)
   },
 
   _onOpenClick() {
@@ -57,7 +60,7 @@ let Ars = React.createClass({
   },
 
   _onGalleryPicked(picked) {
-    this.setState({ picked }, () => this.props.onChange(this.state.picked))
+    this.setState({ picked }, this._triggerChange)
   },
 
   _onExit() {

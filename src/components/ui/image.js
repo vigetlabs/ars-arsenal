@@ -34,11 +34,11 @@ let Image = React.createClass({
   },
 
   _onLoad() {
-    this.setState({ isLoaded: true })
-
-    if (this.props.onLoad) {
-      this.props.onLoad()
-    }
+    this.setState({ isLoaded: true }, () => {
+      if (this.props.onLoad) {
+        this.props.onLoad()
+      }
+    })
   }
 
 })

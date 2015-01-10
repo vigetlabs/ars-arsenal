@@ -5,10 +5,10 @@
 
 import Button     from './ui/button'
 import Collection from '../mixins/collection'
-import Dialog     from './ui/dialog'
 import Gallery    from './gallery'
 import React      from 'react'
 import Search     from './search'
+import FocusTrap  from 'react-focus-trap'
 
 let Types = React.PropTypes
 
@@ -56,23 +56,23 @@ let Picker = React.createClass({
     let { error, items, search } = this.state
 
     return (
-      <Dialog onExit={ this.props.onExit }>
+      <FocusTrap onExit={ this.props.onExit }>
 
         <header className="ars-dialog-header">
           <h1 className="ars-dialog-title">Please select a photo</h1>
-          <Search key="search" onChange={ this._onSearchChange } />
+          <Search key="search" ref="search" onChange={ this._onSearchChange } />
         </header>
 
         { this.getError() }
 
-        <Gallery items={ items } picked={ this.state.picked } onPicked={ this._onPicked } onKeyDown={ this._onKeyDown } />
+        <Gallery ref="gallery" items={ items } picked={ this.state.picked } onPicked={ this._onPicked } onKeyDown={ this._onKeyDown } />
 
         <footer className="ars-dialog-footer">
-          <Button onClick={ this.props.onExit }>Cancel</Button>
-          <Button onClick={ this._onConfirm } raised>Okay</Button>
+          <Button ref="cancel" onClick={ this.props.onExit }>Cancel</Button>
+          <Button ref="confirm" onClick={ this._onConfirm } raised>Okay</Button>
         </footer>
 
-      </Dialog>
+      </FocusTrap>
     )
   },
 
@@ -82,11 +82,6 @@ let Picker = React.createClass({
 
   _onPicked(picked) {
     this.setState({ picked })
-  },
-
-  _onCancel(e) {
-    e.preventDefault()
-    this.cancel()
   },
 
   _onConfirm(e) {

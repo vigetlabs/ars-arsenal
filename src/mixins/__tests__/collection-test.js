@@ -1,5 +1,3 @@
-jest.autoMockOff()
-
 describe('Collection Mixin', function() {
   let Sync       = require('../sync')
   let Collection = require('../collection')
@@ -8,47 +6,48 @@ describe('Collection Mixin', function() {
 
   function makeComponent() {
     return React.createClass({
+      displayName: 'CollectionTest',
       mixins: [ Collection ],
       render: () => (<p />)
     })
   }
 
   it ("fetches on mount", function() {
-    Sync.fetch = jest.genMockFunction()
-
+    let stub      = sinon.stub(Sync, 'fetch')
     let Component = makeComponent()
-    let component = Test.renderIntoDocument(<Component url="test" />)
+    let component = Test.renderIntoDocument(<Component url="base/test/test.json" />)
 
-    expect(Sync.fetch).toBeCalled()
+    stub.should.have.been.called
+    stub.restore()
   })
 
   describe('responseDidSucceed', function() {
     let Component = makeComponent()
-    let onFetch   = jest.genMockFunction();
+    let onFetch   = sinon.spy()
 
     it ("calls onFetch when a response succeeds", function() {
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed('body')
 
-      expect(onFetch).toBeCalledWith('body')
+      onFetch.should.have.been.calledWith('body')
     })
 
     it ("sets the error state to false", function() {
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed()
 
-      expect(component.state.error).toEqual(false)
+      component.state.error.should.equal(false)
     })
 
     it ("sets the items state to the returned value of onFetch", function() {
       let onFetch   = () => 'fetched';
-      let component = Test.renderIntoDocument(<Component onFetch={ onFetch } />)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed()
 
-      expect(component.state.items).toEqual('fetched')
+      component.state.should.have.property('items', 'fetched')
     })
 
   })
@@ -58,11 +57,11 @@ describe('Collection Mixin', function() {
 
     it ("sets the error state to the returned value of onError", function() {
       let onError   = (response) => `${ response } error!`
-      let component = Test.renderIntoDocument(<Component onError={ onError }/>)
+      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onError={ onError }/>)
 
       component.responseDidFail('terrible')
 
-      expect(component.state.error).toEqual('terrible error!')
+      component.state.should.have.property('error', 'terrible error!')
     })
 
   })
