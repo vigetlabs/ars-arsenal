@@ -45,4 +45,19 @@ describe('Search', function() {
     }, Search.INTERVAL)
   })
 
+  it ('clears search on escape', function() {
+    var callback  = sinon.spy()
+    var component = Test.renderIntoDocument(<Search onChange={ callback } />)
+    var input     = component.refs.input.getDOMNode()
+
+    input.value = 'Large Enough'
+
+    Test.Simulate.keyUp(input, { key: 'Escape' })
+
+    // remember the change callback is debounced
+    setTimeout(function() {
+      callback.should.have.been.calledWith('');
+    }, Search.INTERVAL)
+  })
+
 })

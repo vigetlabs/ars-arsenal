@@ -88,5 +88,19 @@ describe("Picker", function() {
       })
     })
 
+    describe("when given an error", function() {
+      let onExit    = sinon.spy()
+      let onChange  = sinon.spy()
+      let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
+
+      before(function(done) {
+        component.setState({ error: 'This is a test error'}, () => done())
+      })
+
+      it ("displays the error", function() {
+        component.getDOMNode().querySelector('.ars-error').textContent.should.equal('This is a test error')
+      })
+    })
+
   })
 })

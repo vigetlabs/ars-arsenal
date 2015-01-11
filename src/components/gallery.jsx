@@ -19,7 +19,8 @@ let Gallery = React.createClass({
   getDefaultProps() {
     return {
       items  : [],
-      picked : false
+      picked : false,
+      search : false
     }
   },
 
@@ -31,11 +32,27 @@ let Gallery = React.createClass({
     )
   },
 
+  getEmpty() {
+    let search = this.props.search
+    let isEmpty = this.props.items.length <= 0
+
+    return isEmpty ? (
+      <p key="__empty" className="ars-empty">
+        No items exist { search? `for “${ search }”` : ''}
+      </p>
+    ) : null
+  },
+
   render() {
+    let items = this.props.items
+
     return (
-      <Animation component="div" className="ars-gallery" transitionName="ars-fig" onKeyDown={ this.props.onKeyDown }>
-        { this.props.items.map(this.getItem) }
-      </Animation>
+      <div>
+        { this.getEmpty() }
+        <Animation component="div" className="ars-gallery" transitionName="ars-fig" onKeyDown={ this.props.onKeyDown }>
+          { items.map(this.getItem) }
+        </Animation>
+     </div>
     )
   }
 

@@ -15,10 +15,8 @@ server.get('/photos', function(req, res) {
   var query   = req.query.term;
 
   if (query) {
-    var pattern = new RegExp('^' + escape(query), 'i');
-
     payload = photos.filter(function(photo) {
-      return pattern.test(photo.caption);
+      return photo.caption.search(query) > -1;
     });
   }
 

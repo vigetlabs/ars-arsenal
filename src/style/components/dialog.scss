@@ -25,7 +25,7 @@ $ars-dialog-width: 768px;
 }
 
 .focus-trap-inner {
-  background: #fff;
+  background: #fafafa;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(#000, 0.24);
   margin: 0 auto;
@@ -40,22 +40,16 @@ $ars-dialog-width: 768px;
   }
 }
 
-.ars-dialog-header {
-  box-shadow: 0 1px 2px rgba(#000, 0.12);
-  display: flex;
-  padding: 16px;
-  position: relative;
-  z-index: 1;
-}
-
 .ars-dialog-title {
   color: $ars-text-dark;
   flex-grow: 1;
   font: 500 20px/24px $ars-font-family;
+  padding: 16px;
   margin: 0;
 }
 
 .ars-dialog-footer {
+  background: #fff;
   box-shadow: 0 -1px 2px rgba(#000, 0.12);
   padding: 8px 0 8px;
   position: relative;

@@ -44,7 +44,7 @@ let Picker = React.createClass({
   },
 
   getError() {
-    let error = this.props.error
+    let error = this.state.error
 
     return error ? (
       <p className="ars-error">{ error }</p>
@@ -59,13 +59,12 @@ let Picker = React.createClass({
       <FocusTrap onExit={ this.props.onExit }>
 
         <header className="ars-dialog-header">
-          <h1 className="ars-dialog-title">Please select a photo</h1>
-          <Search key="search" ref="search" onChange={ this._onSearchChange } />
+          <Search key="search" ref="search" datalist={ items } onChange={ this._onSearchChange } />
         </header>
 
         { this.getError() }
 
-        <Gallery ref="gallery" items={ items } picked={ this.state.picked } onPicked={ this._onPicked } onKeyDown={ this._onKeyDown } />
+        <Gallery ref="gallery" search={ search } items={ items } picked={ this.state.picked } onPicked={ this._onPicked } onKeyDown={ this._onKeyDown } />
 
         <footer className="ars-dialog-footer">
           <Button ref="cancel" onClick={ this.props.onExit }>Cancel</Button>
