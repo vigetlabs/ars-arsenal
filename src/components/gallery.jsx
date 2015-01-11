@@ -47,12 +47,10 @@ let Gallery = React.createClass({
     let items = this.props.items
 
     return (
-      <div>
+      <Animation component="div" className="ars-gallery" transitionName="ars-fig" onKeyDown={ this.props.onKeyDown }>
         { this.getEmpty() }
-        <Animation component="div" className="ars-gallery" transitionName="ars-fig" onKeyDown={ this.props.onKeyDown }>
-          { items.map(this.getItem) }
-        </Animation>
-     </div>
+        { items.map(this.getItem) }
+      </Animation>
     )
   }
 

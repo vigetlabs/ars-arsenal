@@ -40,7 +40,7 @@ describe("Picker", function() {
 
   describe("when a user pushes a key sequence in the gallery", function() {
 
-    describe("and the key sequence is cmd+enter", function() {
+    describe("and it is cmd+enter", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
       let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
@@ -56,7 +56,7 @@ describe("Picker", function() {
       })
     })
 
-    describe("and the key sequence is ctrl+enter", function() {
+    describe("and it is ctrl+enter", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
       let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
@@ -72,7 +72,7 @@ describe("Picker", function() {
       })
     })
 
-    describe("and the key sequence does not include an option key", function() {
+    describe("and it does not include an option key", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
       let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
