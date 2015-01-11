@@ -5,7 +5,7 @@
   "main": "build/js/ars-arsenal.js",
   "scripts": {
     "start": "webpack -wd",
-    "example": "webpack-dev-server --config webpack.example.config.js",
+    "example": "webpack-dev-server --config webpack.example.config.js --content-base ./example --inline",
     "prepublish": "NODE_ENV=production webpack -p --optimize-occurence-order --optimize-dedupe",
     "test": "karma start"
   },
@@ -53,6 +53,7 @@
     "react-tools": "^0.12.1",
     "restify": "^2.8.4",
     "sass-loader": "^0.3.1",
+    "source-map-loader": "^0.1.3",
     "style-loader": "^0.8.2",
     "webpack": "^1.4.13",
     "webpack-dev-server": "^1.6.6"

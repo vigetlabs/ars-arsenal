@@ -4,11 +4,17 @@ describe("Ars", function() {
 
   let Test = React.addons.TestUtils
 
+  let makeComponent = function(props) {
+    return (
+      <Ars url="/base/test/test.json" { ...props } />
+    )
+  }
+
   describe ("when given an onChange handler", function() {
 
     describe("when a gallery item is picked and an onChange event is provided", function() {
-      let mock = sinon.spy()
-      let component = Test.renderIntoDocument(<Ars url="/test/test.json" onChange={ mock } />)
+      let onChange  = sinon.spy()
+      let component = Test.renderIntoDocument(makeComponent({ onChange }))
 
       component._onGalleryPicked("slug")
 
@@ -17,7 +23,7 @@ describe("Ars", function() {
       })
 
       it ("calls the onChange event with the picked state", function() {
-        mock.should.have.been.calledWith(component.state.picked)
+        onChange.should.have.been.calledWith(component.state.picked)
       })
 
     })
@@ -25,7 +31,7 @@ describe("Ars", function() {
   })
 
   describe("when the component's selection button is clicked", function() {
-    let component = Test.renderIntoDocument(<Ars url="/test/test.json"  />)
+    let component = Test.renderIntoDocument(makeComponent())
 
     Test.Simulate.click(component.refs.selection.getDOMNode())
 
@@ -38,7 +44,7 @@ describe("Ars", function() {
   describe("when the component's dialogOpen state is true", function() {
     import Picker from "../picker"
 
-    let component = Test.renderIntoDocument(<Ars url="/test/test.json" />)
+    let component = Test.renderIntoDocument(makeComponent())
 
     beforeEach(function(done) {
       component.setState({ dialogOpen: true }, () => done())

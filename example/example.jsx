@@ -1,5 +1,5 @@
-let React      = require('react/addons');
-let ArsArsenal = require('../src/index');
+import './style'
+import ArsArsenal from '../src/index'
 
 ArsArsenal.render(app, {
 
@@ -17,4 +17,4 @@ ArsArsenal.render(app, {
     console.log("Value changed to %s", value);
   }
 
-});
+})

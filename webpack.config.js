@@ -2,17 +2,15 @@ var Webpack           = require('webpack')
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
-  debug   : true,
-  devtool : 'source-map',
-
   entry: {
-    'build/js/ars-arsenal' : './src/index.js'
+    'build/js/ars-arsenal' : './src/index.jsx'
   },
 
   output: {
     filename: '[name].js',
     libraryTarget: 'commonjs2',
     path: '.',
+    devtoolModuleFilenameTemplate: '[resource-path]'
   },
 
   externals: {
