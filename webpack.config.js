@@ -26,7 +26,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin("build/css/ars-arsenal.css"),
     new Webpack.ProvidePlugin({
-      to5Runtime: "imports?global=>{}!exports-loader?global.to5Runtime!6to5/runtime"
+      to5Runtime: "imports?global=>{}!exports?global.to5Runtime!6to5/runtime"
     })
   ],
 
@@ -34,16 +34,16 @@ module.exports = {
     loaders: [
       {
         test    : /\.s*(c|a)ss$/,
-        loader  : ExtractTextPlugin.extract('style-loader', 'css-loader!autoprefixer-loader!sass-loader')
+        loader  : ExtractTextPlugin.extract('style', 'css!autoprefixer!sass')
       },
       {
         test    : /\.jsx*$/,
         exclude : /node_modules/,
-        loader  : '6to5-loader?experimental&runtime&modules=common',
+        loader  : '6to5?experimental&runtime&modules=common',
       },
       {
         test    : /\.json$/,
-        loader  : 'json-loader'
+        loader  : 'json'
       }
     ]
   }
