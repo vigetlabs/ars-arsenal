@@ -3,14 +3,11 @@ describe('Image Component', function() {
   let React  = require('react/addons')
   let Test   = React.addons.TestUtils
 
-  it ('executes an onLoad callback when it finishes loading', function(done) {
-    let callback  = function() {
-      component.state.should.have.property('isLoaded', true)
-      done()
-    }
-    let component = Test.renderIntoDocument(<Image src="base/test/test.jpg" onLoad={ callback } />)
+  it ('sets its state to loaded when it finishes loading', function() {
+    let component = Test.renderIntoDocument(<Image src="base/test/test.jpg" />)
 
     Test.Simulate.load(component.getDOMNode())
+    component.state.should.have.property('isLoaded', true)
   })
 
 })

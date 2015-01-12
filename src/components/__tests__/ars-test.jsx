@@ -12,7 +12,7 @@ describe("Ars", function() {
 
   describe ("when given an onChange handler", function() {
 
-    describe("when a gallery item is picked and an onChange event is provided", function() {
+    describe("when a gallery item is picked", function() {
       let onChange  = sinon.spy()
       let component = Test.renderIntoDocument(makeComponent({ onChange }))
 
@@ -24,6 +24,21 @@ describe("Ars", function() {
 
       it ("calls the onChange event with the picked state", function() {
         onChange.should.have.been.calledWith(component.state.picked)
+      })
+
+    })
+
+  })
+
+  describe ("when not given an onChange handler", function() {
+
+    describe("when a gallery item is picked", function() {
+      let component = Test.renderIntoDocument(makeComponent())
+
+      component._onGalleryPicked("slug")
+
+      it ("sets the `picked` state to the chosen slug", function() {
+        component.state.should.have.property("picked", "slug")
       })
 
     })

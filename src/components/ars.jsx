@@ -21,7 +21,8 @@ let Ars = React.createClass({
 
   getDefaultProps() {
     return {
-      picked : null
+      onChange : () => {},
+      picked   : null
     }
   },
 
@@ -52,7 +53,7 @@ let Ars = React.createClass({
   },
 
   _triggerChange() {
-    if (this.props.onChange) this.props.onChange(this.state.picked)
+    this.props.onChange(this.state.picked)
   },
 
   _onOpenClick() {

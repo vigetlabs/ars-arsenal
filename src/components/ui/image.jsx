@@ -26,7 +26,7 @@ let Image = React.createClass({
   },
 
   render() {
-    let { className, onLoad, ...props} = this.props
+    let { className, ...props} = this.props
 
     return (
       <img className={ this.getClassName(className) } onLoad={ this._onLoad } {...props } />
@@ -34,11 +34,7 @@ let Image = React.createClass({
   },
 
   _onLoad() {
-    this.setState({ isLoaded: true }, () => {
-      if (this.props.onLoad) {
-        this.props.onLoad()
-      }
-    })
+    this.setState({ isLoaded: true })
   }
 
 })
