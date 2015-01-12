@@ -3,7 +3,6 @@
  * The main element for Ars Arsenal
  */
 
-import Photo      from "../stores/photo"
 import Picker     from "./picker"
 import React      from "react"
 import Selection  from "./selection"

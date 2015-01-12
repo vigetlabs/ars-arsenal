@@ -3,27 +3,27 @@
  * Encapsulates data operations required for retrieving photos
  */
 
-import Photo     from "../stores/photo"
-import React     from "react"
+import React from "react"
+import XHR   from 'xhr'
 
 let Types = React.PropTypes
 
-export default {
+let Sync = {
 
   propTypes: {
-    url       : Types.string.isRequired,
     makeQuery : Types.func,
     makeURL   : Types.func,
     onError   : Types.func,
-    onFetch   : Types.func
+    onFetch   : Types.func,
+    url       : Types.string.isRequired
   },
 
   getDefaultProps() {
     return {
-      onFetch   : data => data,
-      onError   : response => response,
+      makeQuery : (query) => `q=${ query }`,
       makeURL   : (url, id = false) => url + (id ? "/" + id : ""),
-      makeQuery : (query) => `q=${ query }`
+      onError   : response => response,
+      onFetch   : data => data
     }
   },
 
@@ -39,6 +39,12 @@ export default {
     return { makeURL, makeQuery, onError, onFetch, url }
   },
 
+  request(url, success, error) {
+    return XHR({ url, json: true }, function(err, response, body) {
+      err ? error(body, err) : success(body)
+    })
+  },
+
   fetch(slug) {
     let url = this.props.makeURL(this.props.url, slug)
 
@@ -51,8 +57,10 @@ export default {
     }
 
     this.setState({
-      request: Photo.fetch(url, this.responseDidSucceed, this.responseDidFail)
+      request: Sync.request(url, this.responseDidSucceed, this.responseDidFail)
     })
   }
 
 }
+
+export default Sync

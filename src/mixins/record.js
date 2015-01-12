@@ -3,8 +3,8 @@
  * Sync operations for a single record
  */
 
-import Sync      from "./sync"
 import React     from "react"
+import Sync      from "./sync"
 import invariant from "react/lib/invariant"
 
 export default {
