@@ -8,7 +8,7 @@ A gallery picker
 
 ---
 
-![Example](http://cl.ly/image/402a0A0X1h1q/photos.gif)
+![Example](http://f.cl.ly/items/2Z442e3B3o2D2k1j410I/ars.gif)
 
 ## Contributing
 
