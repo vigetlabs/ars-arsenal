@@ -16,20 +16,17 @@ let Image = React.createClass({
     }
   },
 
-  getClassName(root) {
-    let base   = cx('ars-img', root)
-    let states = cx({
-      'ars-img-loaded' : this.state.isLoaded
-    })
-
-    return cx(base, states)
-  },
-
   render() {
     let { className, ...props} = this.props
 
+    let css = cx({
+      'ars-img'        : true,
+      'ars-img-loaded' : this.state.isLoaded,
+      [className]      : true
+    })
+
     return (
-      <img className={ this.getClassName(className) } onLoad={ this._onLoad } {...props } />
+      <img className={ css } onLoad={ this._onLoad } {...props } />
     )
   },
 
