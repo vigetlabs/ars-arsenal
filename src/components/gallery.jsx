@@ -47,7 +47,7 @@ let Gallery = React.createClass({
     let items = this.props.items
 
     return (
-      <Animation component="div" className="ars-gallery" transitionName="ars-fig" onKeyDown={ this.props.onKeyDown }>
+      <Animation component="div" className="ars-gallery" transitionName="ars-fade" onKeyDown={ this.props.onKeyDown }>
         { this.getEmpty() }
         { items.map(this.getItem) }
       </Animation>

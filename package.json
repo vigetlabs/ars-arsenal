@@ -5,6 +5,7 @@
   "main": "build/js/ars-arsenal.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.example.config.js --content-base ./example --inline",
+    "api": "node example/server",
     "prepublish": "NODE_ENV=production webpack -p --optimize-occurence-order --optimize-dedupe",
     "test": "karma start"
   },

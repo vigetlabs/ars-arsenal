@@ -15,8 +15,10 @@ server.get('/photos', function(req, res) {
   var query   = req.query.term;
 
   if (query) {
+    query = query.toLowerCase();
+
     payload = photos.filter(function(photo) {
-      return photo.caption.search(query) > -1;
+      return photo.caption.toLowerCase().search(query) > -1;
     });
   }
 
