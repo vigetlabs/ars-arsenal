@@ -14,15 +14,9 @@ var Error = React.createClass({
   },
 
   render() {
-    var error = this.props.error
+    if (!this.props.error) return null
 
-    if (!error) return null
-
-    return (
-      <div className="ars-error">
-        { error.toString() }
-      </div>
-    )
+    return <div className="ars-error">{ this.props.error.toString() }</div>
   }
 
 })

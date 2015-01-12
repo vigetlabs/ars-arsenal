@@ -68,8 +68,10 @@ let Search = React.createClass({
   },
 
   _onKeyUp(event) {
-    if (event.key === 'Escape') {
-      event.stopPropagation()
+    switch (event.key) {
+      case 'Escape':
+        event.stopPropagation()
+        break;
     }
   }
 

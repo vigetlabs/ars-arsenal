@@ -10,29 +10,19 @@ let Selection = React.createClass({
 
   mixins: [ Record ],
 
-  statics: {
-    PICK_ANOTHER  : "Choose another image",
-    SHOULD_SELECT : "Select an image"
-  },
-
   getPhoto() {
-    let { caption, url } = this.state.item
+    let { item } = this.state
 
-    return (
-      <Image className="ars-selection-photo" alt={ caption } src={ url } />
-    )
+    return item ? (
+      <Image className="ars-selection-photo" ref="photo" alt={ item.caption } src={ item.url } />
+    ) : null
   },
 
   render() {
-    let hasPhoto = !!this.state.item
-
     return (
       <Button className="ars-selection" onClick={ this._onClick }>
-        { hasPhoto && this.getPhoto() }
-
-        <span className="ars-selection-caption">
-          { hasPhoto ? Selection.PICK_ANOTHER : Selection.SHOULD_SELECT }
-        </span>
+        { this.getPhoto() }
+        <span className="ars-selection-caption">Select an image</span>
       </Button>
     )
   },

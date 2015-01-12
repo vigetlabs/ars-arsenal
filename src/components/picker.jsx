@@ -5,6 +5,7 @@
 
 import Button     from './ui/button'
 import Collection from '../mixins/collection'
+import Error      from './error'
 import Gallery    from './gallery'
 import React      from 'react/addons'
 import Search     from './search'
@@ -40,18 +41,6 @@ let Picker = React.createClass({
     this.props.onExit()
   },
 
-  cancel() {
-    this.props.onExit()
-  },
-
-  getError() {
-    let error = this.state.error
-
-    return error ? (
-      <p className="ars-error">{ error }</p>
-    ) : null
-  },
-
   render() {
     let { onChange } = this.props
     let { error, items, search } = this.state
@@ -63,7 +52,7 @@ let Picker = React.createClass({
           <Search key="search" ref="search" datalist={ items } onChange={ this._onSearchChange } />
         </header>
 
-        { this.getError() }
+        <Error error={ error } />
 
         <Gallery ref="gallery" search={ search } items={ items } picked={ this.state.picked } onPicked={ this._onPicked } onKeyDown={ this._onKeyDown } />
 
@@ -89,9 +78,13 @@ let Picker = React.createClass({
     this.confirm()
   },
 
-  _onKeyDown(e) {
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-      this.confirm()
+  _onKeyDown({ key, metaKey, ctrlKey }) {
+    let properMod = metaKey || ctrlKey
+
+    switch (key) {
+      case 'Enter':
+        if (properMod) this.confirm()
+        break
     }
   }
 

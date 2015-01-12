@@ -4,10 +4,45 @@ describe("Picker", function() {
 
   let Test = React.addons.TestUtils
 
+  function makePicker(props) {
+    return (
+      <Picker url="base/test/test.json" { ...props } />
+    )
+  }
+
+  describe("when a picker's search input is changed", function() {
+    let onExit   = sinon.spy()
+    let onChange = sinon.spy()
+    let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+    let search = component.refs.search.getDOMNode().querySelector('input')
+
+    search.value = 'test'
+
+    Test.Simulate.change(search)
+
+    it ("updates its search state", function() {
+      component.state.search.should.equal('test')
+    })
+  })
+
+  describe("when a picker's gallery has a selection", function() {
+    let onExit   = sinon.spy()
+    let onChange = sinon.spy()
+    let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+
+    component.setState({ items: [{ id: 0, caption: 'test', url: '/base/test/test.jpg' }]})
+
+    Test.Simulate.click(component.refs.gallery.getDOMNode().querySelector('button:first-child'))
+
+    it ("updates its picked state", function() {
+      component.state.picked.should.equal(0)
+    })
+  })
+
   describe("when a picker's confirm button is clicked", function() {
     let onExit   = sinon.spy()
     let onChange = sinon.spy()
-    let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
+    let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
 
     Test.Simulate.click(component.refs.confirm.getDOMNode())
 
