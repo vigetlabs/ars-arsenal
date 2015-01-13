@@ -8,7 +8,7 @@
     "api": "node example/server",
     "prepublish": "NODE_ENV=production webpack -p --optimize-occurence-order --optimize-dedupe",
     "test": "karma start",
-    "codeclimate": "CODECLIMATE_REPO_TOKEN=c12ec7d75698a252dbfcf6ec997590069ec3821c54eb25cf3f9f0a912fa3af7b codeclimate < coverage/report-lcov/lcov.info"
+    "coveralls": "npm test | coveralls < coverage/report-lcov/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "6to5-loader": "^1.0.0",
     "autoprefixer-loader": "^1.0.0",
     "chai": "^1.10.0",
+    "coveralls": "^2.11.2",
     "css-loader": "^0.9.0",
     "exports-loader": "^0.6.2",
     "extract-text-webpack-plugin": "^0.3.5",
