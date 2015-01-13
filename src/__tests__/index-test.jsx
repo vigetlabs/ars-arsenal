@@ -1,6 +1,5 @@
 import ArsArsenal from '../index'
 import Ars        from '../components/ars'
-import React      from 'react'
 
 let Test = React.addons.TestUtils
 

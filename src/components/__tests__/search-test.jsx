@@ -1,11 +1,12 @@
+import Search from '../search'
+
+let Test = React.addons.TestUtils
+
 describe('Search', function() {
-  var React  = require('react/addons')
-  var Search = require('../search')
-  var Test   = React.addons.TestUtils
 
   it ('triggers a blank search below 2 characters', function() {
-    var callback  = sinon.spy()
-    var component = Test.renderIntoDocument(<Search onChange={ callback } />)
+    let callback  = sinon.spy()
+    let component = Test.renderIntoDocument(<Search onChange={ callback } />)
 
     Test.Simulate.change(component.refs.input.getDOMNode())
 
@@ -16,9 +17,9 @@ describe('Search', function() {
   })
 
   it ('triggers the full term above 2 characters', function() {
-    var callback  = sinon.spy()
-    var component = Test.renderIntoDocument(<Search onChange={ callback } />)
-    var input     = component.refs.input.getDOMNode()
+    let callback  = sinon.spy()
+    let component = Test.renderIntoDocument(<Search onChange={ callback } />)
+    let input     = component.refs.input.getDOMNode()
 
     input.value = 'Large Enough'
 
@@ -31,9 +32,9 @@ describe('Search', function() {
   })
 
   it ('traps submit events and calls onChange', function() {
-    var callback  = sinon.spy()
-    var component = Test.renderIntoDocument(<Search onChange={ callback } />)
-    var input     = component.refs.input.getDOMNode()
+    let callback  = sinon.spy()
+    let component = Test.renderIntoDocument(<Search onChange={ callback } />)
+    let input     = component.refs.input.getDOMNode()
 
     input.value = 'Large Enough'
 
@@ -46,9 +47,9 @@ describe('Search', function() {
   })
 
   it ('clears search on escape', function() {
-    var callback  = sinon.spy()
-    var component = Test.renderIntoDocument(<Search onChange={ callback } />)
-    var input     = component.refs.input.getDOMNode()
+    let callback  = sinon.spy()
+    let component = Test.renderIntoDocument(<Search onChange={ callback } />)
+    let input     = component.refs.input.getDOMNode()
 
     input.value = 'Large Enough'
 
@@ -59,5 +60,4 @@ describe('Search', function() {
       callback.should.have.been.calledWith('');
     }, Search.INTERVAL)
   })
-
 })

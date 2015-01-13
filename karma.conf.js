@@ -1,3 +1,4 @@
+var Webpack = require('webpack')
 var webpack_config = require('./webpack.config')
 
 module.exports = function(config) {
@@ -23,7 +24,11 @@ module.exports = function(config) {
 
     webpack: {
       devtool: webpack_config.devtool,
-      plugins: webpack_config.plugins,
+      plugins: webpack_config.plugins.concat([
+        new Webpack.ProvidePlugin({
+          'React': 'react/addons'
+        })
+      ]),
       resolve: webpack_config.resolve,
 
       module: {
@@ -38,7 +43,7 @@ module.exports = function(config) {
       }
     },
 
-    webpackMiddleware: {
+    webpackServer: {
       noInfo: true
     }
   });

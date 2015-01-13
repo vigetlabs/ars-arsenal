@@ -1,14 +1,14 @@
+import Picker from "../picker"
+
+let Test = React.addons.TestUtils
+
+function makePicker(props) {
+  return (
+    <Picker url="base/test/test.json" { ...props } />
+  )
+}
+
 describe("Picker", function() {
-  import Picker from "../picker"
-  import React from "react/addons"
-
-  let Test = React.addons.TestUtils
-
-  function makePicker(props) {
-    return (
-      <Picker url="base/test/test.json" { ...props } />
-    )
-  }
 
   describe("when a picker's search input is changed", function() {
     let onExit   = sinon.spy()
@@ -136,6 +136,5 @@ describe("Picker", function() {
         component.getDOMNode().querySelector('.ars-error').textContent.should.equal('This is a test error')
       })
     })
-
   })
 })

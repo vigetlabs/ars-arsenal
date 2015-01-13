@@ -1,18 +1,18 @@
+import Ars from "../ars"
+
+let Test = React.addons.TestUtils
+
+let makeComponent = function(props) {
+  return (
+    <Ars url="/base/test/test.json" { ...props } />
+  )
+}
+
 describe("Ars", function() {
-  import Ars from "../ars"
-  import React from "react/addons"
 
-  let Test = React.addons.TestUtils
+  describe("when a gallery item is picked", function() {
 
-  let makeComponent = function(props) {
-    return (
-      <Ars url="/base/test/test.json" { ...props } />
-    )
-  }
-
-  describe ("when given an onChange handler", function() {
-
-    describe("when a gallery item is picked", function() {
+    describe("and an onChange handler is provided", function() {
       let onChange  = sinon.spy()
       let component = Test.renderIntoDocument(makeComponent({ onChange }))
 
@@ -25,14 +25,9 @@ describe("Ars", function() {
       it ("calls the onChange event with the picked state", function() {
         onChange.should.have.been.calledWith(component.state.picked)
       })
-
     })
 
-  })
-
-  describe ("when not given an onChange handler", function() {
-
-    describe("when a gallery item is picked", function() {
+    describe("and an onChange handler is not provided", function() {
       let component = Test.renderIntoDocument(makeComponent())
 
       component._onGalleryPicked("slug")
@@ -40,9 +35,7 @@ describe("Ars", function() {
       it ("sets the `picked` state to the chosen slug", function() {
         component.state.should.have.property("picked", "slug")
       })
-
     })
-
   })
 
   describe("when the component's selection button is clicked", function() {
@@ -81,9 +74,6 @@ describe("Ars", function() {
       after(function() {
         spy.restore()
       })
-
     })
-
   })
-
 })

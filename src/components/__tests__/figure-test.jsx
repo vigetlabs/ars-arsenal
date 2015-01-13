@@ -1,17 +1,16 @@
-describe('Figure Component', function() {
-  var Figure = require('../figure')
-  var React  = require('react/addons')
-  var Test   = React.addons.TestUtils
+import Figure from '../figure'
 
-  var record = { id: 0, url: '/base/test/test.jpg' }
+let Test = React.addons.TestUtils
+
+describe('Figure Component', function() {
+  let record = { id: 0, url: '/base/test/test.jpg' }
 
   it ('executes a callback that passes the record id when clicked', function() {
-    var callback  = sinon.spy()
-    var component = Test.renderIntoDocument(<Figure record={ record } onClick={ callback } />)
+    let callback  = sinon.spy()
+    let component = Test.renderIntoDocument(<Figure record={ record } onClick={ callback } />)
 
     Test.Simulate.click(component.getDOMNode())
 
     callback.should.have.been.called
   })
-
 })

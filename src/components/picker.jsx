@@ -42,7 +42,6 @@ let Picker = React.createClass({
   },
 
   render() {
-    let { onChange } = this.props
     let { error, items, search } = this.state
 
     return (
