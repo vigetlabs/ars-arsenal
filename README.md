@@ -6,6 +6,7 @@ A gallery picker
 
 [![Build Status](https://travis-ci.org/vigetlabs/ars-arsenal.png?branch=master)](https://travis-ci.org/vigetlabs/ars-arsenal)
 [![Code Climate](https://codeclimate.com/github/vigetlabs/ars-arsenal/badges/gpa.svg)](https://codeclimate.com/github/vigetlabs/ars-arsenal)
+[![Test Coverage](https://codeclimate.com/github/vigetlabs/ars-arsenal/badges/coverage.svg)](https://codeclimate.com/github/vigetlabs/ars-arsenal)
 
 ---
 
