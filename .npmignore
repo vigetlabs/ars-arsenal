@@ -1,6 +1,5 @@
 __tests__
 webpack.config.js
 webpack.example.config.js
-lib/jestPreprocessor.js
-lib/jestSetup.js
+karma.conf.js
 example
