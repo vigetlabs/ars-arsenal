@@ -22,6 +22,13 @@ module.exports = function(config) {
 
     reporters: [ 'mocha', 'coverage' ],
 
+    coverageReporter: {
+      reporters: [
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' }
+      ]
+    },
+
     webpack: {
       devtool: webpack_config.devtool,
       plugins: webpack_config.plugins.concat([
