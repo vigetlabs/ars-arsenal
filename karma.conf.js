@@ -36,6 +36,7 @@ module.exports = function(config) {
           'React': 'react/addons'
         })
       ]),
+
       resolve: webpack_config.resolve,
 
       module: {
