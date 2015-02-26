@@ -1,4 +1,5 @@
-import Ars from "../ars"
+import Ars    from "../ars"
+import Picker from "../picker"
 
 let Test = React.addons.TestUtils
 
@@ -50,7 +51,7 @@ describe("Ars", function() {
   })
 
   describe("when the component's dialogOpen state is true", function() {
-    import Picker from "../picker"
+
 
     let component = Test.renderIntoDocument(makeComponent())
 
