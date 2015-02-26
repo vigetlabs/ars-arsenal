@@ -24,9 +24,8 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin("build/css/ars-arsenal.css"),
-    new Webpack.ProvidePlugin({
-      to5Runtime: "imports?global=>{}!exports?global.to5Runtime!6to5/runtime"
+    new ExtractTextPlugin("build/css/ars-arsenal.css", {
+      disable: process.env.NODE_ENV !== 'production'
     })
   ],
 
@@ -39,7 +38,7 @@ module.exports = {
       {
         test    : /\.jsx*$/,
         exclude : /node_modules/,
-        loader  : '6to5?experimental&runtime&modules=common',
+        loader  : 'babel?experimental',
       },
       {
         test    : /\.json$/,

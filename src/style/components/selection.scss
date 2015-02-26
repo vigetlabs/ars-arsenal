@@ -6,11 +6,12 @@
   overflow: hidden;
   position: relative;
   min-height: 48px;
-  min-width: 240px;
+  width: 240px;
 }
 
 .ars-selection-photo {
   display: block;
+  border-radius: 2px;
 }
 
 .ars-selection-caption {

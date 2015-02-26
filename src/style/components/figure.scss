@@ -1,22 +1,13 @@
 .ars-fig {
-  @extend %focusable;
   background: #fff;
-  box-shadow: 0 1px 2px rgba(#000, 0.25);
-  border: 0;
   border-radius: 2px;
+  border: 0;
+  box-shadow: 0 1px 2px rgba(#000, 0.35);
   cursor: pointer;
-  float: left;
-  margin: 0.5%;
-  padding: 24% 2px 2px;
+  padding: 100% 0 0;
   position: relative;
   transition: 0.2s box-shadow;
-  width: 24%;
-
-  &:hover,
-  &:focus {
-    background: #fff;
-    box-shadow: 0 1px 2px rgba(#000, 0.25);
-  }
+  width: 100%;
 
   &:before {
     border: 0 solid transparent;
@@ -27,28 +18,36 @@
     top: 0;
     transition: 0.28s all;
     width: 100%;
-    z-index: 1;
+    z-index: 3;
   }
 
-  @media screen and (max-width: 568px) {
-    width: 32%;
-    padding-top: 32%;
+  &:hover,
+  &:focus {
+    box-shadow: 0 1px 2px rgba(#000, 0.25);
+    outline: none;
+
+    &:before {
+      border: 4px solid $ars-accent;
+    }
+  }
+
+  &.ars-fig-picked:before {
+    border: 4px solid gold;
   }
 }
 
 .ars-fig-img {
+  border-radius: 2px;
   bottom: 0;
   position: absolute;
   right: 0;
 }
 
-.ars-fig-picked:before {
-  border: 4px solid gold;
-}
-
 .ars-fig-caption {
   background: rgba(#000, 0.54);
   bottom: 0;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
   color: rgba(#fff, 0.875);
   font-family: $ars-font-family;
   font-size: 16px;

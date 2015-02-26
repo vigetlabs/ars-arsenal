@@ -1,10 +1,23 @@
 $ars-gallery-height: 432px;
 
 .ars-gallery {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
   height: $ars-gallery-height;
-  padding: 8px 4px;
-  margin: 0 auto;
+  padding: 6px 4px 2px;
   max-height: 100%;
   max-width: 100%;
-  overflow: scroll;
+  overflow-x: visible;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.ars-gallery-item {
+  padding: 2px 4px;
+  width: 33%;
+
+  @media screen and (min-width: 568px) {
+    width: 25%;
+  }
 }

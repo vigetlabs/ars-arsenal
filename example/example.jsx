@@ -3,7 +3,7 @@ import ArsArsenal from '../src/index'
 
 ArsArsenal.render(app, {
 
-  url: 'http://localhost:7000/photos',
+  url: 'http://' + window.location.hostname +':7000/photos',
 
   makeQuery(term) {
     return `term=${ term }`

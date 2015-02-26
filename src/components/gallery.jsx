@@ -28,7 +28,9 @@ let Gallery = React.createClass({
     let isPicked = record.id === this.props.picked
 
     return (
-      <Figure key={ 'photo_' + record.id } picked={ isPicked } record={ record } onClick={ this.props.onPicked } />
+      <div className="ars-gallery-item" key={ 'photo_' + record.id } >
+        <Figure picked={ isPicked } record={ record } onClick={ this.props.onPicked } />
+      </div>
     )
   },
 

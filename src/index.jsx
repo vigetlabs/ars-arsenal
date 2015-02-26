@@ -10,8 +10,9 @@ import React from 'react'
 
 module.exports = {
   component : Ars,
-  render    : function(el, options) {
-    let component = <Ars { ...options } />
+
+  render(el, options) {
+    let component = React.createElement(Ars, options)
 
     React.render(component, el)
 
