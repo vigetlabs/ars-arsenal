@@ -1,6 +1,6 @@
 {
   "name": "ars-arsenal",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "A gallery picker",
   "main": "build/js/ars-arsenal.js",
   "scripts": {
