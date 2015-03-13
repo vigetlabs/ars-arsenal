@@ -2,6 +2,7 @@
  * Button
  */
 
+import Ink   from 'react-ink'
 import React from 'react'
 import cx    from 'classnames'
 
@@ -29,6 +30,7 @@ let Button = React.createClass({
     return (
       <button className={ this.getClassName(className) } { ...attrs }>
         { children }
+        <Ink />
       </button>
     )
   }

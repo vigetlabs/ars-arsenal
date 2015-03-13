@@ -1,6 +1,6 @@
 {
   "name": "ars-arsenal",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A gallery picker",
   "main": "build/js/ars-arsenal.js",
   "scripts": {
@@ -65,7 +65,8 @@
   "dependencies": {
     "classnames": "^1.1.4",
     "debounce": "^1.0.0",
-    "react-hot-loader": "^1.2.3"
+    "react-hot-loader": "^1.2.3",
+    "react-ink": "^4.0.0-rc5"
   },
   "peerDependencies": {
     "react": ">= 0.12.0",

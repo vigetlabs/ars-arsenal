@@ -5,6 +5,7 @@
 
 import React from 'react'
 import Image from './ui/image'
+import Ink   from 'react-ink'
 
 let cx    = require('classnames')
 
@@ -30,6 +31,7 @@ let Figure = React.createClass({
         <span className="ars-fig-caption">
           { record.caption }
         </span>
+        <Ink />
       </button>
     )
   },
