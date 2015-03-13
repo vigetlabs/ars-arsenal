@@ -58,7 +58,7 @@ let Search = React.createClass({
     this.setState({ search }, () => this.state.debouncedChange(result))
   },
 
-  _onChange(e) {
+  _onChange() {
     this._updateSearch(this.refs.input.getDOMNode().value || '')
   },
 
