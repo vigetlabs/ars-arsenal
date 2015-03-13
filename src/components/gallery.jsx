@@ -35,7 +35,7 @@ let Gallery = React.createClass({
   },
 
   getEmpty() {
-    let search = this.props.search
+    let search  = this.props.search
     let isEmpty = this.props.items.length <= 0
 
     return isEmpty ? (

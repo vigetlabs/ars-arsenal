@@ -38,7 +38,7 @@ module.exports = {
       {
         test    : /\.jsx*$/,
         exclude : /node_modules/,
-        loader  : 'babel?experimental',
+        loader  : 'babel?experimental'
       },
       {
         test    : /\.json$/,

@@ -1,6 +1,7 @@
 $ars-gallery-height: 432px;
 
 .ars-gallery {
+  align-content: flex-start;
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
