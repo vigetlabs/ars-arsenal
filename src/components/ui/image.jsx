@@ -9,16 +9,20 @@ import cx    from 'classnames';
 
 let Image = React.createClass({
 
-  getInitialState() {
-    return {
-      didFail  : false,
-      isLoaded : false
-    }
+  propTypes: {
+    src: React.PropTypes.string
   },
 
   getDefaultProps() {
     return {
       className: ''
+    }
+  },
+
+  getInitialState() {
+    return {
+      didFail  : false,
+      isLoaded : false
     }
   },
 

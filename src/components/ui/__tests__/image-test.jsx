@@ -11,4 +11,12 @@ describe('Image Component', function() {
 
     component.state.should.have.property('isLoaded', true)
   })
+
+  it ('adds an error class on failed images', function() {
+    let component = Test.renderIntoDocument(<Image src="fizz.jpg" />)
+
+    Test.Simulate.error(component.getDOMNode())
+
+    component.state.should.have.property('didFail', true)
+  })
 })
