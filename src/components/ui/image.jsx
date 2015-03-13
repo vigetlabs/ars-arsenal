@@ -4,9 +4,7 @@
  * and transitions
  */
 
-import React from "react/addons";
-
-let cx = React.addons.classSet
+import React from "react";
 
 let Image = React.createClass({
 
@@ -16,14 +14,20 @@ let Image = React.createClass({
     }
   },
 
+  getDefaultProps() {
+    return {
+      className: ''
+    }
+  },
+
   render() {
     let { className, ...props} = this.props
 
-    let css = cx({
-      'ars-img'        : true,
-      'ars-img-loaded' : this.state.isLoaded,
-      [className]      : true
-    })
+    let css = `ars-img ${ className }`
+
+    if (this.state.isLoaded) {
+      css = `${ css } ars-img-loaded`
+    }
 
     return (
       <img className={ css } onLoad={ this._onLoad } {...props } />

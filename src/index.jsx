@@ -9,7 +9,7 @@ import Ars   from './components/ars'
 import React from 'react'
 
 
-module.exports = {
+export default {
   component : Ars,
 
   render(el, options) {
