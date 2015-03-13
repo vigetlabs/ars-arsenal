@@ -3,17 +3,17 @@
  * An individual gallery tile
  */
 
+import React from 'react'
 import Image from './ui/image'
 
-let Types = React.PropTypes
 let cx    = require('classnames')
 
 let Figure = React.createClass({
 
   propTypes: {
-    record  : Types.object.isRequired,
-    onClick : Types.func.isRequired,
-    picked  : Types.bool
+    record  : React.PropTypes.object.isRequired,
+    onClick : React.PropTypes.func.isRequired,
+    picked  : React.PropTypes.bool
   },
 
   render() {
@@ -27,7 +27,6 @@ let Figure = React.createClass({
     return (
       <button className={ className } onClick={ this._onClick }>
         <Image className="ars-fig-img" src={ record.url } />
-
         <span className="ars-fig-caption">
           { record.caption }
         </span>
