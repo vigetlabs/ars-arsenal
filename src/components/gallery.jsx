@@ -3,17 +3,15 @@
  * Displays tiles of photos
  */
 
-import React  from 'react/addons'
-import Figure from './figure'
-
-let Animation = React.addons.CSSTransitionGroup
-var Types     = React.PropTypes
+import Animation from 'react/lib/ReactCSSTransitionGroup'
+import React     from 'react'
+import Figure    from './figure'
 
 let Gallery = React.createClass({
 
   propTypes: {
-    items    : Types.array,
-    onPicked : Types.func.isRequired
+    items    : React.PropTypes.array,
+    onPicked : React.PropTypes.func.isRequired
   },
 
   getDefaultProps() {

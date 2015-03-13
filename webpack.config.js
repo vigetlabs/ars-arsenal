@@ -15,7 +15,8 @@ module.exports = {
 
   externals: {
     'react': 'react',
-    'react/addons': 'react/addons'
+    'react/lib/ReactCSSTransitionGroup' : 'react/lib/ReactCSSTransitionGroup',
+    'react/lib/ReactComponentWithPureRenderMixin' : 'react/lib/ReactComponentWithPureRenderMixin'
   },
 
   resolve: {

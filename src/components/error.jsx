@@ -3,7 +3,7 @@
  * Displays error information should an endpoint fail to respond
  */
 
-var React = require('react/addons')
+var React = require('react')
 
 var Error = React.createClass({
 

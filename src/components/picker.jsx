@@ -6,21 +6,19 @@
 import Button     from './ui/button'
 import Collection from '../mixins/collection'
 import Error      from './error'
-import Gallery    from './gallery'
-import React      from 'react/addons'
-import Search     from './search'
 import FocusTrap  from 'react-focus-trap'
-
-let Types = React.PropTypes
-let Pure  = React.addons.PureRenderMixin
+import Gallery    from './gallery'
+import Pure       from 'react/lib/ReactComponentWithPureRenderMixin'
+import React      from 'react'
+import Search     from './search'
 
 let Picker = React.createClass({
 
   mixins: [ Collection, Pure ],
 
   propTypes: {
-    onChange : Types.func.isRequired,
-    onExit   : Types.func.isRequired
+    onChange : React.PropTypes.func.isRequired,
+    onExit   : React.PropTypes.func.isRequired
   },
 
   getDefaultProps() {

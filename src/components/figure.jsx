@@ -3,11 +3,10 @@
  * An individual gallery tile
  */
 
-import Image from './ui/image';
-import React from 'react/addons';
+import Image from './ui/image'
 
 let Types = React.PropTypes
-let cx    = React.addons.classSet
+let cx    = require('classnames')
 
 let Figure = React.createClass({
 
