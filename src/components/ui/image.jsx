@@ -5,11 +5,13 @@
  */
 
 import React from "react";
+import cx    from 'classnames';
 
 let Image = React.createClass({
 
   getInitialState() {
     return {
+      didFail  : false,
       isLoaded : false
     }
   },
@@ -23,19 +25,27 @@ let Image = React.createClass({
   render() {
     let { className, ...props} = this.props
 
-    let css = `ars-img ${ className }`
-
-    if (this.state.isLoaded) {
-      css = `${ css } ars-img-loaded`
-    }
+    let css = cx({
+      'ars-img'        : true,
+      'ars-img-loaded' : this.state.isLoaded,
+      'ars-img-failed' : this.state.didFail,
+      [className]      : true
+    })
 
     return (
-      <img className={ css } onLoad={ this._onLoad } {...props } />
+      <img className={ css }
+           onLoad={ this._onLoad }
+           onError={ this._onError }
+           {...props } />
     )
   },
 
   _onLoad() {
-    this.setState({ isLoaded: true })
+    this.setState({ didFail: false, isLoaded: true })
+  },
+
+  _onError() {
+    this.setState({ didFail: true, isLoaded: true })
   }
 
 })

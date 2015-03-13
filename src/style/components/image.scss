@@ -1,5 +1,5 @@
-$ars-img-easing: cubic-bezier(.01,.3,.12,.93);
-
+$ars-img-easing  : cubic-bezier(.01,.3,.12,.93);
+$ars-failed-size : 25px;
 .ars-img {
   filter: brightness(1.25) saturate(0.2);
   opacity: 0.1;
@@ -11,4 +11,13 @@ $ars-img-easing: cubic-bezier(.01,.3,.12,.93);
 .ars-img-loaded {
   filter: none;
   opacity: 1;
+}
+
+.ars-img-failed {
+  height: $ars-failed-size;
+  left: 50%;
+  margin: -$ars-failed-size 0 0 ($ars-failed-size * -0.5);
+  position: absolute;
+  top: 50%;
+  width: $ars-failed-size;
 }

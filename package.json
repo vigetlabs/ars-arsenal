@@ -4,7 +4,7 @@
   "description": "A gallery picker",
   "main": "build/js/ars-arsenal.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.example.config.js --content-base ./example --inline",
+    "start": "webpack-dev-server --config webpack.example.config.js --content-base ./example --hot",
     "api": "node example/server",
     "prepublish": "NODE_ENV=production webpack -p --optimize-occurence-order --optimize-dedupe",
     "test": "karma start",
@@ -63,7 +63,9 @@
     "xhr": "^2.0.0"
   },
   "dependencies": {
-    "debounce": "^1.0.0"
+    "classnames": "^1.1.4",
+    "debounce": "^1.0.0",
+    "react-hot-loader": "^1.2.3"
   },
   "peerDependencies": {
     "react": ">= 0.12.0",
