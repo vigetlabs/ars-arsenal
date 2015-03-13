@@ -10,6 +10,8 @@ module.exports = function(config) {
 
     frameworks: [ 'mocha', 'sinon-chai' ],
 
+    logLevel: config.LOG_ERROR,
+
     files: [
       { pattern: 'test/*.json', watched: false, included: false, served: true },
       { pattern: 'test/*.jpg',  watched: false, included: false, served: true },
@@ -17,10 +19,10 @@ module.exports = function(config) {
     ],
 
     preprocessors: {
-      'src/**/__tests__/*.js*': [ 'webpack' ],
+      'src/**/__tests__/*.js*': [ 'webpack' ]
     },
 
-    reporters: [ 'mocha', 'coverage' ],
+    reporters: [ 'nyan', 'coverage' ],
 
     coverageReporter: {
       reporters: [
