@@ -46,8 +46,8 @@ module.exports = function(config) {
         postLoaders: [
           {
             test: /\.jsx*$/,
-              exclude: /(__tests__|node_modules)\//,
-              loader: 'istanbul-instrumenter'
+            exclude: /(__tests__|node_modules)\//,
+            loader: 'istanbul-instrumenter'
           }
         ]
       }
