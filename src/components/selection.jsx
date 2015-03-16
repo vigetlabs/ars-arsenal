@@ -18,16 +18,19 @@ let Selection = React.createClass({
 
   render() {
     let className = cx('ars-selection', {
-      'ars-is-loading': this.state.fetching
+      'ars-is-loading': this.state.fetching,
+      'ars-has-photo' : this.state.item
     })
 
     return (
       <div className={ className }>
-        { this.getPhoto() }
+        <div className="ars-selection-inner">
+          { this.getPhoto() }
 
-        <Button ref="button" onClick={ this._onClick } className="ars-selection-edit">
-          { this.state.item ? 'Pick a different photo' : 'Pick a photo' }
-        </Button>
+          <Button ref="button" onClick={ this._onClick } className="ars-selection-edit">
+            { this.state.item ? 'Pick a different photo' : 'Pick a photo' }
+          </Button>
+        </div>
       </div>
     )
   },

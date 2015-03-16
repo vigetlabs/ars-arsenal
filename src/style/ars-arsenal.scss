@@ -14,6 +14,7 @@ $ars-muted-dark  : rgba(#000, 0.5) !default;
 @import "components/ars";
 
 @import "utils/hidden";
+@import "animation/spin.scss";
 
 .ars {
   @import "components/dialog";

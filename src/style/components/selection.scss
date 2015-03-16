@@ -1,17 +1,42 @@
 .ars-selection {
-  border: 1px solid #dfdfdf;
   border-radius: 3px;
+  border: 1px solid #dfdfdf;
   box-shadow: 0 1px 1px rgba(#000, 0.12);
   display: inline-block;
   margin: 0;
   padding: 0;
   position: relative;
-  max-width: 400px;
+  transition: 0.75s border-radius, 0.3s height, 0.3s width;
 
   .ink {
     color: $ars-primary;
     z-index: 4;
   }
+
+  &.ars-has-photo {
+    width: 400px;
+  }
+
+  &.ars-is-loading {
+    animation: 0.7s ars-spin infinite;
+    animation-timing-function: linear;
+    background: url('/icons/refresh.svg') 50% 50% no-repeat;
+    border-radius: 50%;
+    box-shadow: 0 0 1px rgba(#000, 0.12);
+    height: 48px;
+    overflow: hidden;
+    transition: 0.3s border-radius;
+    width: 48px;
+  }
+}
+
+.ars-selection-inner {
+  transition: 0.4s all 0.75s;
+}
+
+.ars-is-loading .ars-selection-inner {
+  transition: 0.2s all;
+  opacity: 0;
 }
 
 .ars-selection-photo {
