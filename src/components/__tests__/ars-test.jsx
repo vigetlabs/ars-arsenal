@@ -42,7 +42,7 @@ describe("Ars", function() {
   describe("when the component's selection button is clicked", function() {
     let component = Test.renderIntoDocument(makeComponent())
 
-    Test.Simulate.click(component.refs.selection.getDOMNode())
+    Test.Simulate.click(component.refs.selection.refs.button.getDOMNode())
 
     it ("should set the dialogOpen state to true", function() {
       component.state.should.have.property('dialogOpen', true)

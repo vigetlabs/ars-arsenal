@@ -5,6 +5,7 @@ import Button from "./ui/button"
 import SelectionFigure from "./selection-figure"
 import React  from "react"
 import Record from "../mixins/record"
+import cx     from 'classnames'
 
 let Selection = React.createClass({
 
@@ -12,15 +13,19 @@ let Selection = React.createClass({
 
   getPhoto() {
     let { item } = this.state
-    return item ? (<SelectionFigure item={ item } />) : null
+    return item ? (<SelectionFigure ref="photo" item={ item } />) : null
   },
 
   render() {
+    let className = cx('ars-selection', {
+      'ars-is-loading': this.state.fetching
+    })
+
     return (
-      <div className="ars-selection">
+      <div className={ className }>
         { this.getPhoto() }
 
-        <Button onClick={ this._onClick } className="ars-selection-edit">
+        <Button ref="button" onClick={ this._onClick } className="ars-selection-edit">
           { this.state.item ? 'Pick a different photo' : 'Pick a photo' }
         </Button>
       </div>

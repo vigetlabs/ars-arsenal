@@ -12,12 +12,14 @@ export default {
 
   getInitialState() {
     return {
-      item : false
+      fetching : false,
+      item     : false
     }
   },
 
   fetchIf(slug) {
     if (slug != undefined) {
+      this.setState({ fetching: true })
       this.fetch(slug)
     }
   },
@@ -38,13 +40,13 @@ export default {
   responseDidSucceed(response) {
     let item = this.props.onFetch(response)
 
-    this.setState({ item, error: false })
+    this.setState({ item, fetching: false, error: false })
   },
 
   responseDidFail(response) {
     let error = this.props.onError(response)
 
-    this.setState({ item: false, error })
+    this.setState({ item: false, fetching: false, error })
   }
 
 }

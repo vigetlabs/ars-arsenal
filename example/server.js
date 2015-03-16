@@ -32,7 +32,9 @@ server.get('/photos/:id', function(req, res) {
     return pattern.test(photo.id);
   })[0];
 
-  payload? res.send(payload) : res.error(404);
+  setTimeout(function() {
+    payload? res.send(payload) : res.error(404);
+  }, 2000)
 });
 
 server.listen(7000, function() {
