@@ -1,79 +1,43 @@
 [
   {
-    "attribution": "Viget",
-    "caption": "Lance Gutin",
+    "attribution": "League of Legends",
+    "name": "Alistar",
+    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "id": 1,
-    "url": "http://viget.com/uploads/image/profile/person/lgutin.jpg"
+    "url": "images/alistar.jpg"
   },
   {
-    "attribution": "Viget",
-    "caption": "This photo caption is very very long. It should overflow with no trouble at all.",
+    "attribution": "League of Legends",
+    "name": "Brand",
+    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "id": 2,
-    "url": "http://viget.com/uploads/image/profile/person/afouts.jpg"
+    "url": "images/brand.jpg"
   },
   {
-    "attribution": "Viget",
-    "caption": "David Eisinger",
+    "attribution": "League of Legends",
+    "name": "Galio",
+    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "id": 3,
-    "url": "http://viget.com/uploads/image/profile/person/deisinger.jpg"
+    "url": "images/galio.jpg"
   },
   {
-    "attribution": "Viget",
-    "caption": "Paul Koch",
+    "attribution": "League of Legends",
+    "name": "Jarvan",
+    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "id": 4,
-    "url": "http://viget.com/uploads/image/profile/person/pkoch.jpg"
+    "url": "images/jarvan.jpg"
   },
   {
-    "attribution": "Viget",
-    "caption": "Lance Gutin",
+    "attribution": "League of Legends",
+    "name": "Riven vs Shyvana",
+    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "id": 5,
-    "url": "http://viget.com/uploads/image/profile/person/lgutin.jpg"
-  },
-  {
-    "attribution": "Viget",
-    "caption": "Ally Fouts",
-    "id": 6,
-    "url": "http://viget.com/uploads/image/profile/person/afouts.jpg"
-  },
-  {
-    "attribution": "Viget",
-    "caption": "David Eisinger",
-    "id": 7,
-    "url": "http://viget.com/uploads/image/profile/person/deisinger.jpg"
-  },
-  {
-    "attribution": "Viget",
-    "caption": "Paul Koch",
-    "id": 8,
-    "url": "http://viget.com/uploads/image/profile/person/pkoch.jpg"
-  },
-  {
-    "attribution": "Viget",
-    "caption": "Lance Gutin",
-    "id": 9,
-    "url": "http://viget.com/uploads/image/profile/person/lgutin.jpg"
-  },
-  {
-    "attribution": "Viget",
-    "caption": "Ally Fouts",
-    "id": 10,
-    "url": "http://viget.com/uploads/image/profile/person/afouts.jpg"
-  },
-  {
-    "attribution": "Viget",
-    "caption": "David Eisinger",
-    "id": 11,
-    "url": "http://viget.com/uploads/image/profile/person/deisinger.jpg"
-  },
-  {
-    "attribution": "Viget",
-    "caption": "Paul Koch",
-    "id": 12,
-    "url": "http://viget.com/uploads/image/profile/person/pkoch.jpg"
+    "url": "images/riven.jpg"
   },
   {
     "attribution": "Failure",
-    "caption": "Faily McFail",
+    "name": "Faily McFail",
+    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "id": 13,
     "url": "http://Failure"
   }

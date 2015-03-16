@@ -3,8 +3,10 @@ $ars-failed-size : 25px;
 
 .ars-img {
   filter: brightness(1.25) saturate(0.2);
+  object-fit: cover;
   opacity: 0.1;
-  transition: 2.5s all $ars-img-easing;
+  height: 100%;
+  transition: 2.5s filter $ars-img-easing, 2.5s opacity $ars-img-easing;
   user-select: none;
   width: 100%;
 }

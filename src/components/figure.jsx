@@ -29,9 +29,9 @@ let Figure = React.createClass({
       <button className={ className } onClick={ this._onClick }>
         <Image className="ars-fig-img" src={ record.url } />
         <span className="ars-fig-caption">
-          { record.caption }
+          { record.name }
         </span>
-        <Ink />
+        <Ink opacity={ 0.4 } />
       </button>
     )
   },

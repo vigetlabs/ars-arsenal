@@ -1,12 +1,12 @@
 .ars-selection {
   border: 1px solid #dfdfdf;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(#000, 0.12);
+  display: inline-block;
   margin: 0;
-  min-height: 48px;
-  overflow: hidden;
   padding: 0;
   position: relative;
-  width: 240px;
+  max-width: 400px;
 
   .ink {
     color: $ars-primary;
@@ -16,22 +16,38 @@
 
 .ars-selection-photo {
   display: block;
-  border-radius: 2px;
+  max-height: 225px;
+}
+
+.ars-selection-desc {
+  padding: 16px;
+}
+
+.ars-selection-title {
+  box-shadow: 0 -1px 0 0 solid rgba(#000, 0.12);
+  font-weight: 500;
+  margin: 0 0 8px;
 }
 
 .ars-selection-caption {
-  background: rgba(#fff, 0.875);
-  border-radius: 3px;
-  bottom: 0;
-  display: block;
-  left: 0;
-  line-height: 16px;
-  padding: 16px;
-  position: absolute;
-  right: 0;
-  width: 100%;
+  color: rgba(#000, 0.54);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
 }
 
-.ars-selection-photo + .ars-selection-caption {
-  border-radius: 0;
+.ars-selection-figure {
+  border-bottom: 1px solid rgba(#000, 0.12);
+  margin: 0;
+  padding: 0;
+}
+
+.ars-button.ars-selection-edit {
+  background: url('/icons/edit.svg') calc(100% - 16px) 50% no-repeat;
+  display: block;
+  margin: 0;
+  padding: 16px 48px 16px 16px;
+  text-align: right;
+  transition: 0.3s all;
+  width: 100%;
 }

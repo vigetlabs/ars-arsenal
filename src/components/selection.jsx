@@ -2,7 +2,7 @@
  * Selection
  */
 import Button from "./ui/button"
-import Image  from "./ui/image"
+import SelectionFigure from "./selection-figure"
 import React  from "react"
 import Record from "../mixins/record"
 
@@ -12,18 +12,18 @@ let Selection = React.createClass({
 
   getPhoto() {
     let { item } = this.state
-
-    return item ? (
-      <Image className="ars-selection-photo" ref="photo" alt={ item.caption } src={ item.url } />
-    ) : null
+    return item ? (<SelectionFigure item={ item } />) : null
   },
 
   render() {
     return (
-      <Button className="ars-selection" onClick={ this._onClick }>
+      <div className="ars-selection">
         { this.getPhoto() }
-        <span className="ars-selection-caption">Select an image</span>
-      </Button>
+
+        <Button onClick={ this._onClick } className="ars-selection-edit">
+          { this.state.item ? 'Pick a different photo' : 'Pick a photo' }
+        </Button>
+      </div>
     )
   },
 
