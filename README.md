@@ -57,6 +57,24 @@ ArsArsenal.render(app, {
 })
 ```
 
+### Response format
+
+```json
+[
+  {
+    "id": 1,
+    "attribution": "League of Legends",
+    "name": "Alistar",
+    "caption": "Lorem ipsum dolor sit amet",
+    "url": "images/alistar.jpg"
+  },
+  //...
+]
+```
+
+See [example](https://github.com/vigetlabs/ars-arsenal/tree/master/example)!
+
+
 ## Contributing
 
 ### Setup
