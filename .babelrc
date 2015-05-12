@@ -1,0 +1,8 @@
+{
+  "stage": 1,
+  "loose": true,
+  "optional"  : [
+    "utility.inlineEnvironmentVariables"
+  ],
+  "blacklist" : [ "strict" ]
+}
