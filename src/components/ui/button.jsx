@@ -6,7 +6,7 @@ let Ink   = require('react-ink')
 let React = require('react')
 let cx    = require('classnames')
 
-module.exports = React.createClass({
+let Button = React.createClass({
 
   getDefaultProps() {
     return {
@@ -36,3 +36,5 @@ module.exports = React.createClass({
   }
 
 })
+
+module.exports = Button

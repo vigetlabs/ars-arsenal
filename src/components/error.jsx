@@ -5,7 +5,7 @@
 
 let React = require('react')
 
-module.exports = React.createClass({
+let Error = React.createClass({
 
   getDefaultProps() {
     return {
@@ -24,3 +24,5 @@ module.exports = React.createClass({
   }
 
 })
+
+module.exports = Error

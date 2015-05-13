@@ -1,14 +1,14 @@
 {
   "name": "ars-arsenal",
   "version": "0.4.1",
+  "private": true,
   "description": "A gallery picker",
-  "main": "build/js/ars-arsenal.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node example/server",
-    "api": "node example/server",
-    "prepublish": "NODE_ENV=production webpack -p --optimize-occurence-order --optimize-dedupe",
-    "test": "karma start",
-    "coveralls": "CONTINUOUS_INTEGRATION=true npm test && coveralls < coverage/report-lcov/lcov.info"
+    "start": "make example",
+    "prepublish": "make build",
+    "test": "make test",
+    "coveralls": "make test-coverage"
   },
   "repository": {
     "type": "git",
@@ -34,10 +34,10 @@
     "babel-loader": "~5",
     "chai": "~2",
     "coveralls": "~2",
+    "css-loader": "^0.12.0",
     "istanbul": "~0.3",
     "istanbul-instrumenter-loader": "~0.1",
     "karma": "~0.12",
-    "karma-chrome-launcher": "~0.1",
     "karma-cli": "0.0.4",
     "karma-coverage": "~0.3",
     "karma-firefox-launcher": "~0.1",
@@ -46,11 +46,13 @@
     "karma-sinon-chai": "~0.3",
     "karma-sourcemap-loader": "~0.3",
     "karma-webpack": "~1",
-    "node-sass": "~3",
+    "node-sass": "~2",
     "react": ">= 0.12 < 0.14",
     "react-hot-loader": "~1",
     "restify": "~3.0",
+    "sass-loader": "^0.6.0",
     "source-map-loader": "~0.1",
+    "style-loader": "^0.12.2",
     "webpack": "~1",
     "webpack-dev-server": "~1"
   },

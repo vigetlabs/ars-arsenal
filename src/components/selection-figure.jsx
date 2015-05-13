@@ -5,7 +5,7 @@
 let Image = require("./ui/image")
 let React = require("react")
 
-module.exports = React.createClass({
+let SelectionFigure = React.createClass({
 
   propTypes: {
     item: React.PropTypes.object.isRequired
@@ -26,3 +26,5 @@ module.exports = React.createClass({
   }
 
 })
+
+module.exports = SelectionFigure

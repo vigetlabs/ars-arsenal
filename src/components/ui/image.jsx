@@ -7,7 +7,7 @@
 let React = require("react")
 let cx    = require('classnames')
 
-module.exports = React.createClass({
+let Image = React.createClass({
 
   propTypes: {
     src: React.PropTypes.string
@@ -51,3 +51,5 @@ module.exports = React.createClass({
   }
 
 })
+
+module.exports = Image

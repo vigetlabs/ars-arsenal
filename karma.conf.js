@@ -4,9 +4,7 @@ var webpack_config = require('./webpack.config')
 module.exports = function(config) {
   config.set({
 
-    browsers: [ process.env.CONTINUOUS_INTEGRATION === 'true' ? 'Firefox' : 'Chrome' ],
-
-    singleRun: process.env.CONTINUOUS_INTEGRATION === 'true',
+    browsers: [ 'Firefox'],
 
     frameworks: [ 'mocha', 'sinon-chai' ],
 
@@ -33,11 +31,11 @@ module.exports = function(config) {
 
     webpack: {
       devtool: webpack_config.devtool,
-      plugins: webpack_config.plugins.concat([
+      plugins: [
         new Webpack.ProvidePlugin({
           'React': 'react/addons'
         })
-      ]),
+      ],
 
       resolve: webpack_config.resolve,
 

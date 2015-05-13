@@ -8,7 +8,7 @@ let Image = require('./ui/image')
 let Ink   = require('react-ink')
 let cx    = require('classnames')
 
-module.exports = React.createClass({
+let Figure = React.createClass({
 
   propTypes: {
     record  : React.PropTypes.object.isRequired,
@@ -41,3 +41,5 @@ module.exports = React.createClass({
   }
 
 })
+
+module.exports = Figure

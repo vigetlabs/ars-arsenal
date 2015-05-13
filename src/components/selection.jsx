@@ -8,7 +8,7 @@ let React           = require('react')
 let Record          = require('../mixins/record')
 let cx              = require('classnames')
 
-module.exports = React.createClass({
+let Selection = React.createClass({
 
   mixins: [ Record ],
 
@@ -42,3 +42,5 @@ module.exports = React.createClass({
   }
 
 })
+
+module.exports = Selection

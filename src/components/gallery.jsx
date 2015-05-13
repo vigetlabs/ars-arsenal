@@ -7,7 +7,7 @@ let Animation = require('react/lib/ReactCSSTransitionGroup')
 let React     = require('react')
 let Figure    = require('./figure')
 
-module.exports = React.createClass({
+let Gallery = React.createClass({
 
   propTypes: {
     items    : React.PropTypes.array,
@@ -55,3 +55,5 @@ module.exports = React.createClass({
   }
 
 })
+
+module.exports = Gallery

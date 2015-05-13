@@ -12,7 +12,7 @@ let Pure       = require('react/lib/ReactComponentWithPureRenderMixin')
 let React      = require('react')
 let Search     = require('./search')
 
-module.exports = React.createClass({
+let Picker = React.createClass({
 
   mixins: [ Collection, Pure ],
 
@@ -86,3 +86,5 @@ module.exports = React.createClass({
   }
 
 })
+
+module.exports = Picker

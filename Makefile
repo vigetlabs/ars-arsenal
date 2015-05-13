@@ -37,8 +37,8 @@ release:
 	npm publish dist
 
 example:
-	open example/index.html
-	$(WEBPACK) -wd
+	open "http://localhost:8080"
+	node example/server
 
 clean:
 	rm -rf dist

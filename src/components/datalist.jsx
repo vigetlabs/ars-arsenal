@@ -5,7 +5,7 @@
 let React = require('react')
 let Types = React.PropTypes
 
-module.exports = React.createClass({
+let DataList = React.createClass({
 
   propTypes: {
     id    : Types.string.isRequired,
@@ -19,7 +19,7 @@ module.exports = React.createClass({
   },
 
   getOption(record) {
-    return <option key={ record.id }>{ record.caption }</option>
+    return (<option key={ record.id }>{ record.caption }</option>)
   },
 
   render() {
@@ -33,3 +33,5 @@ module.exports = React.createClass({
   }
 
 })
+
+  module.exports = DataList

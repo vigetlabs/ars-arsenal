@@ -8,7 +8,7 @@ let React     = require('react')
 let Selection = require('./selection')
 let Sync      = require('../mixins/sync')
 
-module.exports = React.createClass({
+let Ars = module.exports = React.createClass({
 
   mixins: [ Sync ],
 
