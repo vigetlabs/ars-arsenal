@@ -40,5 +40,16 @@
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "id": 13,
     "url": "http://Failure"
+  },
+  {
+    "attribution": "League of Legends",
+    "name": "No caption",
+    "id": 14,
+    "url": "images/brand.jpg"
+  },
+  {
+    "attribution": "League of Legends",
+    "id": 15,
+    "url": "images/brand.jpg"
   }
 ]

@@ -37,8 +37,7 @@ release:
 	npm publish dist
 
 example:
-	open "http://localhost:8080"
-	node example/server
+	@node example/server
 
 clean:
 	rm -rf dist

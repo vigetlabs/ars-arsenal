@@ -44,14 +44,15 @@
   max-height: 225px;
 }
 
-.ars-selection-desc {
-  padding: 16px;
-}
-
 .ars-selection-title {
   box-shadow: 0 -1px 0 0 solid rgba(#000, 0.12);
   font-weight: 500;
-  margin: 0 0 8px;
+  line-height: 48px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 16px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .ars-selection-caption {
@@ -59,6 +60,12 @@
   font-size: 13px;
   line-height: 1.5;
   margin: 0;
+  padding: 16px;
+}
+
+.ars-selection-title + .ars-selection-caption {
+  margin-top: -8px;
+  padding-top: 0;
 }
 
 .ars-selection-figure {
