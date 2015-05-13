@@ -3,17 +3,21 @@
  * A gallery picker
  */
 
-import Ars   from './components/ars'
-import React from 'react'
+let Ars   = require('./components/ars')
+let React = require('react')
 
-export default {
-  component : Ars,
-
-  render(el, options) {
-    let component = React.createElement(Ars, options)
-
-    React.render(component, el)
-
-    return component
+let ArsArsenal = React.createClass({
+  render() {
+    return (<Ars { ...this.props } />)
   }
+})
+
+ArsArsenal.component = Ars
+
+ArsArsenal.render = function (el, options) {
+  let component = React.createElement(Ars, options)
+    React.render(component, el)
+    return component
 }
+
+module.exports = ArsArsenal
