@@ -1,0 +1,94 @@
+.ars-fig {
+  background: #fff;
+  border-radius: 2px;
+  border: 0;
+  box-shadow: 0 1px 2px rgba(#000, 0.35);
+  cursor: pointer;
+  margin: 0;
+  padding: 100% 0 0;
+  position: relative;
+  transition: 0.2s box-shadow;
+  width: 100%;
+
+  &:before {
+    border: 0 solid transparent;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: 0.28s all;
+    width: 100%;
+    z-index: 3;
+  }
+
+  &:focus {
+    box-shadow: 0 1px 2px rgba(#000, 0.25);
+    outline: none;
+
+    &:before {
+      border: 4px solid $ars-accent;
+    }
+  }
+
+  &.ars-fig-picked:before {
+    border: 4px solid gold;
+  }
+
+  .ink {
+    color: $ars-accent;
+    z-index: 4;
+  }
+}
+
+.ars-fig-img {
+  border-radius: 2px;
+  bottom: 0;
+  position: absolute;
+  right: 0;
+}
+
+.ars-fig-caption {
+  background: rgba(#000, 0.54);
+  bottom: 0;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  color: rgba(#fff, 0.875);
+  font-family: $ars-font-family;
+  font-size: 16px;
+  font-weight: 500;
+  left: 0;
+  overflow: hidden;
+  padding: 8px;
+  position: absolute;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 1;
+}
+
+
+// Transitions
+// -------------------------------------------------- //
+
+.ars-fade-enter {
+  opacity: 0.01;
+  transform: scale(0.98) translateY(-5px);
+  transition: 0.48s all;
+}
+
+.ars-fade-enter.ars-fade-enter-active {
+  opacity: 1;
+  transform: none;
+}
+
+.ars-fade-leave {
+  opacity: 1;
+  transition: 0.48s all;
+}
+
+.ars-fade-leave.ars-fade-leave-active {
+  opacity: 0.01;
+  transform: scale(0.95);
+}

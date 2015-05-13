@@ -2,11 +2,11 @@
  * Button
  */
 
-import Ink   from 'react-ink'
-import React from 'react'
-import cx    from 'classnames'
+let Ink   = require('react-ink')
+let React = require('react')
+let cx    = require('classnames')
 
-let Button = React.createClass({
+module.exports = React.createClass({
 
   getDefaultProps() {
     return {
@@ -36,5 +36,3 @@ let Button = React.createClass({
   }
 
 })
-
-export default Button

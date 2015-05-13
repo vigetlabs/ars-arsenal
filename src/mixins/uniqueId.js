@@ -5,7 +5,7 @@
 
 let _id = 0
 
-export default {
+module.exports = {
 
   getInitialState() {
     return {

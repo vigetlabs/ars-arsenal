@@ -3,9 +3,9 @@
  * Displays error information should an endpoint fail to respond
  */
 
-var React = require('react')
+let React = require('react')
 
-var Error = React.createClass({
+module.exports = React.createClass({
 
   getDefaultProps() {
     return {
@@ -16,9 +16,11 @@ var Error = React.createClass({
   render() {
     if (!this.props.error) return null
 
-    return <div className="ars-error">{ this.props.error.toString() }</div>
+    return (
+      <div className="ars-error">
+        { `${ this.props.error }` }
+      </div>
+    )
   }
 
 })
-
-module.exports = Error

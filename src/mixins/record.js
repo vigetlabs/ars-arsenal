@@ -3,10 +3,10 @@
  * Sync operations for a single record
  */
 
-import Sync      from "./sync"
-import invariant from "react/lib/invariant"
+let Sync      = require("./sync")
+let invariant = require("react/lib/invariant")
 
-export default {
+module.exports = {
 
   mixins: [ Sync ],
 

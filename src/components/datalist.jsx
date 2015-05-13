@@ -2,11 +2,10 @@
  * Datalist
  */
 
-import React from 'react'
-
+let React = require('react')
 let Types = React.PropTypes
 
-let DataList = React.createClass({
+module.exports = React.createClass({
 
   propTypes: {
     id    : Types.string.isRequired,
@@ -34,5 +33,3 @@ let DataList = React.createClass({
   }
 
 })
-
-module.exports = DataList

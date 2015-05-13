@@ -3,13 +3,12 @@
  * An individual gallery tile
  */
 
-import React from 'react'
-import Image from './ui/image'
-import Ink   from 'react-ink'
-
+let React = require('react')
+let Image = require('./ui/image')
+let Ink   = require('react-ink')
 let cx    = require('classnames')
 
-let Figure = React.createClass({
+module.exports = React.createClass({
 
   propTypes: {
     record  : React.PropTypes.object.isRequired,
@@ -42,5 +41,3 @@ let Figure = React.createClass({
   }
 
 })
-
-export default Figure

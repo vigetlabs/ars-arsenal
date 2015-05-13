@@ -4,10 +4,10 @@
  * and transitions
  */
 
-import React from "react";
-import cx    from 'classnames';
+let React = require("react")
+let cx    = require('classnames')
 
-let Image = React.createClass({
+module.exports = React.createClass({
 
   propTypes: {
     src: React.PropTypes.string
@@ -36,12 +36,10 @@ let Image = React.createClass({
       [className]      : true
     })
 
-    return (
-      <img className={ css }
-           onLoad={ this._onLoad }
-           onError={ this._onError }
-           {...props } />
-    )
+    return (<img className={ css }
+                 onLoad={ this._onLoad }
+                 onError={ this._onError }
+                 {...props } />)
   },
 
   _onLoad() {
@@ -53,5 +51,3 @@ let Image = React.createClass({
   }
 
 })
-
-export default Image

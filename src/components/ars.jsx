@@ -3,19 +3,17 @@
  * The main element for Ars Arsenal
  */
 
-import Picker     from "./picker"
-import React      from "react"
-import Selection  from "./selection"
-import Sync       from "../mixins/sync"
+let Picker    = require('./picker')
+let React     = require('react')
+let Selection = require('./selection')
+let Sync      = require('../mixins/sync')
 
-let Types = React.PropTypes
-
-let Ars = React.createClass({
+module.exports = React.createClass({
 
   mixins: [ Sync ],
 
   propTypes: {
-    onChange : Types.func
+    onChange : React.PropTypes.func
   },
 
   getDefaultProps() {
@@ -68,5 +66,3 @@ let Ars = React.createClass({
   }
 
 })
-
-export default Ars

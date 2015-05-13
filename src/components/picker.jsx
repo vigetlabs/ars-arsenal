@@ -3,16 +3,16 @@
  * The a modal that appears to select a gallery image
  */
 
-import Button     from './ui/button'
-import Collection from '../mixins/collection'
-import Error      from './error'
-import FocusTrap  from 'react-focus-trap'
-import Gallery    from './gallery'
-import Pure       from 'react/lib/ReactComponentWithPureRenderMixin'
-import React      from 'react'
-import Search     from './search'
+let Button     = require('./ui/button')
+let Collection = require('../mixins/collection')
+let Error      = require('./error')
+let FocusTrap  = require('react-focus-trap')
+let Gallery    = require('./gallery')
+let Pure       = require('react/lib/ReactComponentWithPureRenderMixin')
+let React      = require('react')
+let Search     = require('./search')
 
-let Picker = React.createClass({
+module.exports = React.createClass({
 
   mixins: [ Collection, Pure ],
 
@@ -43,7 +43,7 @@ let Picker = React.createClass({
     let { error, items, search } = this.state
 
     return (
-      <FocusTrap onExit={ this.props.onExit }>
+      <FocusTrap className="ars-dialog" onExit={ this.props.onExit } active>
 
         <header className="ars-dialog-header">
           <Search key="search" ref="search" datalist={ items } onChange={ this._onSearchChange } />
@@ -86,5 +86,3 @@ let Picker = React.createClass({
   }
 
 })
-
-export default Picker

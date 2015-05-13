@@ -3,11 +3,11 @@
  * Displays tiles of photos
  */
 
-import Animation from 'react/lib/ReactCSSTransitionGroup'
-import React     from 'react'
-import Figure    from './figure'
+let Animation = require('react/lib/ReactCSSTransitionGroup')
+let React     = require('react')
+let Figure    = require('./figure')
 
-let Gallery = React.createClass({
+module.exports = React.createClass({
 
   propTypes: {
     items    : React.PropTypes.array,
@@ -55,5 +55,3 @@ let Gallery = React.createClass({
   }
 
 })
-
-export default Gallery

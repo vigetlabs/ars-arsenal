@@ -2,13 +2,11 @@
  * Search
  */
 
-import debounce from 'debounce'
-import React    from 'react'
-import Button   from './ui/button'
-import UniqueID from '../mixins/uniqueId'
-import DataList from './datalist'
-
-let Types = React.PropTypes
+let debounce = require('debounce')
+let React    = require('react')
+let Button   = require('./ui/button')
+let UniqueID = require('../mixins/uniqueId')
+let DataList = require('./datalist')
 
 let Search = React.createClass({
 
@@ -22,7 +20,7 @@ let Search = React.createClass({
   },
 
   propTypes: {
-    onChange : Types.func.isRequired
+    onChange : React.PropTypes.func.isRequired
   },
 
   getDefaultProps() {

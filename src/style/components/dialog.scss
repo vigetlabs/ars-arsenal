@@ -1,6 +1,6 @@
 $ars-dialog-width: 768px;
 
-.focus-trap {
+.ars-dialog-wrapper {
   animation: 0.4s ars-dialog-fade;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@ $ars-dialog-width: 768px;
   z-index: 10000;
 }
 
-.focus-trap-backdrop {
+.ars-dialog-backdrop {
   background: rgba(#000, 0.54);
   height: 100%;
   left: 0;
@@ -24,7 +24,7 @@ $ars-dialog-width: 768px;
   z-index: 0;
 }
 
-.focus-trap-inner {
+.ars-dialog {
   background: #fafafa;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(#000, 0.24);

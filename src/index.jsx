@@ -3,11 +3,8 @@
  * A gallery picker
  */
 
-import 'style/ars-arsenal'
-
 import Ars   from './components/ars'
 import React from 'react'
-
 
 export default {
   component : Ars,

@@ -1,13 +1,14 @@
 /**
  * Selection
  */
-import Button from "./ui/button"
-import SelectionFigure from "./selection-figure"
-import React  from "react"
-import Record from "../mixins/record"
-import cx     from 'classnames'
 
-let Selection = React.createClass({
+let Button          = require('./ui/button')
+let SelectionFigure = require('./selection-figure')
+let React           = require('react')
+let Record          = require('../mixins/record')
+let cx              = require('classnames')
+
+module.exports = React.createClass({
 
   mixins: [ Record ],
 
@@ -41,5 +42,3 @@ let Selection = React.createClass({
   }
 
 })
-
-export default Selection

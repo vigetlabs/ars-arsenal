@@ -1,4 +1,5 @@
 import './style'
+
 import ArsArsenal from '../src/index'
 
 ArsArsenal.render(app, {

@@ -3,9 +3,8 @@
  * Encapsulates data operations required for retrieving photos
  */
 
-import React from "react"
-import XHR   from 'xhr'
-
+let React = require("react")
+let XHR   = require('xhr')
 let Types = React.PropTypes
 
 let Sync = {
@@ -63,4 +62,4 @@ let Sync = {
 
 }
 
-export default Sync
+module.exports = Sync

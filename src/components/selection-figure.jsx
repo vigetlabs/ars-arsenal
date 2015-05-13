@@ -2,10 +2,10 @@
  * Selection Figure
  */
 
-import Image from "./ui/image"
-import React from "react"
+let Image = require("./ui/image")
+let React = require("react")
 
-let SelectionFigure = React.createClass({
+module.exports = React.createClass({
 
   propTypes: {
     item: React.PropTypes.object.isRequired
@@ -26,5 +26,3 @@ let SelectionFigure = React.createClass({
   }
 
 })
-
-export default SelectionFigure
