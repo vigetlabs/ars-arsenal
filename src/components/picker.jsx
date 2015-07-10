@@ -54,6 +54,11 @@ let Picker = React.createClass({
         <Gallery ref="gallery" search={ search } items={ items } picked={ this.state.picked } onPicked={ this._onPicked } onKeyDown={ this._onKeyDown } />
 
         <footer className="ars-dialog-footer">
+          <div className="pagination">
+            <Button accent>« Prev</Button>
+            <Button accent>Next »</Button>
+          </div>
+
           <Button ref="cancel" onClick={ this.props.onExit }>Cancel</Button>
           <Button ref="confirm" onClick={ this._onConfirm } raised>Okay</Button>
         </footer>

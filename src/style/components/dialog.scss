@@ -63,4 +63,8 @@ $ars-dialog-width: 768px;
   padding: 8px;
   position: relative;
   text-align: right;
+
+  .pagination {
+    float: left
+  }
 }
