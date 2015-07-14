@@ -4,7 +4,7 @@ require('./style')
 
 ArsArsenal.render(app, {
 
-  url: `http://${ window.location.hostname }:7000/photos`,
+  url: `http://${ window.location.hostname }:7654/photos`,
 
   makeQuery(term) {
     return `term=${ term }`
@@ -16,6 +16,8 @@ ArsArsenal.render(app, {
 
   onChange(value) {
     console.log("Value changed to %s", value);
-  }
+  },
+
+  multiselect: true
 
 })

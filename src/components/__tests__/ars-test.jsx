@@ -11,6 +11,25 @@ let makeComponent = function(props) {
 
 describe("Ars", function() {
 
+  describe("when the component renders", function() {
+    let onChange  = sinon.spy()
+    let component = Test.renderIntoDocument(makeComponent({ onChange }))
+
+    it ("has a selection component", function() {
+      component.refs.should.have.property("selection")
+    })
+  })
+
+  describe("when the component renders with the multiselect option", function() {
+    let onChange  = sinon.spy()
+    let multiselect = true
+    let component = Test.renderIntoDocument(makeComponent({ onChange, multiselect }))
+
+    it ("has a multiselection component", function() {
+      component.refs.should.have.property("multiselection")
+    })
+  })
+
   describe("when a gallery item is picked", function() {
 
     describe("and an onChange handler is provided", function() {
@@ -48,6 +67,17 @@ describe("Ars", function() {
       component.state.should.have.property('dialogOpen', true)
     })
 
+  })
+
+  describe("when the component's multiselection button is clicked", function() {
+    let multiselect = true
+    let component = Test.renderIntoDocument(makeComponent({ multiselect }))
+
+    Test.Simulate.click(component.refs.multiselection.refs.button.getDOMNode())
+
+    it ("should set the dialogOpen state to true", function() {
+      component.state.should.have.property('dialogOpen', true)
+    })
   })
 
   describe("when the component's dialogOpen state is true", function() {

@@ -32,10 +32,43 @@ describe("Picker", function() {
 
     component.setState({ items: [{ id: 0, caption: 'test', url: '/base/test/test.jpg' }]})
 
-    Test.Simulate.click(component.refs.gallery.getDOMNode().querySelector('button:first-child'))
+    Test.Simulate.click(component.refs.gallery.getDOMNode().querySelector('.ars-gallery-item:first-child button'))
 
     it ("updates its picked state", function() {
-      component.state.picked.should.equal(0)
+      component.state.picked.should.deep.equal([0])
+    })
+  })
+
+  describe("when a multiselect picker's gallery has a selection", function() {
+    let onExit   = sinon.spy()
+    let onChange = sinon.spy()
+    let multiselect = true
+    let component = Test.renderIntoDocument(makePicker({ onExit, onChange, multiselect }))
+
+    let clickGalleryItem = function(index) {
+      Test.Simulate.click(component.refs.gallery.getDOMNode().querySelector(`.ars-gallery-item:nth-child(${ index + 1 }) button`));
+    };
+
+    component.setState({
+      items: [
+        { id: 0, caption: 'test', url: '/base/test/test.jpg' },
+        { id: 1, caption: 'test', url: '/base/test/test.jpg' }
+      ]
+    })
+
+    it ("updates its picked state", function() {
+      clickGalleryItem(0);
+      component.state.picked.should.deep.equal([0])
+    })
+
+    it ("adds to its picked state", function() {
+      clickGalleryItem(1);
+      component.state.picked.should.deep.equal([0, 1])
+    })
+
+    it ("removes its picked state", function() {
+      clickGalleryItem(1);
+      component.state.picked.should.deep.equal([0])
     })
   })
 

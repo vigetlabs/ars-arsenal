@@ -3,10 +3,11 @@
  * The main element for Ars Arsenal
  */
 
-let Picker    = require('./picker')
-let React     = require('react')
-let Selection = require('./selection')
-let Sync      = require('../mixins/sync')
+let Picker         = require('./picker')
+let React          = require('react')
+let Selection      = require('./selection')
+let MultiSelection = require('./multiselection')
+let Sync           = require('../mixins/sync')
 
 let Ars = module.exports = React.createClass({
 
@@ -18,8 +19,9 @@ let Ars = module.exports = React.createClass({
 
   getDefaultProps() {
     return {
-      onChange : () => {},
-      picked   : null
+      onChange    : () => {},
+      multiselect : false,
+      picked      : []
     }
   },
 
@@ -32,18 +34,21 @@ let Ars = module.exports = React.createClass({
 
   getPicker() {
     let { picked } = this.state
+    let { multiselect } = this.props
 
     return (
-      <Picker key="dialog" ref="picker" { ...this.syncProps() } onChange={ this._onGalleryPicked } onExit={ this._onExit } picked={ picked } />
+      <Picker key="dialog" ref="picker" { ...this.syncProps() } onChange={ this._onGalleryPicked } onExit={ this._onExit } picked={ picked } multiselect={ multiselect } />
     )
   },
 
   render() {
     let { dialogOpen, picked } = this.state
+    let SelectionComponent = this.props.multiselect ? MultiSelection : Selection
+    let ref = SelectionComponent.displayName.toLowerCase()
 
     return (
       <div className="ars">
-        <Selection ref="selection" { ...this.syncProps() } onClick={ this._onOpenClick } slug={ picked } />
+        <SelectionComponent ref={ ref } { ...this.syncProps() } onClick={ this._onOpenClick } slug={ picked } />
         { dialogOpen && this.getPicker() }
       </div>
     )

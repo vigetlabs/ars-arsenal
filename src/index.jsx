@@ -16,8 +16,8 @@ ArsArsenal.component = Ars
 
 ArsArsenal.render = function (el, options) {
   let component = React.createElement(Ars, options)
-    React.render(component, el)
-    return component
+  React.render(component, el)
+  return component
 }
 
 module.exports = ArsArsenal

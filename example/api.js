@@ -18,7 +18,7 @@ server.get('/photos', function(req, res) {
     query = query.toLowerCase();
 
     payload = photos.filter(function(photo) {
-      return photo.caption.toLowerCase().search(query) > -1;
+      return photo.name.toLowerCase().search(query) > -1;
     });
   }
 
