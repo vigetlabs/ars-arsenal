@@ -32,6 +32,7 @@
     "autoprefixer-loader": "~1",
     "babel": "~5",
     "babel-loader": "~5",
+    "babel-runtime": "^5.7.0",
     "chai": "~2",
     "coveralls": "~2",
     "css-loader": "^0.12.0",
