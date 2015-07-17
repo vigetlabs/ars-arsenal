@@ -67,20 +67,21 @@ let Picker = React.createClass({
   },
 
   _onPicked(picked) {
-    let total = []
-    if (this.props.multiselect) {
-      // Allow for multiple selections and toggling of selections
-      total = this.state.picked ? this.state.picked.slice() : []
-      let index = total.indexOf(picked)
-      if (index === -1) {
-        total = total.concat(picked)
-      } else {
-        total.splice(index, 1)
-      }
+    this.setState({
+      picked: this.props.multiselect ? this._onMultiSelectPicked(picked) : [picked]
+    })
+  },
+
+  _onMultiSelectPicked(picked) {
+    // Allow for multiple selections and toggling of selections
+    let total = this.state.picked ? this.state.picked.slice() : []
+    let index = total.indexOf(picked)
+    if (index === -1) {
+      total = total.concat(picked)
     } else {
-      total[0] = picked
+      total.splice(index, 1)
     }
-    this.setState({ picked: total })
+    return total
   },
 
   _onConfirm(e) {

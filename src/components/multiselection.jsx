@@ -11,12 +11,12 @@ let cx                 = require('classnames')
 let MultiSelection = React.createClass({
 
   propTypes: {
-    slug: Types.array.isRequired
+    slug: Types.array
   },
 
   getItems() {
     let { slug, url } = this.props
-    if (slug.length > 0) {
+    if (slug && slug.length > 0) {
       return (
         <div className="ars-multiselection-grid">
           { slug.map( (s, i) => (<MultiSelectionItem key={ i } slug={ s } url={ url } />) ) }
@@ -26,12 +26,13 @@ let MultiSelection = React.createClass({
   },
 
   render() {
+    let { slug } = this.props
     return (
       <div className="ars-multiselection">
         { this.getItems() }
 
         <Button ref="button" onClick={ this._onClick } className="ars-selection-edit">
-          { this.props.slug.length > 0 ? 'Pick different photos' : 'Pick photos' }
+          { slug && slug.length > 0 ? 'Pick different photos' : 'Pick photos' }
         </Button>
       </div>
     )

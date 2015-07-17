@@ -20,8 +20,7 @@ let Ars = module.exports = React.createClass({
   getDefaultProps() {
     return {
       onChange    : () => {},
-      multiselect : false,
-      picked      : []
+      multiselect : false
     }
   },
 
@@ -55,7 +54,8 @@ let Ars = module.exports = React.createClass({
   },
 
   _triggerChange() {
-    this.props.onChange(this.state.picked)
+    let { picked } = this.state
+    this.props.onChange(this.props.multiselect ? picked : picked[0])
   },
 
   _onOpenClick() {

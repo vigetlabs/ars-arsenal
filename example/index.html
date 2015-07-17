@@ -5,9 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="mobile-web-app-capable" content="yes">
     <title>Ars Arsenal</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        margin-top: 48px;
+      }
+      h1:first-of-type {
+        margin-top: 0;
+      }
+    </style>
   </head>
-  <body>
-    <main id="app"></main>
+  <body class="ars">
+    <h1>Basic Use</h1>
+    <div id="select"></div>
+
+    <h1>Selecting Multiples</h1>
+    <div id="multiselect"></div>
+
     <script src="example.build.js"></script>
   </body>
 </html>

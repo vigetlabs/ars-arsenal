@@ -28,6 +28,18 @@ describe("Ars", function() {
     it ("has a multiselection component", function() {
       component.refs.should.have.property("multiselection")
     })
+
+    describe("and a gallery item is picked", function() {
+      component._onGalleryPicked([9, 12])
+
+      it ("sets the `picked` state to an array of chosen values", function() {
+        component.state.should.have.property("picked").that.deep.equals([9, 12])
+      })
+
+      it ("calls the onChange event with the picked state", function() {
+        onChange.should.have.been.calledWith(component.state.picked)
+      })
+    })
   })
 
   describe("when a gallery item is picked", function() {
@@ -36,14 +48,14 @@ describe("Ars", function() {
       let onChange  = sinon.spy()
       let component = Test.renderIntoDocument(makeComponent({ onChange }))
 
-      component._onGalleryPicked("slug")
+      component._onGalleryPicked([9])
 
-      it ("sets the `picked` state to the chosen slug", function() {
-        component.state.should.have.property("picked", "slug")
+      it ("sets the `picked` state to an array of chosen values", function() {
+        component.state.should.have.property("picked").that.deep.equals([9])
       })
 
-      it ("calls the onChange event with the picked state", function() {
-        onChange.should.have.been.calledWith(component.state.picked)
+      it ("calls the onChange event with the first item in the picked state", function() {
+        onChange.should.have.been.calledWith(component.state.picked[0])
       })
     })
 
