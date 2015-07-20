@@ -25,9 +25,14 @@ let Ars = module.exports = React.createClass({
   },
 
   getInitialState() {
+    let { picked } = this.props
+    if (picked && !Array.isArray(picked)) {
+      picked = [picked]
+    }
+
     return {
       dialogOpen : false,
-      picked     : this.props.picked
+      picked     : picked
     }
   },
 
@@ -44,10 +49,11 @@ let Ars = module.exports = React.createClass({
     let { dialogOpen, picked } = this.state
     let SelectionComponent = this.props.multiselect ? MultiSelection : Selection
     let ref = SelectionComponent.displayName.toLowerCase()
+    let slug = this.props.multiselect ? picked : picked && picked[0]
 
     return (
       <div className="ars">
-        <SelectionComponent ref={ ref } { ...this.syncProps() } onClick={ this._onOpenClick } slug={ picked } />
+        <SelectionComponent ref={ ref } { ...this.syncProps() } onClick={ this._onOpenClick } slug={ slug } />
         { dialogOpen && this.getPicker() }
       </div>
     )

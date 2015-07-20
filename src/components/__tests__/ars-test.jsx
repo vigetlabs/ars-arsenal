@@ -13,10 +13,15 @@ describe("Ars", function() {
 
   describe("when the component renders", function() {
     let onChange  = sinon.spy()
-    let component = Test.renderIntoDocument(makeComponent({ onChange }))
+    let picked = 9
+    let component = Test.renderIntoDocument(makeComponent({ onChange, picked }))
 
     it ("has a selection component", function() {
       component.refs.should.have.property("selection")
+    })
+
+    it ("migrates a single `picked` value to an array", function() {
+      component.state.should.have.property("picked").that.deep.equals([picked])
     })
   })
 
@@ -30,10 +35,11 @@ describe("Ars", function() {
     })
 
     describe("and a gallery item is picked", function() {
-      component._onGalleryPicked([9, 12])
+      let picked = [9, 12]
+      component._onGalleryPicked(picked)
 
       it ("sets the `picked` state to an array of chosen values", function() {
-        component.state.should.have.property("picked").that.deep.equals([9, 12])
+        component.state.should.have.property("picked").that.deep.equals(picked)
       })
 
       it ("calls the onChange event with the picked state", function() {
@@ -47,11 +53,12 @@ describe("Ars", function() {
     describe("and an onChange handler is provided", function() {
       let onChange  = sinon.spy()
       let component = Test.renderIntoDocument(makeComponent({ onChange }))
+      let picked = [9]
 
-      component._onGalleryPicked([9])
+      component._onGalleryPicked(picked)
 
       it ("sets the `picked` state to an array of chosen values", function() {
-        component.state.should.have.property("picked").that.deep.equals([9])
+        component.state.should.have.property("picked").that.deep.equals(picked)
       })
 
       it ("calls the onChange event with the first item in the picked state", function() {

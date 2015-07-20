@@ -3,7 +3,6 @@
  */
 
 let Button          = require('./ui/button')
-let SelectionFigure = require('./selection-figure')
 let Image           = require("./ui/image")
 let React           = require('react')
 let Record          = require('../mixins/record')
