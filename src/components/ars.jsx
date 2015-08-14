@@ -72,7 +72,8 @@ let Ars = module.exports = React.createClass({
     this.setState({ picked }, this._triggerChange)
   },
 
-  _onExit() {
+  _onExit(e) {
+    e && e.preventDefault();
     this.setState({ dialogOpen: false })
   }
 
