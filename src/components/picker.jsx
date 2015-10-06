@@ -8,13 +8,12 @@ let Collection = require('../mixins/collection')
 let Error      = require('./error')
 let FocusTrap  = require('react-focus-trap')
 let Gallery    = require('./gallery')
-let Pure       = require('react/lib/ReactComponentWithPureRenderMixin')
 let React      = require('react')
 let Search     = require('./search')
 
 let Picker = React.createClass({
 
-  mixins: [ Collection, Pure ],
+  mixins: [ Collection ],
 
   propTypes: {
     onChange : React.PropTypes.func.isRequired,
@@ -90,12 +89,8 @@ let Picker = React.createClass({
   },
 
   _onKeyDown({ key, metaKey, ctrlKey }) {
-    let properMod = metaKey || ctrlKey
-
-    switch (key) {
-      case 'Enter':
-        if (properMod) this.confirm()
-        break
+    if (key === 'Enter' && metaKey || ctrlKey) {
+      this.confirm()
     }
   }
 
