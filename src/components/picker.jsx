@@ -23,7 +23,7 @@ let Picker = React.createClass({
   getDefaultProps() {
     return {
       items  : [],
-      picked : false
+      picked : []
     }
   },
 
@@ -53,12 +53,21 @@ let Picker = React.createClass({
         <Gallery ref="gallery" search={ search } items={ items } picked={ this.state.picked } onPicked={ this._onPicked } onKeyDown={ this._onKeyDown } />
 
         <footer className="ars-dialog-footer">
-          <Button ref="cancel" onClick={ this.props.onExit }>Cancel</Button>
-          <Button ref="confirm" onClick={ this._onConfirm } raised>Okay</Button>
+          <div>
+            <Button ref="clear" className="ars-dialog-clear" onClick={ this._onClear }>Clear Selection</Button>
+          </div>
+          <div>
+            <Button ref="cancel" onClick={ this.props.onExit }>Cancel</Button>
+            <Button ref="confirm" onClick={ this._onConfirm } raised>Okay</Button>
+          </div>
         </footer>
 
       </FocusTrap>
     )
+  },
+
+  _onClear() {
+    this.setState({ picked: [] })
   },
 
   _onSearchChange(search) {

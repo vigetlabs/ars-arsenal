@@ -72,6 +72,24 @@ describe("Picker", function() {
     })
   })
 
+  describe("when a picker's clear selection button is clicked", function() {
+    let onExit      = sinon.spy()
+    let onChange    = sinon.spy()
+    let component   = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+
+    component.setState({
+      items: [
+        { id: 0, caption: 'test', url: '/base/test/test.jpg' }
+      ],
+      picked: [0]
+    })
+
+    it ("clears its picked state", function() {
+      Test.Simulate.click(component.refs.clear.getDOMNode())
+      component.state.picked.should.deep.equal([])
+    })
+  })
+
   describe("when a picker's confirm button is clicked", function() {
     let onExit   = sinon.spy()
     let onChange = sinon.spy()
