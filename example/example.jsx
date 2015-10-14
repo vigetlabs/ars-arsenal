@@ -19,6 +19,8 @@ let options = {
 }
 
 ArsArsenal.render(select, options);
+ArsArsenal.render(selectWithValue, Object.assign({ picked: [1]}, options));
 
 options.multiselect = true;
 ArsArsenal.render(multiselect, options);
+ArsArsenal.render(multiselectWithValue, Object.assign({ picked: [2,3]}, options));

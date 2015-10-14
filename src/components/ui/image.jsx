@@ -9,6 +9,10 @@ let cx    = require('classnames')
 
 let Image = React.createClass({
 
+  statics: {
+    ONLOAD: 10
+  },
+
   propTypes: {
     src: React.PropTypes.string
   },
@@ -43,7 +47,7 @@ let Image = React.createClass({
   },
 
   _onLoad() {
-    this.setState({ didFail: false, isLoaded: true })
+    setTimeout(() => this.setState({ didFail: false, isLoaded: true }), Image.ONLOAD)
   },
 
   _onError() {

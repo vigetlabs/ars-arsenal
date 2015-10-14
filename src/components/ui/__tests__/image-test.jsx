@@ -9,7 +9,9 @@ describe('Image Component', function() {
 
     Test.Simulate.load(component.getDOMNode())
 
-    component.state.should.have.property('isLoaded', true)
+    setTimeout(function() {
+      component.state.should.have.property('isLoaded', true)
+    }, Image.ONLOAD)
   })
 
   it ('adds an error class on failed images', function() {

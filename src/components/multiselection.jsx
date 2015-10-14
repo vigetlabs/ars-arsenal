@@ -27,12 +27,14 @@ let MultiSelection = React.createClass({
 
   render() {
     let { slug } = this.props
+
     return (
       <div className="ars-multiselection">
         { this.getItems() }
 
         <Button ref="button" onClick={ this._onClick } className="ars-selection-edit">
           { slug && slug.length > 0 ? 'Pick different photos' : 'Pick photos' }
+          <span className="ars-selection-button-icon" aria-hidden="true"></span>
         </Button>
       </div>
     )
