@@ -7,6 +7,7 @@ $ars-failed-size : 25px;
   opacity: 0.1;
   height: 100%;
   transition: 2.5s filter $ars-img-easing, 2.5s opacity $ars-img-easing;
+  -webkit-transition: 2.5s -webkit-filter $ars-img-easing, 2.5s opacity $ars-img-easing;
   user-select: none;
   width: 100%;
 }
@@ -14,6 +15,11 @@ $ars-failed-size : 25px;
 .ars-img-loaded {
   filter: none;
   opacity: 1;
+}
+
+.ars-is-loading .ars-img-loaded {
+  filter: brightness(1.25) saturate(0.2);
+  opacity: 0.1;
 }
 
 .ars-img-failed {

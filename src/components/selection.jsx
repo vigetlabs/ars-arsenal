@@ -17,6 +17,16 @@ let Selection = React.createClass({
     return item ? (<SelectionFigure ref="photo" item={ item } />) : null
   },
 
+  getButtonText() {
+    let text = 'Pick a photo'
+    if (this.state.fetching) {
+      text = 'Loading photo'
+    } else if (this.state.item) {
+      text = 'Pick a different photo'
+    }
+    return text
+  },
+
   render() {
     let className = cx('ars-selection', {
       'ars-is-loading': this.state.fetching,
@@ -29,7 +39,8 @@ let Selection = React.createClass({
           { this.getPhoto() }
 
           <Button ref="button" onClick={ this._onClick } className="ars-selection-edit">
-            { this.state.item ? 'Pick a different photo' : 'Pick a photo' }
+            { this.getButtonText() }
+            <span className="ars-selection-button-icon" aria-hidden="true"></span>
           </Button>
         </div>
       </div>
