@@ -35,7 +35,7 @@ let Figure = React.createClass({
 
   _onClick(e) {
     e.preventDefault()
-    this.props.onClick(this.props.record.id)
+    this.props.onClick(this.props.record)
   }
 
 })

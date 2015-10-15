@@ -7,6 +7,12 @@ let React = require("react")
 let XHR   = require('xhr')
 let Types = React.PropTypes
 
+let defaultMakeURL = function(url, item) {
+  let id = null
+  if (item) id = item.id || item
+  return(url + (id ? "/" + id : ""))
+}
+
 let Sync = {
 
   propTypes: {
@@ -20,7 +26,7 @@ let Sync = {
   getDefaultProps() {
     return {
       makeQuery : (query) => `q=${ query }`,
-      makeURL   : (url, id = false) => url + (id ? "/" + id : ""),
+      makeURL   : defaultMakeURL,
       onError   : response => response,
       onFetch   : data => data
     }

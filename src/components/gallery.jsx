@@ -23,7 +23,15 @@ let Gallery = React.createClass({
   },
 
   getItem(record) {
-    let isPicked = this.props.picked ? this.props.picked.indexOf(record.id) !== -1 : false
+    let pickedItemIds = []
+
+    if (this.props.picked) {
+      pickedItemIds = this.props.picked.map((item) => {
+        return(item.id || item)
+      })
+    }
+
+    let isPicked = pickedItemIds.indexOf(record.id) !== -1
 
     return (
       <div className="ars-gallery-item" key={ 'photo_' + record.id } >

@@ -2,9 +2,14 @@ let ArsArsenal = require('../src/index')
 
 require('./style')
 
-let options = {
-  url: `http://${ window.location.hostname }:7654/photos`,
+let onSingleChange = function(value) {
+  alert("You selected " + value.name)
+  console.log("Value changed to %s", value.id);
+}
 
+let options = {
+  picked    : 1,
+  url: `http://${ window.location.hostname }:7654/photos`,
   makeQuery(term) {
     return `term=${ term }`
   },
@@ -14,7 +19,11 @@ let options = {
   },
 
   onChange(value) {
-    console.log("Value changed to %s", value);
+    if (Array.isArray(value)) {
+      return value.forEach(onSingleChange)
+    }
+
+    onSingleChange(value)
   }
 }
 
