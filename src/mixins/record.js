@@ -21,6 +21,8 @@ module.exports = {
     if (slug != undefined) {
       this.setState({ fetching: true })
       this.fetch(slug)
+    } else {
+      this.setState({ item: false, fetching: false })
     }
   },
 
