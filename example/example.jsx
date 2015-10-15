@@ -2,9 +2,9 @@ let ArsArsenal = require('../src/index')
 
 require('./style')
 
-let onSingleChange = function(value) {
-  alert("You selected " + value.name)
-  console.log("Value changed to %s", value.id);
+let onSingleChange = function(object) {
+  alert("You selected " + object.name)
+  console.log("Value changed to %s", object.id);
 }
 
 let options = {
@@ -18,12 +18,12 @@ let options = {
     return `${ response.code }: ${ response.message }`;
   },
 
-  onChange(value) {
-    if (Array.isArray(value)) {
-      return value.forEach(onSingleChange)
+  onChange(ids, objects) {
+    if (Array.isArray(objects)) {
+      return objects.forEach(onSingleChange)
     }
 
-    onSingleChange(value)
+    onSingleChange(objects)
   }
 }
 
