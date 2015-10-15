@@ -2,7 +2,10 @@ import Picker from "../picker"
 
 let Test = React.addons.TestUtils
 
-function makePicker(props) {
+function makePicker(props = {}) {
+  props.onExit   = props.onExit   || () => {}
+  props.onChange = props.onChange || () => {}
+
   return (
     <Picker url="base/test/test.json" { ...props } />
   )
@@ -11,9 +14,7 @@ function makePicker(props) {
 describe("Picker", function() {
 
   describe("when a picker's search input is changed", function() {
-    let onExit   = sinon.spy()
-    let onChange = sinon.spy()
-    let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+    let component = Test.renderIntoDocument(makePicker())
     let search = component.refs.search.getDOMNode().querySelector('input')
 
     search.value = 'test'
@@ -26,9 +27,7 @@ describe("Picker", function() {
   })
 
   describe("when a picker's gallery has a selection", function() {
-    let onExit   = sinon.spy()
-    let onChange = sinon.spy()
-    let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+    let component = Test.renderIntoDocument(makePicker())
 
     component.setState({ items: [{ id: 0, caption: 'test', url: '/base/test/test.jpg' }]})
 
@@ -40,10 +39,8 @@ describe("Picker", function() {
   })
 
   describe("when a multiselect picker's gallery has a selection", function() {
-    let onExit   = sinon.spy()
-    let onChange = sinon.spy()
     let multiselect = true
-    let component = Test.renderIntoDocument(makePicker({ onExit, onChange, multiselect }))
+    let component = Test.renderIntoDocument(makePicker({ multiselect }))
 
     let clickGalleryItem = function(index) {
       Test.Simulate.click(component.refs.gallery.getDOMNode().querySelector(`.ars-gallery-item:nth-child(${ index + 1 }) button`));
@@ -73,9 +70,7 @@ describe("Picker", function() {
   })
 
   describe("when a picker's clear selection button is clicked", function() {
-    let onExit      = sinon.spy()
-    let onChange    = sinon.spy()
-    let component   = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+    let component = Test.renderIntoDocument(makePicker())
 
     component.setState({
       items: [
@@ -110,7 +105,7 @@ describe("Picker", function() {
   describe("when a picker's cancel button is clicked", function() {
     let onExit   = sinon.spy()
     let onChange = sinon.spy()
-    let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
+    let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
 
     Test.Simulate.click(component.refs.cancel.getDOMNode())
 
@@ -129,7 +124,7 @@ describe("Picker", function() {
     describe("and it is cmd+enter", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
-      let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
+      let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
 
       Test.Simulate.keyDown(component.refs.gallery.getDOMNode(), { key: 'Enter', metaKey: true })
 
@@ -145,7 +140,7 @@ describe("Picker", function() {
     describe("and it is ctrl+enter", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
-      let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
+      let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
 
       Test.Simulate.keyDown(component.refs.gallery.getDOMNode(), { key: 'Enter', ctrlKey: true })
 
@@ -161,7 +156,7 @@ describe("Picker", function() {
     describe("and it does not include an option key", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
-      let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
+      let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
 
       Test.Simulate.keyDown(component.refs.gallery.getDOMNode(), { key: 'Enter' })
 
@@ -175,9 +170,7 @@ describe("Picker", function() {
     })
 
     describe("when given an error", function() {
-      let onExit    = sinon.spy()
-      let onChange  = sinon.spy()
-      let component = Test.renderIntoDocument(<Picker url="base/test/test.json" onExit={ onExit } onChange={ onChange } />)
+      let component = Test.renderIntoDocument(makePicker())
 
       before(function(done) {
         component.setState({ error: 'This is a test error'}, () => done())

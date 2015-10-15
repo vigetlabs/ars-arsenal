@@ -18,7 +18,7 @@ module.exports = {
   },
 
   fetchIf(slug) {
-    if (slug) {
+    if (slug != undefined) {
       this.setState({ fetching: true })
       this.fetch(slug)
     } else {
