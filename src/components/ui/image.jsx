@@ -30,6 +30,14 @@ let Image = React.createClass({
     }
   },
 
+  componentWillReceiveProps(nextProps) {
+    let { src } = this.props
+
+    if (nextProps.src !== src) {
+      this.setState({ isLoaded: false })
+    }
+  },
+
   render() {
     let { className, ...props} = this.props
 
