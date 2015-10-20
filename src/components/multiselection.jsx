@@ -4,6 +4,7 @@
 
 let Button             = require('./ui/button')
 let MultiSelectionItem = require('./multiselection-item')
+let SelectionText      = require('./selection-text')
 let React              = require('react')
 let Types              = React.PropTypes
 let cx                 = require('classnames')
@@ -11,6 +12,7 @@ let cx                 = require('classnames')
 let MultiSelection = React.createClass({
 
   propTypes: {
+    resource: React.PropTypes.string.isRequired,
     slug: Types.array
   },
 
@@ -33,7 +35,7 @@ let MultiSelection = React.createClass({
         { this.getItems() }
 
         <Button ref="button" onClick={ this._onClick } className="ars-selection-edit">
-          { slug && slug.length > 0 ? 'Pick different photos' : 'Pick photos' }
+          <SelectionText resource={ this.props.resource } item={ slug && slug.length > 0 } isPlural={ true } />
           <span className="ars-selection-button-icon" aria-hidden="true"></span>
         </Button>
       </div>

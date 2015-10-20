@@ -20,7 +20,8 @@ let Ars = module.exports = React.createClass({
   getDefaultProps() {
     return {
       onChange    : () => {},
-      multiselect : false
+      multiselect : false,
+      resource    : 'Photo'
     }
   },
 
@@ -53,7 +54,7 @@ let Ars = module.exports = React.createClass({
 
     return (
       <div className="ars">
-        <SelectionComponent ref={ ref } { ...this.syncProps() } onClick={ this._onOpenClick } slug={ slug } />
+        <SelectionComponent ref={ ref } { ...this.syncProps() } resource={ this.props.resource } onClick={ this._onOpenClick } slug={ slug } />
         { dialogOpen && this.getPicker() }
       </div>
     )

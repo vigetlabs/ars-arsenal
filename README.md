@@ -21,7 +21,11 @@ var app = document.getElementById('app')
 
 ArsArsenal.render(app, {
 
+  resource: 'photo', // the noun used for selection, i.e. "Pick a photo"
+
   url: 'photo/resource/endpoint',
+
+  multiselect: false,
 
   makeURL: function (url, id) {
     // define how the endpoint url is constructed

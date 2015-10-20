@@ -4,27 +4,22 @@
 
 let Button          = require('./ui/button')
 let SelectionFigure = require('./selection-figure')
+let SelectionText   = require('./selection-text')
 let React           = require('react')
 let Record          = require('../mixins/record')
 let cx              = require('classnames')
 
 let Selection = React.createClass({
 
+  propTypes: {
+    resource: React.PropTypes.string.isRequired
+  },
+
   mixins: [ Record ],
 
   getPhoto() {
     let { item } = this.state
     return item ? (<SelectionFigure ref="photo" item={ item } />) : null
-  },
-
-  getButtonText() {
-    let text = 'Pick a photo'
-    if (this.state.fetching) {
-      text = 'Loading photo'
-    } else if (this.state.item) {
-      text = 'Pick a different photo'
-    }
-    return text
   },
 
   render() {
@@ -39,7 +34,7 @@ let Selection = React.createClass({
           { this.getPhoto() }
 
           <Button ref="button" onClick={ this._onClick } className="ars-selection-edit">
-            { this.getButtonText() }
+            <SelectionText resource={ this.props.resource } { ...this.state } />
             <span className="ars-selection-button-icon" aria-hidden="true"></span>
           </Button>
         </div>

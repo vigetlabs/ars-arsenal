@@ -39,7 +39,7 @@ let Image = React.createClass({
   },
 
   render() {
-    let { className, ...props} = this.props
+    let { className, ...props } = this.props
 
     let css = cx({
       'ars-img'        : true,
