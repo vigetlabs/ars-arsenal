@@ -1,8 +1,8 @@
 import SelectionText from '../selection-text'
 
-let Test      = React.addons.TestUtils
-let item      = {}
-let fetching  = true
+let Test     = React.addons.TestUtils
+let item     = {}
+let fetching = true
 let isPlural = true
 
 function makeComponent(props = {}) {
