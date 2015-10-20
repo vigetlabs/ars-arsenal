@@ -20,12 +20,12 @@ let SelectionFigure = React.createClass({
 
   getTitle(title='') {
     let trimmed = title.trim()
-    return trimmed.length ? (<p className="ars-selection-title">{ trimmed }</p>) : null
+    return trimmed.length ? (<p ref="title" className="ars-selection-title">{ trimmed }</p>) : null
   },
 
   getCaption(caption='') {
     let trimmed = caption.trim()
-    return trimmed.length ? (<p className="ars-selection-caption">{ trimmed }</p>) : null
+    return trimmed.length ? (<p ref="caption" className="ars-selection-caption">{ trimmed }</p>) : null
   },
 
   render() {
