@@ -1,6 +1,6 @@
 {
   "name": "ars-arsenal",
-  "version": "0.4.2-rc",
+  "version": "0.4.2-rc2",
   "private": true,
   "description": "A gallery picker",
   "main": "src/index.js",
