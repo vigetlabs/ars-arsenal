@@ -2,6 +2,7 @@
 
 ## 0.4.2
 
+- Adds the ability to clear existing image selections.
 - Adds a `resource` option for customizing file type language. For changing the "Photos" reference in "Pick a photo" selection text:
     - Setting `resource` to "File" renders "Pick a file"
     - Setting `resource` to "Image" renders "Pick an image"
