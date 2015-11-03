@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 0.4.2
+
+- Adds a `resource` option for customizing file type language. For changing the "Photos" reference in "Pick a photo" selection text:
+    - Setting `resource` to "File" renders "Pick a file"
+    - Setting `resource` to "Image" renders "Pick an image"
+
+- Updates basic selection styles
+    - Centers the selection text, re-positions icons to reflect the loading state within the selection button.
+    - Adds "Loading" text while a selected image is fetching.
+    - Applies the "loaded" class to the image shortly after onload for image-to-image transitions.
+    - Adds an explicit `-webkit-transition` to workaround autoprefixr not generating `-webkit-filter` as a transition property.
+
+- Resets `isLoaded` state when the image re-renders with a different src.
+
 ## 0.4.1
 
 ### Noticeable Changes
