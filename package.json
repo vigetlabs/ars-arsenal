@@ -1,6 +1,6 @@
 {
   "name": "ars-arsenal",
-  "version": "0.4.2",
+  "version": "0.4.3-rc2",
   "private": true,
   "description": "A gallery picker",
   "main": "src/index.js",
@@ -47,7 +47,7 @@
     "karma-sourcemap-loader": "~0.3",
     "karma-webpack": "~1",
     "node-sass": "~3.2",
-    "react": ">= 0.12 < 0.14",
+    "react": ">= 0.12 < 0.15",
     "react-hot-loader": "~1",
     "restify": "~3.0",
     "sass-loader": "~2.0",
@@ -59,11 +59,11 @@
   "dependencies": {
     "classnames": "~2",
     "debounce": "~1.0",
-    "react-ink": "~4.1",
+    "react-ink": "~5.0",
     "react-focus-trap": "~1.0.1",
     "xhr": "~2"
   },
   "peerDependencies": {
-    "react": ">= 0.12 < 0.14"
+    "react": ">= 0.12 < 0.15"
   }
 }
