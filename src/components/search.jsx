@@ -57,7 +57,7 @@ let Search = React.createClass({
   },
 
   _onChange() {
-    this._updateSearch(this.refs.input.getDOMNode().value || '')
+    this._updateSearch(this.refs.input.value || '')
   },
 
   _onSubmit(e) {

@@ -1,6 +1,5 @@
 import Picker from "../picker"
-
-let Test = React.addons.TestUtils
+import DOM from 'react-dom'
 
 function makePicker(props = {}) {
   props.onExit   = props.onExit   || () => {}
@@ -14,12 +13,12 @@ function makePicker(props = {}) {
 describe("Picker", function() {
 
   describe("when a picker's search input is changed", function() {
-    let component = Test.renderIntoDocument(makePicker())
-    let search = component.refs.search.getDOMNode().querySelector('input')
+    let component = TestUtils.renderIntoDocument(makePicker())
+    let search = DOM.findDOMNode(component.refs.search).querySelector('input')
 
     search.value = 'test'
 
-    Test.Simulate.change(search)
+    TestUtils.Simulate.change(search)
 
     it ("updates its search state", function() {
       component.state.search.should.equal('test')
@@ -27,11 +26,11 @@ describe("Picker", function() {
   })
 
   describe("when a picker's gallery has a selection", function() {
-    let component = Test.renderIntoDocument(makePicker())
+    let component = TestUtils.renderIntoDocument(makePicker())
 
     component.setState({ items: [{ id: 0, caption: 'test', url: '/base/test/test.jpg' }]})
 
-    Test.Simulate.click(component.refs.gallery.getDOMNode().querySelector('.ars-gallery-item:first-child button'))
+    TestUtils.Simulate.click(DOM.findDOMNode(component.refs.gallery).querySelector('.ars-gallery-item:first-child button'))
 
     it ("updates its picked state", function() {
       component.state.picked.should.deep.equal([0])
@@ -40,10 +39,10 @@ describe("Picker", function() {
 
   describe("when a multiselect picker's gallery has a selection", function() {
     let multiselect = true
-    let component = Test.renderIntoDocument(makePicker({ multiselect }))
+    let component = TestUtils.renderIntoDocument(makePicker({ multiselect }))
 
     let clickGalleryItem = function(index) {
-      Test.Simulate.click(component.refs.gallery.getDOMNode().querySelector(`.ars-gallery-item:nth-child(${ index + 1 }) button`));
+      TestUtils.Simulate.click(DOM.findDOMNode(component.refs.gallery).querySelector(`.ars-gallery-item:nth-child(${ index + 1 }) button`));
     };
 
     component.setState({
@@ -70,7 +69,7 @@ describe("Picker", function() {
   })
 
   describe("when a picker's clear selection button is clicked", function() {
-    let component = Test.renderIntoDocument(makePicker())
+    let component = TestUtils.renderIntoDocument(makePicker())
 
     component.setState({
       items: [
@@ -80,7 +79,7 @@ describe("Picker", function() {
     })
 
     it ("clears its picked state", function() {
-      Test.Simulate.click(component.refs.clear.getDOMNode())
+      TestUtils.Simulate.click(DOM.findDOMNode(component.refs.clear))
       component.state.picked.should.deep.equal([])
     })
   })
@@ -88,9 +87,9 @@ describe("Picker", function() {
   describe("when a picker's confirm button is clicked", function() {
     let onExit   = sinon.spy()
     let onChange = sinon.spy()
-    let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+    let component = TestUtils.renderIntoDocument(makePicker({ onExit, onChange }))
 
-    Test.Simulate.click(component.refs.confirm.getDOMNode())
+    TestUtils.Simulate.click(DOM.findDOMNode(component.refs.confirm))
 
     it ("triggers the exit callback", function() {
       onExit.should.have.been.called
@@ -105,9 +104,9 @@ describe("Picker", function() {
   describe("when a picker's cancel button is clicked", function() {
     let onExit   = sinon.spy()
     let onChange = sinon.spy()
-    let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+    let component = TestUtils.renderIntoDocument(makePicker({ onExit, onChange }))
 
-    Test.Simulate.click(component.refs.cancel.getDOMNode())
+    TestUtils.Simulate.click(DOM.findDOMNode(component.refs.cancel))
 
     it ("triggers the exit callback", function() {
       onExit.should.have.been.called
@@ -124,9 +123,9 @@ describe("Picker", function() {
     describe("and it is cmd+enter", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
-      let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+      let component = TestUtils.renderIntoDocument(makePicker({ onExit, onChange }))
 
-      Test.Simulate.keyDown(component.refs.gallery.getDOMNode(), { key: 'Enter', metaKey: true })
+      TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), { key: 'Enter', metaKey: true })
 
       it ("triggers the exit callback", function() {
         onExit.should.have.been.called
@@ -140,9 +139,9 @@ describe("Picker", function() {
     describe("and it is ctrl+enter", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
-      let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+      let component = TestUtils.renderIntoDocument(makePicker({ onExit, onChange }))
 
-      Test.Simulate.keyDown(component.refs.gallery.getDOMNode(), { key: 'Enter', ctrlKey: true })
+      TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), { key: 'Enter', ctrlKey: true })
 
       it ("triggers the exit callback", function() {
         onExit.should.have.been.called
@@ -156,9 +155,9 @@ describe("Picker", function() {
     describe("and it does not include an option key", function() {
       let onExit    = sinon.spy()
       let onChange  = sinon.spy()
-      let component = Test.renderIntoDocument(makePicker({ onExit, onChange }))
+      let component = TestUtils.renderIntoDocument(makePicker({ onExit, onChange }))
 
-      Test.Simulate.keyDown(component.refs.gallery.getDOMNode(), { key: 'Enter' })
+      TestUtils.Simulate.keyDown(React.findDOMNode(component.refs.gallery), { key: 'Enter' })
 
       it ("does not trigger the exit callback", function() {
         onExit.should.not.have.been.called
@@ -170,14 +169,14 @@ describe("Picker", function() {
     })
 
     describe("when given an error", function() {
-      let component = Test.renderIntoDocument(makePicker())
+      let component = TestUtils.renderIntoDocument(makePicker())
 
       before(function(done) {
         component.setState({ error: 'This is a test error'}, () => done())
       })
 
       it ("displays the error", function() {
-        component.getDOMNode().querySelector('.ars-error').textContent.should.equal('This is a test error')
+        DOM.findDOMNode(component).querySelector('.ars-error').textContent.should.equal('This is a test error')
       })
     })
   })

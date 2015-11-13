@@ -42,7 +42,7 @@ let Picker = React.createClass({
     let { error, items, search } = this.state
 
     return (
-      <FocusTrap className="ars-dialog" onExit={ this.props.onExit } active>
+      <FocusTrap className="ars-dialog" onExit={ this.props.onExit }>
 
         <header className="ars-dialog-header">
           <Search key="search" ref="search" datalist={ items } onChange={ this._onSearchChange } />

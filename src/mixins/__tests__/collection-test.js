@@ -1,8 +1,7 @@
 describe('Collection Mixin', function() {
   let Sync       = require('../sync')
   let Collection = require('../collection')
-  let React      = require('react/addons')
-  let Test       = React.addons.TestUtils
+  let React      = require('react')
 
   function makeComponent() {
     return React.createClass({
@@ -15,7 +14,7 @@ describe('Collection Mixin', function() {
   it ("fetches on mount", function() {
     let stub      = sinon.stub(Sync, 'fetch')
     let Component = makeComponent()
-    let component = Test.renderIntoDocument(<Component url="base/test/test.json" />)
+    let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" />)
 
     stub.should.have.been.called
     stub.restore()
@@ -26,7 +25,7 @@ describe('Collection Mixin', function() {
     let onFetch   = sinon.spy()
 
     it ("calls onFetch when a response succeeds", function() {
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed('body')
 
@@ -34,7 +33,7 @@ describe('Collection Mixin', function() {
     })
 
     it ("sets the error state to false", function() {
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed()
 
@@ -43,7 +42,7 @@ describe('Collection Mixin', function() {
 
     it ("sets the items state to the returned value of onFetch", function() {
       let onFetch   = () => 'fetched';
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed()
 
@@ -57,7 +56,7 @@ describe('Collection Mixin', function() {
 
     it ("sets the error state to the returned value of onError", function() {
       let onError   = (response) => `${ response } error!`
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onError={ onError }/>)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" onError={ onError }/>)
 
       component.responseDidFail('terrible')
 

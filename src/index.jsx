@@ -5,12 +5,15 @@
 
 let Ars   = require('./components/ars')
 let React = require('react')
+let DOM   = require('react-dom')
 
 let ArsArsenal = {
   component: Ars,
-  render: function (el, options) {
+  render(el, options) {
     let component = React.createElement(Ars, options)
-    React.render(component, el)
+
+    DOM.render(component, el)
+
     return component
   }
 }

@@ -1,6 +1,6 @@
 import SelectionText from '../selection-text'
+import DOM from 'react-dom'
 
-let Test     = React.addons.TestUtils
 let item     = {}
 let fetching = true
 let isPlural = true
@@ -16,42 +16,42 @@ function makeComponent(props = {}) {
 describe('SelectionText', function() {
 
   describe('when the selection is empty', function() {
-    let component = Test.renderIntoDocument(makeComponent())
+    let component = TestUtils.renderIntoDocument(makeComponent())
 
     it ('has the correct text', function() {
-      expect(component.getDOMNode().textContent).to.equal('Pick an image')
+      expect(DOM.findDOMNode(component).textContent).to.equal('Pick an image')
     })
   })
 
   describe('when the selection is not empty', function() {
-    let component = Test.renderIntoDocument(makeComponent({ item }))
+    let component = TestUtils.renderIntoDocument(makeComponent({ item }))
 
     it ('has the correct text', function() {
-      expect(component.getDOMNode().textContent).to.equal('Pick a different image')
+      expect(DOM.findDOMNode(component).textContent).to.equal('Pick a different image')
     })
   })
 
   describe('when the selection is loading', function() {
-    let component = Test.renderIntoDocument(makeComponent({ fetching }))
+    let component = TestUtils.renderIntoDocument(makeComponent({ fetching }))
 
     it ('has the correct text', function() {
-      expect(component.getDOMNode().textContent).to.equal('Loading image')
+      expect(DOM.findDOMNode(component).textContent).to.equal('Loading image')
     })
   })
 
   describe('when the selection is empty and the resource is plural', function() {
-    let component = Test.renderIntoDocument(makeComponent({ isPlural }))
+    let component = TestUtils.renderIntoDocument(makeComponent({ isPlural }))
 
     it ('has the correct text', function() {
-      expect(component.getDOMNode().textContent).to.equal('Pick images')
+      expect(DOM.findDOMNode(component).textContent).to.equal('Pick images')
     })
   })
 
   describe('when the selection is not empty and the resource is plural', function() {
-    let component = Test.renderIntoDocument(makeComponent({ isPlural, item }))
+    let component = TestUtils.renderIntoDocument(makeComponent({ isPlural, item }))
 
     it ('has the correct text', function() {
-      expect(component.getDOMNode().textContent).to.equal('Pick different images')
+      expect(DOM.findDOMNode(component).textContent).to.equal('Pick different images')
     })
   })
 

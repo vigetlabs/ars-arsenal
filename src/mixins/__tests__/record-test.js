@@ -1,8 +1,7 @@
 describe('Record Mixin', function() {
   let Sync   = require('../sync')
   let Record = require('../record')
-  let React  = require('react/addons')
-  let Test   = React.addons.TestUtils
+  let React  = require('react')
 
   function makeComponent() {
     return React.createClass({
@@ -17,7 +16,7 @@ describe('Record Mixin', function() {
     it ("fetches on mount if given a slug", function() {
       let stub      = sinon.stub(Sync, 'fetch')
       let Component = makeComponent()
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
 
       stub.should.have.been.calledWith('test')
       stub.restore()
@@ -26,7 +25,7 @@ describe('Record Mixin', function() {
     it ("does not fetch on mount if no slug is provided", function() {
       let stub      = sinon.stub(Sync, 'fetch')
       let Component = makeComponent()
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" />)
 
       stub.should.not.have.been.called
       stub.restore()
@@ -39,7 +38,7 @@ describe('Record Mixin', function() {
     it ("fetches when given a new slug", function() {
       let stub      = sinon.stub(Sync, 'fetch')
       let Component = makeComponent()
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
 
       component.setProps({ slug: 'different slug' })
 
@@ -50,7 +49,7 @@ describe('Record Mixin', function() {
     it ("does not fetch when given the same slug", function() {
       let stub      = sinon.stub(Sync, 'fetch')
       let Component = makeComponent()
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
 
       component.setProps({ slug: 'test' })
 
@@ -65,7 +64,7 @@ describe('Record Mixin', function() {
     let onFetch   = sinon.spy()
 
     it ("calls onFetch when a response succeeds", function() {
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed('body')
 
@@ -73,7 +72,7 @@ describe('Record Mixin', function() {
     })
 
     it ("sets the error state to false", function() {
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed()
 
@@ -82,7 +81,7 @@ describe('Record Mixin', function() {
 
     it ("sets the item state to the returned value of onFetch", function() {
       let onFetch   = () => 'fetched';
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" onFetch={ onFetch } />)
 
       component.responseDidSucceed()
 
@@ -96,7 +95,7 @@ describe('Record Mixin', function() {
 
     it ("sets the error state to the returned value of onError, and item to false", function() {
       let onError   = (response) => `${ response } error!`
-      let component = Test.renderIntoDocument(<Component url="base/test/test.json" onError={ onError }/>)
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" onError={ onError }/>)
 
       component.responseDidFail('terrible')
 

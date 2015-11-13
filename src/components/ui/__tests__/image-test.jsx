@@ -1,13 +1,12 @@
 import Image from '../image'
-
-let Test = React.addons.TestUtils
+import DOM   from 'react-dom'
 
 describe('Image Component', function() {
 
   it ('sets its state to loaded when it finishes loading', function() {
-    let component = Test.renderIntoDocument(<Image src="base/test/test.jpg" />)
+    let component = TestUtils.renderIntoDocument(<Image src="base/test/test.jpg" />)
 
-    Test.Simulate.load(component.getDOMNode())
+    TestUtils.Simulate.load(DOM.findDOMNode(component))
 
     setTimeout(function() {
       component.state.should.have.property('isLoaded', true)
@@ -15,9 +14,9 @@ describe('Image Component', function() {
   })
 
   it ('adds an error class on failed images', function() {
-    let component = Test.renderIntoDocument(<Image src="fizz.jpg" />)
+    let component = TestUtils.renderIntoDocument(<Image src="fizz.jpg" />)
 
-    Test.Simulate.error(component.getDOMNode())
+    TestUtils.Simulate.error(DOM.findDOMNode(component))
 
     component.state.should.have.property('didFail', true)
   })
@@ -34,7 +33,7 @@ describe('Image Component', function() {
       }
     }))
 
-    let component = Test.renderIntoDocument(parentComponent())
+    let component = TestUtils.renderIntoDocument(parentComponent())
     let image = component.refs.image
 
     image.props.src.should.equal('foo.jpg')

@@ -1,20 +1,19 @@
 import Error from '../error'
-
-let Test = React.addons.TestUtils
+import DOM   from 'react-dom'
 
 describe('Error', function() {
 
   describe('when given an error', function() {
     it ('renders', function() {
-      let component = Test.renderIntoDocument(<Error error='test' />)
-      expect(component.getDOMNode().textContent).to.equal('test')
+      let component = TestUtils.renderIntoDocument(<Error error='test' />)
+      expect(DOM.findDOMNode(component).textContent).to.equal('test')
     })
   })
 
   describe('when not given an error', function() {
     it ('renders nothing', function() {
-      let component = Test.renderIntoDocument(<Error />)
-      expect(component.getDOMNode()).to.equal(null)
+      let component = TestUtils.renderIntoDocument(<Error />)
+      expect(DOM.findDOMNode(component)).to.equal(null)
     })
   })
 

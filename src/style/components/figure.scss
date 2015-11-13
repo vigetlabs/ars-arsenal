@@ -72,23 +72,23 @@
 // Transitions
 // -------------------------------------------------- //
 
-.ars-fade-enter {
+.ars-figure-enter {
   opacity: 0.01;
   transform: scale(0.98) translateY(-5px);
   transition: 0.48s all;
 }
 
-.ars-fade-enter.ars-fade-enter-active {
+.ars-figure-enter.ars-figure-enter-active {
   opacity: 1;
   transform: none;
 }
 
-.ars-fade-leave {
+.ars-figure-leave {
   opacity: 1;
   transition: 0.48s all;
 }
 
-.ars-fade-leave.ars-fade-leave-active {
+.ars-figure-leave.ars-figure-leave-active {
   opacity: 0.01;
   transform: scale(0.95);
 }

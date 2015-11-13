@@ -4,7 +4,7 @@
  */
 
 let Sync      = require("./sync")
-let invariant = require("react/lib/invariant")
+let invariant = require("invariant")
 
 module.exports = {
 

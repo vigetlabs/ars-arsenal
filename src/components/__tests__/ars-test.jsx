@@ -1,7 +1,6 @@
 import Ars    from "../ars"
 import Picker from "../picker"
-
-let Test = React.addons.TestUtils
+import DOM    from 'react-dom'
 
 let makeComponent = function(props) {
   return (
@@ -14,7 +13,7 @@ describe("Ars", function() {
   describe("when the component renders", function() {
     let onChange  = sinon.spy()
     let picked = 9
-    let component = Test.renderIntoDocument(makeComponent({ onChange, picked }))
+    let component = TestUtils.renderIntoDocument(makeComponent({ onChange, picked }))
 
     it ("has a selection component", function() {
       component.refs.should.have.property("selection")
@@ -28,7 +27,7 @@ describe("Ars", function() {
   describe("when the component renders with the multiselect option", function() {
     let onChange  = sinon.spy()
     let multiselect = true
-    let component = Test.renderIntoDocument(makeComponent({ onChange, multiselect }))
+    let component = TestUtils.renderIntoDocument(makeComponent({ onChange, multiselect }))
 
     it ("has a multiselection component", function() {
       component.refs.should.have.property("multiselection")
@@ -52,7 +51,7 @@ describe("Ars", function() {
 
     describe("and an onChange handler is provided", function() {
       let onChange  = sinon.spy()
-      let component = Test.renderIntoDocument(makeComponent({ onChange }))
+      let component = TestUtils.renderIntoDocument(makeComponent({ onChange }))
       let picked = [9]
 
       component._onGalleryPicked(picked)
@@ -67,7 +66,7 @@ describe("Ars", function() {
     })
 
     describe("and an onChange handler is not provided", function() {
-      let component = Test.renderIntoDocument(makeComponent())
+      let component = TestUtils.renderIntoDocument(makeComponent())
 
       component._onGalleryPicked("slug")
 
@@ -78,9 +77,9 @@ describe("Ars", function() {
   })
 
   describe("when the component's selection button is clicked", function() {
-    let component = Test.renderIntoDocument(makeComponent())
+    let component = TestUtils.renderIntoDocument(makeComponent())
 
-    Test.Simulate.click(component.refs.selection.refs.button.getDOMNode())
+    TestUtils.Simulate.click(DOM.findDOMNode(component.refs.selection.refs.button))
 
     it ("should set the dialogOpen state to true", function() {
       component.state.should.have.property('dialogOpen', true)
@@ -90,9 +89,9 @@ describe("Ars", function() {
 
   describe("when the component's multiselection button is clicked", function() {
     let multiselect = true
-    let component = Test.renderIntoDocument(makeComponent({ multiselect }))
+    let component = TestUtils.renderIntoDocument(makeComponent({ multiselect }))
 
-    Test.Simulate.click(component.refs.multiselection.refs.button.getDOMNode())
+    TestUtils.Simulate.click(DOM.findDOMNode(component.refs.multiselection.refs.button))
 
     it ("should set the dialogOpen state to true", function() {
       component.state.should.have.property('dialogOpen', true)
@@ -102,7 +101,7 @@ describe("Ars", function() {
   describe("when the component's dialogOpen state is true", function() {
 
 
-    let component = Test.renderIntoDocument(makeComponent())
+    let component = TestUtils.renderIntoDocument(makeComponent())
 
     beforeEach(function(done) {
       component.setState({ dialogOpen: true }, () => done())

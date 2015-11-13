@@ -1,7 +1,6 @@
 describe('Sync Mixin', function() {
   let Sync  = require('../sync')
-  let React = require('react/addons')
-  let Test  = React.addons.TestUtils
+  let React = require('react')
 
   function makeComponent() {
     return React.createClass({

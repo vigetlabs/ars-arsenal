@@ -1,8 +1,6 @@
 import ArsArsenal from '../index'
 import Ars        from '../components/ars'
 
-let Test = React.addons.TestUtils
-
 describe('ArsArsenal', function() {
 
   it ('exposes a component definition', function() {
@@ -14,7 +12,7 @@ describe('ArsArsenal', function() {
       url: '/base/test/test.json'
     })
 
-    Test.isElementOfType(component, Ars).should.equal(true)
+    TestUtils.isElementOfType(component, Ars).should.equal(true)
   })
 
 })

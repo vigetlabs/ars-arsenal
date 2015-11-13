@@ -4,7 +4,7 @@ var webpack_config = require('./webpack.config')
 module.exports = function(config) {
   config.set({
 
-    browsers: [ 'Firefox'],
+    browsers: [ 'Chrome' ],
 
     frameworks: [ 'mocha', 'sinon-chai' ],
 
@@ -20,7 +20,11 @@ module.exports = function(config) {
       'src/**/__tests__/*.js*': [ 'webpack' ]
     },
 
-    reporters: [ 'nyan', 'coverage' ],
+    reporters: [ 'mocha', 'coverage' ],
+
+    mochaReporter: {
+      output: 'minimal'
+    },
 
     coverageReporter: {
       reporters: [
@@ -31,10 +35,12 @@ module.exports = function(config) {
     },
 
     webpack: {
-      devtool: webpack_config.devtool,
+      devtool : 'inline-source-map',
+
       plugins: [
         new Webpack.ProvidePlugin({
-          'React': 'react/addons'
+          React     : 'react',
+          TestUtils : 'react-addons-test-utils'
         })
       ],
 
@@ -46,7 +52,7 @@ module.exports = function(config) {
           exclude : /node_modules/,
           loader  : 'babel',
           query   : {
-            stage    : 1,
+            stage    : 2,
             optional : [ 'runtime']
           }
         }],

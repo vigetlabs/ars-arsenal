@@ -1,6 +1,5 @@
 describe('UniqueId Mixin', function() {
-  let React    = require('react/addons')
-  let Test     = React.addons.TestUtils
+  let React    = require('react')
   let UniqueId = require('../uniqueId')
 
   let Component = React.createClass({
@@ -9,8 +8,8 @@ describe('UniqueId Mixin', function() {
   })
 
   it ("sets the state of a component to a unique identifier", function() {
-    let first  = Test.renderIntoDocument(<Component />)
-    let second = Test.renderIntoDocument(<Component />)
+    let first  = TestUtils.renderIntoDocument(<Component />)
+    let second = TestUtils.renderIntoDocument(<Component />)
 
     first.state.id.should.not.equal(second.state.id)
   })

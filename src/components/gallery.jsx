@@ -3,7 +3,7 @@
  * Displays tiles of photos
  */
 
-let Animation = require('react/lib/ReactCSSTransitionGroup')
+let Animation = require('react-addons-css-transition-group')
 let React     = require('react')
 let Figure    = require('./figure')
 
@@ -47,7 +47,7 @@ let Gallery = React.createClass({
     let items = this.props.items
 
     return (
-      <Animation component="div" className="ars-gallery" transitionName="ars-fade" onKeyDown={ this.props.onKeyDown }>
+      <Animation component="div" className="ars-gallery" transitionName="ars-figure" onKeyDown={ this.props.onKeyDown } transitionEnterTimeout={ 480 } transitionLeaveTimeout={ 480 }>
         { this.getEmpty() }
         { items.map(this.getItem) }
       </Animation>
