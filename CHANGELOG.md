@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.0
+
+- **Important Update**: This update makes breaking changes to support
+  React 0.14. ars-arsenal now takes advantage of
+  `react-addons-css-transition-group` and utilizes `react-dom` for rendering.
+
 ## 0.4.2
 
 - Adds the ability to clear existing image selections.
