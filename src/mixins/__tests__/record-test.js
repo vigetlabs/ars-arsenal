@@ -38,9 +38,18 @@ describe('Record Mixin', function() {
     it ("fetches when given a new slug", function() {
       let stub      = sinon.stub(Sync, 'fetch')
       let Component = makeComponent()
-      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
 
-      component.setProps({ slug: 'different slug' })
+      let Parent = React.createClass({
+        getInitialState() {
+          return { slug: 'test' }
+        },
+        render() {
+          return <Component url="base/test/test.json" slug={ this.state.slug } />
+        }
+      })
+
+      let component = TestUtils.renderIntoDocument(<Parent />)
+      component.setState({ slug: 'different-slug' })
 
       stub.should.have.been.calledTwice
       stub.restore()
@@ -49,9 +58,19 @@ describe('Record Mixin', function() {
     it ("does not fetch when given the same slug", function() {
       let stub      = sinon.stub(Sync, 'fetch')
       let Component = makeComponent()
-      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" slug="test" />)
 
-      component.setProps({ slug: 'test' })
+      let Parent = React.createClass({
+        getInitialState() {
+          return { slug: 'test' }
+        },
+        render() {
+          return <Component url="base/test/test.json" slug={ this.state.slug } />
+        }
+      })
+
+      let component = TestUtils.renderIntoDocument(<Parent />)
+
+      component.setState({ slug: 'test' })
 
       stub.should.have.been.calledOnce
       stub.restore()

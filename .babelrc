@@ -3,6 +3,5 @@
   "loose": true,
   "optional"  : [
     "utility.inlineEnvironmentVariables"
-  ],
-  "blacklist" : [ "strict" ]
+  ]
 }

@@ -16,8 +16,7 @@ let Button = React.createClass({
   },
 
   getClassName(base) {
-    let mods = cx({
-      'ars-button' : true,
+    let mods = cx('ars-button', {
       'ars-button-raised' : this.props.raised
     })
 
@@ -25,7 +24,7 @@ let Button = React.createClass({
   },
 
   render() {
-    let { className, children, ...attrs} = this.props
+    let { className, children, raised, ...attrs } = this.props
 
     return (
       <button className={ this.getClassName(className) } { ...attrs }>

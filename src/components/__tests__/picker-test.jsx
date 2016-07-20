@@ -157,7 +157,7 @@ describe("Picker", function() {
       let onChange  = sinon.spy()
       let component = TestUtils.renderIntoDocument(makePicker({ onExit, onChange }))
 
-      TestUtils.Simulate.keyDown(React.findDOMNode(component.refs.gallery), { key: 'Enter' })
+      TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), { key: 'Enter' })
 
       it ("does not trigger the exit callback", function() {
         onExit.should.not.have.been.called
