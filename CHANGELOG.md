@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.0
+
+- Upgrade react-focus-trap dependency
+
 ## 2.0.0
 
 - Upgrade dependencies

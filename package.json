@@ -64,7 +64,7 @@
     "debounce": "~1.0",
     "invariant": "~2.2.1",
     "react-addons-css-transition-group": ">= 0.14.2",
-    "react-focus-trap": "~2.2.0",
+    "react-focus-trap": "~2.3.0",
     "react-ink": "~5.1.1",
     "xhr": "~2"
   }
