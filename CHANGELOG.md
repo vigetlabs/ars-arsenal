@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.0.0
+
+- Upgrade dependencies
+- Remove peer dependency on React
+- Remove deprecation warnings in React 15.x
+
 ## 1.0.0
 
 - **Important Update**: This update makes breaking changes to support
