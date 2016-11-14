@@ -31,6 +31,24 @@ describe('Record Mixin', function() {
       stub.restore()
     })
 
+    it ("fetches when the slug is 0", function() {
+      let stub      = sinon.stub(Sync, 'fetch')
+      let Component = makeComponent()
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" slug={0} />)
+
+      stub.should.have.been.called
+      stub.restore()
+    })
+
+    it ("does not fetch on NaN", function() {
+      let stub      = sinon.stub(Sync, 'fetch')
+      let Component = makeComponent()
+      let component = TestUtils.renderIntoDocument(<Component url="base/test/test.json" slug={NaN} />)
+
+      stub.should.not.have.been.called
+      stub.restore()
+    })
+
   })
 
   describe("componentWillReceiveProps", function() {

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.2.0
+
+- Do not fetch when given a `NaN` slug
+
 ## 2.1.1
 
 - Remove PropType to avoid unexpected warning in <SelectionFigure />
