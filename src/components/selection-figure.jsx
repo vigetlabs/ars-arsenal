@@ -7,10 +7,6 @@ let React = require("react")
 
 let SelectionFigure = React.createClass({
 
-  propTypes: {
-    item: React.PropTypes.object.isRequired
-  },
-
   getDefaultProps() {
     return {
       caption : '',

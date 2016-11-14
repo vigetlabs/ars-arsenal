@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.1
+
+- Remove PropType to avoid unexpected warning in <SelectionFigure />
+
 ## 2.1.0
 
 - Upgrade react-focus-trap dependency

@@ -8,7 +8,7 @@ describe('ArsArsenal', function() {
   })
 
   it ('exposes a render method', function() {
-    let component = ArsArsenal.render(document.body, {
+    let component = ArsArsenal.render(document.createElement('div'), {
       url: '/base/test/test.json'
     })
 
