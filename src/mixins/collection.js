@@ -26,7 +26,16 @@ module.exports = {
   responseDidSucceed(response) {
     let items = this.props.onFetch(response)
 
-    this.setState({ items, error: false })
+    // This is a total freakin' hack. Change it. - @ltk
+    let picked = this.state.picked.map((item) => {
+      if(typeof item === 'number') {
+        return items.find((itemObject) => itemObject.id === item)
+      } else {
+        return item
+      }
+    })
+
+    this.setState({ items, picked, error: false })
   },
 
   responseDidFail(response) {

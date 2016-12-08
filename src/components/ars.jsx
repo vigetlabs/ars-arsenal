@@ -62,7 +62,12 @@ let Ars = module.exports = React.createClass({
 
   _triggerChange() {
     let { picked } = this.state
-    this.props.onChange(this.props.multiselect ? picked : picked[0])
+    if (this.props.multiselect) {
+      let pickedIds = picked.map((item) => item.id)
+      this.props.onChange(pickedIds, picked)
+    } else {
+      this.props.onChange(picked[0].id, picked[0])
+    }
   },
 
   _onOpenClick() {
