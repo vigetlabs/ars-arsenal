@@ -1,42 +1,42 @@
-describe('Sync Mixin', function() {
-  let Sync = require('../sync')
+import Sync from '../sync'
 
-  it('has a default onFetch method', function() {
+describe('Sync Mixin', () => {
+  test('has a default onFetch method', () => {
     let onFetch = Sync.getDefaultProps().onFetch
 
-    onFetch('success').should.equal('success')
+    expect(onFetch('success')).toBe('success')
   })
 
-  it('has a default onError method', function() {
+  test('has a default onError method', () => {
     let onError = Sync.getDefaultProps().onError
 
-    onError('error').should.equal('error')
+    expect(onError('error')).toBe('error')
   })
 
-  describe('makeUrl', function() {
-    it('returns a url when no slug is given', function() {
+  describe('makeUrl', () => {
+    test('returns a url when no slug is given', () => {
       let makeURL = Sync.getDefaultProps().makeURL
 
-      makeURL('route').should.equal('route')
+      expect(makeURL('route')).toBe('route')
     })
 
-    it('appends a slug when provided', function() {
+    test('appends a slug when provided', () => {
       let makeURL = Sync.getDefaultProps().makeURL
 
-      makeURL('route', 'fiz').should.equal('route/fiz')
+      expect(makeURL('route', 'fiz')).toBe('route/fiz')
     })
   })
 
-  describe('makeQuery', function() {
-    it('constructs a query given a term', function() {
+  describe('makeQuery', () => {
+    test('constructs a query given a term', () => {
       let makeQuery = Sync.getDefaultProps().makeQuery
 
-      makeQuery('term').should.equal('q=term')
+      expect(makeQuery('term')).toBe('q=term')
     })
   })
 
-  describe('syncProps', function() {
-    it('returns a set list of properties related to syncing', function() {
+  describe('syncProps', () => {
+    test('returns a set list of properties related to syncing', () => {
       let props = {
         makeURL: true,
         makeQuery: true,
@@ -47,11 +47,11 @@ describe('Sync Mixin', function() {
 
       let result = Sync.syncProps.call({ props })
 
-      result.should.have.property('makeURL', props.makeURL)
-      result.should.have.property('makeQuery', props.makeQuery)
-      result.should.have.property('onError', props.onError)
-      result.should.have.property('onFetch', props.onFetch)
-      result.should.have.property('url', props.url)
+      expect(result).toHaveProperty('makeURL', props.makeURL)
+      expect(result).toHaveProperty('makeQuery', props.makeQuery)
+      expect(result).toHaveProperty('onError', props.onError)
+      expect(result).toHaveProperty('onFetch', props.onFetch)
+      expect(result).toHaveProperty('url', props.url)
     })
   })
 })

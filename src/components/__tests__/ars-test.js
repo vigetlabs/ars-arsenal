@@ -1,95 +1,104 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import DOM from 'react-dom'
 import Ars from '../ars'
 
 let makeComponent = function(props) {
-  return <Ars url="/base/test/test.json" {...props} />
+  return <Ars url="/test.json" {...props} />
 }
 
-describe('Ars', function() {
-  describe('when the component renders', function() {
-    let onChange = sinon.spy()
+describe('Ars', () => {
+  describe('when the component renders', () => {
+    let onChange = jest.fn()
     let picked = 9
     let component = TestUtils.renderIntoDocument(
       makeComponent({ onChange, picked })
     )
 
-    it('has a selection component', function() {
-      component.refs.should.have.property('selection')
+    test('has a selection component', () => {
+      expect(component.refs).toHaveProperty('selection')
     })
 
-    it('migrates a single `picked` value to an array', function() {
-      component.state.should.have.property('picked').that.deep.equals([picked])
-    })
-  })
-
-  describe('when the component renders with the multiselect option', function() {
-    let onChange = sinon.spy()
-    let multiselect = true
-    let component = TestUtils.renderIntoDocument(
-      makeComponent({ onChange, multiselect })
-    )
-
-    it('has a multiselection component', function() {
-      component.refs.should.have.property('multiselection')
-    })
-
-    describe('and a gallery item is picked', function() {
-      let picked = [9, 12]
-      component._onGalleryPicked(picked)
-
-      it('sets the `picked` state to an array of chosen values', function() {
-        component.state.should.have.property('picked').that.deep.equals(picked)
-      })
-
-      it('calls the onChange event with the picked state', function() {
-        onChange.should.have.been.calledWith(component.state.picked)
-      })
+    test('migrates a single `picked` value to an array', () => {
+      expect(component.state.picked).toEqual([picked])
     })
   })
 
-  describe('when a gallery item is picked', function() {
-    describe('and an onChange handler is provided', function() {
-      let onChange = sinon.spy()
-      let component = TestUtils.renderIntoDocument(makeComponent({ onChange }))
-      let picked = [9]
+  describe('when the component renders with the multiselect option', () => {
+    let component, multiselect, onChange
 
-      component._onGalleryPicked(picked)
+    beforeEach(function() {
+      onChange = jest.fn()
+      multiselect = true
+      component = TestUtils.renderIntoDocument(
+        makeComponent({ onChange, multiselect })
+      )
+    })
 
-      it('sets the `picked` state to an array of chosen values', function() {
-        component.state.should.have.property('picked').that.deep.equals(picked)
+    test('has a multiselection component', () => {
+      expect(component.refs).toHaveProperty('multiselection')
+    })
+
+    describe('and a gallery item is picked', () => {
+      beforeEach(function() {
+        component._onGalleryPicked([9, 12])
       })
 
-      it('calls the onChange event with the first item in the picked state', function() {
-        onChange.should.have.been.calledWith(component.state.picked[0])
+      test('sets the `picked` state to an array of chosen values', () => {
+        expect(component.state.picked).toEqual([9, 12])
+      })
+
+      test('calls the onChange event with the picked state', () => {
+        expect(onChange).toHaveBeenCalledWith(component.state.picked)
+      })
+    })
+  })
+
+  describe('when a gallery item is picked', () => {
+    describe('and an onChange handler is provided', () => {
+      let component, onChange, picked
+
+      beforeEach(function() {
+        onChange = jest.fn()
+        component = TestUtils.renderIntoDocument(makeComponent({ onChange }))
+        picked = [9]
+
+        component._onGalleryPicked(picked)
+      })
+
+      test('sets the `picked` state to an array of chosen values', () => {
+        expect(component.state.picked).toEqual(picked)
+      })
+
+      test('calls the onChange event with the first item in the picked state', () => {
+        expect(onChange).toHaveBeenCalledWith(component.state.picked[0])
       })
     })
 
-    describe('and an onChange handler is not provided', function() {
+    describe('and an onChange handler is not provided', () => {
       let component = TestUtils.renderIntoDocument(makeComponent())
 
       component._onGalleryPicked('slug')
 
-      it('sets the `picked` state to the chosen slug', function() {
-        component.state.should.have.property('picked', 'slug')
+      test('sets the `picked` state to the chosen slug', () => {
+        expect(component.state).toHaveProperty('picked', 'slug')
       })
     })
   })
 
-  describe("when the component's selection button is clicked", function() {
+  describe("when the component's selection button is clicked", () => {
     let component = TestUtils.renderIntoDocument(makeComponent())
 
     TestUtils.Simulate.click(
       DOM.findDOMNode(component.refs.selection.refs.button)
     )
 
-    it('should set the dialogOpen state to true', function() {
-      component.state.should.have.property('dialogOpen', true)
+    test('should set the dialogOpen state to true', () => {
+      expect(component.state).toHaveProperty('dialogOpen', true)
     })
   })
 
-  describe("when the component's multiselection button is clicked", function() {
+  describe("when the component's multiselection button is clicked", () => {
     let multiselect = true
     let component = TestUtils.renderIntoDocument(makeComponent({ multiselect }))
 
@@ -97,32 +106,32 @@ describe('Ars', function() {
       DOM.findDOMNode(component.refs.multiselection.refs.button)
     )
 
-    it('should set the dialogOpen state to true', function() {
-      component.state.should.have.property('dialogOpen', true)
+    test('should set the dialogOpen state to true', () => {
+      expect(component.state).toHaveProperty('dialogOpen', true)
     })
   })
 
-  describe("when the component's dialogOpen state is true", function() {
+  describe("when the component's dialogOpen state is true", () => {
     let component = TestUtils.renderIntoDocument(makeComponent())
 
-    beforeEach(function(done) {
+    beforeEach(done => {
       component.setState({ dialogOpen: true }, () => done())
     })
 
-    it('renders a picker component', function() {
-      component.refs.should.have.property('picker')
+    test('renders a picker component', () => {
+      expect(component.refs).toHaveProperty('picker')
     })
 
-    describe('when the picker exits', function() {
-      var spy = sinon.spy(component, 'setState')
+    describe('when the picker exits', () => {
+      var spy = jest.spyOn(component, 'setState')
 
       component._onExit()
 
-      it('sets the dialogOpen state to false', function() {
-        spy.should.have.been.calledWith({ dialogOpen: false })
+      test('sets the dialogOpen state to false', () => {
+        expect(spy).toHaveBeenCalledWith({ dialogOpen: false })
       })
 
-      after(function() {
+      afterAll(function() {
         spy.restore()
       })
     })

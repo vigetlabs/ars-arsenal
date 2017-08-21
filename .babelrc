@@ -1,7 +1,12 @@
 {
-  "stage": 1,
-  "loose": true,
-  "optional"  : [
-    "utility.inlineEnvironmentVariables"
+  "presets": [
+    [
+      "es2015",
+      {
+        "loose": true
+      }
+    ],
+    "stage-2",
+    "react"
   ]
 }

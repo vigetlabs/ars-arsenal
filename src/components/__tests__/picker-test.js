@@ -1,6 +1,6 @@
 import React from 'react'
 import DOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import Picker from '../picker'
 
 function makePicker(props = {}) {
@@ -10,39 +10,46 @@ function makePicker(props = {}) {
   return <Picker url="base/test/test.json" {...props} />
 }
 
-describe('Picker', function() {
-  describe("when a picker's search input is changed", function() {
-    let component = TestUtils.renderIntoDocument(makePicker())
-    let search = DOM.findDOMNode(component.refs.search).querySelector('input')
+describe('Picker', () => {
+  describe("when a picker's search input is changed", () => {
+    test('updates its search state', done => {
+      let component = TestUtils.renderIntoDocument(makePicker())
+      let search = DOM.findDOMNode(component.refs.search).querySelector('input')
 
-    search.value = 'test'
+      search.value = 'test'
 
-    TestUtils.Simulate.change(search)
+      TestUtils.SimulateNative.change(search)
 
-    it('updates its search state', function() {
-      component.state.search.should.equal('test')
+      setTimeout(function() {
+        expect(component.state.search).toBe('test')
+        done()
+      }, 200)
     })
   })
 
-  describe("when a picker's gallery has a selection", function() {
-    let component = TestUtils.renderIntoDocument(makePicker())
+  describe("when a picker's gallery has a selection", () => {
+    let component
 
-    component.setState({
-      items: [{ id: 0, caption: 'test', url: '/base/test/test.jpg' }]
-    })
+    beforeEach(function() {
+      component = TestUtils.renderIntoDocument(makePicker())
 
-    TestUtils.Simulate.click(
-      DOM.findDOMNode(component.refs.gallery).querySelector(
-        '.ars-gallery-item:first-child button'
+      component.setState({
+        items: [{ id: 0, caption: 'test', url: '/base/test/test.jpg' }]
+      })
+
+      TestUtils.Simulate.click(
+        DOM.findDOMNode(component.refs.gallery).querySelector(
+          '.ars-gallery-item:first-child button'
+        )
       )
-    )
+    })
 
-    it('updates its picked state', function() {
-      component.state.picked.should.deep.equal([0])
+    test('updates its picked state', () => {
+      expect(component.state.picked).toEqual([0])
     })
   })
 
-  describe("when a multiselect picker's gallery has a selection", function() {
+  describe("when a multiselect picker's gallery has a selection", () => {
     let multiselect = true
     let component = TestUtils.renderIntoDocument(makePicker({ multiselect }))
 
@@ -61,23 +68,23 @@ describe('Picker', function() {
       ]
     })
 
-    it('updates its picked state', function() {
+    test('updates its picked state', () => {
       clickGalleryItem(0)
-      component.state.picked.should.deep.equal([0])
+      expect(component.state.picked).toEqual([0])
     })
 
-    it('adds to its picked state', function() {
+    test('adds to its picked state', () => {
       clickGalleryItem(1)
-      component.state.picked.should.deep.equal([0, 1])
+      expect(component.state.picked).toEqual([0, 1])
     })
 
-    it('removes its picked state', function() {
+    test('removes its picked state', () => {
       clickGalleryItem(1)
-      component.state.picked.should.deep.equal([0])
+      expect(component.state.picked).toEqual([0])
     })
   })
 
-  describe("when a picker's clear selection button is clicked", function() {
+  describe("when a picker's clear selection button is clicked", () => {
     let component = TestUtils.renderIntoDocument(makePicker())
 
     component.setState({
@@ -85,52 +92,52 @@ describe('Picker', function() {
       picked: [0]
     })
 
-    it('clears its picked state', function() {
+    test('clears its picked state', () => {
       TestUtils.Simulate.click(DOM.findDOMNode(component.refs.clear))
-      component.state.picked.should.deep.equal([])
+      expect(component.state.picked).toEqual([])
     })
   })
 
-  describe("when a picker's confirm button is clicked", function() {
-    let onExit = sinon.spy()
-    let onChange = sinon.spy()
+  describe("when a picker's confirm button is clicked", () => {
+    let onExit = jest.fn()
+    let onChange = jest.fn()
     let component = TestUtils.renderIntoDocument(
       makePicker({ onExit, onChange })
     )
 
     TestUtils.Simulate.click(DOM.findDOMNode(component.refs.confirm))
 
-    it('triggers the exit callback', function() {
-      onExit.should.have.been.called
+    test('triggers the exit callback', () => {
+      expect(onExit).toHaveBeenCalled()
     })
 
-    it('triggers the onChange callback', function() {
-      onChange.should.have.been.called
+    test('triggers the onChange callback', () => {
+      expect(onChange).toHaveBeenCalled()
     })
   })
 
-  describe("when a picker's cancel button is clicked", function() {
-    let onExit = sinon.spy()
-    let onChange = sinon.spy()
+  describe("when a picker's cancel button is clicked", () => {
+    let onExit = jest.fn()
+    let onChange = jest.fn()
     let component = TestUtils.renderIntoDocument(
       makePicker({ onExit, onChange })
     )
 
     TestUtils.Simulate.click(DOM.findDOMNode(component.refs.cancel))
 
-    it('triggers the exit callback', function() {
-      onExit.should.have.been.called
+    test('triggers the exit callback', () => {
+      expect(onExit).toHaveBeenCalled()
     })
 
-    it('does not trigger the onChange callback', function() {
-      onChange.should.not.have.been.called
+    test('does not trigger the onChange callback', () => {
+      expect(onChange).not.toHaveBeenCalled()
     })
   })
 
-  describe('when a user pushes a key sequence in the gallery', function() {
-    describe('and it is cmd+enter', function() {
-      let onExit = sinon.spy()
-      let onChange = sinon.spy()
+  describe('when a user pushes a key sequence in the gallery', () => {
+    describe('and it is cmd+enter', () => {
+      let onExit = jest.fn()
+      let onChange = jest.fn()
       let component = TestUtils.renderIntoDocument(
         makePicker({ onExit, onChange })
       )
@@ -140,18 +147,18 @@ describe('Picker', function() {
         metaKey: true
       })
 
-      it('triggers the exit callback', function() {
-        onExit.should.have.been.called
+      test('triggers the exit callback', () => {
+        expect(onExit).toHaveBeenCalled()
       })
 
-      it('trigger the onChange callback', function() {
-        onChange.should.have.been.called
+      test('trigger the onChange callback', () => {
+        expect(onChange).toHaveBeenCalled()
       })
     })
 
-    describe('and it is ctrl+enter', function() {
-      let onExit = sinon.spy()
-      let onChange = sinon.spy()
+    describe('and it is ctrl+enter', () => {
+      let onExit = jest.fn()
+      let onChange = jest.fn()
       let component = TestUtils.renderIntoDocument(
         makePicker({ onExit, onChange })
       )
@@ -161,18 +168,18 @@ describe('Picker', function() {
         ctrlKey: true
       })
 
-      it('triggers the exit callback', function() {
-        onExit.should.have.been.called
+      test('triggers the exit callback', () => {
+        expect(onExit).toHaveBeenCalled()
       })
 
-      it('trigger the onChange callback', function() {
-        onChange.should.have.been.called
+      test('trigger the onChange callback', () => {
+        expect(onChange).toHaveBeenCalled()
       })
     })
 
-    describe('and it does not include an option key', function() {
-      let onExit = sinon.spy()
-      let onChange = sinon.spy()
+    describe('and it does not include an option key', () => {
+      let onExit = jest.fn()
+      let onChange = jest.fn()
       let component = TestUtils.renderIntoDocument(
         makePicker({ onExit, onChange })
       )
@@ -181,26 +188,26 @@ describe('Picker', function() {
         key: 'Enter'
       })
 
-      it('does not trigger the exit callback', function() {
-        onExit.should.not.have.been.called
+      test('does not trigger the exit callback', () => {
+        expect(onExit).not.toHaveBeenCalled()
       })
 
-      it('does not trigger the onChange callback', function() {
-        onChange.should.not.have.been.called
+      test('does not trigger the onChange callback', () => {
+        expect(onChange).not.toHaveBeenCalled()
       })
     })
 
-    describe('when given an error', function() {
+    describe('when given an error', () => {
       let component = TestUtils.renderIntoDocument(makePicker())
 
-      before(function(done) {
+      beforeAll(function(done) {
         component.setState({ error: 'This is a test error' }, () => done())
       })
 
-      it('displays the error', function() {
-        DOM.findDOMNode(component)
-          .querySelector('.ars-error')
-          .textContent.should.equal('This is a test error')
+      test('displays the error', () => {
+        expect(
+          DOM.findDOMNode(component).querySelector('.ars-error').textContent
+        ).toBe('This is a test error')
       })
     })
   })

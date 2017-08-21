@@ -39,7 +39,7 @@ module.exports = function(config) {
       plugins: [
         new Webpack.ProvidePlugin({
           React: 'react',
-          TestUtils: 'react-addons-test-utils'
+          TestUtils: 'react-dom/test-utils'
         })
       ],
 

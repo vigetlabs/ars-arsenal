@@ -56,9 +56,11 @@ let Ars = createClass({
   },
 
   render() {
-    let { dialogOpen, picked } = this.state
-    let SelectionComponent = this.props.multiselect ? MultiSelection : Selection
-    let ref = SelectionComponent.displayName.toLowerCase()
+    const { multiselect, resource } = this.props
+    const { dialogOpen, picked } = this.state
+
+    let SelectionComponent = multiselect ? MultiSelection : Selection
+    let ref = multiselect ? 'multiselection' : 'selection'
     let slug = this.props.multiselect ? picked : picked && picked[0]
 
     return (
@@ -66,7 +68,7 @@ let Ars = createClass({
         <SelectionComponent
           ref={ref}
           {...this.syncProps()}
-          resource={this.props.resource}
+          resource={resource}
           onClick={this._onOpenClick}
           slug={slug}
         />

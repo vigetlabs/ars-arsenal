@@ -1,23 +1,23 @@
 import React from 'react'
 import DOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import Search from '../search'
 
-describe('Search', function() {
-  it('triggers a blank search below 2 characters', function() {
-    let callback = sinon.spy()
+describe('Search', () => {
+  test('triggers a blank search below 2 characters', () => {
+    let callback = jest.fn()
     let component = TestUtils.renderIntoDocument(<Search onChange={callback} />)
 
     TestUtils.Simulate.change(DOM.findDOMNode(component.refs.input))
 
     // remember the change callback is debounced
     setTimeout(function() {
-      callback.should.have.been.calledWith('')
+      expect(callback).have.been.calledWith('')
     }, Search.INTERVAL)
   })
 
-  it('triggers the full term above 2 characters', function() {
-    let callback = sinon.spy()
+  test('triggers the full term above 2 characters', () => {
+    let callback = jest.fn()
     let component = TestUtils.renderIntoDocument(<Search onChange={callback} />)
     let input = DOM.findDOMNode(component.refs.input)
 
@@ -27,12 +27,12 @@ describe('Search', function() {
 
     // remember the change callback is debounced
     setTimeout(function() {
-      callback.should.have.been.calledWith('Large Enough')
+      expect(callback).have.been.calledWith('Large Enough')
     }, Search.INTERVAL)
   })
 
-  it('traps submit events and calls onChange', function() {
-    let callback = sinon.spy()
+  test('traps submit events and calls onChange', () => {
+    let callback = jest.fn()
     let component = TestUtils.renderIntoDocument(<Search onChange={callback} />)
     let input = DOM.findDOMNode(component.refs.input)
 
@@ -42,12 +42,12 @@ describe('Search', function() {
 
     // remember the change callback is debounced
     setTimeout(function() {
-      callback.should.have.been.calledWith('Large Enough')
+      expect(callback).have.been.calledWith('Large Enough')
     }, Search.INTERVAL)
   })
 
-  it('clears search on escape', function() {
-    let callback = sinon.spy()
+  test('clears search on escape', () => {
+    let callback = jest.fn()
     let component = TestUtils.renderIntoDocument(<Search onChange={callback} />)
     let input = DOM.findDOMNode(component.refs.input)
 
@@ -57,7 +57,7 @@ describe('Search', function() {
 
     // remember the change callback is debounced
     setTimeout(function() {
-      callback.should.have.been.calledWith('')
+      expect(callback).have.been.calledWith('')
     }, Search.INTERVAL)
   })
 })

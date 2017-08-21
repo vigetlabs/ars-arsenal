@@ -1,45 +1,45 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import SelectionFigure from '../selection-figure'
 
-describe('SelectionFigure', function() {
-  describe('when given a name', function() {
-    it('renders a title', function() {
+describe('SelectionFigure', () => {
+  describe('when given a name', () => {
+    test('renders a title', () => {
       let component = TestUtils.renderIntoDocument(
         <SelectionFigure item={{ name: 'Ars' }} />
       )
 
-      component.refs.should.have.property('title')
+      expect(component.refs).toHaveProperty('title')
     })
   })
 
-  describe('when not given a name', function() {
-    it('does not render a title', function() {
+  describe('when not given a name', () => {
+    test('does not render a title', () => {
       let component = TestUtils.renderIntoDocument(
         <SelectionFigure item={{}} />
       )
 
-      component.refs.should.not.have.property('title')
+      expect(component.refs).not.toHaveProperty('title')
     })
   })
 
-  describe('when given a caption', function() {
-    it('renders a caption', function() {
+  describe('when given a caption', () => {
+    test('renders a caption', () => {
       let component = TestUtils.renderIntoDocument(
         <SelectionFigure item={{ caption: 'Ars' }} />
       )
 
-      component.refs.should.have.property('caption')
+      expect(component.refs).toHaveProperty('caption')
     })
   })
 
-  describe('when not given a caption', function() {
-    it('does not render a caption', function() {
+  describe('when not given a caption', () => {
+    test('does not render a caption', () => {
       let component = TestUtils.renderIntoDocument(
         <SelectionFigure item={{}} />
       )
 
-      component.refs.should.not.have.property('caption')
+      expect(component.refs).not.toHaveProperty('caption')
     })
   })
 })

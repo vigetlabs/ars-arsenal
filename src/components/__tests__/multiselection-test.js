@@ -1,10 +1,10 @@
 import React from 'react'
 import DOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import MultiSelection from '../multiselection'
 
-describe('MultiSelection', function() {
-  describe('when given photos', function() {
+describe('MultiSelection', () => {
+  describe('when given photos', () => {
     let component = TestUtils.renderIntoDocument(
       <MultiSelection
         slug={[0, 1]}
@@ -13,21 +13,19 @@ describe('MultiSelection', function() {
       />
     )
 
-    it('renders photos', function() {
-      DOM.findDOMNode(component).querySelector('.ars-multiselection-grid')
-        .should.exist
+    test('renders photos', () => {
+      expect(DOM.findDOMNode(component).querySelector('.ars-multiselection-grid')).toBeDefined()
     })
   })
 
-  describe('when not given photos', function() {
+  describe('when not given photos', () => {
     let component = TestUtils.renderIntoDocument(
       <MultiSelection slug={[]} url="/base/test/test.json" resource="Photo" />
     )
 
-    it('does not render photos', function() {
-      DOM.findDOMNode(component)
-        .querySelector('.ars-multiselection-grid')
-        .should.equal(null)
+    test('does not render photos', () => {
+      expect(DOM.findDOMNode(component)
+        .querySelector('.ars-multiselection-grid')).toBe(null)
     })
   })
 })

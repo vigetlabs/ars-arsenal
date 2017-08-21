@@ -1,8 +1,8 @@
 import pluralize from '../pluralize'
 
-describe('pluralize', function() {
-  it('pluralizes a string', function() {
-    expect(pluralize('photo')).to.equal('photos')
-    expect(pluralize('photos')).to.equal('photos')
+describe('pluralize', () => {
+  test('pluralizes a string', () => {
+    expect(pluralize('photo')).toBe('photos')
+    expect(pluralize('photos')).toBe('photos')
   })
 })

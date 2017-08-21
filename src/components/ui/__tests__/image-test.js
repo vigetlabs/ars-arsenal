@@ -1,11 +1,11 @@
 import React from 'react'
 import DOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import Image from '../image'
 import createClass from 'create-react-class'
 
-describe('Image Component', function() {
-  it('sets its state to loaded when it finishes loading', function() {
+describe('Image Component', () => {
+  test('sets its state to loaded when it finishes loading', () => {
     let component = TestUtils.renderIntoDocument(
       <Image src="base/test/test.jpg" />
     )
@@ -13,44 +13,42 @@ describe('Image Component', function() {
     TestUtils.Simulate.load(DOM.findDOMNode(component))
 
     setTimeout(function() {
-      component.state.should.have.property('isLoaded', true)
+      expect(component.state).toHaveProperty('isLoaded', true)
     }, Image.ONLOAD)
   })
 
-  it('adds an error class on failed images', function() {
+  test('adds an error class on failed images', () => {
     let component = TestUtils.renderIntoDocument(<Image src="fizz.jpg" />)
 
     TestUtils.Simulate.error(DOM.findDOMNode(component))
 
-    component.state.should.have.property('didFail', true)
+    expect(component.state).toHaveProperty('didFail', true)
   })
 
-  it('resets its loaded state when a new src is received', function() {
-    let parentComponent = React.createFactory(
-      createClass({
-        getInitialState() {
-          return {
-            url: 'foo.jpg'
-          }
-        },
-        render() {
-          return <Image ref="image" src={this.state.url} />
+  test('resets its loaded state when a new src is received', () => {
+    let ParentComponent = createClass({
+      getInitialState() {
+        return {
+          url: 'foo.jpg'
         }
-      })
-    )
+      },
+      render() {
+        return <Image ref="image" src={this.state.url} />
+      }
+    })
 
-    let component = TestUtils.renderIntoDocument(parentComponent())
+    let component = TestUtils.renderIntoDocument(<ParentComponent />)
     let image = component.refs.image
 
-    image.props.src.should.equal('foo.jpg')
-    image.state.isLoaded.should.equal(false)
+    expect(image.props.src).toBe('foo.jpg')
+    expect(image.state.isLoaded).toBe(false)
 
     component.setState({
       isLoaded: true,
       url: 'bar.jpg'
     })
 
-    image.props.src.should.equal('bar.jpg')
-    image.state.isLoaded.should.equal(false)
+    expect(image.props.src).toBe('bar.jpg')
+    expect(image.state.isLoaded).toBe(false)
   })
 })

@@ -1,10 +1,10 @@
-import Sync from '../sync'
 import Record from '../record'
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import createClass from 'create-react-class'
+import xhr from 'xhr'
 
-describe('Record Mixin', function() {
+describe('Record Mixin', () => {
   function makeComponent() {
     return createClass({
       displayName: 'RecordTest',
@@ -13,57 +13,46 @@ describe('Record Mixin', function() {
     })
   }
 
-  describe('componentWillMount', function() {
-    it('fetches on mount if given a slug', function() {
-      let stub = sinon.stub(Sync, 'fetch')
+  beforeEach(function() {
+    xhr.mockReset()
+  })
+
+  describe('componentWillMount', () => {
+    test('fetches on mount if given a slug', () => {
       let Component = makeComponent()
 
-      TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" slug="test" />
-      )
+      TestUtils.renderIntoDocument(<Component url="/test.json" slug="test" />)
 
-      stub.should.have.been.calledWith('test')
-      stub.restore()
+      expect(xhr).toHaveBeenCalled()
     })
 
-    it('does not fetch on mount if no slug is provided', function() {
-      let stub = sinon.stub(Sync, 'fetch')
+    test('does not fetch on mount if no slug is provided', () => {
       let Component = makeComponent()
 
-      TestUtils.renderIntoDocument(<Component url="base/test/test.json" />)
+      TestUtils.renderIntoDocument(<Component url="/test.json" />)
 
-      stub.should.not.have.been.called
-      stub.restore()
+      expect(xhr).not.toHaveBeenCalled()
     })
 
-    it('fetches when the slug is 0', function() {
-      let stub = sinon.stub(Sync, 'fetch')
+    test('fetches when the slug is 0', () => {
       let Component = makeComponent()
 
-      TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" slug={0} />
-      )
+      TestUtils.renderIntoDocument(<Component url="/test.json" slug={0} />)
 
-      stub.should.have.been.called
-      stub.restore()
+      expect(xhr).toHaveBeenCalled()
     })
 
-    it('does not fetch on NaN', function() {
-      let stub = sinon.stub(Sync, 'fetch')
+    test('does not fetch on NaN', () => {
       let Component = makeComponent()
 
-      TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" slug={NaN} />
-      )
+      TestUtils.renderIntoDocument(<Component url="/test.json" slug={NaN} />)
 
-      stub.should.not.have.been.called
-      stub.restore()
+      expect(xhr).not.toHaveBeenCalled()
     })
   })
 
-  describe('componentWillReceiveProps', function() {
-    it('fetches when given a new slug', function() {
-      let stub = sinon.stub(Sync, 'fetch')
+  describe('componentWillReceiveProps', () => {
+    test('fetches when given a new slug', () => {
       let Component = makeComponent()
 
       let Parent = createClass({
@@ -71,19 +60,18 @@ describe('Record Mixin', function() {
           return { slug: 'test' }
         },
         render() {
-          return <Component url="base/test/test.json" slug={this.state.slug} />
+          return <Component url="/test.json" slug={this.state.slug} />
         }
       })
 
       let component = TestUtils.renderIntoDocument(<Parent />)
+
       component.setState({ slug: 'different-slug' })
 
-      stub.should.have.been.calledTwice
-      stub.restore()
+      expect(xhr).toHaveBeenCalledTimes(2)
     })
 
-    it('does not fetch when given the same slug', function() {
-      let stub = sinon.stub(Sync, 'fetch')
+    test('does not fetch when given the same slug', () => {
       let Component = makeComponent()
 
       let Parent = createClass({
@@ -91,7 +79,7 @@ describe('Record Mixin', function() {
           return { slug: 'test' }
         },
         render() {
-          return <Component url="base/test/test.json" slug={this.state.slug} />
+          return <Component url="/test.json" slug={this.state.slug} />
         }
       })
 
@@ -99,60 +87,63 @@ describe('Record Mixin', function() {
 
       component.setState({ slug: 'test' })
 
-      stub.should.have.been.calledOnce
-      stub.restore()
+      expect(xhr).toHaveBeenCalledTimes(1)
     })
   })
 
-  describe('responseDidSucceed', function() {
-    let Component = makeComponent()
-    let onFetch = sinon.spy()
+  describe('responseDidSucceed', () => {
+    let Component, onFetch
 
-    it('calls onFetch when a response succeeds', function() {
+    beforeEach(function() {
+      Component = makeComponent()
+      onFetch = jest.fn()
+    })
+
+    test('calls onFetch when a response succeeds', () => {
       let component = TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" onFetch={onFetch} />
+        <Component url="/test.json" onFetch={onFetch} />
       )
 
       component.responseDidSucceed('body')
 
-      onFetch.should.have.been.calledWith('body')
+      expect(onFetch).toHaveBeenCalledWith('body')
     })
 
-    it('sets the error state to false', function() {
+    test('sets the error state to false', () => {
       let component = TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" onFetch={onFetch} />
+        <Component url="/test.json" onFetch={onFetch} />
       )
 
       component.responseDidSucceed()
 
-      component.state.should.have.property('error', false)
+      expect(component.state).toHaveProperty('error', false)
     })
 
-    it('sets the item state to the returned value of onFetch', function() {
+    test('sets the item state to the returned value of onFetch', () => {
       let onFetch = () => 'fetched'
       let component = TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" onFetch={onFetch} />
+        <Component url="/test.json" onFetch={onFetch} />
       )
 
       component.responseDidSucceed()
 
-      component.state.should.have.property('item', 'fetched')
+      expect(component.state).toHaveProperty('item', 'fetched')
     })
   })
 
-  describe('responseDidFail', function() {
+  describe('responseDidFail', () => {
     let Component = makeComponent()
 
-    it('sets the error state to the returned value of onError, and item to false', function() {
+    test('sets the error state to the returned value of onError, and item to false', () => {
       let onError = response => `${response} error!`
       let component = TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" onError={onError} />
+        <Component url="/test.json" onError={onError} />
       )
 
       component.responseDidFail('terrible')
 
-      component.state.should.have.property('error', 'terrible error!')
-      component.state.should.have.property('item', false)
+      expect(component.state).toHaveProperty('error', 'terrible error!')
+      expect(component.state).toHaveProperty('item', false)
     })
   })
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import DOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import SelectionText from '../selection-text'
 
 let item = {}
@@ -13,50 +13,46 @@ function makeComponent(props = {}) {
   return <SelectionText {...props} />
 }
 
-describe('SelectionText', function() {
-  describe('when the selection is empty', function() {
+describe('SelectionText', () => {
+  describe('when the selection is empty', () => {
     let component = TestUtils.renderIntoDocument(makeComponent())
 
-    it('has the correct text', function() {
-      expect(DOM.findDOMNode(component).textContent).to.equal('Pick an image')
+    test('has the correct text', () => {
+      expect(DOM.findDOMNode(component).textContent).toBe('Pick an image')
     })
   })
 
-  describe('when the selection is not empty', function() {
+  describe('when the selection is not empty', () => {
     let component = TestUtils.renderIntoDocument(makeComponent({ item }))
 
-    it('has the correct text', function() {
-      expect(DOM.findDOMNode(component).textContent).to.equal(
-        'Pick a different image'
-      )
+    test('has the correct text', () => {
+      expect(DOM.findDOMNode(component).textContent).toBe('Pick a different image')
     })
   })
 
-  describe('when the selection is loading', function() {
+  describe('when the selection is loading', () => {
     let component = TestUtils.renderIntoDocument(makeComponent({ fetching }))
 
-    it('has the correct text', function() {
-      expect(DOM.findDOMNode(component).textContent).to.equal('Loading image')
+    test('has the correct text', () => {
+      expect(DOM.findDOMNode(component).textContent).toBe('Loading image')
     })
   })
 
-  describe('when the selection is empty and the resource is plural', function() {
+  describe('when the selection is empty and the resource is plural', () => {
     let component = TestUtils.renderIntoDocument(makeComponent({ isPlural }))
 
-    it('has the correct text', function() {
-      expect(DOM.findDOMNode(component).textContent).to.equal('Pick images')
+    test('has the correct text', () => {
+      expect(DOM.findDOMNode(component).textContent).toBe('Pick images')
     })
   })
 
-  describe('when the selection is not empty and the resource is plural', function() {
+  describe('when the selection is not empty and the resource is plural', () => {
     let component = TestUtils.renderIntoDocument(
       makeComponent({ isPlural, item })
     )
 
-    it('has the correct text', function() {
-      expect(DOM.findDOMNode(component).textContent).to.equal(
-        'Pick different images'
-      )
+    test('has the correct text', () => {
+      expect(DOM.findDOMNode(component).textContent).toBe('Pick different images')
     })
   })
 })
