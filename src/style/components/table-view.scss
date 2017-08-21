@@ -101,11 +101,13 @@
 }
 
 .ars-table-view-checker {
+  cursor: pointer;
   position: relative;
 
   &:after {
     bottom: -8px;
     content: '';
+    cursor: pointer;
     left: -8px;
     position: absolute;
     right: -8px;
@@ -114,6 +116,7 @@
   }
 
   input {
+    cursor: pointer;
     position: relative;
     z-index: 1;
   }

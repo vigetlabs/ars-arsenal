@@ -24,6 +24,7 @@ let Picker = createClass({
 
   getDefaultProps() {
     return {
+      mode: 'gallery',
       items: [],
       picked: []
     }
@@ -38,6 +39,35 @@ let Picker = createClass({
   confirm() {
     this.props.onChange(this.state.picked)
     this.props.onExit()
+  },
+
+  renderItems() {
+    const { multiselect, mode } = this.props
+    const { items, picked, search } = this.state
+
+    if (mode === 'table') {
+      return (
+        <TableView
+          search={search}
+          items={items}
+          picked={picked}
+          onPicked={this._onPicked}
+          onKeyDown={this._onKeyDown}
+          multiselect={multiselect}
+        />
+      )
+    }
+
+    return (
+      <Gallery
+        ref="gallery"
+        search={search}
+        items={items}
+        picked={picked}
+        onPicked={this._onPicked}
+        onKeyDown={this._onKeyDown}
+      />
+    )
   },
 
   render() {
@@ -57,23 +87,7 @@ let Picker = createClass({
 
         <Error error={error} />
 
-        <TableView
-          search={search}
-          items={items}
-          picked={picked}
-          onPicked={this._onPicked}
-          onKeyDown={this._onKeyDown}
-          multiselect={multiselect}
-        />
-
-        {/* <Gallery
-            ref="gallery"
-            search={search}
-            items={items}
-            picked={picked}
-            onPicked={this._onPicked}
-            onKeyDown={this._onKeyDown}
-            /> */}
+        {this.renderItems()}
 
         <footer className="ars-dialog-footer">
           <div>

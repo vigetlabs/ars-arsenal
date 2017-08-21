@@ -22,7 +22,8 @@ let Ars = createClass({
     return {
       onChange: () => {},
       multiselect: false,
-      resource: 'Photo'
+      resource: 'Photo',
+      mode: 'gallery'
     }
   },
 
@@ -40,7 +41,7 @@ let Ars = createClass({
 
   getPicker() {
     let { picked } = this.state
-    let { multiselect } = this.props
+    let { multiselect, mode } = this.props
 
     return (
       <Picker
@@ -50,6 +51,7 @@ let Ars = createClass({
         onChange={this._onGalleryPicked}
         onExit={this._onExit}
         picked={picked}
+        mode={mode}
         multiselect={multiselect}
       />
     )

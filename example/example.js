@@ -18,14 +18,22 @@ let options = {
 }
 
 let select = document.querySelector('#select')
+let selectTable = document.querySelector('#select-table')
 let selectWithValue = document.querySelector('#selectWithValue')
 let multiselect = document.querySelector('#multiselect')
+let multiselectTable = document.querySelector('#multiselect-table')
 let multiselectWithValue = document.querySelector('#multiselectWithValue')
 
 ArsArsenal.render(select, options)
-ArsArsenal.render(selectWithValue, Object.assign({ picked: [1] }, options))
+ArsArsenal.render(selectTable, { ...options, mode: 'table' })
+ArsArsenal.render(selectWithValue, { ...options, picked: [1] })
 
 ArsArsenal.render(multiselect, { ...options, multiselect: true })
+ArsArsenal.render(multiselectTable, {
+  ...options,
+  multiselect: true,
+  mode: 'table'
+})
 ArsArsenal.render(multiselectWithValue, {
   ...options,
   picked: [2, 3],
