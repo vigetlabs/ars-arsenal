@@ -4,7 +4,7 @@ var config = require('../webpack.config')
 
 config.devtool = 'inline-source-map'
 
-config.entry = ['./example/example.jsx']
+config.entry = ['./example/example']
 
 config.output = {
   filename: 'example.build.js',
@@ -12,7 +12,7 @@ config.output = {
   publicPath: '/'
 }
 
-config.resolve.extensions = ['', '.js', '.jsx', '.scss', '.css']
+config.resolve.extensions = ['', '.js', '.scss', '.css']
 
 config.module.loaders.unshift({
   test: /\.s*(c|a)ss$/,

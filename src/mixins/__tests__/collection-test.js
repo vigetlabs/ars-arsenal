@@ -1,10 +1,10 @@
-describe('Collection Mixin', function() {
-  let Sync = require('../sync')
-  let Collection = require('../collection')
-  let React = require('react')
-  let TestUtils = require('react-addons-test-utils')
-  let createClass = require('create-react-class')
+import Sync from '../sync'
+import Collection from '../collection'
+import React from 'react'
+import TestUtils from 'react-addons-test-utils'
+import createClass from 'create-react-class'
 
+describe('Collection Mixin', function() {
   function makeComponent() {
     return createClass({
       displayName: 'CollectionTest',

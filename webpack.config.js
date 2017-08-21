@@ -1,6 +1,5 @@
-export default {
+module.exports = {
   resolve: {
-    extensions: ['', '.js', '.js'],
     modulesDirectories: ['web_modules', 'node_modules', 'src']
   },
 

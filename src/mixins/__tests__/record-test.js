@@ -1,10 +1,10 @@
-describe('Record Mixin', function() {
-  let Sync = require('../sync')
-  let Record = require('../record')
-  let React = require('react')
-  let TestUtils = require('react-addons-test-utils')
-  let createClass = require('create-react-class')
+import Sync from '../sync'
+import Record from '../record'
+import React from 'react'
+import TestUtils from 'react-addons-test-utils'
+import createClass from 'create-react-class'
 
+describe('Record Mixin', function() {
   function makeComponent() {
     return createClass({
       displayName: 'RecordTest',
