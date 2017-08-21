@@ -6,9 +6,7 @@ import createClass from 'create-react-class'
 
 describe('Image Component', () => {
   test('sets its state to loaded when it finishes loading', () => {
-    let component = TestUtils.renderIntoDocument(
-      <Image src="/test.jpg" />
-    )
+    let component = TestUtils.renderIntoDocument(<Image src="/test.jpg" />)
 
     TestUtils.Simulate.load(DOM.findDOMNode(component))
 

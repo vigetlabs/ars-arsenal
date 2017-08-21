@@ -26,7 +26,9 @@ describe('SelectionText', () => {
     let component = TestUtils.renderIntoDocument(makeComponent({ item }))
 
     test('has the correct text', () => {
-      expect(DOM.findDOMNode(component).textContent).toBe('Pick a different image')
+      expect(DOM.findDOMNode(component).textContent).toBe(
+        'Pick a different image'
+      )
     })
   })
 
@@ -52,7 +54,9 @@ describe('SelectionText', () => {
     )
 
     test('has the correct text', () => {
-      expect(DOM.findDOMNode(component).textContent).toBe('Pick different images')
+      expect(DOM.findDOMNode(component).textContent).toBe(
+        'Pick different images'
+      )
     })
   })
 })

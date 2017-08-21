@@ -6,15 +6,13 @@ import MultiSelection from '../multiselection'
 describe('MultiSelection', () => {
   describe('when given photos', () => {
     let component = TestUtils.renderIntoDocument(
-      <MultiSelection
-        slug={[0, 1]}
-        url="/test.json"
-        resource="Photo"
-      />
+      <MultiSelection slug={[0, 1]} url="/test.json" resource="Photo" />
     )
 
     test('renders photos', () => {
-      expect(DOM.findDOMNode(component).querySelector('.ars-multiselection-grid')).toBeDefined()
+      expect(
+        DOM.findDOMNode(component).querySelector('.ars-multiselection-grid')
+      ).toBeDefined()
     })
   })
 
@@ -24,8 +22,9 @@ describe('MultiSelection', () => {
     )
 
     test('does not render photos', () => {
-      expect(DOM.findDOMNode(component)
-        .querySelector('.ars-multiselection-grid')).toBe(null)
+      expect(
+        DOM.findDOMNode(component).querySelector('.ars-multiselection-grid')
+      ).toBe(null)
     })
   })
 })
