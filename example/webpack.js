@@ -1,24 +1,41 @@
-var Server = require('webpack-dev-server')
-var Webpack = require('webpack')
-var config = require('../webpack.config')
+const Server = require('webpack-dev-server')
+const Webpack = require('webpack')
 
-config.devtool = 'inline-source-map'
+const config = {
+  devtool: 'inline-source-map',
 
-config.entry = ['./example/example']
+  entry: './example/example',
 
-config.output = {
-  filename: 'example.build.js',
-  path: __dirname,
-  publicPath: '/'
+  output: {
+    filename: 'example.build.js',
+    path: __dirname,
+    publicPath: '/'
+  },
+
+  resolve: {
+    extensions: ['.js', '.scss', '.css']
+  },
+
+  module: {
+    loaders: [
+      {
+        test: /\.js*$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      },
+      {
+        test: /\.s*(c|a)ss$/,
+        exclude: /node_modules/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'autoprefixer-loader',
+          'sass-loader'
+        ]
+      }
+    ]
+  }
 }
-
-config.resolve.extensions = ['', '.js', '.scss', '.css']
-
-config.module.loaders.unshift({
-  test: /\.s*(c|a)ss$/,
-  exclude: /node_modules/,
-  loader: 'style!css!autoprefixer!sass'
-})
 
 module.exports = new Server(Webpack(config), {
   contentBase: './example',

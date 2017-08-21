@@ -1,8 +1,4 @@
 module.exports = {
-  resolve: {
-    modulesDirectories: ['web_modules', 'node_modules', 'src']
-  },
-
   module: {
     loaders: [
       {

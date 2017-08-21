@@ -19,8 +19,8 @@ let options = {
 
 let select = document.querySelector('#select')
 let selectWithValue = document.querySelector('#selectWithValue')
-let multiselect = document.querySelector('multiselect')
-let multiselectWithValue = document.querySelector('multiselectWithValue')
+let multiselect = document.querySelector('#multiselect')
+let multiselectWithValue = document.querySelector('#multiselectWithValue')
 
 ArsArsenal.render(select, options)
 ArsArsenal.render(selectWithValue, Object.assign({ picked: [1] }, options))
