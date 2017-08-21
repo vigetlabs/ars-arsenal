@@ -5,7 +5,10 @@ $ars-danger      : #f44336 !default;
 $ars-text-light  : rgba(#fff, 0.875) !default;
 $ars-text-dark   : rgba(#000, 0.875) !default;
 $ars-muted-light : rgba(#fff, 0.4) !default;
-$ars-muted-dark  : rgba(#000, 0.5) !default;
+$ars-muted-dark  : rgba(#000, 0.54) !default;
+$ars-edge        : rgba(#000, 0.08) !default;
+$ars-grey-200    : #eee !default;
+$ars-bounce      : cubic-bezier(.05,.65,.24,1.14) !default;
 
 @import 'generators/functions';
 @import 'generators/extends';
@@ -19,6 +22,7 @@ $ars-muted-dark  : rgba(#000, 0.5) !default;
 .ars {
   @import "components/dialog";
   @import "components/gallery";
+  @import "components/table-view";
   @import "components/figure";
   @import "components/image";
   @import "components/search";

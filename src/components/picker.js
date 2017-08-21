@@ -11,6 +11,7 @@ import Gallery from './gallery'
 import React from 'react'
 import Search from './search'
 import createClass from 'create-react-class'
+import TableView from './table-view'
 import { func } from 'prop-types'
 
 let Picker = createClass({
@@ -40,10 +41,11 @@ let Picker = createClass({
   },
 
   render() {
-    let { error, items, search } = this.state
+    const { multiselect, onExit } = this.props
+    const { error, items, picked, search } = this.state
 
     return (
-      <FocusTrap className="ars-dialog" onExit={this.props.onExit}>
+      <FocusTrap className="ars-dialog" onExit={onExit}>
         <header className="ars-dialog-header">
           <Search
             key="search"
@@ -55,14 +57,23 @@ let Picker = createClass({
 
         <Error error={error} />
 
-        <Gallery
-          ref="gallery"
+        <TableView
           search={search}
           items={items}
-          picked={this.state.picked}
+          picked={picked}
           onPicked={this._onPicked}
           onKeyDown={this._onKeyDown}
+          multiselect={multiselect}
         />
+
+        {/* <Gallery
+            ref="gallery"
+            search={search}
+            items={items}
+            picked={picked}
+            onPicked={this._onPicked}
+            onKeyDown={this._onKeyDown}
+            /> */}
 
         <footer className="ars-dialog-footer">
           <div>
@@ -106,12 +117,18 @@ let Picker = createClass({
   _onMultiSelectPicked(picked) {
     // Allow for multiple selections and toggling of selections
     let total = this.state.picked ? this.state.picked.slice() : []
-    let index = total.indexOf(picked)
-    if (index === -1) {
-      total = total.concat(picked)
-    } else {
-      total.splice(index, 1)
-    }
+    let pool = [].concat(picked)
+
+    pool.forEach(function(item) {
+      let index = total.indexOf(item)
+
+      if (index === -1) {
+        total = total.concat(item)
+      } else {
+        total.splice(index, 1)
+      }
+    })
+
     return total
   },
 
