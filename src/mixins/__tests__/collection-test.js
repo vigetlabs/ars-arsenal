@@ -18,7 +18,7 @@ describe('Collection Mixin', () => {
 
     test('calls onFetch when a response succeeds', () => {
       let component = TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" onFetch={onFetch} />
+        <Component url="/test.json" onFetch={onFetch} />
       )
 
       component.responseDidSucceed('body')
@@ -28,7 +28,7 @@ describe('Collection Mixin', () => {
 
     test('sets the error state to false', () => {
       let component = TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" onFetch={onFetch} />
+        <Component url="/test.json" onFetch={onFetch} />
       )
 
       component.responseDidSucceed()
@@ -39,7 +39,7 @@ describe('Collection Mixin', () => {
     test('sets the items state to the returned value of onFetch', () => {
       let onFetch = () => 'fetched'
       let component = TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" onFetch={onFetch} />
+        <Component url="/test.json" onFetch={onFetch} />
       )
 
       component.responseDidSucceed()
@@ -54,7 +54,7 @@ describe('Collection Mixin', () => {
     test('sets the error state to the returned value of onError', () => {
       let onError = response => `${response} error!`
       let component = TestUtils.renderIntoDocument(
-        <Component url="base/test/test.json" onError={onError} />
+        <Component url="/test.json" onError={onError} />
       )
 
       component.responseDidFail('terrible')

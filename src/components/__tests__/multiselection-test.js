@@ -8,7 +8,7 @@ describe('MultiSelection', () => {
     let component = TestUtils.renderIntoDocument(
       <MultiSelection
         slug={[0, 1]}
-        url="/base/test/test.json"
+        url="/test.json"
         resource="Photo"
       />
     )
@@ -20,7 +20,7 @@ describe('MultiSelection', () => {
 
   describe('when not given photos', () => {
     let component = TestUtils.renderIntoDocument(
-      <MultiSelection slug={[]} url="/base/test/test.json" resource="Photo" />
+      <MultiSelection slug={[]} url="/test.json" resource="Photo" />
     )
 
     test('does not render photos', () => {

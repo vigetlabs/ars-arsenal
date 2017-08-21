@@ -9,7 +9,7 @@ describe('ArsArsenal', () => {
 
   test('exposes a render method', () => {
     let component = ArsArsenal.render(document.createElement('div'), {
-      url: '/base/test/test.json'
+      url: '/test.json'
     })
 
     expect(TestUtils.isElementOfType(component, Ars)).toBe(true)

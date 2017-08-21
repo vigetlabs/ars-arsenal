@@ -6,10 +6,10 @@ describe('MultiSelectionItem', () => {
   describe('when given an item', () => {
     test('renders a photo', () => {
       let component = TestUtils.renderIntoDocument(
-        <MultiSelectionItem url="/base/test/test.json" />
+        <MultiSelectionItem url="/test.json" />
       )
 
-      component.setState({ item: { url: '/base/test/test.jpg' } })
+      component.setState({ item: { url: '/test.jpg' } })
 
       expect(component.refs).toHaveProperty('photo')
     })
@@ -18,7 +18,7 @@ describe('MultiSelectionItem', () => {
   describe('when not given an item', () => {
     test('does not render a photo', () => {
       let component = TestUtils.renderIntoDocument(
-        <MultiSelectionItem url="/base/test/test.json" />
+        <MultiSelectionItem url="/test.json" />
       )
 
       expect(component.refs).not.toHaveProperty('photo')

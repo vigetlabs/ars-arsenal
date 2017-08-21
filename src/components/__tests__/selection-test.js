@@ -6,10 +6,10 @@ describe('Selection', () => {
   describe('when given an item', () => {
     test('renders a photo', () => {
       let component = TestUtils.renderIntoDocument(
-        <Selection url="/base/test/test.json" resource="Photo" />
+        <Selection url="/test.json" resource="Photo" />
       )
 
-      component.setState({ item: { url: '/base/test/test.jpg' } })
+      component.setState({ item: { url: '/test.jpg' } })
 
       expect(component.refs).toHaveProperty('photo')
     })
@@ -18,7 +18,7 @@ describe('Selection', () => {
   describe('when not given an item', () => {
     test('does not render a photo', () => {
       let component = TestUtils.renderIntoDocument(
-        <Selection url="/base/test/test.json" resource="Photo" />
+        <Selection url="/test.json" resource="Photo" />
       )
 
       expect(component.refs).not.toHaveProperty('photo')

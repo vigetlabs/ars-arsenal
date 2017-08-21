@@ -7,7 +7,7 @@ function makePicker(props = {}) {
   props.onExit = props.onExit || (() => {})
   props.onChange = props.onChange || (() => {})
 
-  return <Picker url="base/test/test.json" {...props} />
+  return <Picker url="test.json" {...props} />
 }
 
 describe('Picker', () => {
@@ -34,7 +34,7 @@ describe('Picker', () => {
       component = TestUtils.renderIntoDocument(makePicker())
 
       component.setState({
-        items: [{ id: 0, caption: 'test', url: '/base/test/test.jpg' }]
+        items: [{ id: 0, caption: 'test', url: '/test.jpg' }]
       })
 
       TestUtils.Simulate.click(
@@ -63,8 +63,8 @@ describe('Picker', () => {
 
     component.setState({
       items: [
-        { id: 0, caption: 'test', url: '/base/test/test.jpg' },
-        { id: 1, caption: 'test', url: '/base/test/test.jpg' }
+        { id: 0, caption: 'test', url: '/test.jpg' },
+        { id: 1, caption: 'test', url: '/test.jpg' }
       ]
     })
 
@@ -88,7 +88,7 @@ describe('Picker', () => {
     let component = TestUtils.renderIntoDocument(makePicker())
 
     component.setState({
-      items: [{ id: 0, caption: 'test', url: '/base/test/test.jpg' }],
+      items: [{ id: 0, caption: 'test', url: '/test.jpg' }],
       picked: [0]
     })
 
