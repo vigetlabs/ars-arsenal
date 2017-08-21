@@ -1,15 +1,16 @@
-module.exports = {
-
+export default {
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-    modulesDirectories: [ 'web_modules', 'node_modules', 'src']
+    extensions: ['', '.js', '.js'],
+    modulesDirectories: ['web_modules', 'node_modules', 'src']
   },
 
   module: {
-    loaders: [{
-      test    : /\.jsx*$/,
-      exclude : /node_modules/,
-      loader  : 'babel'
-    }]
+    loaders: [
+      {
+        test: /\.js*$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      }
+    ]
   }
 }

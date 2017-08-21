@@ -3,33 +3,31 @@
  * Encapsulates data operations required for retrieving photos
  */
 
-let React = require("react")
-let XHR   = require('xhr')
-let Types = React.PropTypes
+import XHR from 'xhr'
+import { func, string } from 'prop-types'
 
 let Sync = {
-
   propTypes: {
-    makeQuery : Types.func,
-    makeURL   : Types.func,
-    onError   : Types.func,
-    onFetch   : Types.func,
-    url       : Types.string.isRequired
+    makeQuery: func,
+    makeURL: func,
+    onError: func,
+    onFetch: func,
+    url: string.isRequired
   },
 
   getDefaultProps() {
     return {
-      makeQuery : (query) => `q=${ query }`,
-      makeURL   : (url, id = false) => url + (id ? "/" + id : ""),
-      onError   : response => response,
-      onFetch   : data => data
+      makeQuery: query => `q=${query}`,
+      makeURL: (url, id = false) => url + (id ? '/' + id : ''),
+      onError: response => response,
+      onFetch: data => data
     }
   },
 
   getInitialState() {
     return {
-      error  : false,
-      search : ""
+      error: false,
+      search: ''
     }
   },
 
@@ -52,14 +50,13 @@ let Sync = {
     }
 
     if (this.state.search) {
-      url = url + "?" + this.props.makeQuery(this.state.search)
+      url = url + '?' + this.props.makeQuery(this.state.search)
     }
 
     this.setState({
       request: Sync.request(url, this.responseDidSucceed, this.responseDidFail)
     })
   }
-
 }
 
-module.exports = Sync
+export default Sync

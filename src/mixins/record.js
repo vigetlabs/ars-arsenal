@@ -3,17 +3,16 @@
  * Sync operations for a single record
  */
 
-let Sync      = require("./sync")
-let invariant = require("invariant")
+import Sync from './sync'
+import invariant from 'invariant'
 
-module.exports = {
-
-  mixins: [ Sync ],
+export default {
+  mixins: [Sync],
 
   getInitialState() {
     return {
-      fetching : false,
-      item     : false
+      fetching: false,
+      item: false
     }
   },
 
@@ -27,8 +26,14 @@ module.exports = {
   },
 
   componentWillMount() {
-    invariant(this.responseDidSucceed, 'Component requires a responseDidSucceed method')
-    invariant(this.responseDidFail, 'Component requires a responseDidFail method')
+    invariant(
+      this.responseDidSucceed,
+      'Component requires a responseDidSucceed method'
+    )
+    invariant(
+      this.responseDidFail,
+      'Component requires a responseDidFail method'
+    )
 
     this.fetchIf(this.props.slug)
   },
@@ -50,5 +55,4 @@ module.exports = {
 
     this.setState({ item: false, fetching: false, error })
   }
-
 }

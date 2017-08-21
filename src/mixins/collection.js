@@ -3,15 +3,16 @@
  * Sync operations for a list of items
  */
 
-let Sync      = require('./sync')
-let invariant = require("invariant")
+import Sync from './sync'
+import invariant from 'invariant'
 
-module.exports = {
-
-  mixins: [ Sync ],
+export default {
+  mixins: [Sync],
 
   getInitialState() {
-    items : []
+    return {
+      items: []
+    }
   },
 
   componentDidMount() {
@@ -19,8 +20,14 @@ module.exports = {
   },
 
   componentWillMount() {
-    invariant(this.responseDidSucceed, 'Component requires a responseDidSucceed method')
-    invariant(this.responseDidFail, 'Component requires a responseDidFail method')
+    invariant(
+      this.responseDidSucceed,
+      'Component requires a responseDidSucceed method'
+    )
+    invariant(
+      this.responseDidFail,
+      'Component requires a responseDidFail method'
+    )
   },
 
   responseDidSucceed(response) {
@@ -34,5 +41,4 @@ module.exports = {
 
     this.setState({ error })
   }
-
 }

@@ -6,6 +6,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "make example",
+    "format": "./bin/format",
+    "lint": "./bin/lint",
     "test": "make test",
     "coveralls": "make test-coverage"
   },
@@ -30,11 +32,14 @@
   "devDependencies": {
     "autoprefixer-loader": "~3",
     "babel": "~5",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "~5",
     "babel-runtime": "^5.7.0",
     "chai": "~3",
     "coveralls": "~2",
     "css-loader": "~0.23",
+    "eslint": "^4.5.0",
+    "eslint-plugin-react": "^7.2.1",
     "istanbul": "~0.4",
     "istanbul-instrumenter-loader": "~0.2",
     "karma": "1.1.1",
@@ -47,6 +52,7 @@
     "karma-webpack": "~1",
     "mocha": "2.5.3",
     "node-sass": "~3.8",
+    "prettier": "^1.5.3",
     "react": "~15.2.0",
     "react-addons-test-utils": "~15.2.0",
     "react-dom": "~15.2.0",
@@ -61,8 +67,10 @@
   },
   "dependencies": {
     "classnames": "~2",
+    "create-react-class": "^15.6.0",
     "debounce": "~1.0",
     "invariant": "~2.2.1",
+    "prop-types": "^15.5.10",
     "react-addons-css-transition-group": ">= 0.14.2",
     "react-focus-trap": "~2.3.0",
     "react-ink": "~5.1.1",

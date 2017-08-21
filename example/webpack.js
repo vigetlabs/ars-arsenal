@@ -1,12 +1,10 @@
-var Server  = require("webpack-dev-server")
-var Webpack = require("webpack")
-var config  = require('../webpack.config')
+var Server = require('webpack-dev-server')
+var Webpack = require('webpack')
+var config = require('../webpack.config')
 
 config.devtool = 'inline-source-map'
 
-config.entry = [
-  './example/example.jsx'
-]
+config.entry = ['./example/example.jsx']
 
 config.output = {
   filename: 'example.build.js',
@@ -14,12 +12,12 @@ config.output = {
   publicPath: '/'
 }
 
-config.resolve.extensions = [ '', '.js', '.jsx', '.scss', '.css']
+config.resolve.extensions = ['', '.js', '.jsx', '.scss', '.css']
 
 config.module.loaders.unshift({
-  test    : /\.s*(c|a)ss$/,
-  exclude : /node_modules/,
-  loader  : 'style!css!autoprefixer!sass'
+  test: /\.s*(c|a)ss$/,
+  exclude: /node_modules/,
+  loader: 'style!css!autoprefixer!sass'
 })
 
 module.exports = new Server(Webpack(config), {
@@ -27,4 +25,4 @@ module.exports = new Server(Webpack(config), {
   noInfo: true,
   stats: { colors: true },
   historyApiFallback: true
-});
+})

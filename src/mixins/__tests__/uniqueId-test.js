@@ -1,17 +1,18 @@
-describe('UniqueId Mixin', function() {
-  let React    = require('react')
-  let UniqueId = require('../uniqueId')
+import React from 'react'
+import TestUtils from 'react-addons-test-utils'
+import createClass from 'create-react-class'
+import UniqueId from '../uniqueId'
 
-  let Component = React.createClass({
-    mixins: [ UniqueId ],
-    render: () => (<p />)
+describe('UniqueId Mixin', function() {
+  let Component = createClass({
+    mixins: [UniqueId],
+    render: () => <p />
   })
 
-  it ("sets the state of a component to a unique identifier", function() {
-    let first  = TestUtils.renderIntoDocument(<Component />)
+  it('sets the state of a component to a unique identifier', function() {
+    let first = TestUtils.renderIntoDocument(<Component />)
     let second = TestUtils.renderIntoDocument(<Component />)
 
     first.state.id.should.not.equal(second.state.id)
   })
-
 })

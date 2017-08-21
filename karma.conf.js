@@ -3,24 +3,23 @@ var webpack_config = require('./webpack.config')
 
 module.exports = function(config) {
   config.set({
+    browsers: ['Chrome'],
 
-    browsers: [ 'Chrome' ],
-
-    frameworks: [ 'mocha', 'sinon-chai' ],
+    frameworks: ['mocha', 'sinon-chai'],
 
     logLevel: config.LOG_ERROR,
 
     files: [
       { pattern: 'test/*.json', watched: false, included: false, served: true },
-      { pattern: 'test/*.jpg',  watched: false, included: false, served: true },
+      { pattern: 'test/*.jpg', watched: false, included: false, served: true },
       'src/**/__tests__/*.js*'
     ],
 
     preprocessors: {
-      'src/**/__tests__/*.js*': [ 'webpack' ]
+      'src/**/__tests__/*.js*': ['webpack']
     },
 
-    reporters: [ 'mocha', 'coverage' ],
+    reporters: ['mocha', 'coverage'],
 
     mochaReporter: {
       output: 'minimal'
@@ -35,27 +34,29 @@ module.exports = function(config) {
     },
 
     webpack: {
-      devtool : 'inline-source-map',
+      devtool: 'inline-source-map',
 
       plugins: [
         new Webpack.ProvidePlugin({
-          React     : 'react',
-          TestUtils : 'react-addons-test-utils'
+          React: 'react',
+          TestUtils: 'react-addons-test-utils'
         })
       ],
 
       resolve: webpack_config.resolve,
 
       module: {
-        loaders: [{
-          test    : /\.jsx*$/,
-          exclude : /node_modules/,
-          loader  : 'babel',
-          query   : {
-            stage    : 2,
-            optional : [ 'runtime']
+        loaders: [
+          {
+            test: /\.jsx*$/,
+            exclude: /node_modules/,
+            loader: 'babel',
+            query: {
+              stage: 2,
+              optional: ['runtime']
+            }
           }
-        }],
+        ],
         postLoaders: [
           {
             test: /\.jsx*$/,
@@ -69,5 +70,5 @@ module.exports = function(config) {
     webpackServer: {
       noInfo: true
     }
-  });
-};
+  })
+}

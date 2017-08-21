@@ -1,3 +1,3 @@
-module.exports = function(word) {
+export default function(word) {
   return word.replace(/s?$/i, 's')
 }
