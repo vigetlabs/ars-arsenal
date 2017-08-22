@@ -7,6 +7,7 @@ import React from 'react'
 import Animation from 'react-addons-css-transition-group'
 import Figure from './figure'
 import createClass from 'create-react-class'
+import cx from 'classnames'
 import { func, array } from 'prop-types'
 
 let Gallery = createClass({
@@ -23,13 +24,23 @@ let Gallery = createClass({
     }
   },
 
-  getItem(record) {
+  componentDidMount() {
+    this.mounted = true
+  },
+
+  getItem(record, index) {
     let isPicked = this.props.picked
       ? this.props.picked.indexOf(record.id) !== -1
       : false
 
+    let className = cx('ars-gallery-item', {
+      'ars-gallery-animate': !this.mounted
+    })
+
+    let animationDelay = 150 + index * 60 + 'ms'
+
     return (
-      <div className="ars-gallery-item" key={'photo_' + record.id}>
+      <div className={className} key={record.id} style={{ animationDelay }}>
         <Figure
           picked={isPicked}
           record={record}

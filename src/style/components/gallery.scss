@@ -20,3 +20,23 @@
     width: 25%;
   }
 }
+
+// Transitions
+// -------------------------------------------------- //
+
+@keyframes ars-gallery-in {
+  0% {
+    opacity: 0;
+    transform: translateZ(0) translate(8px, 4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+.ars-gallery-animate {
+  animation: ars-gallery-in 0.6s $ars-bounce;
+  animation-fill-mode: both;
+}

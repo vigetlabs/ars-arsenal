@@ -1,4 +1,5 @@
 import React from 'react'
+import Animation from 'react-addons-css-transition-group'
 import TableHeading from './table-heading'
 import Checker from './checker'
 import cx from 'classnames'
@@ -24,10 +25,8 @@ class TableView extends React.Component {
       'ars-table-animate': !this.mounted
     })
 
-    let animationDelay = this.mounted ? 0 : 250
+    let animationDelay = 150 + index * 60 + 'ms'
     let checked = picked.indexOf(id) >= 0
-
-    animationDelay = animationDelay + index * 90 + 'ms'
 
     return (
       <tr key={id} className={className} style={{ animationDelay }}>
@@ -129,9 +128,14 @@ class TableView extends React.Component {
               </TableHeading>
             </tr>
           </thead>
-          <tbody>
+          <Animation
+            component="tbody"
+            transitionName="ars-table"
+            transitionEnterTimeout={480}
+            transitionLeaveTimeout={320}
+          >
             {rows.map(this.renderRow, this)}
-          </tbody>
+          </Animation>
         </table>
       </div>
     )

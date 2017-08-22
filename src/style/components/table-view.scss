@@ -121,26 +121,6 @@
 }
 
 /**
- * Entrance Animation
- */
-@keyframes ars-table-in {
-  0% {
-    opacity: 0;
-    transform: translateZ(0) scale(0.92);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateZ(0);
-  }
-}
-
-.ars-table-animate {
-  animation: ars-table-in 0.6s $ars-bounce;
-  animation-fill-mode: both;
-}
-
-/**
 * Active States
  */
 
@@ -157,4 +137,45 @@
 .ars-table-heading.ars-active {
   color: $ars-primary;
   font-weight: bold;
+}
+
+// Transitions
+// -------------------------------------------------- //
+
+@keyframes ars-table-in {
+  0% {
+    opacity: 0;
+    transform: translateZ(0) scale(0.94);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+.ars-table-animate {
+  animation: ars-table-in 0.6s $ars-bounce;
+  animation-fill-mode: both;
+}
+
+.ars-table-enter {
+  opacity: 0.01;
+  transform: scale(1.02);
+  transition: 0.48s all;
+}
+
+.ars-table-enter.ars-table-enter-active {
+  opacity: 1;
+  transform: none;
+}
+
+.ars-table-leave {
+  opacity: 1;
+  transition: 0.32s all;
+}
+
+.ars-table-leave.ars-table-leave-active {
+  opacity: 0.01;
+  transform: scale(1.02);
 }
