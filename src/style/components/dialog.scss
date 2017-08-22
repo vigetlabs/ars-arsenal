@@ -1,5 +1,3 @@
-$ars-dialog-width: 768px;
-
 .ars-dialog-wrapper {
   animation: 0.4s ars-dialog-fade;
   display: flex;
@@ -30,9 +28,11 @@ $ars-dialog-width: 768px;
   box-shadow: 0 1px 3px rgba(#000, 0.24);
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   margin: 0 auto;
-  max-height: 100%;
+  max-height: 85vh;
   max-width: $ars-dialog-width;
+  min-height: 200px;
   position: relative;
   width: 100%;
   z-index: 1;
@@ -41,11 +41,17 @@ $ars-dialog-width: 768px;
     background: $ars-primary;
     color: #fff;
     height: 100%;
+    max-height: 100%;
   }
 }
 
 .ars-dialog-header {
+  @extend %ars-paper;
+  align-items: center;
+  display: flex;
   flex-shrink: 0;
+  margin: 8px 8px 0;
+  padding-right: 4px;
 }
 
 .ars-dialog-title {
@@ -57,20 +63,21 @@ $ars-dialog-width: 768px;
 }
 
 .ars-dialog-footer {
+  align-items: center;
   background: #fff;
   box-shadow: 0 -1px 2px rgba(#000, 0.12);
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
-  padding: 8px;
+  padding: 0 8px;
   position: relative;
-
-  span {
-    vertical-align: middle;
-  }
 }
 
 .ars-button.ars-dialog-clear {
+  font-size: 12px;
+  line-height: 24px;
   padding-left: 0;
+  margin-top: 8px;
 
   &:before {
     background: url('/icons/clear.svg') no-repeat;
@@ -78,7 +85,19 @@ $ars-dialog-width: 768px;
     display: inline-block;
     height: 24px;
     margin-right: 6px;
+    position: relative;
+    top: -1px;
     vertical-align: middle;
     width: 24px;
   }
+}
+
+.ars-button.ars-dialog-table {
+  @extend .ars-button-icon;
+  background: url('/icons/list.svg') 50% 50% no-repeat;
+}
+
+.ars-button.ars-dialog-gallery {
+  @extend .ars-button-icon;
+  background: url('/icons/gallery.svg') 50% 50% no-repeat;
 }

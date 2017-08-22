@@ -1,39 +1,7 @@
 import React from 'react'
+import TableHeading from './table-heading'
+import Checker from './checker'
 import cx from 'classnames'
-
-function Header({ children, field, active, onSort }) {
-  let onClick = onSort ? onSort.bind(null, field) : null
-  let className = cx(`ars-table-view-heading ars-table-view-${field}`, {
-    'ars-active': active,
-    'ars-sortable': !active && onSort
-  })
-
-  return (
-    <th className={className} onClick={onClick}>
-      {children}
-    </th>
-  )
-}
-
-function Checker({ multiselect, checked, disabled, id, name, onChange }) {
-  if (disabled) {
-    return null
-  }
-
-  return (
-    <label className="ars-table-view-checker">
-      <span className="ars-hidden">
-        {checked ? 'Deselect' : 'Select'} {name}
-      </span>
-
-      <input
-        type={multiselect ? 'checkbox' : 'radio'}
-        onChange={onChange.bind(null, id)}
-        checked={checked}
-      />
-    </label>
-  )
-}
 
 class TableView extends React.Component {
   static defaultProps = {
@@ -52,15 +20,18 @@ class TableView extends React.Component {
     const { id, name, attribution, caption, url } = item
     const { multiselect, picked, onPicked } = this.props
 
+    let className = cx({
+      'ars-table-animate': !this.mounted
+    })
+
     let animationDelay = this.mounted ? 0 : 250
-    let className = this.mounted ? 'ars-table-view-animate' : null
     let checked = picked.indexOf(id) >= 0
 
-    animationDelay += index * 90 + 'ms'
+    animationDelay = animationDelay + index * 90 + 'ms'
 
     return (
       <tr key={id} className={className} style={{ animationDelay }}>
-        <td className="ars-table-view-selection">
+        <td className="ars-table-selection">
           <Checker
             checked={checked}
             name={name}
@@ -69,10 +40,10 @@ class TableView extends React.Component {
             onChange={onPicked}
           />
         </td>
-        <td className="ars-table-view-id">
+        <td className="ars-table-id">
           {id}
         </td>
-        <td className="ars-table-view-name">
+        <td className="ars-table-name">
           {name}
         </td>
         <td>
@@ -81,8 +52,8 @@ class TableView extends React.Component {
         <td>
           {attribution}
         </td>
-        <td className="ars-table-view-preview">
-          <div className="ars-table-view-imagebox">
+        <td className="ars-table-preview">
+          <div className="ars-table-imagebox">
             <img src={url} />
           </div>
         </td>
@@ -107,11 +78,11 @@ class TableView extends React.Component {
     let allPicked = unselected.length <= 0
 
     return (
-      <div className="ars-table-view-wrapper" onKeyDown={onKeyDown}>
-        <table className="ars-table-view">
+      <div className="ars-table-wrapper" onKeyDown={onKeyDown}>
+        <table className="ars-table">
           <thead>
             <tr>
-              <th className="ars-table-view-selection">
+              <th className="ars-table-selection">
                 <span className="ars-hidden">
                   Use this column to select items
                 </span>
@@ -125,33 +96,37 @@ class TableView extends React.Component {
                   multiselect
                 />
               </th>
-              <Header field="id" active={sortBy === 'id'} onSort={this.sortBy}>
+              <TableHeading
+                field="id"
+                active={sortBy === 'id'}
+                onSort={this.sortBy}
+              >
                 ID
-              </Header>
-              <Header
+              </TableHeading>
+              <TableHeading
                 field="name"
                 active={sortBy === 'name'}
                 onSort={this.sortBy}
               >
                 Name
-              </Header>
-              <Header
+              </TableHeading>
+              <TableHeading
                 field="caption"
                 active={sortBy === 'caption'}
                 onSort={this.sortBy}
               >
                 Caption
-              </Header>
-              <Header
+              </TableHeading>
+              <TableHeading
                 field="attribution"
                 active={sortBy === 'attribution'}
                 onSort={this.sortBy}
               >
                 Attribution
-              </Header>
-              <Header field="preview" active={sortBy === 'preview'}>
+              </TableHeading>
+              <TableHeading field="preview" active={sortBy === 'preview'}>
                 Preview
-              </Header>
+              </TableHeading>
             </tr>
           </thead>
           <tbody>

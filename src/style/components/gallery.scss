@@ -1,13 +1,10 @@
-$ars-gallery-height: 432px;
-
 .ars-gallery {
   align-content: flex-start;
+  box-shadow: 0 -1px 0 rgba(#000, 0.12);
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
-  height: $ars-gallery-height;
-  margin-top: 4px;
-  max-height: 100%;
+  margin-top: 9px;
   max-width: 100%;
   overflow-x: visible;
   overflow-y: auto;

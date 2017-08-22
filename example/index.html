@@ -5,38 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="mobile-web-app-capable" content="yes">
     <title>Ars Arsenal</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 20px;
-      }
-      h1 {
-        margin-top: 48px;
-      }
-      h1:first-of-type {
-        margin-top: 0;
-      }
-    </style>
   </head>
   <body class="ars">
-    <h1>Basic Use</h1>
-    <div id="select"></div>
+    <header class="header">
+      <h1 class="type-heading">ArsArsenal</h1>
+      <a href="https://github.com/vigetlabs/ars-arsenal">vigetlabs/ars-arsenal</a>
+    </header>
 
-    <h1>Basic Use: Pre-selected</h1>
-    <div id="selectWithValue"></div>
+    <main class="main">
+      <div class="example">
+        <h1 class="type-subheading">Basic Use</h1>
+        <div id="select"></div>
+      </div>
 
-    <h1>Multiselect</h1>
-    <div id="multiselect"></div>
+      <div class="example">
+        <h1 class="type-subheading">Basic Use: Pre-selected</h1>
+        <div id="selectWithValue"></div>
+      </div>
 
-    <h1>Multiselect: Pre-selected</h1>
-    <div id="multiselectWithValue"></div>
+      <div class="example">
+        <h1 class="type-subheading">Multiselect</h1>
+        <div id="multiselect"></div>
+      </div>
 
-    <h1>Table</h1>
-    <div id="select-table"></div>
+      <div class="example">
+        <h1 class="type-subheading">Multiselect: Pre-selected</h1>
+        <div id="multiselectWithValue"></div>
+      </div>
 
-    <h1>Multiselect Table</h1>
-    <div id="multiselect-table"></div>
+      <div class="example">
+        <h1 class="type-subheading">Table</h1>
+        <div id="select-table"></div>
+      </div>
 
+      <div class="example">
+        <h1 class="type-subheading">Multiselect Table</h1>
+        <div id="multiselect-table"></div>
+      </div>
+    </main>
     <script src="example.build.js"></script>
   </body>
 </html>

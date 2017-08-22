@@ -1,48 +1,46 @@
-.ars-table-view-wrapper {
+.ars-table-wrapper {
   box-shadow: 0 -1px 0 rgba(#000, 0.12);
   margin-top: 9px;
   display: flex;
-  min-height: 200px;
-  max-height: 60vh;
+  flex-grow: 1;
   overflow: auto;
   padding: 8px 9px;
 }
 
-.ars-table-view {
-  background: #fff;
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(#000, 0.4);
+.ars-table {
+  @extend %ars-paper;
   border-collapse: collapse;
   color: $ars-text-dark;
   font-size: 13px;
+  width: 100%;
 }
 
-.ars-table-view tbody tr {
-  box-shadow: 0 -1px 0 $ars-edge;
+.ars-table tbody tr {
+  box-shadow: 0 -1px 0 rgba(#000, 0.08);
   transition: 0.2s all;
   position: relative;
   will-change: all;
 
   &:hover {
     background: $ars-grey-200;
-    box-shadow: inset 0 1px 0 $ars-edge, inset 0 1px 0 $ars-edge;
+    box-shadow: inset 0 1px 0 rgba(#000, 0.08);
     z-index: 1;
   }
 }
 
-.ars-table-view td,
-.ars-table-view th {
+.ars-table td,
+.ars-table th {
   text-align: left;
   padding: 8px 32px 8px 0;
   min-height: 48px;
   min-width: 150px;
 }
 
-.ars-table-view td:last-child {
+.ars-table td:last-child {
   padding-right: 24px;
 }
 
-.ars-table-view thead th {
+.ars-table thead th {
   color: $ars-muted-dark;
   font-size: 12px;
   text-align: left;
@@ -50,32 +48,32 @@
   padding-bottom: 16px;
 }
 
-.ars-table-view-stretch {
+.ars-table-stretch {
   width: 100%;
 }
 
-.ars-table-view .ars-table-view-id {
+.ars-table .ars-table-id {
   min-width: 0;
   padding-right: 24px;
   width: 48px;
 }
 
-.ars-table-view .ars-table-view-preview,
-.ars-table-view .ars-table-view-selection {
+.ars-table .ars-table-preview,
+.ars-table .ars-table-selection {
   min-width: 0;
   width: auto;
 }
 
-.ars-table-view .ars-table-view-name {
+.ars-table .ars-table-name {
   width: auto;
 }
 
-.ars-table-view .ars-table-view-selection {
+.ars-table .ars-table-selection {
   min-width: 0;
   padding: 16px 24px 16px 24px;
 }
 
-.ars-table-view-imagebox {
+.ars-table-imagebox {
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
   height: 50px;
@@ -100,7 +98,7 @@
   }
 }
 
-.ars-table-view-checker {
+.ars-table-checker {
   cursor: pointer;
   position: relative;
 
@@ -137,7 +135,7 @@
   }
 }
 
-.ars-table-view-animate {
+.ars-table-animate {
   animation: ars-table-in 0.6s $ars-bounce;
   animation-fill-mode: both;
 }
@@ -146,7 +144,7 @@
 * Active States
  */
 
-.ars-table-view-heading.ars-sortable {
+.ars-table-heading.ars-sortable {
   cursor: pointer;
   transition: 0.4s all;
 
@@ -156,7 +154,7 @@
   }
 }
 
-.ars-table-view-heading.ars-active {
+.ars-table-heading.ars-active {
   color: $ars-primary;
   font-weight: bold;
 }

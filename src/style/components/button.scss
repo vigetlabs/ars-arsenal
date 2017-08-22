@@ -1,6 +1,6 @@
 .ars-button {
   @extend %focusable;
-  background: #fff;
+  background-color: #fff;
   border-radius: 3px;
   border: 0;
   color: $ars-primary;
@@ -13,26 +13,47 @@
   padding: 10px 16px;
   text-align: center;
   text-shadow: none;
+  transition: 0.3s all;
   text-transform: uppercase;
   width: auto;
 
   &:hover,
   &:focus {
-    background: #fff;
+    background-color: #fff;
   }
 
   .ink {
     z-index: 4;
   }
+
+  &[disabled] {
+    opacity: 0.18 !important;
+    cursor: cancel !important;
+  }
 }
 
 .ars-button-raised {
-  background: $ars-primary;
+  background-color: $ars-primary;
   box-shadow: 0 1px 2px rgba(#000, 0.12), 0 0 1px rgba(#000, 0.2);
   color: #fff;
 
   &:hover,
   &:focus {
-    background: $ars-primary;
+    background-color: $ars-primary;
+  }
+}
+
+.ars-button-icon {
+  height: 40px;
+  width: 40px;
+  opacity: 0.64;
+  border-radius: 50%;
+  margin: 2px;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    box-shadow: 0 0 0 1px rgba(#000, 0.12);
+    opacity: 1;
   }
 }

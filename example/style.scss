@@ -1,9 +1,76 @@
 @import '../src/style/ars-arsenal.scss';
 
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
 body {
-  text-align: center;
+  background: #eee;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  padding-bottom: 48px;
 }
 
 #app {
   margin: 0 auto;
+}
+
+h1 {
+  color: rgba(#000, 0.54);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.header {
+  background: $ars-primary;
+  padding: 12px 20px 64px;
+  box-shadow: inset 0 -1px 0.5px rgba(#000, 0.12),
+    inset 0 -1px 0 rgba(#000, 0.12);
+}
+
+.header a:link,
+.header a:visited {
+  color: rgba(white, 0.54);
+  text-decoration: none;
+
+  &:hover {
+    color: $ars-accent;
+    text-decoration: underline;
+  }
+}
+
+.type-heading {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 4px 0 8px;
+}
+
+.type-subheading {
+  color: rgba(#000, 0.54);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin: 4px 0 24px;
+}
+
+.example {
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(#000, 0.20), 0 0 1px rgba(#000, 0.12);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.main {
+  margin: -32px auto 0;
+  max-width: 768px;
 }

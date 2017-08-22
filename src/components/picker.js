@@ -32,7 +32,8 @@ let Picker = createClass({
 
   getInitialState() {
     return {
-      picked: this.props.picked
+      picked: this.props.picked,
+      mode: this.props.mode
     }
   },
 
@@ -42,13 +43,20 @@ let Picker = createClass({
   },
 
   renderItems() {
-    const { multiselect, mode } = this.props
-    const { items, picked, search } = this.state
+    const { multiselect } = this.props
+    const { items, mode, picked, search } = this.state
+
+    if (items.length <= 0) {
+      return (
+        <p className="ars-empty">
+          No items exist {search ? `for “${search}”.` : ''}
+        </p>
+      )
+    }
 
     if (mode === 'table') {
       return (
         <TableView
-          search={search}
           items={items}
           picked={picked}
           onPicked={this._onPicked}
@@ -61,7 +69,6 @@ let Picker = createClass({
     return (
       <Gallery
         ref="gallery"
-        search={search}
         items={items}
         picked={picked}
         onPicked={this._onPicked}
@@ -70,9 +77,14 @@ let Picker = createClass({
     )
   },
 
+  setMode(mode, event) {
+    event.preventDefault()
+    this.setState({ mode })
+  },
+
   render() {
-    const { multiselect, onExit } = this.props
-    const { error, items, picked, search } = this.state
+    const { onExit } = this.props
+    const { mode, error, items } = this.state
 
     return (
       <FocusTrap className="ars-dialog" onExit={onExit}>
@@ -83,6 +95,22 @@ let Picker = createClass({
             datalist={items}
             onChange={this._onSearchChange}
           />
+
+          <Button
+            className="ars-dialog-gallery"
+            onClick={this.setMode.bind(null, 'gallery')}
+            disabled={mode === 'gallery'}
+          >
+            <span className="ars-hidden">Gallery</span>
+          </Button>
+
+          <Button
+            className="ars-dialog-table"
+            onClick={this.setMode.bind(null, 'table')}
+            disabled={mode === 'table'}
+          >
+            <span className="ars-hidden">Table</span>
+          </Button>
         </header>
 
         <Error error={error} />
@@ -151,8 +179,11 @@ let Picker = createClass({
     this.confirm()
   },
 
-  _onKeyDown({ key, metaKey, ctrlKey }) {
-    if ((key === 'Enter' && metaKey) || ctrlKey) {
+  _onKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      event.stopPropagation()
+
       this.confirm()
     }
   }

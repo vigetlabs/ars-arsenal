@@ -39,17 +39,6 @@ let Gallery = createClass({
     )
   },
 
-  getEmpty() {
-    let search = this.props.search
-    let isEmpty = this.props.items.length <= 0
-
-    return isEmpty
-      ? <p key="__empty" className="ars-empty">
-          No items exist {search ? `for “${search}”` : ''}
-        </p>
-      : null
-  },
-
   render() {
     let items = this.props.items
 
@@ -62,7 +51,6 @@ let Gallery = createClass({
         transitionEnterTimeout={480}
         transitionLeaveTimeout={480}
       >
-        {this.getEmpty()}
         {items.map(this.getItem)}
       </Animation>
     )

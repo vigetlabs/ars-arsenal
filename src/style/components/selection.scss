@@ -13,7 +13,8 @@
   }
 
   &.ars-has-photo {
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
   }
 
   &.ars-is-loading {
@@ -70,9 +71,13 @@
 
 .ars-button.ars-selection-edit {
   display: block;
+  line-height: 24px;
   margin: 0;
+  overflow: hidden;
   padding: 16px;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   width: 100%;
 }
 
@@ -80,7 +85,8 @@
   background: url('/icons/edit.svg') 50% 50% no-repeat;
   display: inline-block;
   height: 18px;
+  padding: 3px;
   margin-left: 12px;
-  vertical-align: text-bottom;
+  vertical-align: middle;
   width: 18px;
 }

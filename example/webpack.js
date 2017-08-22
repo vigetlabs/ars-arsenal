@@ -4,7 +4,9 @@ const Webpack = require('webpack')
 const config = {
   devtool: 'inline-source-map',
 
-  entry: './example/example',
+  entry: {
+    app: ['react-dev-utils/webpackHotDevClient', './example/example']
+  },
 
   output: {
     filename: 'example.build.js',
@@ -15,6 +17,8 @@ const config = {
   resolve: {
     extensions: ['.js', '.scss', '.css']
   },
+
+  plugins: [new Webpack.HotModuleReplacementPlugin()],
 
   module: {
     loaders: [
@@ -40,6 +44,6 @@ const config = {
 module.exports = new Server(Webpack(config), {
   contentBase: './example',
   noInfo: true,
-  stats: { colors: true },
-  historyApiFallback: true
+  hotOnly: true,
+  stats: { colors: true }
 })
