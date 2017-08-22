@@ -69,26 +69,47 @@
   flex-shrink: 0;
   display: flex;
   justify-content: space-between;
-  padding: 0 8px;
+  padding: 0 8px 0 0;
   position: relative;
+  white-space: nowrap;
 }
 
 .ars-button.ars-dialog-clear {
   font-size: 12px;
   line-height: 24px;
-  padding-left: 0;
   margin-top: 8px;
+  padding-left: 4px;
 
   &:before {
     background: url('/icons/clear.svg') no-repeat;
     content: '';
     display: inline-block;
     height: 24px;
-    margin-right: 6px;
+    opacity: 0.28;
     position: relative;
     top: -1px;
+    transition: 0.3s all;
     vertical-align: middle;
     width: 24px;
+  }
+
+  &:hover:before,
+  &:focus:before {
+    opacity: 0.54;
+    transition: 0.15s all;
+  }
+
+  .ars-dialog-clear-text {
+    margin-left: 12px;
+  }
+
+  @media screen and (max-width: 500px) {
+    text-align: center;
+
+    .ars-dialog-clear-text {
+      position: absolute;
+      font-size: 0;
+    }
   }
 }
 

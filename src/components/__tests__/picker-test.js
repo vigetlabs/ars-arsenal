@@ -50,22 +50,27 @@ describe('Picker', () => {
   })
 
   describe("when a multiselect picker's gallery has a selection", () => {
-    let multiselect = true
-    let component = TestUtils.renderIntoDocument(makePicker({ multiselect }))
+    let clickGalleryItem, component
 
-    let clickGalleryItem = function(index) {
-      TestUtils.Simulate.click(
-        DOM.findDOMNode(component.refs.gallery).querySelector(
-          `.ars-gallery-item:nth-child(${index + 1}) button`
-        )
+    beforeEach(() => {
+      component = TestUtils.renderIntoDocument(
+        makePicker({ multiselect: true })
       )
-    }
 
-    component.setState({
-      items: [
-        { id: 0, caption: 'test', url: '/test.jpg' },
-        { id: 1, caption: 'test', url: '/test.jpg' }
-      ]
+      clickGalleryItem = function(index) {
+        TestUtils.Simulate.click(
+          DOM.findDOMNode(component.refs.gallery).querySelector(
+            `.ars-gallery-item:nth-child(${index + 1}) button`
+          )
+        )
+      }
+
+      component.setState({
+        items: [
+          { id: 0, caption: 'test', url: '/test.jpg' },
+          { id: 1, caption: 'test', url: '/test.jpg' }
+        ]
+      })
     })
 
     test('updates its picked state', () => {
@@ -74,11 +79,14 @@ describe('Picker', () => {
     })
 
     test('adds to its picked state', () => {
+      clickGalleryItem(0)
       clickGalleryItem(1)
       expect(component.state.picked).toEqual([0, 1])
     })
 
     test('removes its picked state', () => {
+      clickGalleryItem(0)
+      clickGalleryItem(1)
       clickGalleryItem(1)
       expect(component.state.picked).toEqual([0])
     })
@@ -99,13 +107,15 @@ describe('Picker', () => {
   })
 
   describe("when a picker's confirm button is clicked", () => {
-    let onExit = jest.fn()
-    let onChange = jest.fn()
-    let component = TestUtils.renderIntoDocument(
-      makePicker({ onExit, onChange })
-    )
+    let component, onChange, onExit
 
-    TestUtils.Simulate.click(DOM.findDOMNode(component.refs.confirm))
+    beforeEach(function() {
+      onExit = jest.fn()
+      onChange = jest.fn()
+      component = TestUtils.renderIntoDocument(makePicker({ onExit, onChange }))
+
+      TestUtils.Simulate.click(DOM.findDOMNode(component.refs.confirm))
+    })
 
     test('triggers the exit callback', () => {
       expect(onExit).toHaveBeenCalled()
@@ -117,13 +127,15 @@ describe('Picker', () => {
   })
 
   describe("when a picker's cancel button is clicked", () => {
-    let onExit = jest.fn()
-    let onChange = jest.fn()
-    let component = TestUtils.renderIntoDocument(
-      makePicker({ onExit, onChange })
-    )
+    let component, onChange, onExit
 
-    TestUtils.Simulate.click(DOM.findDOMNode(component.refs.cancel))
+    beforeEach(function() {
+      onExit = jest.fn()
+      onChange = jest.fn()
+      component = TestUtils.renderIntoDocument(makePicker({ onExit, onChange }))
+
+      TestUtils.Simulate.click(DOM.findDOMNode(component.refs.cancel))
+    })
 
     test('triggers the exit callback', () => {
       expect(onExit).toHaveBeenCalled()
@@ -136,15 +148,23 @@ describe('Picker', () => {
 
   describe('when a user pushes a key sequence in the gallery', () => {
     describe('and it is cmd+enter', () => {
-      let onExit = jest.fn()
-      let onChange = jest.fn()
-      let component = TestUtils.renderIntoDocument(
-        makePicker({ onExit, onChange })
-      )
+      let component, onChange, onExit
 
-      TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), {
-        key: 'Enter',
-        metaKey: true
+      beforeEach(function() {
+        onExit = jest.fn()
+        onChange = jest.fn()
+        component = TestUtils.renderIntoDocument(
+          makePicker({ onExit, onChange })
+        )
+
+        component.setState({
+          items: [{ id: 0, caption: 'test', url: '/test.jpg' }]
+        })
+
+        TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), {
+          key: 'Enter',
+          metaKey: true
+        })
       })
 
       test('triggers the exit callback', () => {
@@ -157,15 +177,24 @@ describe('Picker', () => {
     })
 
     describe('and it is ctrl+enter', () => {
-      let onExit = jest.fn()
-      let onChange = jest.fn()
-      let component = TestUtils.renderIntoDocument(
-        makePicker({ onExit, onChange })
-      )
+      let component, onChange, onExit
 
-      TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), {
-        key: 'Enter',
-        ctrlKey: true
+      beforeEach(function() {
+        onExit = jest.fn()
+        onChange = jest.fn()
+
+        component = TestUtils.renderIntoDocument(
+          makePicker({ onExit, onChange })
+        )
+
+        component.setState({
+          items: [{ id: 0, caption: 'test', url: '/test.jpg' }]
+        })
+
+        TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), {
+          key: 'Enter',
+          ctrlKey: true
+        })
       })
 
       test('triggers the exit callback', () => {
@@ -178,14 +207,22 @@ describe('Picker', () => {
     })
 
     describe('and it does not include an option key', () => {
-      let onExit = jest.fn()
-      let onChange = jest.fn()
-      let component = TestUtils.renderIntoDocument(
-        makePicker({ onExit, onChange })
-      )
+      let component, onChange, onExit
 
-      TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), {
-        key: 'Enter'
+      beforeEach(function() {
+        onExit = jest.fn()
+        onChange = jest.fn()
+        component = TestUtils.renderIntoDocument(
+          makePicker({ onExit, onChange })
+        )
+
+        component.setState({
+          items: [{ id: 0, caption: 'test', url: '/test.jpg' }]
+        })
+
+        TestUtils.Simulate.keyDown(DOM.findDOMNode(component.refs.gallery), {
+          key: 'Enter'
+        })
       })
 
       test('does not trigger the exit callback', () => {
@@ -198,9 +235,10 @@ describe('Picker', () => {
     })
 
     describe('when given an error', () => {
-      let component = TestUtils.renderIntoDocument(makePicker())
+      let component
 
       beforeAll(function(done) {
+        component = TestUtils.renderIntoDocument(makePicker())
         component.setState({ error: 'This is a test error' }, () => done())
       })
 

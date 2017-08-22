@@ -125,7 +125,7 @@ let Picker = createClass({
               className="ars-dialog-clear"
               onClick={this._onClear}
             >
-              Clear Selection
+              <span className="ars-dialog-clear-text">Clear</span>
             </Button>
           </div>
           <div>
@@ -181,7 +181,7 @@ let Picker = createClass({
   },
 
   _onKeyDown(event) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
       event.preventDefault()
       event.stopPropagation()
 

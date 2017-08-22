@@ -31,7 +31,7 @@ export default {
   },
 
   responseDidSucceed(response) {
-    let items = this.props.onFetch(response)
+    let items = this.props.onFetch(response) || []
 
     this.setState({ items, error: false })
   },
