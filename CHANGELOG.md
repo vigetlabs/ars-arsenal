@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.3.0
+
+- Added a table view
+- Significant animation and aesthetic improvements
+
 ## 2.2.0
 
 - Do not fetch when given a `NaN` slug
