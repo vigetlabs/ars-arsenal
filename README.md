@@ -11,6 +11,28 @@ A gallery picker
 
 ![Example](http://f.cl.ly/items/2Z442e3B3o2D2k1j410I/ars.gif)
 
+## Installation
+
+```shell
+npm install --save ars-arsenal
+```
+
+### Styles
+
+Ars Arsenal ships with a stylesheet. The easiest way to include it is
+by importing it from the node_modules folder:
+
+```scss
+/* Sass stylesheet: */
+@import "./node_modules/ars-arsenal/style/ars-arsenal.scss"
+/* or CSS: */
+@import "./node_modules/ars-arsenal/style.css"
+```
+
+### Icons
+
+Copy over icons from `./example/icons` to your public directory.
+
 ## Usage
 
 ```javascript
