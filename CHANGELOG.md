@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.4.0
+
+- Add the ability to what table columns display
+
 ## 2.3.0
 
 - Added a table view

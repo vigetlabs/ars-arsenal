@@ -6,7 +6,8 @@ import cx from 'classnames'
 
 class TableView extends React.Component {
   static defaultProps = {
-    items: []
+    items: [],
+    columns: ['id', 'name', 'caption', 'attribution', 'preview']
   }
 
   state = {
@@ -39,19 +40,22 @@ class TableView extends React.Component {
             onChange={onPicked}
           />
         </td>
-        <td className="ars-table-id">
+        <td className="ars-table-id" hidden={!this.canRender('id')}>
           {id}
         </td>
-        <td className="ars-table-name">
+        <td className="ars-table-name" hidden={!this.canRender('name')}>
           {name}
         </td>
-        <td>
+        <td className="ars-table-caption" hidden={!this.canRender('caption')}>
           {caption}
         </td>
-        <td>
+        <td
+          className="ars-table-attribution"
+          hidden={!this.canRender('attribution')}
+        >
           {attribution}
         </td>
-        <td className="ars-table-preview">
+        <td className="ars-table-preview" hidden={!this.canRender('preview')}>
           <div className="ars-table-imagebox">
             <img src={url} />
           </div>
@@ -62,6 +66,10 @@ class TableView extends React.Component {
 
   sortBy = sortBy => {
     this.setState({ sortBy })
+  }
+
+  canRender(field) {
+    return this.props.columns.indexOf(field) >= 0
   }
 
   render() {
@@ -98,6 +106,7 @@ class TableView extends React.Component {
               <TableHeading
                 field="id"
                 active={sortBy === 'id'}
+                show={this.canRender('id')}
                 onSort={this.sortBy}
               >
                 ID
@@ -105,6 +114,7 @@ class TableView extends React.Component {
               <TableHeading
                 field="name"
                 active={sortBy === 'name'}
+                show={this.canRender('name')}
                 onSort={this.sortBy}
               >
                 Name
@@ -112,6 +122,7 @@ class TableView extends React.Component {
               <TableHeading
                 field="caption"
                 active={sortBy === 'caption'}
+                show={this.canRender('caption')}
                 onSort={this.sortBy}
               >
                 Caption
@@ -119,11 +130,16 @@ class TableView extends React.Component {
               <TableHeading
                 field="attribution"
                 active={sortBy === 'attribution'}
+                show={this.canRender('attribution')}
                 onSort={this.sortBy}
               >
                 Attribution
               </TableHeading>
-              <TableHeading field="preview" active={sortBy === 'preview'}>
+              <TableHeading
+                field="preview"
+                active={sortBy === 'preview'}
+                show={this.canRender('preview')}
+              >
                 Preview
               </TableHeading>
             </tr>

@@ -48,6 +48,9 @@ ArsArsenal.render(app, {
   
   // How to display the items. Can be "table" or "gallery"
   mode: 'gallery',
+  
+  // What table columns to display, and in what order
+  columns: ['id', 'name', 'caption', 'attribution', 'preview'],
 
   multiselect: false,
 

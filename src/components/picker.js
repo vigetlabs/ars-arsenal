@@ -43,7 +43,7 @@ let Picker = createClass({
   },
 
   renderItems() {
-    const { multiselect } = this.props
+    const { columns, multiselect } = this.props
     const { items, mode, picked, search } = this.state
 
     if (items.length <= 0) {
@@ -59,9 +59,10 @@ let Picker = createClass({
         <TableView
           items={items}
           picked={picked}
+          columns={columns}
+          multiselect={multiselect}
           onPicked={this._onPicked}
           onKeyDown={this._onKeyDown}
-          multiselect={multiselect}
         />
       )
     }

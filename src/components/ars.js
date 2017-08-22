@@ -41,7 +41,7 @@ let Ars = createClass({
 
   getPicker() {
     let { picked } = this.state
-    let { multiselect, mode } = this.props
+    let { columns, multiselect, mode } = this.props
 
     return (
       <Picker
@@ -53,6 +53,7 @@ let Ars = createClass({
         picked={picked}
         mode={mode}
         multiselect={multiselect}
+        columns={columns}
       />
     )
   },

@@ -32,10 +32,12 @@ ArsArsenal.render(multiselect, { ...options, multiselect: true })
 ArsArsenal.render(multiselectTable, {
   ...options,
   multiselect: true,
-  mode: 'table'
+  mode: 'table',
+  columns: ['id', 'name', 'caption']
 })
 ArsArsenal.render(multiselectWithValue, {
   ...options,
   picked: [2, 3],
-  multiselect: true
+  multiselect: true,
+  columns: ['id', 'name', 'caption']
 })
