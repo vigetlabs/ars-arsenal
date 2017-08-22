@@ -1,0 +1,6 @@
+{
+  "alias": "ars-arsenal",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
