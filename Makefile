@@ -32,9 +32,11 @@ documentation: README.md LICENSE.md
 	@mkdir -p dist
 	cp -r $^ dist
 
-release:
-	make build
+release: build
 	npm publish dist
+
+prerelease: build
+	npm publish dist --tag beta
 
 example:
 	@node example/server
