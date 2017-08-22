@@ -1,19 +1,5 @@
-var restify = require('restify')
 var photos = require('./photos')
-var server = restify.createServer()
-
-server.use(restify.queryParser())
-server.use(restify.CORS())
-
-server.use(function(req, res, next) {
-  console.log(
-    '%s: %s ? %s',
-    req.route.method,
-    req.route.path,
-    JSON.stringify(req.params)
-  )
-  next()
-})
+var server = require('express')()
 
 server.get('/photos', function(req, res) {
   var payload = photos
@@ -37,9 +23,7 @@ server.get('/photos/:id', function(req, res) {
     return pattern.test(photo.id)
   })[0]
 
-  setTimeout(function() {
-    payload ? res.send(payload) : res.error(404)
-  }, 2000)
+  payload ? res.send(payload) : res.error(404)
 })
 
 module.exports = server

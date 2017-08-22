@@ -2,7 +2,7 @@ import './style'
 import ArsArsenal from '../src/index'
 
 let options = {
-  url: `http://${window.location.hostname}:7654/photos`,
+  url: '/api/photos',
 
   makeQuery(term) {
     return `term=${term}`

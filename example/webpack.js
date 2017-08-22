@@ -1,12 +1,13 @@
 const Server = require('webpack-dev-server')
 const Webpack = require('webpack')
+const api = require('./api')
+
+const isProd = process.env.NODE_ENV === 'production'
 
 const config = {
   devtool: 'inline-source-map',
 
-  entry: {
-    app: ['react-dev-utils/webpackHotDevClient', './example/example']
-  },
+  entry: ['./example/example'],
 
   output: {
     filename: 'example.build.js',
@@ -18,7 +19,12 @@ const config = {
     extensions: ['.js', '.scss', '.css']
   },
 
-  plugins: [new Webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new Webpack.HotModuleReplacementPlugin(),
+    new Webpack.EnvironmentPlugin({
+      NODE_ENV: 'development'
+    })
+  ],
 
   module: {
     loaders: [
@@ -41,9 +47,15 @@ const config = {
   }
 }
 
+if (!isProd) {
+  config.entry.unshift('react-dev-utils/webpackHotDevClient')
+}
+
 module.exports = new Server(Webpack(config), {
   contentBase: './example',
   noInfo: true,
-  hotOnly: true,
-  stats: { colors: true }
+  hotOnly: !isProd,
+  setup(app) {
+    app.use('/api', api)
+  }
 })
