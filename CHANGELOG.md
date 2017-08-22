@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.4.1
+
+- Fix a style issue with selection clearing on mobile
+
 ## 2.4.0
 
 - Add the ability to what table columns display
