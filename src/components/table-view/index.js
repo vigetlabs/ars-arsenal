@@ -19,7 +19,7 @@ class TableView extends React.Component {
     this.mounted = true
   }
 
-  isChecked(id) {
+  isPicked(id) {
     const { picked } = this.props
 
     return Array.isArray(picked) ? picked.indexOf(id) >= 0 : id === picked
@@ -88,7 +88,7 @@ class TableView extends React.Component {
     })
 
     let ids = items.map(i => i.id)
-    let unselected = ids.filter(this.isChecked, this)
+    let unselected = ids.filter(this.isPicked, this)
     let allPicked = unselected.length <= 0
 
     return (

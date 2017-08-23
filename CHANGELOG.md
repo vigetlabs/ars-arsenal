@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.4.4
+
+- Fix bad method reference
+
 ## 2.4.3
 
 - Fix another case where indexOf check failed on null selection in the
