@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.4.5
+
+- Visual updates based on testing in a few apps
+
 ## 2.4.4
 
 - Fix bad method reference

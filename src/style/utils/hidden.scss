@@ -1,7 +1,7 @@
 .ars-hidden {
   position: absolute !important;
   overflow: hidden !important;
-  clip: rect(0 0 0 0)v;
+  clip: rect(0 0 0 0) !important;
   height: 1px !important;
   width: 1px !important;
   margin: -1px !important;
