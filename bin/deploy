@@ -1,3 +1,0 @@
-#!/bin/bash
-
-yarn now -- -t $NOW_TOKEN alias ars-arsenal --public

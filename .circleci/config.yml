@@ -26,9 +26,3 @@ jobs:
       # Test commands Start here
       - run: yarn lint
       - run: yarn test
-      - deploy:
-          name: Deploy example
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ./bin/deploy
-            fi
