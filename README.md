@@ -31,7 +31,7 @@ by importing it from the node_modules folder:
 
 ### Icons
 
-Copy over icons from `./example/icons` to your public directory.
+Copy over icons from `./example/public/icons` to your public directory.
 
 ## Usage
 

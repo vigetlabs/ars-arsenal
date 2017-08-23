@@ -5,11 +5,10 @@
   "description": "A gallery picker",
   "main": "src/index.js",
   "scripts": {
-    "start": "make example",
+    "start": "cd example && yarn && yarn start",
     "format": "./bin/format",
     "lint": "./bin/lint",
-    "test": "jest",
-    "coveralls": "make test-coverage"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -30,7 +29,6 @@
   "bugs": "https://github.com/vigetlabs/ars-arsenal/issues",
   "homepage": "https://github.com/vigetlabs/ars-arsenal",
   "devDependencies": {
-    "autoprefixer-loader": "~3",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
@@ -39,21 +37,15 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.26.0",
-    "css-loader": "^0.28.5",
     "eslint": "^4.5.0",
-    "eslint-plugin-react": "^7.2.1",
+    "eslint-plugin-react": "^7.3.0",
     "jest": "^20.0.4",
     "node-sass": "^4.5.3",
-    "now": "^7.3.0",
+    "now": "^7.3.1",
     "prettier": "^1.5.3",
     "react": "^15.6.1",
     "react-dev-utils": "^3.1.1",
-    "react-dom": "^15.6.1",
-    "restify": "~4.1",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.18.2",
-    "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1"
+    "react-dom": "^15.6.1"
   },
   "dependencies": {
     "classnames": "~2",

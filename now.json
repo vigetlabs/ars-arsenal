@@ -2,5 +2,10 @@
   "alias": "ars-arsenal",
   "env": {
     "NODE_ENV": "production"
-  }
+  },
+  "files": [
+    "src",
+    "example"
+  ],
+  "public": true
 }

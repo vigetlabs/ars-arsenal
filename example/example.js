@@ -1,5 +1,7 @@
+import React from 'react'
+import DOM from 'react-dom'
+import ArsArsenal from 'ars-arsenal'
 import './style'
-import ArsArsenal from '../src/index'
 
 let options = {
   url: '/api/photos',
@@ -17,27 +19,49 @@ let options = {
   }
 }
 
-let select = document.querySelector('#select')
-let selectTable = document.querySelector('#select-table')
-let selectWithValue = document.querySelector('#selectWithValue')
-let multiselect = document.querySelector('#multiselect')
-let multiselectTable = document.querySelector('#multiselect-table')
-let multiselectWithValue = document.querySelector('#multiselectWithValue')
+const Ars = ArsArsenal.component
 
-ArsArsenal.render(select, options)
-ArsArsenal.render(selectTable, { ...options, mode: 'table' })
-ArsArsenal.render(selectWithValue, { ...options, picked: [1] })
+function Example({ title, options }) {
+  return (
+    <div className="example">
+      <div className="example-content">
+        <h2 className="type-subheading">
+          {title}
+        </h2>
+        <Ars {...options} />
+      </div>
+      <pre className="code">
+        {JSON.stringify(options, null, 2)}
+      </pre>
+    </div>
+  )
+}
 
-ArsArsenal.render(multiselect, { ...options, multiselect: true })
-ArsArsenal.render(multiselectTable, {
-  ...options,
-  multiselect: true,
-  mode: 'table',
-  columns: ['id', 'name', 'caption']
-})
-ArsArsenal.render(multiselectWithValue, {
-  ...options,
-  picked: [2, 3],
-  multiselect: true,
-  columns: ['id', 'name', 'caption']
-})
+DOM.render(
+  <div>
+    <Example title="Basic Use" options={options} />
+    <Example title="Basic Use: Table" options={{ ...options, mode: 'table' }} />
+    <Example
+      title="Basic Use: Pre-selected"
+      options={{ ...options, picked: [1] }}
+    />
+    <Example
+      title="Multiselect: Basic"
+      options={{ ...options, multiselect: true }}
+    />
+    <Example
+      title="Multiselect: Pre-selected"
+      options={{ ...options, multiselect: true, picked: [2, 3] }}
+    />
+    <Example
+      title="Multiselect: Table"
+      options={{
+        ...options,
+        mode: 'table',
+        multiselect: true,
+        columns: ['id', 'name', 'caption']
+      }}
+    />
+  </div>,
+  document.getElementById('app')
+)

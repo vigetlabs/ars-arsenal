@@ -1,7 +1,7 @@
-var photos = require('./photos')
-var server = require('express')()
+const api = require('express')()
+const photos = require('./photos')
 
-server.get('/photos', function(req, res) {
+api.get('/photos', function(req, res) {
   var payload = photos
   var query = req.query.term
 
@@ -16,7 +16,7 @@ server.get('/photos', function(req, res) {
   res.send(payload)
 })
 
-server.get('/photos/:id', function(req, res) {
+api.get('/photos/:id', function(req, res) {
   var pattern = new RegExp('^' + escape(req.params.id) + '$', 'i')
 
   var payload = photos.filter(function(photo) {
@@ -26,4 +26,4 @@ server.get('/photos/:id', function(req, res) {
   payload ? res.send(payload) : res.error(404)
 })
 
-module.exports = server
+module.exports = api

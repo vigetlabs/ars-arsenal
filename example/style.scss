@@ -14,10 +14,6 @@ body {
   padding-bottom: 48px;
 }
 
-#app {
-  margin: 0 auto;
-}
-
 h1 {
   color: rgba(#000, 0.54);
   font-size: 14px;
@@ -56,21 +52,45 @@ h1 {
 .type-subheading {
   color: rgba(#000, 0.54);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.01em;
   text-transform: uppercase;
   margin: 4px 0 24px;
+}
+
+.main {
+  margin: -32px auto 0;
+  max-width: 768px;
+  padding: 0 20px;
 }
 
 .example {
   background: #fff;
   border-radius: 2px;
   box-shadow: 0 1px 2px rgba(#000, 0.20), 0 0 1px rgba(#000, 0.12);
-  padding: 20px;
   margin-bottom: 24px;
+  display: table;
+  width: 100%;
+
+  > * {
+    display: table-cell;
+    width: 100%
+  }
 }
 
-.main {
-  margin: -32px auto 0;
-  max-width: 768px;
+.example-content {
+  padding: 20px;
+}
+
+.code {
+  background: #224;
+  box-shadow: inset 1px 0 2px rgba(#000, 0.54);
+  color: white;
+  height: 100%;
+  margin: 0;
+  padding: 20px;
+  text-shadow: 0 1px 1px rgba(#000, 0.88);
+  width: 33%;
+  min-width: 250px;
+  vertical-align: middle;
 }

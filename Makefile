@@ -1,18 +1,9 @@
-NPM_BIN   = $$(npm bin)
-BABEL     = $(NPM_BIN)/babel
-COVERALLS = $(NPM_BIN)/coveralls
-KARMA     = $(NPM_BIN)/karma
-SASS      = $(NPM_BIN)/node-sass
-WEBPACK   = $(NPM_BIN)/webpack
+BABEL = node_modules/.bin/babel
+SASS = node_modules/.bin/node-sass
 
-.PHONY: clean test test-coverage build package.json javascript docs release example sass css
+.PHONY: clean build package.json javascript docs release example sass css
 
-build:
-	@make clean
-	@make javascript
-	@make css
-	@make package.json
-	@make documentation
+build: clean javascript css package.json documentation
 
 javascript: $(shell find src -name '*.js*' ! -name '*-test.js*')
 	@mkdir -p dist
@@ -32,24 +23,11 @@ documentation: README.md LICENSE.md
 	@mkdir -p dist
 	cp -r $^ dist
 
-release: build
+release: clean build
 	npm publish dist
 
-prerelease: build
+prerelease: clean build
 	npm publish dist --tag beta
-
-example:
-	@node example/server
 
 clean:
 	rm -rf dist
-
-test:
-	NODE_ENV=test $(KARMA) start --single-run
-
-test-watch:
-	NODE_ENV=test $(KARMA) start
-
-test-coverage:
-	make test
-	$(COVERALLS) < coverage/report-lcov/lcov.info
