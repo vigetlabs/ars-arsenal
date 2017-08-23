@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.5.0
+
+- Export project as CommonJS module for better support
+
 ## 2.4.5
 
 - Visual updates based on testing in a few apps

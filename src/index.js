@@ -18,4 +18,5 @@ let ArsArsenal = {
   }
 }
 
-export default ArsArsenal
+// Exported as CommonJS for better interop
+module.exports = ArsArsenal
