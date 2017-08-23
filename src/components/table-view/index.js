@@ -6,6 +6,7 @@ import cx from 'classnames'
 
 class TableView extends React.Component {
   static defaultProps = {
+    picked: [],
     items: [],
     columns: ['id', 'name', 'caption', 'attribution', 'preview']
   }
@@ -18,16 +19,22 @@ class TableView extends React.Component {
     this.mounted = true
   }
 
+  isChecked(id) {
+    const { picked } = this.props
+
+    return Array.isArray(picked) ? picked.indexOf(id) >= 0 : id === picked
+  }
+
   renderRow(item, index) {
     const { id, name, attribution, caption, url } = item
-    const { multiselect, picked, onPicked } = this.props
+    const { multiselect, onPicked } = this.props
 
     let className = cx({
       'ars-table-animate': !this.mounted
     })
 
     let animationDelay = 150 + index * 60 + 'ms'
-    let checked = picked.indexOf(id) >= 0
+    let checked = this.isPicked(id)
 
     return (
       <tr key={id} className={className} style={{ animationDelay }}>
