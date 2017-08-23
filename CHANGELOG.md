@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.4.2
+
+- Fix case where indexOf check failed on null selection
+
 ## 2.4.1
 
 - Fix a style issue with selection clearing on mobile
