@@ -80,7 +80,7 @@ class TableView extends React.Component {
   }
 
   render() {
-    const { items, multiselect, onKeyDown, onPicked, picked } = this.props
+    const { items, multiselect, onKeyDown, onPicked } = this.props
     const { sortBy } = this.state
 
     let rows = items.concat().sort(function(a, b) {
@@ -88,7 +88,7 @@ class TableView extends React.Component {
     })
 
     let ids = items.map(i => i.id)
-    let unselected = ids.filter(id => picked.indexOf(id) < 0)
+    let unselected = ids.filter(this.isChecked, this)
     let allPicked = unselected.length <= 0
 
     return (

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.4.3
+
+- Fix another case where indexOf check failed on null selection in the
+  TableView
+
 ## 2.4.2
 
 - Fix case where indexOf check failed on null selection
