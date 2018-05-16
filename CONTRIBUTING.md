@@ -18,7 +18,7 @@ npm install
 A production build can be built by running:
 
 ```bash
-npm run build
+make build
 ```
 
 However most of the time developing with ArsArsenal, you will want
