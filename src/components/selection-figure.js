@@ -14,8 +14,8 @@ let SelectionFigure = createClass({
     }
   },
 
-  getTitle(title = '') {
-    let trimmed = title.trim()
+  getTitle(title) {
+    let trimmed = title ? title.trim() : ''
     return trimmed.length
       ? <p ref="title" className="ars-selection-title">
           {trimmed}
@@ -23,8 +23,8 @@ let SelectionFigure = createClass({
       : null
   },
 
-  getCaption(caption = '') {
-    let trimmed = caption.trim()
+  getCaption(caption) {
+    let trimmed = caption ? caption.trim() : ''
     return trimmed.length
       ? <p ref="caption" className="ars-selection-caption">
           {trimmed}

@@ -14,6 +14,14 @@ describe('SelectionFigure', () => {
   })
 
   describe('when not given a name', () => {
+    test('handles null', () => {
+      let component = TestUtils.renderIntoDocument(
+        <SelectionFigure item={{ title: null }} />
+      )
+
+      expect(component.refs).not.toHaveProperty('title')
+    })
+
     test('does not render a title', () => {
       let component = TestUtils.renderIntoDocument(
         <SelectionFigure item={{}} />
@@ -34,6 +42,14 @@ describe('SelectionFigure', () => {
   })
 
   describe('when not given a caption', () => {
+    test('handles null', () => {
+      let component = TestUtils.renderIntoDocument(
+        <SelectionFigure item={{ caption: null }} />
+      )
+
+      expect(component.refs).not.toHaveProperty('caption')
+    })
+
     test('does not render a caption', () => {
       let component = TestUtils.renderIntoDocument(
         <SelectionFigure item={{}} />

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.5.1
+
+- Handle `null` in captions and titles
+
 ## 2.5.0
 
 - Export project as CommonJS module for better support
