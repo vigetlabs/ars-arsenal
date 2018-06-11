@@ -68,10 +68,9 @@ let Ars = createClass({
     let ref = multiselect ? 'multiselection' : 'selection'
     let slug = this.props.multiselect ? picked : picked && picked[0]
     const rootClass = cx('ars', rootAttributes.className)
-    delete rootAttributes.className
 
     return (
-      <div className={rootClass} {...rootAttributes}>
+      <div {...rootAttributes} className={rootClass}>
         <SelectionComponent
           ref={ref}
           {...this.syncProps()}
