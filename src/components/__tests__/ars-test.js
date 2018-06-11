@@ -24,6 +24,25 @@ describe('Ars', () => {
     })
   })
 
+  describe('when rootAttributes is provided', () => {
+    let onChange = jest.fn()
+    let picked = 9
+
+    test('can be given a root attribute', () => {
+      const rootAttributes = {
+        'data-test': 'ars-resource-photo',
+        className: 'my-custom-class'
+      }
+      let component = TestUtils.renderIntoDocument(
+        makeComponent({ onChange, picked, rootAttributes })
+      )
+      const htmlNode = TestUtils.findRenderedDOMComponentWithClass(component, 'my-custom-class')
+      const testAttr = htmlNode.attributes['data-test'].value
+
+      expect(testAttr).toEqual('ars-resource-photo')
+    })
+  })
+
   describe('when the component renders with the multiselect option', () => {
     let component, multiselect, onChange
 

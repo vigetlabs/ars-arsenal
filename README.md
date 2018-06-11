@@ -44,11 +44,17 @@ ArsArsenal.render(app, {
 
   resource: 'photo', // the noun used for selection, i.e. "Pick a photo"
 
+  // Configure the root element's HTML attributes. default = {}
+  rootAttributes: {
+    className: 'my-custom-class another-custom-class',
+    'data-test': 'my-integration-selector-helper'
+  },
+
   url: 'photo/resource/endpoint',
-  
+
   // How to display the items. Can be "table" or "gallery"
   mode: 'gallery',
-  
+
   // What table columns to display, and in what order
   columns: ['id', 'name', 'caption', 'attribution', 'preview'],
 
