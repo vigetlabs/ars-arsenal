@@ -36,7 +36,10 @@ describe('Ars', () => {
       let component = TestUtils.renderIntoDocument(
         makeComponent({ onChange, picked, rootAttributes })
       )
-      const htmlNode = TestUtils.findRenderedDOMComponentWithClass(component, 'my-custom-class')
+      const htmlNode = TestUtils.findRenderedDOMComponentWithClass(
+        component,
+        'my-custom-class'
+      )
       const testAttr = htmlNode.attributes['data-test'].value
 
       expect(testAttr).toEqual('ars-resource-photo')
