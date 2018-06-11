@@ -22,6 +22,13 @@ describe('Ars', () => {
     test('migrates a single `picked` value to an array', () => {
       expect(component.state.picked).toEqual([picked])
     })
+
+    test('has a data-test attribute', () => {
+      const htmlNode = TestUtils.findRenderedDOMComponentWithClass(component, 'ars')
+      const testAttr = htmlNode.attributes['data-test'].value
+
+      expect(testAttr).toEqual('ars-resource-Photo')
+    })
   })
 
   describe('when the component renders with the multiselect option', () => {

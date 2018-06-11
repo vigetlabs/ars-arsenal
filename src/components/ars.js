@@ -67,7 +67,7 @@ let Ars = createClass({
     let slug = this.props.multiselect ? picked : picked && picked[0]
 
     return (
-      <div className="ars">
+      <div className="ars" data-test={`ars-resource-${resource}`}>
         <SelectionComponent
           ref={ref}
           {...this.syncProps()}
