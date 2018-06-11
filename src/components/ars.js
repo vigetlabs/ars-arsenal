@@ -9,6 +9,7 @@ import Selection from './selection'
 import MultiSelection from './multiselection'
 import Sync from '../mixins/sync'
 import createClass from 'create-react-class'
+import cx from 'classnames'
 import { func } from 'prop-types'
 
 let Ars = createClass({
@@ -21,6 +22,7 @@ let Ars = createClass({
   getDefaultProps() {
     return {
       onChange: () => {},
+      rootAttributes: {},
       multiselect: false,
       resource: 'Photo',
       mode: 'gallery'
@@ -59,15 +61,17 @@ let Ars = createClass({
   },
 
   render() {
-    const { multiselect, resource } = this.props
+    const { multiselect, resource, rootAttributes } = this.props
     const { dialogOpen, picked } = this.state
 
     let SelectionComponent = multiselect ? MultiSelection : Selection
     let ref = multiselect ? 'multiselection' : 'selection'
     let slug = this.props.multiselect ? picked : picked && picked[0]
+    const rootClass = cx('ars', rootAttributes.className)
+    delete rootAttributes.className
 
     return (
-      <div className="ars" data-test={`ars-resource-${resource}`}>
+      <div className={rootClass} {...rootAttributes}>
         <SelectionComponent
           ref={ref}
           {...this.syncProps()}

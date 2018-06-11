@@ -22,12 +22,24 @@ describe('Ars', () => {
     test('migrates a single `picked` value to an array', () => {
       expect(component.state.picked).toEqual([picked])
     })
+  })
 
-    test('has a data-test attribute', () => {
-      const htmlNode = TestUtils.findRenderedDOMComponentWithClass(component, 'ars')
+  describe('when rootAttributes is provided', () => {
+    let onChange = jest.fn()
+    let picked = 9
+
+    test('can be given a root attribute', () => {
+      const rootAttributes = {
+        'data-test': 'ars-resource-photo',
+        className: 'my-custom-class'
+      }
+      let component = TestUtils.renderIntoDocument(
+        makeComponent({ onChange, picked, rootAttributes })
+      )
+      const htmlNode = TestUtils.findRenderedDOMComponentWithClass(component, 'my-custom-class')
       const testAttr = htmlNode.attributes['data-test'].value
 
-      expect(testAttr).toEqual('ars-resource-Photo')
+      expect(testAttr).toEqual('ars-resource-photo')
     })
   })
 
