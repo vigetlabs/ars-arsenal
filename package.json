@@ -8,7 +8,8 @@
     "start": "webpack-dev-server --config example/webpack.config.js --mode=development",
     "format": "./bin/format",
     "lint": "./bin/lint",
-    "test": "jest"
+    "test": "jest",
+    "build": "make build"
   },
   "repository": {
     "type": "git",
