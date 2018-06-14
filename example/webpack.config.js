@@ -1,9 +1,9 @@
 const webpack = require('webpack')
+const api = require('./server')
+const path = require('path')
 
-const isDev = process.env.NODE_ENV !== 'production'
-
-const config = {
-  devtool: isDev ? 'inline-source-map' : 'source-map',
+module.exports = {
+  context: __dirname,
 
   entry: ['./example.js'],
 
@@ -16,21 +16,13 @@ const config = {
   resolve: {
     extensions: ['.js', '.scss', '.css'],
     alias: {
-      'ars-arsenal': '../src/index.js',
-      // Prevents the root React from conflicting with the example React
-      react$: require.resolve('react'),
-      'react-dom$': require.resolve('react-dom')
+      'ars-arsenal': '../src/index.js'
     }
   },
 
-  plugins: [
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development'
-    })
-  ],
-
   module: {
-    loaders: [
+    strictExportPresence: true,
+    rules: [
       {
         test: /\.js*$/,
         exclude: /node_modules/,
@@ -57,12 +49,13 @@ const config = {
         ]
       }
     ]
+  },
+
+  devServer: {
+    contentBase: path.resolve(__dirname, 'public'),
+    publicPath: '/',
+    before: app => {
+      app.use('/api', api)
+    }
   }
 }
-
-if (isDev) {
-  config.entry.unshift('react-dev-utils/webpackHotDevClient')
-  config.plugins.push(new webpack.HotModuleReplacementPlugin())
-}
-
-module.exports = config

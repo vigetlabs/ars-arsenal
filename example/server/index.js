@@ -1,15 +1,29 @@
-const Server = require('webpack-dev-server')
-const Path = require('path')
-const webpack = require('webpack')
-const config = require('../webpack.config')
-const api = require('./api')
+const api = require('express')()
+const photos = require('./photos')
 
-let compiler = webpack(config)
+api.get('/photos', function(req, res) {
+  var payload = photos
+  var query = req.query.term
 
-module.exports = new Server(compiler, {
-  contentBase: Path.resolve(__dirname, '..', 'public'),
-  hotOnly: process.env.NODE_ENV !== 'production',
-  setup(app) {
-    app.use('/api', api)
+  if (query) {
+    query = query.toLowerCase()
+
+    payload = photos.filter(function(photo) {
+      return photo.name.toLowerCase().search(query) > -1
+    })
   }
-}).listen(process.env.PORT || 8080)
+
+  res.send(payload)
+})
+
+api.get('/photos/:id', function(req, res) {
+  var pattern = new RegExp('^' + escape(req.params.id) + '$', 'i')
+
+  var payload = photos.filter(function(photo) {
+    return pattern.test(photo.id)
+  })[0]
+
+  payload ? res.send(payload) : res.error(404)
+})
+
+module.exports = api

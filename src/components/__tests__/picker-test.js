@@ -10,20 +10,21 @@ function makePicker(props = {}) {
   return <Picker url="test.json" {...props} />
 }
 
+const delay = n => new Promise(resolve => setTimeout(resolve, n))
+
 describe('Picker', () => {
   describe("when a picker's search input is changed", () => {
-    test('updates its search state', done => {
+    test('updates its search state', async () => {
       let component = TestUtils.renderIntoDocument(makePicker())
       let search = DOM.findDOMNode(component.refs.search).querySelector('input')
 
       search.value = 'test'
 
-      TestUtils.SimulateNative.change(search)
+      TestUtils.Simulate.change(search)
 
-      setTimeout(function() {
-        expect(component.state.search).toBe('test')
-        done()
-      }, 200)
+      await delay(200)
+
+      expect(component.state.search).toBe('test')
     })
   })
 
@@ -239,7 +240,7 @@ describe('Picker', () => {
 
       beforeAll(function(done) {
         component = TestUtils.renderIntoDocument(makePicker())
-        component.setState({ error: 'This is a test error' }, () => done())
+        component.setState({ error: 'This is a test error' }, done)
       })
 
       test('displays the error', () => {
