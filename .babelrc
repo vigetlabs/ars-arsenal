@@ -3,19 +3,11 @@
     [
       "env",
       {
-        "useBuiltIns": "usage",
         "loose": true,
-        "modules": false
+        "modules": "commonjs"
       }
     ],
     "react",
     "stage-2"
-  ],
-  "env": {
-    "test": {
-      "plugins": [
-        "transform-es2015-modules-commonjs"
-      ]
-    }
-  }
+  ]
 }
