@@ -3,13 +3,14 @@
   "version": "2.5.1",
   "private": true,
   "description": "A gallery picker",
-  "main": "src/index.js",
+  "main": "build/ars-arsenal.js",
   "scripts": {
     "start": "webpack-dev-server --config example/webpack.config.js --mode=development",
-    "format": "./bin/format",
-    "lint": "./bin/lint",
+    "build": "make build",
+    "build:example": "webpack --config=example/webpack.config.js --mode=production",
     "test": "jest",
-    "build": "make build"
+    "lint": "eslint . --cache --cache-location=node_modules/ --ignore-path=.gitignore",
+    "format": "prettier --write './{src,lib,test,config}/**/*.js' './*.js'"
   },
   "repository": {
     "type": "git",
@@ -19,13 +20,7 @@
     "gallery",
     "react"
   ],
-  "contributors": [
-    {
-      "name": "Nate Hunzaker",
-      "email": "nate.hunzaker@viget.com",
-      "url": "http://viget.com"
-    }
-  ],
+  "author": "Viget Labs <developers@viget.com>",
   "license": "MIT",
   "bugs": "https://github.com/vigetlabs/ars-arsenal/issues",
   "homepage": "https://github.com/vigetlabs/ars-arsenal",

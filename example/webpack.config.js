@@ -1,4 +1,3 @@
-const webpack = require('webpack')
 const api = require('./server')
 const path = require('path')
 
