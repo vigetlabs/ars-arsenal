@@ -1,7 +1,0 @@
-.DS_Store
-coverage
-node_modules
-npm-debug.log
-dist
-build
-example/example.build.js

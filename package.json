@@ -9,7 +9,7 @@
     "build": "make build",
     "build:example": "webpack --config=example/webpack.config.js --mode=production",
     "test": "jest",
-    "lint": "eslint . --cache --cache-location=node_modules/",
+    "lint": "eslint . --cache --cache-location=node_modules/ --ignore-path=.gitignore",
     "format": "prettier --write './{src,lib,test,config}/**/*.js' './*.js'"
   },
   "repository": {
