@@ -1,3 +1,8 @@
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+
+Enzyme.configure({ adapter: new Adapter() })
+
 jest.mock('xhr', function() {
   return jest.fn(({ url }, callback) => {
     const { resolve } = require('path')

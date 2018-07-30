@@ -1,74 +1,65 @@
 /**
  * Image
- * A wrapper around image elements to handle loading states
- * and transitions
+ * A wrapper around image elements to handle loading states and
+ * transitions
+ * @flow
  */
 
 import React from 'react'
 import cx from 'classnames'
-import createClass from 'create-react-class'
-import { string } from 'prop-types'
 
-let Image = createClass({
-  statics: {
-    ONLOAD: 10
-  },
+type Props = {
+  className: string,
+  src: string
+}
 
-  propTypes: {
-    src: string
-  },
+type State = {
+  didFail: boolean,
+  isLoaded: boolean,
+  lastSrc: ?string
+}
 
-  getDefaultProps() {
+export default class Image extends React.Component<Props, State> {
+  static defaultProps = {
+    className: '',
+    src: null
+  }
+
+  static getDerivedStateFromProps(next: Props, last: State) {
     return {
-      className: ''
+      lastSrc: next.src,
+      isLoaded: next.src === last.lastSrc
     }
-  },
+  }
 
-  getInitialState() {
-    return {
-      didFail: false,
-      isLoaded: false
-    }
-  },
-
-  componentWillReceiveProps(nextProps) {
-    let { src } = this.props
-
-    if (nextProps.src !== src) {
-      this.setState({ isLoaded: false })
-    }
-  },
+  state = {
+    didFail: false,
+    isLoaded: false,
+    lastSrc: null
+  }
 
   render() {
-    let { className, ...props } = this.props
-
-    let css = cx({
+    let css = cx(this.props.className, {
       'ars-img': true,
       'ars-img-loaded': this.state.isLoaded,
-      'ars-img-failed': this.state.didFail,
-      [className]: true
+      'ars-img-failed': this.state.didFail
     })
 
     return (
       <img
+        {...this.props}
+        onLoad={this._onLoad.bind(this)}
+        onError={this._onError.bind(this)}
         className={css}
-        onLoad={this._onLoad}
-        onError={this._onError}
-        {...props}
       />
     )
-  },
+  }
 
   _onLoad() {
-    setTimeout(
-      () => this.setState({ didFail: false, isLoaded: true }),
-      Image.ONLOAD
-    )
-  },
+    this.setState({ didFail: false, isLoaded: true })
+  }
 
   _onError() {
     this.setState({ didFail: true, isLoaded: true })
   }
-})
-
-export default Image
+}
