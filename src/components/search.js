@@ -33,8 +33,8 @@ export default class Search extends React.Component<Props, State> {
     search: ''
   }
 
-  constructor(props: Props) {
-    super(...arguments)
+  constructor(props: Props, context: *) {
+    super(props, context)
 
     this.id = uid++
     this.debouncedChange = debounce(props.onChange, INTERVAL)
