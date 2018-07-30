@@ -16,7 +16,7 @@ type Props = {
 type State = {
   didFail: boolean,
   isLoaded: boolean,
-  lastSrc: ?string
+  prevSrc: ?string
 }
 
 export default class Image extends React.Component<Props, State> {
@@ -27,15 +27,15 @@ export default class Image extends React.Component<Props, State> {
 
   static getDerivedStateFromProps(next: Props, last: State) {
     return {
-      lastSrc: next.src,
-      isLoaded: next.src === last.lastSrc
+      prevSrc: next.src,
+      isLoaded: next.src === last.prevSrc
     }
   }
 
   state = {
     didFail: false,
     isLoaded: false,
-    lastSrc: null
+    prevSrc: null
   }
 
   render() {
