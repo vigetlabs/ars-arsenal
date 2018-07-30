@@ -33,7 +33,7 @@ export default class Figure extends React.Component<Props> {
     )
   }
 
-  _onClick(event: Event) {
+  _onClick(event: SyntheticEvent<*>) {
     event.preventDefault()
     this.props.onClick(this.props.record.id)
   }
