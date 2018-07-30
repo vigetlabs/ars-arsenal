@@ -41,17 +41,17 @@ export default class Search extends React.Component<Props, State> {
   }
 
   render() {
-    let id = `ars_search_${this.id}`
-    let list = `ars_search_list_${this.id}`
+    let inputId = `ars_search_${this.id}`
+    let listId = `ars_search_list_${this.id}`
 
     return (
       <form className="ars-search" onSubmit={this._onSubmit.bind(this)}>
-        <label className="ars-search-label" htmlFor={id}>
+        <label className="ars-search-label" htmlFor={inputId}>
           Search
         </label>
         <input
-          id={id}
-          list={list}
+          id={inputId}
+          list={listId}
           type="search"
           className="ars-search-input"
           placeholder="Search"
@@ -59,7 +59,7 @@ export default class Search extends React.Component<Props, State> {
           onChange={this._onChange.bind(this)}
           onKeyUp={this._onKeyUp.bind(this)}
         />
-        <DataList id={list} items={this.props.datalist} />
+        <DataList id={listID} items={this.props.datalist} />
         <button className="ars-hidden">Submit</button>
       </form>
     )
