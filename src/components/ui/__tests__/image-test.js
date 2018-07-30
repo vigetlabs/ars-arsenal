@@ -1,52 +1,29 @@
 import React from 'react'
-import DOM from 'react-dom'
-import TestUtils from 'react-dom/test-utils'
 import Image from '../image'
-import createClass from 'create-react-class'
+import { mount } from 'enzyme'
 
 describe('Image Component', () => {
   test('sets its state to loaded when it finishes loading', () => {
-    let component = TestUtils.renderIntoDocument(<Image src="/test.jpg" />)
+    let component = mount(<Image src="/test.jpg" />)
 
-    TestUtils.Simulate.load(DOM.findDOMNode(component))
+    component.simulate('load')
 
-    setTimeout(function() {
-      expect(component.state).toHaveProperty('isLoaded', true)
-    }, Image.ONLOAD)
+    expect(component.state('isLoaded')).toBe(true)
   })
 
   test('adds an error class on failed images', () => {
-    let component = TestUtils.renderIntoDocument(<Image src="fizz.jpg" />)
+    let component = mount(<Image src="fizz.jpg" />)
 
-    TestUtils.Simulate.error(DOM.findDOMNode(component))
+    component.simulate('error')
 
-    expect(component.state).toHaveProperty('didFail', true)
+    expect(component.state('didFail')).toBe(true)
   })
 
   test('resets its loaded state when a new src is received', () => {
-    let ParentComponent = createClass({
-      getInitialState() {
-        return {
-          url: 'foo.jpg'
-        }
-      },
-      render() {
-        return <Image ref="image" src={this.state.url} />
-      }
-    })
+    let component = mount(<Image src="/foo.jpg" />)
 
-    let component = TestUtils.renderIntoDocument(<ParentComponent />)
-    let image = component.refs.image
+    component.setProps({ src: 'bar.jpg' })
 
-    expect(image.props.src).toBe('foo.jpg')
-    expect(image.state.isLoaded).toBe(false)
-
-    component.setState({
-      isLoaded: true,
-      url: 'bar.jpg'
-    })
-
-    expect(image.props.src).toBe('bar.jpg')
-    expect(image.state.isLoaded).toBe(false)
+    expect(component.state('isLoaded')).toBe(false)
   })
 })
