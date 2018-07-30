@@ -22,10 +22,10 @@ export default class Button extends React.Component<Props> {
   }
 
   getClassName(base: string) {
-    let { raised, className } = this.props
+    let { raised } = this.props
 
     let mods = cx('ars-button', {
-      'ars-button-raised': this.props.raised
+      'ars-button-raised': raised
     })
 
     return cx(base, mods)

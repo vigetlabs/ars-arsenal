@@ -22,10 +22,12 @@
     }
   },
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:flowtype/recommended"
   ],
   "plugins": [
-    "react"
+    "react",
+    "flowtype"
   ],
   "rules": {
     "semi": [
