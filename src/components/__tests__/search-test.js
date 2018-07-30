@@ -1,63 +1,65 @@
 import React from 'react'
-import DOM from 'react-dom'
-import TestUtils from 'react-dom/test-utils'
 import Search from '../search'
+import { mount } from 'enzyme'
+
+jest.useFakeTimers()
 
 describe('Search', () => {
   test('triggers a blank search below 2 characters', () => {
     let callback = jest.fn()
-    let component = TestUtils.renderIntoDocument(<Search onChange={callback} />)
+    let component = mount(<Search onChange={callback} />)
 
-    TestUtils.Simulate.change(DOM.findDOMNode(component.refs.input))
+    component.find('input').simulate('change')
 
-    // remember the change callback is debounced
-    setTimeout(function() {
-      expect(callback).have.been.calledWith('')
-    }, Search.INTERVAL)
+    jest.runAllTimers()
+
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(callback).toHaveBeenCalledWith('')
   })
 
   test('triggers the full term above 2 characters', () => {
     let callback = jest.fn()
-    let component = TestUtils.renderIntoDocument(<Search onChange={callback} />)
-    let input = DOM.findDOMNode(component.refs.input)
+    let component = mount(<Search onChange={callback} />)
 
-    input.value = 'Large Enough'
+    component
+      .find('input')
+      .simulate('change', { target: { value: 'Large Enough' } })
 
-    TestUtils.Simulate.change(input)
+    jest.runAllTimers()
 
-    // remember the change callback is debounced
-    setTimeout(function() {
-      expect(callback).have.been.calledWith('Large Enough')
-    }, Search.INTERVAL)
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(callback).toHaveBeenCalledWith('Large Enough')
   })
 
   test('traps submit events and calls onChange', () => {
     let callback = jest.fn()
-    let component = TestUtils.renderIntoDocument(<Search onChange={callback} />)
-    let input = DOM.findDOMNode(component.refs.input)
+    let component = mount(<Search onChange={callback} />)
 
-    input.value = 'Large Enough'
+    component
+      .find('input')
+      .simulate('change', { target: { value: 'Large Enough' } })
 
-    TestUtils.Simulate.submit(DOM.findDOMNode(component))
+    component.simulate('submit')
 
-    // remember the change callback is debounced
-    setTimeout(function() {
-      expect(callback).have.been.calledWith('Large Enough')
-    }, Search.INTERVAL)
+    jest.runAllTimers()
+
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(callback).toHaveBeenCalledWith('Large Enough')
   })
 
   test('clears search on escape', () => {
     let callback = jest.fn()
-    let component = TestUtils.renderIntoDocument(<Search onChange={callback} />)
-    let input = DOM.findDOMNode(component.refs.input)
+    let component = mount(<Search onChange={callback} />)
 
-    input.value = 'Large Enough'
+    component
+      .find('input')
+      .simulate('change', { target: { value: 'Large Enough' } })
 
-    TestUtils.Simulate.keyUp(input, { key: 'Escape' })
+    component.find('input').simulate('keyup', { key: 'Escape' })
 
-    // remember the change callback is debounced
-    setTimeout(function() {
-      expect(callback).have.been.calledWith('')
-    }, Search.INTERVAL)
+    jest.runAllTimers()
+
+    expect(callback).toHaveBeenCalledTimes(1)
+    expect(callback).toHaveBeenCalledWith('')
   })
 })

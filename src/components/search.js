@@ -1,86 +1,88 @@
 /**
  * Search
+ * @flow
  */
 
 import React from 'react'
 import debounce from 'debounce'
-import Button from './ui/button'
-import UniqueID from '../mixins/uniqueId'
 import DataList from './datalist'
-import createClass from 'create-react-class'
-import { func } from 'prop-types'
+import { type Record } from '../record'
 
-let Search = createClass({
-  mixins: [UniqueID],
+type Props = {
+  datalist: Record[],
+  onChange: string => *
+}
 
-  statics: {
-    // The minimum number of characters before searching
-    THRESHOLD: 2,
-    // The minimum time between change events
-    INTERVAL: 150
-  },
+type State = {
+  search: string
+}
 
-  propTypes: {
-    onChange: func.isRequired
-  },
+let uid = 0
 
-  getDefaultProps() {
-    return {
-      datalist: []
-    }
-  },
+// The minimum number of characters before searching
+const THRESHOLD = 2
 
-  getInitialState() {
-    return {
-      search: '',
-      debouncedChange: debounce(this.props.onChange, Search.INTERVAL)
-    }
-  },
+// The minimum time between change events
+const INTERVAL = 150
+
+export default class Search extends React.Component<Props, State> {
+  id: number
+  debouncedChange: string => *
+
+  state = {
+    search: ''
+  }
+
+  constructor(props: Props) {
+    super(...arguments)
+
+    this.id = uid++
+    this.debouncedChange = debounce(props.onChange, INTERVAL)
+  }
 
   render() {
-    let id = 'ars_search_' + this.state.id
-    let list = 'ars_search_list' + this.state.id
+    let id = `ars_search_${this.id}`
+    let list = `ars_search_list_${this.id}`
 
     return (
-      <form className="ars-search" onSubmit={this._onSubmit}>
+      <form className="ars-search" onSubmit={this._onSubmit.bind(this)}>
         <label className="ars-search-label" htmlFor={id}>
           Search
         </label>
         <input
           id={id}
           list={list}
-          ref="input"
           type="search"
           className="ars-search-input"
-          onChange={this._onChange}
           placeholder="Search"
-          onKeyUp={this._onKeyUp}
           value={this.state.search}
+          onChange={this._onChange.bind(this)}
+          onKeyUp={this._onKeyUp.bind(this)}
         />
         <DataList id={list} items={this.props.datalist} />
-        <Button className="ars-hidden">Submit</Button>
+        <button className="ars-hidden">Submit</button>
       </form>
     )
-  },
-
-  _updateSearch(search) {
-    let result = search.length >= Search.THRESHOLD ? search : ''
-
-    this.setState({ search }, () => this.state.debouncedChange(result))
-  },
-
-  _onChange() {
-    this._updateSearch(this.refs.input.value || '')
-  },
-
-  _onSubmit(e) {
-    e.preventDefault()
-    this._onChange()
-  },
-
-  _onKeyUp({ type, stopPropagation }) {
-    if (type === 'Escape') stopPropagation()
   }
-})
 
-export default Search
+  _updateSearch() {
+    let { search } = this.state
+    this.debouncedChange(search.length >= THRESHOLD ? search : '')
+  }
+
+  _onChange(event: SyntheticInputEvent<HTMLInputElement>) {
+    this.setState({ search: event.target.value }, this._updateSearch.bind(this))
+  }
+
+  _onSubmit(event: SyntheticEvent<HTMLFormElement>) {
+    event.preventDefault()
+    this._updateSearch()
+  }
+
+  _onKeyUp(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Escape') {
+      event.stopPropagation()
+      this.setState({ search: '' }, this._updateSearch.bind(this))
+    }
+  }
+}
