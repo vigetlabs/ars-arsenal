@@ -1,34 +1,37 @@
 /**
  * Gallery
  * Displays tiles of photos
+ * @flow
  */
 
 import React from 'react'
 import Animation from 'react-addons-css-transition-group'
 import Figure from './figure'
-import createClass from 'create-react-class'
 import cx from 'classnames'
-import { func, array } from 'prop-types'
+import { type Record } from '../record'
 
-let Gallery = createClass({
-  propTypes: {
-    items: array,
-    onPicked: func.isRequired
-  },
+type Props = {
+  items: Record[],
+  onPicked: string => *,
+  onKeyDown: Event => *,
+  search: false | string,
+  picked: false | string
+}
 
-  getDefaultProps() {
-    return {
-      items: [],
-      picked: false,
-      search: false
-    }
-  },
+export default class Gallery extends React.Component<Props> {
+  mounted: boolean
+
+  static defaultProps = {
+    items: [],
+    picked: false,
+    search: false
+  }
 
   componentDidMount() {
     this.mounted = true
-  },
+  }
 
-  getItem(record, index) {
+  getItem(record: Record, index: number) {
     let isPicked = this.props.picked
       ? this.props.picked.indexOf(record.id) !== -1
       : false
@@ -48,7 +51,7 @@ let Gallery = createClass({
         />
       </div>
     )
-  },
+  }
 
   render() {
     let items = this.props.items
@@ -62,10 +65,8 @@ let Gallery = createClass({
         transitionEnterTimeout={480}
         transitionLeaveTimeout={480}
       >
-        {items.map(this.getItem)}
+        {items.map(this.getItem, this)}
       </Animation>
     )
   }
-})
-
-export default Gallery
+}
