@@ -47,9 +47,7 @@
     ],
     "no-unused-vars": [
       1,
-      {
-        "args": "none"
-      }
+      { "args": "none", "ignoreRestSiblings": true, "varsIgnorePattern": "^_" }
     ],
     "react/jsx-equals-spacing": [
       "warn",
