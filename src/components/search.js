@@ -59,7 +59,7 @@ export default class Search extends React.Component<Props, State> {
           onChange={this._onChange.bind(this)}
           onKeyUp={this._onKeyUp.bind(this)}
         />
-        <DataList id={listID} items={this.props.datalist} />
+        <DataList id={listId} items={this.props.datalist} />
         <button className="ars-hidden">Submit</button>
       </form>
     )
