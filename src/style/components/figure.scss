@@ -4,6 +4,7 @@
   border: 0;
   box-shadow: 0 1px 2px rgba(#000, 0.35);
   cursor: pointer;
+  color: $ars-accent;
   margin: 0;
   padding: 100% 0 0;
   position: relative;
@@ -12,10 +13,11 @@
 
   &:before {
     border: 0 solid transparent;
-    content: "";
+    content: '';
     height: 100%;
     left: 0;
     position: absolute;
+    pointer-events: none;
     top: 0;
     transition: 0.28s all;
     width: 100%;
@@ -65,9 +67,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-  z-index: 1;
 }
-
 
 // Transitions
 // -------------------------------------------------- //

@@ -5,9 +5,10 @@
     border: 3px solid transparent;
     border-radius: 8px;
     bottom: 0;
-    content: "";
+    content: '';
     left: 0;
     position: absolute;
+    pointer-events: none;
     right: 0;
     top: 0;
     transition: 0.28s all;
