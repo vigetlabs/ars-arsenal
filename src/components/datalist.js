@@ -1,32 +1,28 @@
 /**
  * Datalist
+ * @flow
  */
 
 import React from 'react'
-import createClass from 'create-react-class'
-import { string, array } from 'prop-types'
+import { type Record } from '../record'
 
-let DataList = createClass({
-  propTypes: {
-    id: string.isRequired,
-    items: array
-  },
+type Props = {
+  id: string,
+  items: Record[]
+}
 
-  getDefaultProps() {
-    return {
-      items: []
-    }
-  },
+export default class DataList extends React.Component<Props> {
+  static defaultProps = {
+    items: []
+  }
 
-  getOption(record) {
+  getOption(record: Record) {
     return <option key={record.id}>{record.caption}</option>
-  },
+  }
 
   render() {
     let { items, id } = this.props
 
-    return <datalist id={id}>{items.map(this.getOption)}</datalist>
+    return <datalist id={id}>{items.map(this.getOption, this)}</datalist>
   }
-})
-
-export default DataList
+}
