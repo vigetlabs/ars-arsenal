@@ -18,11 +18,7 @@ let Error = createClass({
       return null
     }
 
-    return (
-      <div className="ars-error">
-        {`${this.props.error}`}
-      </div>
-    )
+    return <div className="ars-error">{`${this.props.error}`}</div>
   }
 })
 

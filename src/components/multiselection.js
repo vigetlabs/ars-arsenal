@@ -20,9 +20,9 @@ let MultiSelection = createClass({
     if (slug && slug.length > 0) {
       return (
         <div className="ars-multiselection-grid">
-          {slug.map((s, i) =>
+          {slug.map((s, i) => (
             <MultiSelectionItem key={i} slug={s} url={url} />
-          )}
+          ))}
         </div>
       )
     }

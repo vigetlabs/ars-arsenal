@@ -19,21 +19,13 @@ let DataList = createClass({
   },
 
   getOption(record) {
-    return (
-      <option key={record.id}>
-        {record.caption}
-      </option>
-    )
+    return <option key={record.id}>{record.caption}</option>
   },
 
   render() {
     let { items, id } = this.props
 
-    return (
-      <datalist id={id}>
-        {items.map(this.getOption)}
-      </datalist>
-    )
+    return <datalist id={id}>{items.map(this.getOption)}</datalist>
   }
 })
 

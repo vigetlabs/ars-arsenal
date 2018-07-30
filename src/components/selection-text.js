@@ -51,11 +51,7 @@ let SelectionText = createClass({
   },
 
   render() {
-    return (
-      <span>
-        {this.getText()}
-      </span>
-    )
+    return <span>{this.getText()}</span>
   }
 })
 

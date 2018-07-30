@@ -32,11 +32,7 @@ let MultiSelectionItem = createClass({
       'ars-has-photo': this.state.item
     })
 
-    return (
-      <div className={className}>
-        {this.getPhoto()}
-      </div>
-    )
+    return <div className={className}>{this.getPhoto()}</div>
   }
 })
 
