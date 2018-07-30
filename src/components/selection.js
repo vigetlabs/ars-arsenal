@@ -2,55 +2,62 @@
  * Selection
  */
 
+import React from 'react'
 import Button from './ui/button'
 import SelectionFigure from './selection-figure'
 import SelectionText from './selection-text'
-import React from 'react'
-import Record from '../mixins/record'
+import Show from '../containers/show'
 import cx from 'classnames'
-import createClass from 'create-react-class'
-import { string } from 'prop-types'
 
-let Selection = createClass({
-  propTypes: {
-    resource: string.isRequired
-  },
+type Props = {
+  resource: string,
+  slug: string
+}
 
-  mixins: [Record],
+export default class Selection extends React.Component<Props> {
+  getPhoto(data) {
+    return data ? <SelectionFigure ref="photo" item={data} /> : null
+  }
 
-  getPhoto() {
-    let { item } = this.state
-    return item ? <SelectionFigure ref="photo" item={item} /> : null
-  },
-
-  render() {
+  renderContent({ data, fetching }) {
     let className = cx('ars-selection', {
-      'ars-is-loading': this.state.fetching,
-      'ars-has-photo': this.state.item
+      'ars-is-loading': fetching,
+      'ars-has-photo': data
     })
 
     return (
       <div className={className}>
         <div className="ars-selection-inner">
-          {this.getPhoto()}
+          {this.getPhoto(data)}
 
           <Button
             ref="button"
-            onClick={this._onClick}
+            onClick={this._onClick.bind(this)}
             className="ars-selection-edit"
           >
-            <SelectionText resource={this.props.resource} {...this.state} />
+            <SelectionText
+              resource={this.props.resource}
+              item={data}
+              fetching={fetching}
+            />
+
             <span className="ars-selection-button-icon" aria-hidden="true" />
           </Button>
         </div>
       </div>
     )
-  },
+  }
+
+  render() {
+    let { url, slug } = this.props
+
+    return (
+      <Show url={url} slug={slug} children={this.renderContent.bind(this)} />
+    )
+  }
 
   _onClick(e) {
     e.preventDefault()
     this.props.onClick(e)
   }
-})
-
-export default Selection
+}

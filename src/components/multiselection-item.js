@@ -1,39 +1,41 @@
 /**
  * MultiSelectionItem
+ * @flow
  */
 
-import Image from './ui/image'
 import React from 'react'
-import Record from '../mixins/record'
 import cx from 'classnames'
-import createClass from 'create-react-class'
+import Image from './ui/image'
+import Show from '../containers/show'
 
-let MultiSelectionItem = createClass({
-  mixins: [Record],
+type Props = {
+  slug: ?string,
+  url: string
+}
 
-  getPhoto() {
-    let { name, url } = this.state.item
+export default class MultiSelectionItem extends React.Component<Props> {
+  getPhoto({ name, url }) {
+    return (
+      <Image ref="photo" className="ars-selection-photo" alt={name} src={url} />
+    )
+  }
 
-    if (url) {
-      return (
-        <Image
-          ref="photo"
-          className="ars-selection-photo"
-          alt={name}
-          src={url}
-        />
-      )
-    }
-  },
-
-  render() {
+  renderContent({ data, fetching }) {
     let className = cx('ars-multiselection-cell', {
-      'ars-is-loading': this.state.fetching,
-      'ars-has-photo': this.state.item
+      'ars-is-loading': fetching,
+      'ars-has-photo': data
     })
 
-    return <div className={className}>{this.getPhoto()}</div>
+    return (
+      <div className={className}>{fetching ? null : this.getPhoto(data)}</div>
+    )
   }
-})
 
-export default MultiSelectionItem
+  render() {
+    let { url, slug } = this.props
+
+    return (
+      <Show url={url} slug={slug} children={this.renderContent.bind(this)} />
+    )
+  }
+}
