@@ -8,7 +8,7 @@ describe('Image Component', () => {
 
     component.simulate('load')
 
-    expect(component.state('isLoaded')).toBe(true)
+    expect(component).toHaveState('isLoaded', true)
   })
 
   test('adds an error class on failed images', () => {
@@ -16,7 +16,7 @@ describe('Image Component', () => {
 
     component.simulate('error')
 
-    expect(component.state('didFail')).toBe(true)
+    expect(component).toHaveState('didFail', true)
   })
 
   test('resets its loaded state when a new src is received', () => {
@@ -24,6 +24,6 @@ describe('Image Component', () => {
 
     component.setProps({ src: 'bar.jpg' })
 
-    expect(component.state('isLoaded')).toBe(false)
+    expect(component).toHaveState('isLoaded', false)
   })
 })
