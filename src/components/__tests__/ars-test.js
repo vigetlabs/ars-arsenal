@@ -45,7 +45,7 @@ describe('Ars', () => {
     })
 
     test('has a multiselection component', () => {
-      expect(component.ref('multiselection')).toBeDefined()
+      expect(component.find('MultiSelection').exists()).toBe(true)
     })
 
     describe('and a gallery item is picked', () => {
@@ -130,7 +130,7 @@ describe('Ars', () => {
     })
 
     test('renders a picker component', () => {
-      expect(component.ref('picker')).toBeDefined()
+      expect(component.find('Picker').exists()).toBe(true)
     })
 
     describe('when the picker exits', () => {

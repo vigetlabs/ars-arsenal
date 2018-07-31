@@ -14,7 +14,7 @@ import cx from 'classnames'
 type Props = {
   resource: string,
   url: string,
-  slug: *,
+  slug: ?(string | number),
   onClick: (event: SyntheticEvent<*>) => *
 }
 

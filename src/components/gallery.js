@@ -12,10 +12,10 @@ import { type Record } from '../record'
 
 type Props = {
   items: Record[],
-  onPicked: string => *,
-  onKeyDown: Event => *,
-  search: false | string,
-  picked: false | string
+  onPicked: (string | number) => *,
+  onKeyDown: (SyntheticKeyboardEvent<*>) => *,
+  search: string,
+  picked: Array<String | Number>
 }
 
 export default class Gallery extends React.Component<Props> {
@@ -23,8 +23,8 @@ export default class Gallery extends React.Component<Props> {
 
   static defaultProps = {
     items: [],
-    picked: false,
-    search: false
+    picked: null,
+    search: ''
   }
 
   componentDidMount() {
@@ -41,9 +41,10 @@ export default class Gallery extends React.Component<Props> {
     })
 
     let animationDelay = 150 + index * 60 + 'ms'
+    let key = String(record.id)
 
     return (
-      <div className={className} key={record.id} style={{ animationDelay }}>
+      <div key={key} className={className} style={{ animationDelay }}>
         <Figure
           picked={isPicked}
           record={record}

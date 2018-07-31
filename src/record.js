@@ -3,7 +3,7 @@
  */
 
 export type Record = {
-  id: string,
+  id: string | number,
   caption: string,
   name: string,
   attribution: string,

@@ -11,27 +11,27 @@ import SelectionText from './selection-text'
 type Props = {
   onClick: Event => *,
   resource: string,
-  slug: string[],
+  slugs: Array<string | number>,
   url: string
 }
 
 export default class MultiSelection extends React.Component<Props> {
-  hasSlugs(): boolean {
-    return !!this.props.slug && this.props.slug.length > 0
+  static defaultProps = {
+    slugs: []
   }
 
   getItems() {
-    let { slug, url } = this.props
+    let { slugs, url } = this.props
 
-    if (!this.hasSlugs()) {
+    if (!slugs.length) {
       return null
     }
 
     return (
       <div className="ars-multiselection-grid">
-        {slug.map((slug, key) =>
-          React.createElement(MultiSelectionItem, { url, slug, key })
-        )}
+        {slugs.map(slug => (
+          <MultiSelectionItem key={String(slug)} url={url} slug={slug} />
+        ))}
       </div>
     )
   }
@@ -42,13 +42,12 @@ export default class MultiSelection extends React.Component<Props> {
         {this.getItems()}
 
         <Button
-          ref="button"
           onClick={this._onClick.bind(this)}
           className="ars-selection-edit"
         >
           <SelectionText
             resource={this.props.resource}
-            item={this.hasSlugs()}
+            item={this.props.slugs.length > 0}
             isPlural={true}
           />
           <span className="ars-selection-button-icon" aria-hidden="true" />

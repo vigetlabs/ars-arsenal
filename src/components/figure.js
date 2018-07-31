@@ -12,7 +12,7 @@ import { type Record } from '../record'
 
 type Props = {
   record: Record,
-  onClick: string => *,
+  onClick: (string | number) => *,
   picked: boolean
 }
 

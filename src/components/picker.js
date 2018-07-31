@@ -15,6 +15,8 @@ import TableView from './table-view'
 import { func } from 'prop-types'
 
 let Picker = createClass({
+  displayName: 'Picker',
+
   mixins: [Collection],
 
   propTypes: {
