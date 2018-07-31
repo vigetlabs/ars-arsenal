@@ -5,104 +5,100 @@
  */
 
 import React from 'react'
-import XHR from 'xhr'
+import { request, isValidSlug } from './request'
+import { type Record } from '../record'
 
 type Props = {
-  makeQuery: string => string,
-  makeURL: (string, *) => string,
-  onError: (*) => *,
-  onFetch: (*) => *,
-  url: string
+  makeURL: (string, ?mixed) => string,
+  onError: (*) => Error,
+  onFetch: (*) => Record,
+  url: string,
+  slug: ?mixed,
+  children: ?(Result) => *
 }
 
 type State = {
   fetching: boolean,
-  error: boolean,
-  search: string,
+  error: ?Error,
+  data: ?Record,
+  targetURL: string,
+  shouldFetch: boolean
+}
+
+export type Result = {
+  error: ?Error,
+  fetching: boolean,
   data: *
 }
 
-export default class LoadRecord extends React.Component {
+const identity = (n: *) => n
+
+const makeURL =
+
+export default class LoadRecord extends React.PureComponent<Props, State> {
+  lastRequest: ?XMLHttpRequest
+
   static defaultProps = {
-    makeQuery: query => `q=${query}`,
-    makeURL: (url, id = false) => url + (id ? '/' + id : ''),
-    onError: response => response,
-    onFetch: data => data
+    makeURL: makeURL,
+    onError: identity,
+    onFetch: identity
+  }
+
+  static getDerivedStateFromProps(props: Props, lastState: State): * {
+    let targetURL = props.makeURL(props.url, props.slug)
+
+    if (targetURL === lastState.targetURL) {
+      return null
+    }
+
+    return { targetURL, shouldFetch: isValidSlug(props.slug) }
   }
 
   state = {
+    data: null,
+    error: null,
     fetching: false,
-    error: false,
-    search: '',
-    data: null
+    targetURL: '',
+    shouldFetch: false
   }
 
-  syncProps() {
-    let { makeURL, makeQuery, onError, onFetch, url } = this.props
-    return { makeURL, makeQuery, onError, onFetch, url }
+  componentDidMount() {
+    this.fetch()
   }
 
-  request(url, success, error) {
-    return XHR({ url, json: true }, function(err, response, body) {
-      if (err) {
-        error(body, err)
-      } else if (response.statusCode >= 400) {
-        error(response.body, new Error('Error ' + response.statusCode))
-      } else {
-        success(body)
-      }
-    })
+  componentDidUpdate() {
+    this.fetch()
   }
 
-  fetch(slug) {
-    let url = this.props.makeURL(this.props.url, slug)
-
-    if (this.state.request) {
-      this.state.request.abort()
+  fetch() {
+    if (this.lastRequest) {
+      this.lastRequest.abort()
+      this.lastRequest = null
     }
 
-    if (this.state.search) {
-      url = url + '?' + this.props.makeQuery(this.state.search)
-    }
-
-    this.setState({
-      request: this.request(
-        url,
-        this.responseDidSucceed.bind(this),
-        this.responseDidFail.bind(this)
+    if (this.state.shouldFetch) {
+      this.lastRequest = request(
+        this.state.targetURL,
+        this.onSuccess.bind(this),
+        this.onFailure.bind(this)
       )
+    }
+  }
+
+  onSuccess(body: *) {
+    this.setState({
+      data: this.props.onFetch(body),
+      error: null,
+      fetching: false
     })
   }
 
-  fetchIf(slug) {
-    if (slug || slug == 0) {
-      this.setState({ fetching: true })
-      this.fetch(slug)
-    } else {
-      this.setState({ data: null, fetching: false })
-    }
-  }
-
-  componentWillMount() {
-    this.fetchIf(this.props.slug)
-  }
-
-  componentWillReceiveProps(props) {
-    if (props.slug !== this.props.slug) {
-      this.fetchIf(props.slug)
-    }
-  }
-
-  responseDidSucceed(response) {
-    let data = this.props.onFetch(response)
-
-    this.setState({ data, fetching: false, error: false })
-  }
-
-  responseDidFail(response) {
-    let error = this.props.onError(response)
-
-    this.setState({ error, data: false, fetching: false })
+  onFailure(body: *) {
+    this.setState({
+      data: null,
+      error: this.props.onError(body),
+      fetching: false
+    })
   }
 
   render() {
