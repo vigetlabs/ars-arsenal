@@ -10,42 +10,17 @@ import Picker from './picker'
 import Selection from './selection'
 import MultiSelection from './multiselection'
 import { type Record } from '../record'
-
-type Props = {
-  makeQuery: string => string,
-  makeURL: (string, any) => string,
-  rootAttributes: { [string]: * },
-  multiselect: boolean,
-  resource: string,
-  mode: 'gallery' | 'table',
-  picked: string | number | Array<string | number>,
-  columns?: string[],
-  url: string,
-  onFetch: (*) => Record,
-  onError: (*) => *,
-  onChange: (*) => any
-}
+import { DEFAULT_OPTIONS, Options } from '../options'
 
 type State = {
   dialogOpen: boolean,
   picked: Array<string | number>
 }
 
-export default class Ars extends React.Component<Props, State> {
-  static defaultProps = {
-    makeQuery: (query: string) => `q=${query}`,
-    makeURL: (url: string, id: ?mixed) => url + (id ? '/' + String(id) : ''),
-    onError: (response: *) => response,
-    onFetch: (data: *) => data,
-    onChange: () => {},
-    rootAttributes: {},
-    multiselect: false,
-    resource: 'Photo',
-    mode: 'gallery',
-    url: ''
-  }
+export default class Ars extends React.Component<Options, State> {
+  static defaultProps = DEFAULT_OPTIONS
 
-  constructor(props: Props, context: *) {
+  constructor(props: Options, context: *) {
     super(props, context)
 
     this.state = {
@@ -76,34 +51,40 @@ export default class Ars extends React.Component<Props, State> {
     )
   }
 
-  render() {
+  renderSelection() {
     let { multiselect, resource, rootAttributes } = this.props
-    let { dialogOpen, picked } = this.state
-
-    let rootClass = cx('ars', rootAttributes.className)
+    let { picked } = this.state
 
     if (multiselect) {
       return (
-        <div {...rootAttributes} className={rootClass}>
-          <MultiSelection
-            {...this.syncProps()}
-            resource={resource}
-            slugs={picked}
-            onClick={this._onOpenClick.bind(this)}
-          />
-          {dialogOpen && this.getPicker()}
-        </div>
+        <MultiSelection
+          {...this.syncProps()}
+          resource={resource}
+          slugs={picked}
+          onClick={this._onOpenClick.bind(this)}
+        />
       )
     }
 
     return (
+      <Selection
+        {...this.syncProps()}
+        resource={resource}
+        slug={picked && picked[0]}
+        onClick={this._onOpenClick.bind(this)}
+      />
+    )
+  }
+
+  render() {
+    let { rootAttributes } = this.props
+    let { dialogOpen } = this.state
+
+    let rootClass = cx('ars', rootAttributes.className)
+
+    return (
       <div {...rootAttributes} className={rootClass}>
-        <Selection
-          {...this.syncProps()}
-          resource={resource}
-          slug={picked && picked[0]}
-          onClick={this._onOpenClick.bind(this)}
-        />
+        {this.renderSelection()}
         {dialogOpen && this.getPicker()}
       </div>
     )
