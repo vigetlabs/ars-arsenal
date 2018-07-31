@@ -1,5 +1,5 @@
 module.exports = jest.fn((options, callback) => {
-  let body = {}
+  let body = null
   let path = '../' + options.url
   let statusCode = 200
 

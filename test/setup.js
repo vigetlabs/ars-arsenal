@@ -11,7 +11,7 @@ expect.extend({
     let actual = wrapper.state(key)
 
     return {
-      pass: expected === actual,
+      pass: this.equals(expected, actual),
       message: () => {
         return `Expected ${wrapper.name()} to have state ${this.utils.printReceived(
           expected

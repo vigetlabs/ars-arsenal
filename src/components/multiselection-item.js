@@ -6,7 +6,7 @@
 import React from 'react'
 import cx from 'classnames'
 import Image from './ui/image'
-import Show from '../containers/show'
+import LoadRecord from '../containers/load-record'
 
 type Props = {
   slug: ?string,
@@ -14,9 +14,13 @@ type Props = {
 }
 
 export default class MultiSelectionItem extends React.Component<Props> {
-  getPhoto({ name, url }) {
+  getPhoto(photo) {
+    if (!photo) {
+      return null
+    }
+
     return (
-      <Image ref="photo" className="ars-selection-photo" alt={name} src={url} />
+      <Image className="ars-selection-photo" alt={photo.name} src={photo.url} />
     )
   }
 
@@ -26,16 +30,14 @@ export default class MultiSelectionItem extends React.Component<Props> {
       'ars-has-photo': data
     })
 
-    return (
-      <div className={className}>{fetching ? null : this.getPhoto(data)}</div>
-    )
+    return <div className={className}>{this.getPhoto(data)}</div>
   }
 
   render() {
-    let { url, slug } = this.props
-
     return (
-      <Show url={url} slug={slug} children={this.renderContent.bind(this)} />
+      <LoadRecord url={this.props.url} slug={this.props.slug}>
+        {data => this.renderContent(data)}
+      </LoadRecord>
     )
   }
 }

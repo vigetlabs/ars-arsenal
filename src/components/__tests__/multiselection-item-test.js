@@ -1,27 +1,23 @@
 import React from 'react'
-import TestUtils from 'react-dom/test-utils'
 import MultiSelectionItem from '../multiselection-item'
+import { mount } from 'enzyme'
+
+jest.useFakeTimers()
 
 describe('MultiSelectionItem', () => {
-  describe('when given an item', () => {
-    test('renders a photo', () => {
-      let component = TestUtils.renderIntoDocument(
-        <MultiSelectionItem url="/test.json" />
-      )
+  test('renders a photo', () => {
+    let component = mount(<MultiSelectionItem url="/data" slug="1.json" />)
 
-      component.setState({ item: { url: '/test.jpg' } })
+    jest.runAllTimers()
 
-      expect(component.refs).toHaveProperty('photo')
-    })
+    expect(component.render().find('img')).toHaveLength(1)
   })
 
-  describe('when not given an item', () => {
-    test('does not render a photo', () => {
-      let component = TestUtils.renderIntoDocument(
-        <MultiSelectionItem url="/test.json" />
-      )
+  test('renders empty', () => {
+    let component = mount(<MultiSelectionItem url="/test.json" />)
 
-      expect(component.refs).not.toHaveProperty('photo')
-    })
+    jest.runAllTimers()
+
+    expect(component.render().find('img')).toHaveLength(0)
   })
 })

@@ -1,5 +1,10 @@
 [
   {
+    "id": 0,
+    "caption": "This is a test",
+    "url": "/base/test/test.jpg"
+  },
+  {
     "id": 1,
     "caption": "This is a test",
     "url": "/base/test/test.jpg"

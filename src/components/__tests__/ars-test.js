@@ -1,77 +1,64 @@
 import React from 'react'
-import TestUtils from 'react-dom/test-utils'
-import DOM from 'react-dom'
 import Ars from '../ars'
-
-let makeComponent = function(props) {
-  return <Ars url="/test.json" {...props} />
-}
+import { mount } from 'enzyme'
 
 describe('Ars', () => {
   describe('when the component renders', () => {
-    let onChange = jest.fn()
-    let picked = 9
-    let component = TestUtils.renderIntoDocument(
-      makeComponent({ onChange, picked })
-    )
+    let component = null
+
+    beforeEach(() => {
+      component = mount(<Ars url="/test.json" picked={9} />)
+    })
 
     test('has a selection component', () => {
-      expect(component.refs).toHaveProperty('selection')
+      expect(component.find('Selection')).toHaveLength(1)
     })
 
     test('migrates a single `picked` value to an array', () => {
-      expect(component.state.picked).toEqual([picked])
+      expect(component).toHaveState('picked', [9])
     })
   })
 
   describe('when rootAttributes is provided', () => {
-    let onChange = jest.fn()
-    let picked = 9
-
     test('can be given a root attribute', () => {
       const rootAttributes = {
         'data-test': 'ars-resource-photo',
         className: 'my-custom-class'
       }
-      let component = TestUtils.renderIntoDocument(
-        makeComponent({ onChange, picked, rootAttributes })
+      let component = mount(
+        <Ars url="/test.json" rootAttributes={rootAttributes} />
       )
-      const htmlNode = TestUtils.findRenderedDOMComponentWithClass(
-        component,
-        'my-custom-class'
-      )
-      const testAttr = htmlNode.attributes['data-test'].value
+      let htmlNode = component.find('.my-custom-class')
 
-      expect(testAttr).toEqual('ars-resource-photo')
+      expect(htmlNode.prop('data-test')).toBe('ars-resource-photo')
     })
   })
 
   describe('when the component renders with the multiselect option', () => {
-    let component, multiselect, onChange
+    let component, onChange
 
     beforeEach(function() {
       onChange = jest.fn()
-      multiselect = true
-      component = TestUtils.renderIntoDocument(
-        makeComponent({ onChange, multiselect })
+      component = mount(
+        <Ars url="/test.json" onChange={onChange} multiselect={true} />
       )
     })
 
     test('has a multiselection component', () => {
-      expect(component.refs).toHaveProperty('multiselection')
+      expect(component.ref('multiselection')).toBeDefined()
     })
 
     describe('and a gallery item is picked', () => {
       beforeEach(function() {
-        component._onGalleryPicked([9, 12])
+        component.instance()._onGalleryPicked([9, 12])
       })
 
       test('sets the `picked` state to an array of chosen values', () => {
-        expect(component.state.picked).toEqual([9, 12])
+        expect(component).toHaveState('picked', [9, 12])
       })
 
       test('calls the onChange event with the picked state', () => {
-        expect(onChange).toHaveBeenCalledWith(component.state.picked)
+        expect(onChange).toHaveBeenCalledWith(component.state('picked'))
       })
     })
   })
@@ -82,79 +69,77 @@ describe('Ars', () => {
 
       beforeEach(function() {
         onChange = jest.fn()
-        component = TestUtils.renderIntoDocument(makeComponent({ onChange }))
+        component = mount(<Ars url="/test.json" onChange={onChange} />)
         picked = [9]
 
-        component._onGalleryPicked(picked)
+        component.instance()._onGalleryPicked(picked)
       })
 
       test('sets the `picked` state to an array of chosen values', () => {
-        expect(component.state.picked).toEqual(picked)
+        expect(component).toHaveState('picked', picked)
       })
 
       test('calls the onChange event with the first item in the picked state', () => {
-        expect(onChange).toHaveBeenCalledWith(component.state.picked[0])
+        expect(onChange).toHaveBeenCalledWith(9)
       })
     })
 
     describe('and an onChange handler is not provided', () => {
-      let component = TestUtils.renderIntoDocument(makeComponent())
+      let component = null
 
-      component._onGalleryPicked('slug')
+      beforeEach(() => {
+        component = mount(<Ars url="/test.json" />)
+        component.instance()._onGalleryPicked('slug')
+      })
 
       test('sets the `picked` state to the chosen slug', () => {
-        expect(component.state).toHaveProperty('picked', 'slug')
+        expect(component).toHaveState('picked', 'slug')
       })
     })
   })
 
   describe("when the component's selection button is clicked", () => {
-    let component = TestUtils.renderIntoDocument(makeComponent())
-
-    TestUtils.Simulate.click(
-      DOM.findDOMNode(component.refs.selection.refs.button)
-    )
-
     test('should set the dialogOpen state to true', () => {
-      expect(component.state).toHaveProperty('dialogOpen', true)
+      let component = mount(<Ars url="/test.json" />)
+
+      component.find('Selection button').simulate('click')
+
+      expect(component).toHaveState('dialogOpen', true)
     })
   })
 
   describe("when the component's multiselection button is clicked", () => {
-    let multiselect = true
-    let component = TestUtils.renderIntoDocument(makeComponent({ multiselect }))
+    let component
 
-    TestUtils.Simulate.click(
-      DOM.findDOMNode(component.refs.multiselection.refs.button)
-    )
+    beforeEach(() => {
+      component = mount(<Ars url="/test.json" multiselect={true} />)
+      component.find('MultiSelection button').simulate('click')
+    })
 
     test('should set the dialogOpen state to true', () => {
-      expect(component.state).toHaveProperty('dialogOpen', true)
+      expect(component).toHaveState('dialogOpen', true)
     })
   })
 
   describe("when the component's dialogOpen state is true", () => {
-    let component = TestUtils.renderIntoDocument(makeComponent())
+    let component = null
 
-    beforeEach(done => {
-      component.setState({ dialogOpen: true }, () => done())
+    beforeEach(() => {
+      component = mount(<Ars url="/test.json" />)
+      component.setState({ dialogOpen: true })
     })
 
     test('renders a picker component', () => {
-      expect(component.refs).toHaveProperty('picker')
+      expect(component.ref('picker')).toBeDefined()
     })
 
     describe('when the picker exits', () => {
-      var spy = jest.spyOn(component, 'setState')
-
-      component._onExit()
-
-      test('sets the dialogOpen state to false', () => {
-        expect(spy).toHaveBeenCalledWith({ dialogOpen: false })
+      beforeEach(() => {
+        component.instance()._onExit()
       })
 
-      afterAll(function() {
-        spy.restore()
+      test('sets the dialogOpen state to false', () => {
+        expect(component).toHaveState('dialogOpen', false)
       })
     })
   })

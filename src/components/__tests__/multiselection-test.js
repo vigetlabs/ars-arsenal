@@ -1,30 +1,16 @@
 import React from 'react'
-import DOM from 'react-dom'
-import TestUtils from 'react-dom/test-utils'
 import MultiSelection from '../multiselection'
+import { mount } from 'enzyme'
 
 describe('MultiSelection', () => {
-  describe('when given photos', () => {
-    let component = TestUtils.renderIntoDocument(
-      <MultiSelection slug={[0, 1]} url="/test.json" resource="Photo" />
-    )
-
-    test('renders photos', () => {
-      expect(
-        DOM.findDOMNode(component).querySelector('.ars-multiselection-grid')
-      ).toBeDefined()
-    })
+  test('renders multiple selections', () => {
+    let component = mount(<MultiSelection slug={[0, 1]} url="test.json" />)
+    expect(component.find('.ars-multiselection-grid').exists()).toBe(true)
   })
 
-  describe('when not given photos', () => {
-    let component = TestUtils.renderIntoDocument(
-      <MultiSelection slug={[]} url="/test.json" resource="Photo" />
-    )
+  test('renders an empty state', () => {
+    let component = mount(<MultiSelection slug={[]} url="test.json" />)
 
-    test('does not render photos', () => {
-      expect(
-        DOM.findDOMNode(component).querySelector('.ars-multiselection-grid')
-      ).toBe(null)
-    })
+    expect(component.find('.ars-multiselection-grid').exists()).toBe(false)
   })
 })

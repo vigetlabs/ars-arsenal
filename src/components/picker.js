@@ -18,15 +18,16 @@ let Picker = createClass({
   mixins: [Collection],
 
   propTypes: {
-    onChange: func.isRequired,
-    onExit: func.isRequired
+    onChange: func,
+    onExit: func
   },
 
   getDefaultProps() {
     return {
       mode: 'gallery',
-      items: [],
-      picked: []
+      picked: [],
+      onChange: () => {},
+      onExit: () => {}
     }
   },
 
@@ -69,7 +70,6 @@ let Picker = createClass({
 
     return (
       <Gallery
-        ref="gallery"
         items={items}
         picked={picked}
         onPicked={this._onPicked}
@@ -90,12 +90,7 @@ let Picker = createClass({
     return (
       <FocusTrap className="ars-dialog" onExit={onExit}>
         <header className="ars-dialog-header">
-          <Search
-            key="search"
-            ref="search"
-            datalist={items}
-            onChange={this._onSearchChange}
-          />
+          <Search datalist={items} onChange={this._onSearchChange} />
 
           <Button
             className="ars-dialog-gallery"
@@ -120,19 +115,19 @@ let Picker = createClass({
 
         <footer className="ars-dialog-footer">
           <div>
-            <Button
-              ref="clear"
-              className="ars-dialog-clear"
-              onClick={this._onClear}
-            >
+            <Button className="ars-dialog-clear" onClick={this._onClear}>
               <span className="ars-dialog-clear-text">Clear</span>
             </Button>
           </div>
           <div>
-            <Button ref="cancel" onClick={this.props.onExit}>
+            <Button className="ars-dialog-cancel" onClick={this.props.onExit}>
               Cancel
             </Button>
-            <Button ref="confirm" onClick={this._onConfirm} raised>
+            <Button
+              className="ars-dialog-confirm"
+              onClick={this._onConfirm}
+              raised
+            >
               Okay
             </Button>
           </div>

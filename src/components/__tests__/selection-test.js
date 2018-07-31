@@ -1,27 +1,25 @@
 import React from 'react'
-import TestUtils from 'react-dom/test-utils'
 import Selection from '../selection'
+import { mount } from 'enzyme'
+
+jest.useFakeTimers()
 
 describe('Selection', () => {
-  describe('when given an item', () => {
-    test('renders a photo', () => {
-      let component = TestUtils.renderIntoDocument(
-        <Selection url="/test.json" resource="Photo" />
-      )
+  test('renders a photo', () => {
+    let component = mount(<Selection url="data" slug="1.json" />)
 
-      component.setState({ item: { url: '/test.jpg' } })
+    jest.runAllTimers()
+    component.update()
 
-      expect(component.refs).toHaveProperty('photo')
-    })
+    expect(component.find('img').exists()).toBe(true)
   })
 
-  describe('when not given an item', () => {
-    test('does not render a photo', () => {
-      let component = TestUtils.renderIntoDocument(
-        <Selection url="/test.json" resource="Photo" />
-      )
+  test('does not render a photo', () => {
+    let component = mount(<Selection url="data" />)
 
-      expect(component.refs).not.toHaveProperty('photo')
-    })
+    jest.runAllTimers()
+    component.update()
+
+    expect(component.find('img').exists()).toBe(false)
   })
 })
