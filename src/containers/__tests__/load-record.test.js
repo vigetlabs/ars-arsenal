@@ -1,38 +1,38 @@
 import React from 'react'
 import xhr from 'xhr'
-import Show from '../show'
+import LoadRecord from '../load-record'
 import { mount } from 'enzyme'
 
 jest.useFakeTimers()
 
-describe('Show', () => {
+describe('LoadRecord', () => {
   beforeEach(() => xhr.mockClear())
 
   describe('componentWillMount', () => {
     test('fetches on mount if given a slug', () => {
-      mount(<Show url="/test.json" slug="test" />)
+      mount(<LoadRecord url="/test.json" slug="test" />)
       expect(xhr).toHaveBeenCalled()
     })
 
     test('does not fetch on mount if no slug is provided', () => {
-      mount(<Show url="/test.json" />)
+      mount(<LoadRecord url="/test.json" />)
       expect(xhr).not.toHaveBeenCalled()
     })
 
     test('fetches when the slug is 0', () => {
-      mount(<Show url="/test.json" slug={0} />)
+      mount(<LoadRecord url="/test.json" slug={0} />)
       expect(xhr).toHaveBeenCalled()
     })
 
     test('does not fetch on NaN', () => {
-      mount(<Show url="/test.json" slug={NaN} />)
+      mount(<LoadRecord url="/test.json" slug={NaN} />)
       expect(xhr).not.toHaveBeenCalled()
     })
   })
 
   describe('componentWillReceiveProps', () => {
     test('fetches when given a new slug', () => {
-      let component = mount(<Show url="/test.json" slug="first" />)
+      let component = mount(<LoadRecord url="/test.json" slug="first" />)
 
       expect(xhr).toHaveBeenCalledTimes(1)
       component.setProps({ slug: 'second' })
@@ -40,7 +40,7 @@ describe('Show', () => {
     })
 
     test('does not fetch when given the same slug', () => {
-      let component = mount(<Show url="/test.json" slug="first" />)
+      let component = mount(<LoadRecord url="/test.json" slug="first" />)
 
       expect(xhr).toHaveBeenCalledTimes(1)
       component.setProps({ slug: 'first' })
@@ -52,7 +52,7 @@ describe('Show', () => {
     test('calls onFetch when a response succeeds', () => {
       let onFetch = jest.fn()
       let component = mount(
-        <Show url="/data" slug="1.json" onFetch={onFetch} />
+        <LoadRecord url="/data" slug="1.json" onFetch={onFetch} />
       )
 
       jest.runAllTimers()
@@ -65,7 +65,7 @@ describe('Show', () => {
     })
 
     test('sets the error state to false', () => {
-      let component = mount(<Show url="/data" slug="1.json" />)
+      let component = mount(<LoadRecord url="/data" slug="1.json" />)
 
       jest.runAllTimers()
 
@@ -75,7 +75,7 @@ describe('Show', () => {
     test('sets the item state to the returned value of onFetch', () => {
       let onFetch = () => 'fetched'
       let component = mount(
-        <Show url="/data" slug="1.json" onFetch={onFetch} />
+        <LoadRecord url="/data" slug="1.json" onFetch={onFetch} />
       )
 
       jest.runAllTimers()
@@ -88,7 +88,7 @@ describe('Show', () => {
     test('sets the error state to the returned value of onError, and item to false', () => {
       let onError = response => `terrible error!`
       let component = mount(
-        <Show url="/data" slug="missing.json" onError={onError} />
+        <LoadRecord url="/data" slug="missing.json" onError={onError} />
       )
 
       jest.runAllTimers()

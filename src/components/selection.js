@@ -6,7 +6,7 @@ import React from 'react'
 import Button from './ui/button'
 import SelectionFigure from './selection-figure'
 import SelectionText from './selection-text'
-import Show from '../containers/show'
+import LoadRecord from '../containers/load-record'
 import cx from 'classnames'
 
 type Props = {
@@ -52,7 +52,11 @@ export default class Selection extends React.Component<Props> {
     let { url, slug } = this.props
 
     return (
-      <Show url={url} slug={slug} children={this.renderContent.bind(this)} />
+      <LoadRecord
+        url={url}
+        slug={slug}
+        children={this.renderContent.bind(this)}
+      />
     )
   }
 

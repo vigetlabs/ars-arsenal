@@ -22,7 +22,7 @@ type State = {
   data: *
 }
 
-export default class Show extends React.Component {
+export default class LoadRecord extends React.Component {
   static defaultProps = {
     makeQuery: query => `q=${query}`,
     makeURL: (url, id = false) => url + (id ? '/' + id : ''),

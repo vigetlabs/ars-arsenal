@@ -29,6 +29,10 @@ export default class Search extends React.Component<Props, State> {
   id: number
   debouncedChange: string => *
 
+  static defaultProps = {
+    datalist: []
+  }
+
   state = {
     search: ''
   }
