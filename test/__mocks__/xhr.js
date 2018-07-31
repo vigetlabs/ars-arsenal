@@ -6,6 +6,7 @@ module.exports = jest.fn((options, callback) => {
   try {
     body = require(path)
   } catch (x) {
+    body = 'Unable to load URL'
     statusCode = 404
   }
 

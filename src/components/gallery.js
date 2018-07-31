@@ -15,7 +15,7 @@ type Props = {
   onPicked: (string | number) => *,
   onKeyDown: (SyntheticKeyboardEvent<*>) => *,
   search: string,
-  picked: Array<String | Number>
+  picked: Array<string | number>
 }
 
 export default class Gallery extends React.Component<Props> {

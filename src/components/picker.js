@@ -1,55 +1,66 @@
 /**
  * Picker
  * The a modal that appears to select a gallery image
+ * @flow
  */
 
+import React from 'react'
 import Button from './ui/button'
-import Collection from '../mixins/collection'
-import Error from './error'
+import ErrorMessage from './error-message'
 import FocusTrap from 'react-focus-trap'
 import Gallery from './gallery'
-import React from 'react'
 import Search from './search'
-import createClass from 'create-react-class'
 import TableView from './table-view'
-import { func } from 'prop-types'
+import LoadCollection, { type Result } from '../containers/load-collection'
+import { type Record } from '../record'
 
-let Picker = createClass({
-  displayName: 'Picker',
+type Props = {
+  url: *,
+  makeQuery: *,
+  makeURL: *,
+  onChange: (Array<string | number>) => *,
+  onExit: () => *,
+  mode: 'gallery' | 'table',
+  picked: Array<string | number>,
+  multiselect: boolean,
+  columns?: string[]
+}
 
-  mixins: [Collection],
+type State = {
+  picked: Array<string | number>,
+  mode: 'gallery' | 'table',
+  search: string
+}
 
-  propTypes: {
-    onChange: func,
-    onExit: func
-  },
+export default class Picker extends React.Component<Props, State> {
+  static defaultProps = {
+    mode: 'gallery',
+    picked: [],
+    onChange: () => {},
+    onExit: () => {},
+    multiselect: false
+  }
 
-  getDefaultProps() {
-    return {
-      mode: 'gallery',
-      picked: [],
-      onChange: () => {},
-      onExit: () => {}
+  constructor(props: Props, context: *) {
+    super(props, context)
+
+    this.state = {
+      search: '',
+      picked: props.picked,
+      mode: props.mode
     }
-  },
-
-  getInitialState() {
-    return {
-      picked: this.props.picked,
-      mode: this.props.mode
-    }
-  },
+  }
 
   confirm() {
     this.props.onChange(this.state.picked)
     this.props.onExit()
-  },
+  }
 
-  renderItems() {
+  renderItems(data: Record[]) {
     const { columns, multiselect } = this.props
-    const { items, mode, picked, search } = this.state
+    const { mode, picked, search } = this.state
 
-    if (items.length <= 0) {
+    if (data.length <= 0) {
       return (
         <p className="ars-empty">
           No items exist {search ? `for “${search}”.` : ''}
@@ -60,43 +71,43 @@ let Picker = createClass({
     if (mode === 'table') {
       return (
         <TableView
-          items={items}
+          items={data}
           picked={picked}
           columns={columns}
           multiselect={multiselect}
-          onPicked={this._onPicked}
-          onKeyDown={this._onKeyDown}
+          onPicked={this._onPicked.bind(this)}
+          onKeyDown={this._onKeyDown.bind(this)}
         />
       )
     }
 
     return (
       <Gallery
-        items={items}
+        items={data}
         picked={picked}
-        onPicked={this._onPicked}
-        onKeyDown={this._onKeyDown}
+        onPicked={this._onPicked.bind(this)}
+        onKeyDown={this._onKeyDown.bind(this)}
       />
     )
-  },
+  }
 
-  setMode(mode, event) {
+  setMode(mode: 'gallery' | 'table', event: SyntheticEvent<*>) {
     event.preventDefault()
     this.setState({ mode })
-  },
+  }
 
-  render() {
+  renderContent({ data, fetching, error }: Result) {
     const { onExit } = this.props
-    const { mode, error, items } = this.state
+    const { mode } = this.state
 
     return (
       <FocusTrap className="ars-dialog" onExit={onExit}>
         <header className="ars-dialog-header">
-          <Search datalist={items} onChange={this._onSearchChange} />
+          <Search datalist={data} onChange={this._onSearchChange.bind(this)} />
 
           <Button
             className="ars-dialog-gallery"
-            onClick={this.setMode.bind(null, 'gallery')}
+            onClick={this.setMode.bind(this, 'gallery')}
             disabled={mode === 'gallery'}
           >
             <span className="ars-hidden">Gallery</span>
@@ -104,20 +115,23 @@ let Picker = createClass({
 
           <Button
             className="ars-dialog-table"
-            onClick={this.setMode.bind(null, 'table')}
+            onClick={this.setMode.bind(this, 'table')}
             disabled={mode === 'table'}
           >
             <span className="ars-hidden">Table</span>
           </Button>
         </header>
 
-        <Error error={error} />
+        <ErrorMessage error={error} />
 
-        {this.renderItems()}
+        {this.renderItems(data)}
 
         <footer className="ars-dialog-footer">
           <div>
-            <Button className="ars-dialog-clear" onClick={this._onClear}>
+            <Button
+              className="ars-dialog-clear"
+              onClick={this._onClear.bind(this)}
+            >
               <span className="ars-dialog-clear-text">Clear</span>
             </Button>
           </div>
@@ -127,7 +141,7 @@ let Picker = createClass({
             </Button>
             <Button
               className="ars-dialog-confirm"
-              onClick={this._onConfirm}
+              onClick={this._onConfirm.bind(this)}
               raised
             >
               Okay
@@ -136,25 +150,41 @@ let Picker = createClass({
         </footer>
       </FocusTrap>
     )
-  },
+  }
+
+  render() {
+    let { url, makeURL, makeQuery } = this.props
+    let { search } = this.state
+
+    return (
+      <LoadCollection
+        url={url}
+        makeURL={makeURL}
+        makeQuery={makeQuery}
+        search={search}
+      >
+        {result => this.renderContent(result)}
+      </LoadCollection>
+    )
+  }
 
   _onClear() {
     this.setState({ picked: [] })
-  },
+  }
 
-  _onSearchChange(search) {
-    this.setState({ search }, this.fetch)
-  },
+  _onSearchChange(search: string) {
+    this.setState({ search })
+  }
 
-  _onPicked(picked) {
+  _onPicked(picked: *) {
     this.setState({
       picked: this.props.multiselect
         ? this._onMultiSelectPicked(picked)
         : [picked]
     })
-  },
+  }
 
-  _onMultiSelectPicked(picked) {
+  _onMultiSelectPicked(picked: Array<string | number>) {
     // Allow for multiple selections and toggling of selections
     let total = this.state.picked ? this.state.picked.slice() : []
     let pool = [].concat(picked)
@@ -170,14 +200,14 @@ let Picker = createClass({
     })
 
     return total
-  },
+  }
 
-  _onConfirm(e) {
-    e.preventDefault()
+  _onConfirm(event: SyntheticEvent<*>) {
+    event.preventDefault()
     this.confirm()
-  },
+  }
 
-  _onKeyDown(event) {
+  _onKeyDown(event: SyntheticKeyboardEvent<*>) {
     if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
       event.preventDefault()
       event.stopPropagation()
@@ -185,6 +215,4 @@ let Picker = createClass({
       this.confirm()
     }
   }
-})
-
-export default Picker
+}

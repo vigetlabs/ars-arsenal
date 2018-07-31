@@ -216,13 +216,14 @@ describe('Picker', () => {
       let component = null
 
       beforeAll(() => {
-        component = mount(<Picker url="test.json" />)
-        component.setState({ error: 'This is a test error' })
+        component = mount(<Picker url="missing.json" />)
+        jest.runAllTimers()
+        component.update()
       })
 
       test('displays the error', () => {
         expect(component.find('.ars-error').text()).toContain(
-          'This is a test error'
+          'Unable to load URL'
         )
       })
     })
