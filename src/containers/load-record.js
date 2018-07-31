@@ -33,7 +33,7 @@ export type Result = {
 
 const identity = (n: *) => n
 
-const makeURL =
+const makeURL = (url: string, id: *) => url + (id ? '/' + String(id) : '')
 
 export default class LoadRecord extends React.PureComponent<Props, State> {
   lastRequest: ?XMLHttpRequest
