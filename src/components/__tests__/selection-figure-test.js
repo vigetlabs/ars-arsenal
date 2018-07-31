@@ -1,61 +1,49 @@
 import React from 'react'
-import TestUtils from 'react-dom/test-utils'
 import SelectionFigure from '../selection-figure'
+import { mount } from 'enzyme'
 
 describe('SelectionFigure', () => {
   describe('when given a name', () => {
     test('renders a title', () => {
-      let component = TestUtils.renderIntoDocument(
-        <SelectionFigure item={{ name: 'Ars' }} />
-      )
+      let component = mount(<SelectionFigure item={{ name: 'Ars' }} />)
 
-      expect(component.refs).toHaveProperty('title')
+      expect(component.find('.ars-selection-title').text()).toContain('Ars')
     })
   })
 
   describe('when not given a name', () => {
     test('handles null', () => {
-      let component = TestUtils.renderIntoDocument(
-        <SelectionFigure item={{ title: null }} />
-      )
+      let component = mount(<SelectionFigure item={{ title: null }} />)
 
-      expect(component.refs).not.toHaveProperty('title')
+      expect(component.find('.ars-selection-title').exists()).toBe(false)
     })
 
-    test('does not render a title', () => {
-      let component = TestUtils.renderIntoDocument(
-        <SelectionFigure item={{}} />
-      )
+    test('handles undefined', () => {
+      let component = mount(<SelectionFigure item={{}} />)
 
-      expect(component.refs).not.toHaveProperty('title')
+      expect(component.find('.ars-selection-title').exists()).toBe(false)
     })
   })
 
   describe('when given a caption', () => {
     test('renders a caption', () => {
-      let component = TestUtils.renderIntoDocument(
-        <SelectionFigure item={{ caption: 'Ars' }} />
-      )
+      let component = mount(<SelectionFigure item={{ caption: 'Ars' }} />)
 
-      expect(component.refs).toHaveProperty('caption')
+      expect(component.find('.ars-selection-caption').text()).toContain('Ars')
     })
   })
 
   describe('when not given a caption', () => {
     test('handles null', () => {
-      let component = TestUtils.renderIntoDocument(
-        <SelectionFigure item={{ caption: null }} />
-      )
+      let component = mount(<SelectionFigure item={{ caption: null }} />)
 
-      expect(component.refs).not.toHaveProperty('caption')
+      expect(component.find('.ars-selection-caption').exists()).toBe(false)
     })
 
-    test('does not render a caption', () => {
-      let component = TestUtils.renderIntoDocument(
-        <SelectionFigure item={{}} />
-      )
+    test('handles undefined', () => {
+      let component = mount(<SelectionFigure item={{}} />)
 
-      expect(component.refs).not.toHaveProperty('caption')
+      expect(component.find('.ars-selection-caption').exists()).toBe(false)
     })
   })
 })
