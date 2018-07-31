@@ -1,25 +1,31 @@
 /**
  * Selection
+ * @flow
  */
 
 import React from 'react'
 import Button from './ui/button'
 import SelectionFigure from './selection-figure'
 import SelectionText from './selection-text'
-import LoadRecord from '../containers/load-record'
+import LoadRecord, { type Result } from '../containers/load-record'
+import { type Record } from '../record'
 import cx from 'classnames'
 
 type Props = {
   resource: string,
-  slug: string
+  url: string,
+  slug: *,
+  onClick: (event: SyntheticEvent<*>) => *
 }
 
 export default class Selection extends React.Component<Props> {
-  getPhoto(data) {
+  getPhoto(data: ?Record) {
     return data ? <SelectionFigure ref="photo" item={data} /> : null
   }
 
-  renderContent({ data, fetching }) {
+  renderContent({ data, fetching }: Result) {
+    let { resource, onClick } = this.props
+
     let className = cx('ars-selection', {
       'ars-is-loading': fetching,
       'ars-has-photo': data
@@ -30,15 +36,11 @@ export default class Selection extends React.Component<Props> {
         <div className="ars-selection-inner">
           {this.getPhoto(data)}
 
-          <Button
-            ref="button"
-            onClick={this._onClick.bind(this)}
-            className="ars-selection-edit"
-          >
+          <Button onClick={onClick} className="ars-selection-edit">
             <SelectionText
-              resource={this.props.resource}
-              item={data}
+              item={!!data}
               fetching={fetching}
+              resource={resource}
             />
 
             <span className="ars-selection-button-icon" aria-hidden="true" />
@@ -49,19 +51,10 @@ export default class Selection extends React.Component<Props> {
   }
 
   render() {
-    let { url, slug } = this.props
-
     return (
-      <LoadRecord
-        url={url}
-        slug={slug}
-        children={this.renderContent.bind(this)}
-      />
+      <LoadRecord url={this.props.url} slug={this.props.slug}>
+        {result => this.renderContent(result)}
+      </LoadRecord>
     )
-  }
-
-  _onClick(e) {
-    e.preventDefault()
-    this.props.onClick(e)
   }
 }

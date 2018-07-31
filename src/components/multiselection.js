@@ -16,8 +16,8 @@ type Props = {
 }
 
 export default class MultiSelection extends React.Component<Props> {
-  hasSlugs() {
-    return this.props.slug && this.props.slug.length
+  hasSlugs(): boolean {
+    return !!this.props.slug && this.props.slug.length > 0
   }
 
   getItems() {

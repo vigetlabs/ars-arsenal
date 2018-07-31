@@ -6,12 +6,11 @@
 import React from 'react'
 import articleFor from '../utils/article-for'
 import pluralize from '../utils/pluralize'
-import { type Record } from '../record'
 
 type Props = {
   resource: string,
   fetching: boolean,
-  item: Record,
+  item: boolean,
   isPlural: boolean
 }
 
@@ -19,11 +18,11 @@ export default class SelectionText extends React.Component<Props> {
   static defaultProps = {
     resource: 'Photo',
     fetching: false,
-    item: null,
+    item: false,
     isPlural: false
   }
 
-  getNoun(resource, isPlural = false) {
+  getNoun(resource: string, isPlural: boolean) {
     let noun = resource.toLowerCase()
 
     if (isPlural) {
@@ -33,21 +32,21 @@ export default class SelectionText extends React.Component<Props> {
     return noun
   }
 
-  getEmptyText(article, noun, isPlural) {
+  getEmptyText(article: string, noun: string, isPlural: boolean) {
     let a = isPlural ? ' ' : ` ${article} `
     return `Pick${a}${noun}`
   }
 
-  getSelectedText(noun, isPlural) {
+  getSelectedText(noun: string, isPlural: boolean) {
     let a = isPlural ? ' ' : ' a '
     return `Pick${a}different ${noun}`
   }
 
-  getLoadingText(noun) {
+  getLoadingText(noun: string) {
     return `Loading ${noun}`
   }
 
-  getText() {
+  render() {
     let { resource, fetching, item, isPlural } = this.props
     let noun = this.getNoun(resource, isPlural)
 
@@ -58,9 +57,5 @@ export default class SelectionText extends React.Component<Props> {
     } else {
       return this.getEmptyText(articleFor(noun), noun, isPlural)
     }
-  }
-
-  render() {
-    return this.getText()
   }
 }
