@@ -1,26 +1,27 @@
 /**
- * LoadRecord
- * Fetch and present a single item
+ * LoadCollection
+ * Fetch and present a list of items
  * @flow
  */
 
 import React from 'react'
-import { request, isValidSlug } from './request'
+import { request } from './request'
 import { type Record } from '../record'
 
 type Props = {
   makeURL: (string, ?mixed) => string,
+  makeQuery: string => string,
   onError: (*) => Error,
-  onFetch: (*) => Record,
+  onFetch: (*) => Record[],
   url: string,
-  slug: ?mixed,
-  children: ?(Result) => *
+  children: ?(Result) => *,
+  search: string
 }
 
 type State = {
   fetching: boolean,
   error: ?Error,
-  data: ?Record,
+  data: Record[],
   targetURL: string,
   shouldFetch: boolean
 }
@@ -34,28 +35,34 @@ export type Result = {
 const identity = (n: *) => n
 
 const makeURL = (url: string, id: *) => url + (id ? '/' + String(id) : '')
+const makeQuery = (query: string) => `q=${query}`
 
-export default class LoadRecord extends React.PureComponent<Props, State> {
+export default class LoadCollection extends React.PureComponent<Props, State> {
   lastRequest: ?XMLHttpRequest
 
   static defaultProps = {
     makeURL: makeURL,
+    makeQuery: makeQuery,
     onError: identity,
     onFetch: identity
   }
 
   static getDerivedStateFromProps(props: Props, lastState: State): * {
-    let targetURL = props.makeURL(props.url, props.slug)
+    let targetURL = props.makeURL(props.url)
+
+    if (props.search) {
+      targetURL += '?' + props.makeQuery(props.search)
+    }
 
     if (targetURL === lastState.targetURL) {
       return { shouldFetch: false }
     }
 
-    return { targetURL, shouldFetch: isValidSlug(props.slug) }
+    return { targetURL, shouldFetch: true }
   }
 
   state = {
-    data: null,
+    data: [],
     error: null,
     fetching: false,
     targetURL: '',
@@ -80,14 +87,16 @@ export default class LoadRecord extends React.PureComponent<Props, State> {
       this.lastRequest = null
     }
 
-    this.lastRequest = request(
-      this.state.targetURL,
-      this.onSuccess.bind(this),
-      this.onFailure.bind(this)
-    )
+    if (this.state.shouldFetch) {
+      this.lastRequest = request(
+        this.state.targetURL,
+        this.onSuccess.bind(this),
+        this.onFailure.bind(this)
+      )
+    }
   }
 
-  onSuccess(body: *) {
+  onSuccess(body: *[]) {
     this.setState({
       data: this.props.onFetch(body),
       error: null,
@@ -97,7 +106,7 @@ export default class LoadRecord extends React.PureComponent<Props, State> {
 
   onFailure(body: *) {
     this.setState({
-      data: null,
+      data: [],
       error: this.props.onError(body),
       fetching: false
     })
