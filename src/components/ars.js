@@ -1,45 +1,63 @@
 /**
  * Ars
  * The main element for Ars Arsenal
+ * @flow
  */
 
-import Picker from './picker'
 import React from 'react'
+import cx from 'classnames'
+import Picker from './picker'
 import Selection from './selection'
 import MultiSelection from './multiselection'
-import Sync from '../mixins/sync'
-import createClass from 'create-react-class'
-import cx from 'classnames'
-import { func } from 'prop-types'
+import { type Record } from '../record'
 
-let Ars = createClass({
-  mixins: [Sync],
+type Props = {
+  makeQuery: string => string,
+  makeURL: (string, any) => string,
+  rootAttributes: { [string]: * },
+  multiselect: boolean,
+  resource: string,
+  mode: 'gallery' | 'table',
+  picked: string | number | Array<string | number>,
+  columns?: string[],
+  url: string,
+  onFetch: (*) => Record,
+  onError: (*) => *,
+  onChange: (*) => any
+}
 
-  propTypes: {
-    onChange: func
-  },
+type State = {
+  dialogOpen: boolean,
+  picked: Array<string | number>
+}
 
-  getDefaultProps() {
-    return {
-      onChange: () => {},
-      rootAttributes: {},
-      multiselect: false,
-      resource: 'Photo',
-      mode: 'gallery'
-    }
-  },
+export default class Ars extends React.Component<Props, State> {
+  static defaultProps = {
+    makeQuery: (query: string) => `q=${query}`,
+    makeURL: (url: string, id: ?mixed) => url + (id ? '/' + String(id) : ''),
+    onError: (response: *) => response,
+    onFetch: (data: *) => data,
+    onChange: () => {},
+    rootAttributes: {},
+    multiselect: false,
+    resource: 'Photo',
+    mode: 'gallery',
+    url: ''
+  }
 
-  getInitialState() {
-    let { picked } = this.props
-    if (picked && !Array.isArray(picked)) {
-      picked = [picked]
-    }
+  constructor(props: Props, context: *) {
+    super(props, context)
 
-    return {
+    this.state = {
       dialogOpen: false,
-      picked: picked
+      picked: [].concat(props.picked || [])
     }
-  },
+  }
+
+  syncProps() {
+    let { makeURL, makeQuery, onError, onFetch, url } = this.props
+    return { makeURL, makeQuery, onError, onFetch, url }
+  }
 
   getPicker() {
     let { picked } = this.state
@@ -47,59 +65,68 @@ let Ars = createClass({
 
     return (
       <Picker
-        key="dialog"
-        ref="picker"
         {...this.syncProps()}
-        onChange={this._onGalleryPicked}
-        onExit={this._onExit}
+        onChange={this._onGalleryPicked.bind(this)}
+        onExit={this._onExit.bind(this)}
         picked={picked}
         mode={mode}
         multiselect={multiselect}
         columns={columns}
       />
     )
-  },
+  }
 
   render() {
-    const { multiselect, resource, rootAttributes } = this.props
-    const { dialogOpen, picked } = this.state
+    let { multiselect, resource, rootAttributes } = this.props
+    let { dialogOpen, picked } = this.state
 
-    let SelectionComponent = multiselect ? MultiSelection : Selection
-    let ref = multiselect ? 'multiselection' : 'selection'
-    let slug = this.props.multiselect ? picked : picked && picked[0]
-    const rootClass = cx('ars', rootAttributes.className)
+    let rootClass = cx('ars', rootAttributes.className)
+
+    if (multiselect) {
+      return (
+        <div {...rootAttributes} className={rootClass}>
+          <MultiSelection
+            {...this.syncProps()}
+            resource={resource}
+            slugs={picked}
+            onClick={this._onOpenClick.bind(this)}
+          />
+          {dialogOpen && this.getPicker()}
+        </div>
+      )
+    }
 
     return (
       <div {...rootAttributes} className={rootClass}>
-        <SelectionComponent
-          ref={ref}
+        <Selection
           {...this.syncProps()}
           resource={resource}
-          onClick={this._onOpenClick}
-          slug={slug}
+          slug={picked && picked[0]}
+          onClick={this._onOpenClick.bind(this)}
         />
         {dialogOpen && this.getPicker()}
       </div>
     )
-  },
+  }
 
   _triggerChange() {
     let { picked } = this.state
     this.props.onChange(this.props.multiselect ? picked : picked[0])
-  },
+  }
 
   _onOpenClick() {
     this.setState({ dialogOpen: true })
-  },
+  }
 
-  _onGalleryPicked(picked) {
-    this.setState({ picked }, this._triggerChange)
-  },
+  _onGalleryPicked(picked: *) {
+    this.setState({ picked }, this._triggerChange.bind(this))
+  }
 
-  _onExit(e) {
-    e && e.preventDefault()
+  _onExit(event?: SyntheticEvent<*>) {
+    if (event) {
+      event.preventDefault()
+    }
+
     this.setState({ dialogOpen: false })
   }
-})
-
-export default Ars
+}

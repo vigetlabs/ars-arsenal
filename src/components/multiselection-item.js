@@ -10,7 +10,7 @@ import LoadRecord, { type Result } from '../containers/load-record'
 import { type Record } from '../record'
 
 type Props = {
-  slug: ?string,
+  slug: ?mixed,
   url: string
 }
 
