@@ -1,39 +1,39 @@
 /**
  * Selection Figure
+ * @flow
  */
 
 import React from 'react'
 import Image from './ui/image'
-import createClass from 'create-react-class'
+import { type Record, EmptyRecord } from '../record'
 
-let SelectionFigure = createClass({
-  getDefaultProps() {
-    return {
-      caption: '',
-      title: ''
-    }
-  },
+type Props = {
+  item: Record
+}
 
-  getTitle(title) {
+export default class SelectionFigure extends React.Component<Props> {
+  static defaultProps = {
+    item: EmptyRecord
+  }
+
+  getTitle(title: string) {
     let trimmed = title ? title.trim() : ''
-    return trimmed.length ? (
-      <p ref="title" className="ars-selection-title">
-        {trimmed}
-      </p>
-    ) : null
-  },
 
-  getCaption(caption) {
-    let trimmed = caption ? caption.trim() : ''
     return trimmed.length ? (
-      <p ref="caption" className="ars-selection-caption">
-        {trimmed}
-      </p>
+      <p className="ars-selection-title">{trimmed}</p>
     ) : null
-  },
+  }
+
+  getCaption(caption: string) {
+    let trimmed = caption ? caption.trim() : ''
+
+    return trimmed.length ? (
+      <p className="ars-selection-caption">{trimmed}</p>
+    ) : null
+  }
 
   render() {
-    let { caption, name, url } = this.props.item
+    let { caption = '', name = '', url } = this.props.item
 
     return (
       <figure className="ars-selection-figure">
@@ -45,6 +45,4 @@ let SelectionFigure = createClass({
       </figure>
     )
   }
-})
-
-export default SelectionFigure
+}
