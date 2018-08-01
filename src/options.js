@@ -36,7 +36,7 @@ export interface ArsOptions {
   // In mode: 'table', sets the displayed columns, and the order
   columns: ArsColumn[];
   // Existing selections
-  picked: ID[];
+  picked?: ID | ID[];
 }
 
 export const DEFAULT_OPTIONS: ArsOptions = {
@@ -54,6 +54,5 @@ export const DEFAULT_OPTIONS: ArsOptions = {
   multiselect: false,
   resource: 'Photo',
   mode: 'gallery',
-  columns: ['id', 'name', 'caption', 'attribution', 'preview'],
-  picked: []
+  columns: ['id', 'name', 'caption', 'attribution', 'preview']
 }

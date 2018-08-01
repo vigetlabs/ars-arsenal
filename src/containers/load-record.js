@@ -13,20 +13,15 @@ function isValidSlug(slug: any): boolean {
 }
 
 class RecordFetcher extends DataFetcher {
-  static getDerivedStateFromProps(props: *, lastState: *): * {
-    let targetURL = props.makeURL(props.url, props.slug)
-
-    return {
-      targetURL,
-      shouldFetch: targetURL !== lastState.targetURL && isValidSlug(props.slug)
-    }
+  shouldFetch(nextURL, lastURL, props) {
+    return nextURL !== lastURL && isValidSlug(props.slug)
   }
 }
 
 export default function LoadRecord(props: *) {
   return (
     <OptionsContext.Consumer>
-      {options => <RecordFetcher {...options} {...props} />}
+      {options => <RecordFetcher {...options} {...props} defaultValue={null} />}
     </OptionsContext.Consumer>
   )
 }

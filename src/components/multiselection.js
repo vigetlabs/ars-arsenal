@@ -29,7 +29,9 @@ export default class MultiSelection extends React.Component<Props> {
 
     return (
       <div className="ars-multiselection-grid">
-        {slugs.map(slug => <MultiSelectionItem key={slug} slug={slug} />)}
+        {slugs.map(slug => (
+          <MultiSelectionItem key={slug} slug={slug} />
+        ))}
       </div>
     )
   }

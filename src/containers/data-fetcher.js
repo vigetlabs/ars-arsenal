@@ -8,7 +8,7 @@ import { type ID } from '../record'
 import { request } from './request'
 
 type Props = ArsOptions & {
-  children: ?(Result) => *,
+  children: *,
   defaultValue: *,
   search: ?string,
   slug: ?ID
@@ -19,7 +19,7 @@ type State = {
   error: ?string,
   fetching: boolean,
   targetURL: string,
-  shouldFetch: boolean
+  endpointChanged: boolean
 }
 
 type Result = {
@@ -38,10 +38,14 @@ export default class DataFetcher extends React.Component<Props, State> {
     defaultValue: null
   }
 
-  static getDerivedStateFromProps(props: Props, lastState: State): * {
-    throw new Error(
-      'Children of DataFetcher must implement getDerivedStateFromProps'
-    )
+  static getDerivedStateFromProps(props: *, lastState: *): * {
+    let targetURL = props.makeURL(props.url, props.slug)
+
+    if (props.search) {
+      targetURL += '?' + props.makeQuery(props.search)
+    }
+
+    return { targetURL }
   }
 
   constructor(props: Props, context: *) {
@@ -51,21 +55,27 @@ export default class DataFetcher extends React.Component<Props, State> {
       data: this.props.defaultValue,
       error: null,
       fetching: false,
-      shouldFetch: false,
+      endpointChanged: false,
       targetURL: ''
     }
   }
 
   componentDidMount() {
-    if (this.state.shouldFetch) {
+    if (this.shouldFetch(this.state.targetURL, null, this.props)) {
       this.fetch()
     }
   }
 
-  componentDidUpdate() {
-    if (this.state.shouldFetch) {
+  componentDidUpdate(lastProps: Props, lastState: State) {
+    if (
+      this.shouldFetch(this.state.targetURL, lastState.targetURL, this.props)
+    ) {
       this.fetch()
     }
+  }
+
+  shouldFetch(nextURL: string, lastURL: ?string, props: Props) {
+    return nextURL !== lastURL
   }
 
   fetch() {

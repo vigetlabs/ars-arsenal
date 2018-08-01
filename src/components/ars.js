@@ -10,7 +10,7 @@ import Picker from './picker'
 import Selection from './selection'
 import MultiSelection from './multiselection'
 import OptionsContext from '../contexts/options'
-import { type ID, type Record } from '../record'
+import { type ID } from '../record'
 import { DEFAULT_OPTIONS, type ArsOptions } from '../options'
 
 type State = {
@@ -47,7 +47,7 @@ export default class Ars extends React.Component<ArsOptions, State> {
   }
 
   renderSelection() {
-    let { multiselect, resource, rootAttributes } = this.props
+    let { multiselect, resource } = this.props
     let { picked } = this.state
 
     if (multiselect) {
