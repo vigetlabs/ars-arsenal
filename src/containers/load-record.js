@@ -5,105 +5,28 @@
  */
 
 import React from 'react'
-import { request, isValidSlug } from './request'
-import { type Record } from '../record'
+import DataFetcher from './data-fetcher'
+import OptionsContext from '../contexts/options'
 
-type Props = {
-  makeURL: (string, ?mixed) => string,
-  onError: (*) => Error,
-  onFetch: (*) => Record,
-  url: string,
-  slug: ?mixed,
-  children: ?(Result) => *
+function isValidSlug(slug: any): boolean {
+  return !!slug || slug === 0
 }
 
-type State = {
-  fetching: boolean,
-  error: ?Error,
-  data: ?Record,
-  targetURL: string,
-  shouldFetch: boolean
-}
-
-export type Result = {
-  error: ?Error,
-  fetching: boolean,
-  data: *
-}
-
-const identity = (n: *) => n
-
-const makeURL = (url: string, id: *) => url + (id ? '/' + String(id) : '')
-
-export default class LoadRecord extends React.PureComponent<Props, State> {
-  lastRequest: ?XMLHttpRequest
-
-  static defaultProps = {
-    makeURL: makeURL,
-    onError: identity,
-    onFetch: identity
-  }
-
-  static getDerivedStateFromProps(props: Props, lastState: State): * {
+class RecordFetcher extends DataFetcher {
+  static getDerivedStateFromProps(props: *, lastState: *): * {
     let targetURL = props.makeURL(props.url, props.slug)
 
-    if (targetURL === lastState.targetURL) {
-      return { shouldFetch: false }
-    }
-
-    return { targetURL, shouldFetch: isValidSlug(props.slug) }
-  }
-
-  state = {
-    data: null,
-    error: null,
-    fetching: false,
-    targetURL: '',
-    shouldFetch: false
-  }
-
-  componentDidMount() {
-    if (this.state.shouldFetch) {
-      this.fetch()
+    return {
+      targetURL,
+      shouldFetch: targetURL !== lastState.targetURL && isValidSlug(props.slug)
     }
   }
+}
 
-  componentDidUpdate() {
-    if (this.state.shouldFetch) {
-      this.fetch()
-    }
-  }
-
-  fetch() {
-    if (this.lastRequest) {
-      this.lastRequest.abort()
-      this.lastRequest = null
-    }
-
-    this.lastRequest = request(
-      this.state.targetURL,
-      this.onSuccess.bind(this),
-      this.onFailure.bind(this)
-    )
-  }
-
-  onSuccess(body: *) {
-    this.setState({
-      data: this.props.onFetch(body),
-      error: null,
-      fetching: false
-    })
-  }
-
-  onFailure(body: *) {
-    this.setState({
-      data: null,
-      error: this.props.onError(body),
-      fetching: false
-    })
-  }
-
-  render() {
-    return this.props.children ? this.props.children(this.state) : null
-  }
+export default function LoadRecord(props: *) {
+  return (
+    <OptionsContext.Consumer>
+      {options => <RecordFetcher {...options} {...props} />}
+    </OptionsContext.Consumer>
+  )
 }

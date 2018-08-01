@@ -9,18 +9,19 @@ import cx from 'classnames'
 import Picker from './picker'
 import Selection from './selection'
 import MultiSelection from './multiselection'
-import { type Record } from '../record'
-import { DEFAULT_OPTIONS, Options } from '../options'
+import OptionsContext from '../contexts/options'
+import { type ID, type Record } from '../record'
+import { DEFAULT_OPTIONS, type ArsOptions } from '../options'
 
 type State = {
   dialogOpen: boolean,
-  picked: Array<string | number>
+  picked: ID[]
 }
 
-export default class Ars extends React.Component<Options, State> {
+export default class Ars extends React.Component<ArsOptions, State> {
   static defaultProps = DEFAULT_OPTIONS
 
-  constructor(props: Options, context: *) {
+  constructor(props: ArsOptions, context: *) {
     super(props, context)
 
     this.state = {
@@ -29,24 +30,18 @@ export default class Ars extends React.Component<Options, State> {
     }
   }
 
-  syncProps() {
-    let { makeURL, makeQuery, onError, onFetch, url } = this.props
-    return { makeURL, makeQuery, onError, onFetch, url }
-  }
-
   getPicker() {
     let { picked } = this.state
     let { columns, multiselect, mode } = this.props
 
     return (
       <Picker
-        {...this.syncProps()}
-        onChange={this._onGalleryPicked.bind(this)}
-        onExit={this._onExit.bind(this)}
         picked={picked}
         mode={mode}
         multiselect={multiselect}
         columns={columns}
+        onChange={this._onGalleryPicked.bind(this)}
+        onExit={this._onExit.bind(this)}
       />
     )
   }
@@ -58,7 +53,6 @@ export default class Ars extends React.Component<Options, State> {
     if (multiselect) {
       return (
         <MultiSelection
-          {...this.syncProps()}
           resource={resource}
           slugs={picked}
           onClick={this._onOpenClick.bind(this)}
@@ -68,7 +62,6 @@ export default class Ars extends React.Component<Options, State> {
 
     return (
       <Selection
-        {...this.syncProps()}
         resource={resource}
         slug={picked && picked[0]}
         onClick={this._onOpenClick.bind(this)}
@@ -83,10 +76,12 @@ export default class Ars extends React.Component<Options, State> {
     let rootClass = cx('ars', rootAttributes.className)
 
     return (
-      <div {...rootAttributes} className={rootClass}>
-        {this.renderSelection()}
-        {dialogOpen && this.getPicker()}
-      </div>
+      <OptionsContext.Provider value={this.props}>
+        <div {...rootAttributes} className={rootClass}>
+          {this.renderSelection()}
+          {dialogOpen && this.getPicker()}
+        </div>
+      </OptionsContext.Provider>
     )
   }
 

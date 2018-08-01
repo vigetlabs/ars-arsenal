@@ -11,19 +11,17 @@ import FocusTrap from 'react-focus-trap'
 import Gallery from './gallery'
 import Search from './search'
 import TableView from './table-view'
-import LoadCollection, { type Result } from '../containers/load-collection'
+import LoadCollection from '../containers/load-collection'
 import { type Record } from '../record'
+import { type ArsColumn, type ArsMode } from '../options'
 
 type Props = {
-  url: *,
-  makeQuery: *,
-  makeURL: *,
   onChange: (Array<string | number>) => *,
   onExit: () => *,
-  mode: 'gallery' | 'table',
+  mode: ArsMode,
   picked: Array<string | number>,
   multiselect: boolean,
-  columns?: string[]
+  columns?: ArsColumn[]
 }
 
 type State = {
@@ -96,7 +94,7 @@ export default class Picker extends React.Component<Props, State> {
     this.setState({ mode })
   }
 
-  renderContent({ data, fetching, error }: Result) {
+  renderContent({ data, fetching, error }: *) {
     const { onExit } = this.props
     const { mode } = this.state
 
@@ -153,16 +151,8 @@ export default class Picker extends React.Component<Props, State> {
   }
 
   render() {
-    let { url, makeURL, makeQuery } = this.props
-    let { search } = this.state
-
     return (
-      <LoadCollection
-        url={url}
-        makeURL={makeURL}
-        makeQuery={makeQuery}
-        search={search}
-      >
+      <LoadCollection {...this.props} search={this.state.search}>
         {result => this.renderContent(result)}
       </LoadCollection>
     )

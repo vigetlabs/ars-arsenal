@@ -2,8 +2,10 @@
  * @flow
  */
 
+export type ID = string | number
+
 export type Record = {
-  id: string | number,
+  id: ID,
   caption: string,
   name: string,
   attribution: string,

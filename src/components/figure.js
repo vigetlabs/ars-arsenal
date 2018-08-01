@@ -5,14 +5,14 @@
  */
 
 import React from 'react'
-import Image from './ui/image'
 import Ink from 'react-ink'
 import cx from 'classnames'
-import { type Record } from '../record'
+import Image from './ui/image'
+import { type Record, type ID } from '../record'
 
 type Props = {
   record: Record,
-  onClick: (string | number) => *,
+  onClick: ID => *,
   picked: boolean
 }
 

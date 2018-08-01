@@ -6,12 +6,11 @@
 import React from 'react'
 import cx from 'classnames'
 import Image from './ui/image'
-import LoadRecord, { type Result } from '../containers/load-record'
-import { type Record } from '../record'
+import LoadRecord from '../containers/load-record'
+import { type ID, type Record } from '../record'
 
 type Props = {
-  slug: ?mixed,
-  url: string
+  slug: ?ID
 }
 
 export default class MultiSelectionItem extends React.Component<Props> {
@@ -25,7 +24,7 @@ export default class MultiSelectionItem extends React.Component<Props> {
     )
   }
 
-  renderContent({ data, fetching }: Result) {
+  renderContent({ data, fetching }: *) {
     let className = cx('ars-multiselection-cell', {
       'ars-is-loading': fetching,
       'ars-has-photo': data
@@ -36,7 +35,7 @@ export default class MultiSelectionItem extends React.Component<Props> {
 
   render() {
     return (
-      <LoadRecord url={this.props.url} slug={this.props.slug}>
+      <LoadRecord slug={this.props.slug}>
         {result => this.renderContent(result)}
       </LoadRecord>
     )
