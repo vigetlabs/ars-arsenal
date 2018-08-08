@@ -35,7 +35,7 @@ export default class MultiSelectionItem extends React.Component<Props> {
 
   render() {
     return (
-      <LoadRecord slug={this.props.slug}>
+      <LoadRecord {...this.props}>
         {result => this.renderContent(result)}
       </LoadRecord>
     )

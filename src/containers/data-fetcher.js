@@ -22,12 +22,6 @@ type State = {
   endpointChanged: boolean
 }
 
-type Result = {
-  error: ?string,
-  fetching: boolean,
-  data: *
-}
-
 export default class DataFetcher extends React.Component<Props, State> {
   lastRequest: ?XMLHttpRequest
 

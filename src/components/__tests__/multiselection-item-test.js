@@ -6,7 +6,7 @@ jest.useFakeTimers()
 
 describe('MultiSelectionItem', () => {
   test('renders a photo', () => {
-    let component = mount(<MultiSelectionItem url="/data" slug="1.json" />)
+    let component = mount(<MultiSelectionItem url="data" slug="1.json" />)
 
     jest.runAllTimers()
 
