@@ -7,12 +7,12 @@ import React from 'react'
 import Button from './ui/button'
 import MultiSelectionItem from './multiselection-item'
 import SelectionText from './selection-text'
+import { type ID } from '../record'
 
 type Props = {
   onClick: Event => *,
   resource: string,
-  slugs: Array<string | number>,
-  url: string
+  slugs: ID[]
 }
 
 export default class MultiSelection extends React.Component<Props> {
@@ -21,7 +21,7 @@ export default class MultiSelection extends React.Component<Props> {
   }
 
   getItems() {
-    let { slugs, url } = this.props
+    let { slugs } = this.props
 
     if (!slugs.length) {
       return null
@@ -30,7 +30,7 @@ export default class MultiSelection extends React.Component<Props> {
     return (
       <div className="ars-multiselection-grid">
         {slugs.map(slug => (
-          <MultiSelectionItem key={String(slug)} url={url} slug={slug} />
+          <MultiSelectionItem key={slug} slug={slug} />
         ))}
       </div>
     )

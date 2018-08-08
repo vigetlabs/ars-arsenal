@@ -4,26 +4,25 @@
  */
 
 import React from 'react'
+import cx from 'classnames'
 import Button from './ui/button'
 import SelectionFigure from './selection-figure'
 import SelectionText from './selection-text'
-import LoadRecord, { type Result } from '../containers/load-record'
-import { type Record } from '../record'
-import cx from 'classnames'
+import LoadRecord from '../containers/load-record'
+import { type Record, type ID } from '../record'
 
 type Props = {
   resource: string,
-  url: string,
-  slug: ?(string | number),
+  slug: ?ID,
   onClick: (event: SyntheticEvent<*>) => *
 }
 
 export default class Selection extends React.Component<Props> {
   getPhoto(data: ?Record) {
-    return data ? <SelectionFigure ref="photo" item={data} /> : null
+    return data ? <SelectionFigure item={data} /> : null
   }
 
-  renderContent({ data, fetching }: Result) {
+  renderContent({ data, fetching }: *) {
     let { resource, onClick } = this.props
 
     let className = cx('ars-selection', {
@@ -52,7 +51,7 @@ export default class Selection extends React.Component<Props> {
 
   render() {
     return (
-      <LoadRecord url={this.props.url} slug={this.props.slug}>
+      <LoadRecord {...this.props} slug={this.props.slug}>
         {result => this.renderContent(result)}
       </LoadRecord>
     )
