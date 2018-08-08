@@ -29,7 +29,8 @@ export interface ArsOptions {
   onChange: (*) => void;
   // Are multiple selections possible?
   multiselect: boolean;
-  // The noun used for selection, i.e. "Pick a photo"
+  // The noun used for selection, i.e. "photo" or "file"
+  // This shows up in the UI as "Pick a photo"
   resource: string;
   // How to display the items. Can be "table" or "gallery"
   mode: ArsMode;
