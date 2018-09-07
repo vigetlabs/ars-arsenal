@@ -153,7 +153,7 @@ class TableView extends React.Component {
               </TableHeading>
             </tr>
           </thead>
-          <TransitionGroup component="tbody" className="ars-table">
+          <TransitionGroup component="tbody">
             {rows.map(this.renderRow, this)}
           </TransitionGroup>
         </table>
