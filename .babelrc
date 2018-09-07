@@ -1,13 +1,16 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
-        "loose": true,
-        "modules": "commonjs"
+        "modules": "commonjs",
+        "loose": true
       }
     ],
-    "react",
-    "stage-2"
+    "@babel/preset-flow",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
   ]
 }
