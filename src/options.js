@@ -3,6 +3,7 @@
  * @flow
  */
 
+import { request } from './request'
 import { type ID, type Record } from './record'
 
 export type ArsMode = 'gallery' | 'table'
@@ -38,6 +39,8 @@ export interface ArsOptions {
   columns: ArsColumn[];
   // Existing selections
   picked?: ID | ID[];
+  // What utility should Ars use for network requests?
+  request: (url: string, success: *, error: *) => XMLHttpRequest;
 }
 
 export const DEFAULT_OPTIONS: ArsOptions = {
@@ -55,5 +58,6 @@ export const DEFAULT_OPTIONS: ArsOptions = {
   multiselect: false,
   resource: 'Photo',
   mode: 'gallery',
-  columns: ['id', 'name', 'caption', 'attribution', 'preview']
+  columns: ['id', 'name', 'caption', 'attribution', 'preview'],
+  request: request
 }

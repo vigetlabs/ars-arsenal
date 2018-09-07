@@ -1,29 +1,41 @@
-const api = require('express')()
-const photos = require('./photos')
+import Url from 'url'
+import photos from './photos.json'
 
-api.get('/photos', function(req, res) {
-  var payload = photos
-  var query = req.query.term
+export default function(url, success, error) {
+  const { pathname, query } = Url.parse(url, true)
 
-  if (query) {
-    query = query.toLowerCase()
+  const timeout = setTimeout(function() {
+    let [_base, id] = pathname.match(/api\/photos\/(.+?)/) || []
+
+    if (id) {
+      show(id, query, success, error)
+    } else {
+      index(query, success, error)
+    }
+  }, 10)
+
+  return {
+    abort() {
+      clearTimeout(timeout)
+    }
+  }
+}
+
+function index(query, success, error) {
+  let payload = photos
+
+  if ('term' in query) {
+    let term = new RegExp(escape(query.term), 'i')
 
     payload = photos.filter(function(photo) {
-      return photo.name.toLowerCase().search(query) > -1
+      return term.test(photo.name)
     })
   }
 
-  res.send(payload)
-})
+  success(payload)
+}
 
-api.get('/photos/:id', function(req, res) {
-  var pattern = new RegExp('^' + escape(req.params.id) + '$', 'i')
-
-  var payload = photos.filter(function(photo) {
-    return pattern.test(photo.id)
-  })[0]
-
-  payload ? res.send(payload) : res.error(404)
-})
-
-module.exports = api
+function show(id, query, success, error) {
+  let payload = photos.find(photo => `${photo.id}` === `${id}`)
+  payload ? success(payload) : error({ code: 404, message: 'Not found' })
+}

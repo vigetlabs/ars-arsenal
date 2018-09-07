@@ -1,4 +1,3 @@
-const api = require('./server')
 const path = require('path')
 
 module.exports = {
@@ -52,9 +51,6 @@ module.exports = {
 
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
-    publicPath: '/',
-    before: app => {
-      app.use('/api', api)
-    }
+    publicPath: '/'
   }
 }
