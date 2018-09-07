@@ -20,6 +20,7 @@ export default function Checker({
 
       <input
         type={multiselect ? 'checkbox' : 'radio'}
+        name="_ars_gallery_checker"
         onChange={onChange.bind(null, id)}
         checked={checked}
       />
