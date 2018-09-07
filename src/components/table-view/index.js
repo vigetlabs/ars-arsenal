@@ -1,5 +1,5 @@
 import React from 'react'
-import Animation from 'react-addons-css-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import TableHeading from './table-heading'
 import Checker from './checker'
 import cx from 'classnames'
@@ -37,37 +37,39 @@ class TableView extends React.Component {
     let checked = this.isPicked(id)
 
     return (
-      <tr key={id} className={className} style={{ animationDelay }}>
-        <td className="ars-table-selection">
-          <Checker
-            checked={checked}
-            name={name}
-            id={id}
-            multiselect={multiselect}
-            onChange={onPicked}
-          />
-        </td>
-        <td className="ars-table-id" hidden={!this.canRender('id')}>
-          {id}
-        </td>
-        <td className="ars-table-name" hidden={!this.canRender('name')}>
-          {name}
-        </td>
-        <td className="ars-table-caption" hidden={!this.canRender('caption')}>
-          {caption}
-        </td>
-        <td
-          className="ars-table-attribution"
-          hidden={!this.canRender('attribution')}
-        >
-          {attribution}
-        </td>
-        <td className="ars-table-preview" hidden={!this.canRender('preview')}>
-          <div className="ars-table-imagebox">
-            <img src={url} />
-          </div>
-        </td>
-      </tr>
+      <CSSTransition classNames="ars-table" timeout={480} unmountOnExit={true}>
+        <tr className={className} style={{ animationDelay }}>
+          <td className="ars-table-selection">
+            <Checker
+              checked={checked}
+              name={name}
+              id={id}
+              multiselect={multiselect}
+              onChange={onPicked}
+            />
+          </td>
+          <td className="ars-table-id" hidden={!this.canRender('id')}>
+            {id}
+          </td>
+          <td className="ars-table-name" hidden={!this.canRender('name')}>
+            {name}
+          </td>
+          <td className="ars-table-caption" hidden={!this.canRender('caption')}>
+            {caption}
+          </td>
+          <td
+            className="ars-table-attribution"
+            hidden={!this.canRender('attribution')}
+          >
+            {attribution}
+          </td>
+          <td className="ars-table-preview" hidden={!this.canRender('preview')}>
+            <div className="ars-table-imagebox">
+              <img src={url} />
+            </div>
+          </td>
+        </tr>
+      </CSSTransition>
     )
   }
 
@@ -151,14 +153,9 @@ class TableView extends React.Component {
               </TableHeading>
             </tr>
           </thead>
-          <Animation
-            component="tbody"
-            transitionName="ars-table"
-            transitionEnterTimeout={480}
-            transitionLeaveTimeout={320}
-          >
+          <TransitionGroup component="tbody" className="ars-table">
             {rows.map(this.renderRow, this)}
-          </Animation>
+          </TransitionGroup>
         </table>
       </div>
     )

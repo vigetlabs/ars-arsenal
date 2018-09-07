@@ -5,7 +5,7 @@
  */
 
 import React from 'react'
-import Animation from 'react-addons-css-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Figure from './figure'
 import cx from 'classnames'
 import { type Record } from '../record'
@@ -44,30 +44,30 @@ export default class Gallery extends React.Component<Props> {
     let key = String(record.id)
 
     return (
-      <div key={key} className={className} style={{ animationDelay }}>
-        <Figure
-          picked={isPicked}
-          record={record}
-          onClick={this.props.onPicked}
-        />
-      </div>
+      <CSSTransition
+        key={key}
+        classNames="ars-figure"
+        timeout={480}
+        unmountOnExit={true}
+      >
+        <div className={className} style={{ animationDelay }}>
+          <Figure
+            picked={isPicked}
+            record={record}
+            onClick={this.props.onPicked}
+          />
+        </div>
+      </CSSTransition>
     )
   }
 
   render() {
-    let items = this.props.items
+    let { items, onKeyDown } = this.props
 
     return (
-      <Animation
-        component="div"
-        className="ars-gallery"
-        transitionName="ars-figure"
-        onKeyDown={this.props.onKeyDown}
-        transitionEnterTimeout={480}
-        transitionLeaveTimeout={480}
-      >
+      <TransitionGroup className="ars-gallery" onKeyDown={onKeyDown}>
         {items.map(this.getItem, this)}
-      </Animation>
+      </TransitionGroup>
     )
   }
 }
