@@ -89,8 +89,11 @@ ArsArsenal.render(app, {
   onChange: function (id) {
     // Whenever a new item is picked, this event is triggered
     console.log("The value was changed to %s", id)
-  }
+  },
 
+  request: function (url, success, error) {
+    // Behavior to configure networking. Return an XMLHTTPRequest
+  }
 })
 ```
 

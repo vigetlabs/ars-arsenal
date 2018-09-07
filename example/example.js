@@ -1,6 +1,8 @@
 import React from 'react'
 import DOM from 'react-dom'
 import ArsArsenal from 'ars-arsenal'
+import server from './server'
+
 import './style'
 
 let options = {
@@ -16,7 +18,9 @@ let options = {
 
   onChange(value) {
     console.log('Value changed to %s', value)
-  }
+  },
+
+  request: server
 }
 
 const Ars = ArsArsenal.component
@@ -25,14 +29,10 @@ function Example({ title, options }) {
   return (
     <div className="example">
       <div className="example-content">
-        <h2 className="type-subheading">
-          {title}
-        </h2>
+        <h2 className="type-subheading">{title}</h2>
         <Ars {...options} />
       </div>
-      <pre className="code">
-        {JSON.stringify(options, null, 2)}
-      </pre>
+      <pre className="code">{JSON.stringify(options, null, 2)}</pre>
     </div>
   )
 }

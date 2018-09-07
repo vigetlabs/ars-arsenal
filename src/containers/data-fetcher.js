@@ -5,7 +5,6 @@
 import React from 'react'
 import { DEFAULT_OPTIONS, ArsOptions } from '../options'
 import { type ID } from '../record'
-import { request } from './request'
 
 type Props = ArsOptions & {
   children: *,
@@ -78,7 +77,7 @@ export default class DataFetcher extends React.Component<Props, State> {
       this.lastRequest = null
     }
 
-    this.lastRequest = request(
+    this.lastRequest = this.props.request(
       this.state.targetURL,
       this.onSuccess.bind(this),
       this.onFailure.bind(this)
