@@ -61,9 +61,9 @@
     "babel-loader": "^8.0.2",
     "classnames": "~2.2.6",
     "debounce": "~1.2.0",
-    "react-addons-css-transition-group": "^15.6.2",
     "react-focus-trap": "^2.6.0",
     "react-ink": "^6.4.0",
+    "react-transition-group": "^2.4.0",
     "xhr": "~2.5.0"
   }
 }
