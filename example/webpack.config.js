@@ -1,3 +1,5 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 module.exports = {
@@ -6,8 +8,8 @@ module.exports = {
   entry: ['./example.js'],
 
   output: {
-    filename: 'example.build.js',
-    path: __dirname,
+    filename: '[name].[hash].js',
+    path: path.resolve(__dirname, 'public'),
     publicPath: '/'
   },
 
@@ -17,6 +19,15 @@ module.exports = {
       'ars-arsenal': '../src/index.js'
     }
   },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'public/template.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].[hash].css",
+    })
+  ],
 
   module: {
     strictExportPresence: true,
@@ -30,7 +41,7 @@ module.exports = {
         test: /\.s*(c|a)ss$/,
         exclude: /node_modules/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -51,6 +62,7 @@ module.exports = {
 
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
-    publicPath: '/'
+    publicPath: '/',
+    port: 3000
   }
 }
