@@ -2,6 +2,7 @@
   animation: 0.4s ars-dialog-fade;
   display: flex;
   flex-direction: column;
+  flex-grow: 0;
   font-family: $ars-font-family;
   height: 100%;
   justify-content: center;
