@@ -57,8 +57,6 @@
     "webpack-dev-server": "^3.1.8"
   },
   "dependencies": {
-    "@babel/preset-flow": "^7.0.0",
-    "babel-loader": "^8.0.2",
     "classnames": "~2.2.6",
     "debounce": "~1.2.0",
     "react-focus-trap": "^2.6.0",
