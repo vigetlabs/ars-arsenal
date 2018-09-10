@@ -37,7 +37,12 @@ class TableView extends React.Component {
     let checked = this.isPicked(id)
 
     return (
-      <CSSTransition classNames="ars-table" timeout={480} unmountOnExit={true}>
+      <CSSTransition
+        key={id}
+        classNames="ars-table"
+        timeout={480}
+        unmountOnExit={true}
+      >
         <tr className={className} style={{ animationDelay }}>
           <td className="ars-table-selection">
             <Checker
