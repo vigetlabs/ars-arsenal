@@ -1,28 +1,27 @@
 /**
  * Selection
- * @flow
  */
 
-import React from 'react'
+import * as React from 'react'
 import cx from 'classnames'
 import Button from './ui/button'
 import SelectionFigure from './selection-figure'
 import SelectionText from './selection-text'
-import LoadRecord from '../containers/load-record'
-import { type Record, type ID } from '../record'
+import LoadRecord, { RecordResult } from '../containers/load-record'
+import { Record, ID } from '../record'
 
-type Props = {
-  resource: string,
-  slug: ?ID,
-  onClick: (event: SyntheticEvent<*>) => *
+interface Props {
+  resource: string
+  slug: ID | null
+  onClick: (event: React.SyntheticEvent) => void
 }
 
-export default class Selection extends React.Component<Props> {
-  getPhoto(data: ?Record) {
-    return data ? <SelectionFigure item={data} /> : null
+export default class Selection extends React.Component<Props, {}> {
+  getPhoto(data: Record | null) {
+    return data != null ? <SelectionFigure item={data} /> : null
   }
 
-  renderContent({ data, fetching }: *) {
+  renderContent({ data, fetching }: RecordResult) {
     let { resource, onClick } = this.props
 
     let className = cx('ars-selection', {
@@ -51,9 +50,11 @@ export default class Selection extends React.Component<Props> {
 
   render() {
     return (
-      <LoadRecord {...this.props} slug={this.props.slug}>
-        {result => this.renderContent(result)}
-      </LoadRecord>
+      <LoadRecord
+        {...this.props}
+        slug={this.props.slug}
+        render={this.renderContent.bind(this)}
+      />
     )
   }
 }

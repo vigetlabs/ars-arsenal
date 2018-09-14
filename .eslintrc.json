@@ -22,12 +22,10 @@
     }
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:flowtype/recommended"
+    "eslint:recommended"
   ],
   "plugins": [
-    "react",
-    "flowtype"
+    "react"
   ],
   "rules": {
     "semi": [
@@ -49,7 +47,11 @@
     ],
     "no-unused-vars": [
       1,
-      { "args": "none", "ignoreRestSiblings": true, "varsIgnorePattern": "^_" }
+      {
+        "args": "none",
+        "ignoreRestSiblings": true,
+        "varsIgnorePattern": "^_"
+      }
     ],
     "react/jsx-equals-spacing": [
       "warn",

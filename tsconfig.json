@@ -15,5 +15,10 @@
     "node_modules",
     "example",
     "build"
+  ],
+  "types": [
+    "types",
+    "node_modules",
+    "node_modules/@types"
   ]
 }

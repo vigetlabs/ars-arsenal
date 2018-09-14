@@ -7,7 +7,6 @@
         "loose": true
       }
     ],
-    "@babel/preset-flow",
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],

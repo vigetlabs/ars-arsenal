@@ -1,23 +1,23 @@
 /**
  * MultiSelection
- * @flow
  */
 
-import React from 'react'
+import * as React from 'react'
 import Button from './ui/button'
 import MultiSelectionItem from './multiselection-item'
 import SelectionText from './selection-text'
-import { type ID } from '../record'
+import { ID } from '../record'
 
-type Props = {
-  onClick: Event => *,
-  resource: string,
+interface Props {
+  onClick: (event: React.MouseEvent) => void
+  resource?: string
   slugs: ID[]
 }
 
 export default class MultiSelection extends React.Component<Props> {
-  static defaultProps = {
-    slugs: []
+  static defaultProps:Props = {
+    slugs: [],
+    onClick: (event) => {}
   }
 
   getItems() {
@@ -42,7 +42,7 @@ export default class MultiSelection extends React.Component<Props> {
         {this.getItems()}
 
         <Button
-          onClick={this._onClick.bind(this)}
+          onClick={this.onClick.bind(this)}
           className="ars-selection-edit"
         >
           <SelectionText
@@ -56,7 +56,7 @@ export default class MultiSelection extends React.Component<Props> {
     )
   }
 
-  _onClick(event: MouseEvent) {
+  onClick(event: React.MouseEvent) {
     event.preventDefault()
     this.props.onClick(event)
   }

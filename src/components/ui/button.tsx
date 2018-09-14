@@ -1,20 +1,20 @@
 /**
  * Button
- * @flow
  */
 
+import * as React from 'react'
 import Ink from 'react-ink'
-import React from 'react'
 import cx from 'classnames'
 
-type Props = {
-  className: string,
-  children: *,
-  raised: boolean,
+interface Props {
+  className: string
+  raised: boolean
   type: 'button' | 'submit'
+  onClick: (event: React.SyntheticEvent) => void,
+  disabled?: boolean
 }
 
-export default class Button extends React.Component<Props> {
+export default class Button extends React.Component<Props, {}> {
   static defaultProps = {
     className: '',
     raised: false,

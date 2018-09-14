@@ -1,28 +1,27 @@
 /**
  * Ars
  * The main element for Ars Arsenal
- * @flow
  */
 
-import React from 'react'
+import * as React from 'react'
 import cx from 'classnames'
 import Picker from './picker'
 import Selection from './selection'
 import MultiSelection from './multiselection'
 import OptionsContext from '../contexts/options'
-import { type ID } from '../record'
-import { DEFAULT_OPTIONS, type ArsOptions } from '../options'
+import { ID } from '../record'
+import { DEFAULT_OPTIONS, ArsOptions } from '../options'
 
-type State = {
-  dialogOpen: boolean,
+interface State {
+  dialogOpen: boolean
   picked: ID[]
 }
 
 export default class Ars extends React.Component<ArsOptions, State> {
   static defaultProps = DEFAULT_OPTIONS
 
-  constructor(props: ArsOptions, context: *) {
-    super(props, context)
+  constructor(props: ArsOptions) {
+    super(props)
 
     this.state = {
       dialogOpen: false,
@@ -40,8 +39,8 @@ export default class Ars extends React.Component<ArsOptions, State> {
         mode={mode}
         multiselect={multiselect}
         columns={columns}
-        onChange={this._onGalleryPicked.bind(this)}
-        onExit={this._onExit.bind(this)}
+        onChange={this.onGalleryPicked.bind(this)}
+        onExit={this.onExit.bind(this)}
       />
     )
   }
@@ -55,7 +54,7 @@ export default class Ars extends React.Component<ArsOptions, State> {
         <MultiSelection
           resource={resource}
           slugs={picked}
-          onClick={this._onOpenClick.bind(this)}
+          onClick={this.onOpenClick.bind(this)}
         />
       )
     }
@@ -64,7 +63,7 @@ export default class Ars extends React.Component<ArsOptions, State> {
       <Selection
         resource={resource}
         slug={picked && picked[0]}
-        onClick={this._onOpenClick.bind(this)}
+        onClick={this.onOpenClick.bind(this)}
       />
     )
   }
@@ -85,20 +84,20 @@ export default class Ars extends React.Component<ArsOptions, State> {
     )
   }
 
-  _triggerChange() {
+  private triggerChange() {
     let { picked } = this.state
     this.props.onChange(this.props.multiselect ? picked : picked[0])
   }
 
-  _onOpenClick() {
+  private onOpenClick() {
     this.setState({ dialogOpen: true })
   }
 
-  _onGalleryPicked(picked: *) {
-    this.setState({ picked }, this._triggerChange.bind(this))
+  private onGalleryPicked(picked: ID[]) {
+    this.setState({ picked }, this.triggerChange.bind(this))
   }
 
-  _onExit(event?: SyntheticEvent<*>) {
+  private onExit(event?: React.SyntheticEvent) {
     if (event) {
       event.preventDefault()
     }
