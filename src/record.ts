@@ -1,10 +1,6 @@
-/*
- * @flow
- */
-
 export type ID = string | number
 
-export type Record = {
+export interface Record {
   id: ID,
   caption: string,
   name: string,
