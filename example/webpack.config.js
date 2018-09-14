@@ -14,7 +14,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.scss', '.css'],
+    extensions: ['.js', '.scss', '.css', '.ts', '.tsx'],
     alias: {
       'ars-arsenal': '../src/index.js'
     }
@@ -33,7 +33,7 @@ module.exports = {
     strictExportPresence: true,
     rules: [
       {
-        test: /\.js*$/,
+        test: /\.(js|ts|tsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
       },

@@ -67,14 +67,10 @@ export default class Search extends React.Component<Props, State> {
   }
 
   private update() {
-    if (this.timer != null) {
-      return
-    }
+    clearTimeout(this.timer)
 
     this.timer = window.setTimeout(() => {
       const { search } = this.state
-
-      this.timer = null
       this.props.onChange(search.length >= THRESHOLD ? search : '')
     }, INTERVAL)
   }
