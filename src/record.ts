@@ -1,10 +1,10 @@
 export type ID = string | number
 
 export interface Record {
-  id: ID,
-  caption: string,
-  name: string,
-  attribution: string,
+  id: ID
+  caption: string
+  name: string
+  attribution: string
   url: string
 }
 
