@@ -4,5 +4,10 @@
  */
 
 module.exports = {
-  setupFiles: ['./test/setup.js']
+  setupFiles: ['./test/setup.js'],
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  transform: {
+    '^.+\\.(ts|tsx)$': 'babel-jest',
+    '^.+\\.(js|jsx)$': 'babel-jest'
+  }
 }
