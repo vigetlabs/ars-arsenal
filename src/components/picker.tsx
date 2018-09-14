@@ -1,10 +1,9 @@
 /**
  * Picker
  * The a modal that appears to select a gallery image
- * @flow
  */
 
-import React from 'react'
+import * as React from 'react'
 import Button from './ui/button'
 import ErrorMessage from './error-message'
 import FocusTrap from 'react-focus-trap'
@@ -12,35 +11,35 @@ import Gallery from './gallery'
 import Search from './search'
 import TableView from './table-view'
 import LoadCollection from '../containers/load-collection'
-import { type Record } from '../record'
-import { type ArsColumn, type ArsMode } from '../options'
+import { ID, Record } from '../record'
+import { ArsColumn, ArsMode } from '../options'
 
-type Props = {
-  onChange: (Array<string | number>) => *,
-  onExit: () => *,
-  mode: ArsMode,
-  picked: Array<string | number>,
-  multiselect: boolean,
+interface Props {
   columns?: ArsColumn[]
+  mode: ArsMode
+  multiselect: boolean
+  onChange: (selection: ID[]) => void
+  onExit: () => void
+  picked: Array<string | number>
 }
 
-type State = {
-  picked: Array<string | number>,
-  mode: 'gallery' | 'table',
+interface State {
+  picked: ID[]
+  mode: 'gallery' | 'table'
   search: string
 }
 
 export default class Picker extends React.Component<Props, State> {
-  static defaultProps = {
+  static defaultProps:Props = {
     mode: 'gallery',
-    picked: [],
+    multiselect: false,
     onChange: () => {},
     onExit: () => {},
-    multiselect: false
+    picked: []
   }
 
-  constructor(props: Props, context: *) {
-    super(props, context)
+  constructor(props: Props) {
+    super(props)
 
     this.state = {
       search: '',
@@ -73,8 +72,8 @@ export default class Picker extends React.Component<Props, State> {
           picked={picked}
           columns={columns}
           multiselect={multiselect}
-          onPicked={this._onPicked.bind(this)}
-          onKeyDown={this._onKeyDown.bind(this)}
+          onPicked={this.onPicked.bind(this)}
+          onKeyDown={this.onKeyDown.bind(this)}
         />
       )
     }
@@ -83,25 +82,33 @@ export default class Picker extends React.Component<Props, State> {
       <Gallery
         items={data}
         picked={picked}
-        onPicked={this._onPicked.bind(this)}
-        onKeyDown={this._onKeyDown.bind(this)}
+        onPicked={this.onPicked.bind(this)}
+        onKeyDown={this.onKeyDown.bind(this)}
       />
     )
   }
 
-  setMode(mode: 'gallery' | 'table', event: SyntheticEvent<*>) {
+  setMode(mode: 'gallery' | 'table', event: React.SyntheticEvent) {
     event.preventDefault()
     this.setState({ mode })
   }
 
-  renderContent({ data, fetching, error }: *) {
+  renderContent({
+    data,
+    fetching,
+    error
+  }: {
+    data: Record[]
+    fetching: boolean
+    error: Error | null
+  }) {
     const { onExit } = this.props
     const { mode } = this.state
 
     return (
       <FocusTrap className="ars-dialog" onExit={onExit}>
         <header className="ars-dialog-header">
-          <Search datalist={data} onChange={this._onSearchChange.bind(this)} />
+          <Search datalist={data} onChange={this.onSearchChange.bind(this)} />
 
           <Button
             className="ars-dialog-gallery"
@@ -128,7 +135,7 @@ export default class Picker extends React.Component<Props, State> {
           <div>
             <Button
               className="ars-dialog-clear"
-              onClick={this._onClear.bind(this)}
+              onClick={this.onClear.bind(this)}
             >
               <span className="ars-dialog-clear-text">Clear</span>
             </Button>
@@ -139,7 +146,7 @@ export default class Picker extends React.Component<Props, State> {
             </Button>
             <Button
               className="ars-dialog-confirm"
-              onClick={this._onConfirm.bind(this)}
+              onClick={this.onConfirm.bind(this)}
               raised
             >
               Okay
@@ -152,29 +159,31 @@ export default class Picker extends React.Component<Props, State> {
 
   render() {
     return (
-      <LoadCollection {...this.props} search={this.state.search}>
-        {result => this.renderContent(result)}
-      </LoadCollection>
+      <LoadCollection
+        {...this.props}
+        search={this.state.search}
+        render={this.renderContent.bind(this)}
+      />
     )
   }
 
-  _onClear() {
+  private onClear() {
     this.setState({ picked: [] })
   }
 
-  _onSearchChange(search: string) {
+  private onSearchChange(search: string) {
     this.setState({ search })
   }
 
-  _onPicked(picked: *) {
+  private onPicked(picked: ID) {
     this.setState({
       picked: this.props.multiselect
-        ? this._onMultiSelectPicked(picked)
+        ? this.onMultiPicked([].concat(picked))
         : [picked]
     })
   }
 
-  _onMultiSelectPicked(picked: Array<string | number>) {
+  private onMultiPicked(picked: ID[]) {
     // Allow for multiple selections and toggling of selections
     let total = this.state.picked ? this.state.picked.slice() : []
     let pool = [].concat(picked)
@@ -192,12 +201,12 @@ export default class Picker extends React.Component<Props, State> {
     return total
   }
 
-  _onConfirm(event: SyntheticEvent<*>) {
+  private onConfirm(event: React.SyntheticEvent) {
     event.preventDefault()
     this.confirm()
   }
 
-  _onKeyDown(event: SyntheticKeyboardEvent<*>) {
+  private onKeyDown(event: React.KeyboardEvent) {
     if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
       event.preventDefault()
       event.stopPropagation()

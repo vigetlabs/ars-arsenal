@@ -3,13 +3,14 @@
  * A gallery picker
  */
 
+import * as React from 'react'
+import * as DOM from 'react-dom'
 import Ars from './components/ars'
-import React from 'react'
-import DOM from 'react-dom'
+import { ArsOptions } from './options'
 
-let ArsArsenal = {
+const ArsArsenal = {
   component: Ars,
-  render(el, options) {
+  render(el: HTMLElement, options: ArsOptions) {
     let component = React.createElement(Ars, options)
 
     DOM.render(component, el)

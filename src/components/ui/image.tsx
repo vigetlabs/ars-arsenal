@@ -2,25 +2,25 @@
  * Image
  * A wrapper around image elements to handle loading states and
  * transitions
- * @flow
  */
 
-import React from 'react'
+import * as React from 'react'
 import cx from 'classnames'
 
-type Props = {
-  className: string,
-  src: string
+interface Props {
+  className: string
+  src: string | null | undefined
+  alt?: string
 }
 
-type State = {
-  didFail: boolean,
-  isLoaded: boolean,
-  prevSrc: ?string
+interface State {
+  didFail: boolean
+  isLoaded: boolean
+  prevSrc: string | null | undefined
 }
 
 export default class Image extends React.Component<Props, State> {
-  static defaultProps = {
+  static defaultProps: Props = {
     className: '',
     src: null
   }
@@ -32,7 +32,7 @@ export default class Image extends React.Component<Props, State> {
     }
   }
 
-  state = {
+  state: State = {
     didFail: false,
     isLoaded: false,
     prevSrc: null
@@ -48,18 +48,18 @@ export default class Image extends React.Component<Props, State> {
     return (
       <img
         {...this.props}
-        onLoad={this._onLoad.bind(this)}
-        onError={this._onError.bind(this)}
+        onLoad={this.onLoad.bind(this)}
+        onError={this.onError.bind(this)}
         className={css}
       />
     )
   }
 
-  _onLoad() {
+  private onLoad() {
     this.setState({ didFail: false, isLoaded: true })
   }
 
-  _onError() {
+  private onError() {
     this.setState({ didFail: true, isLoaded: true })
   }
 }

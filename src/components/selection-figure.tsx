@@ -1,13 +1,12 @@
 /**
  * Selection Figure
- * @flow
  */
 
-import React from 'react'
+import * as React from 'react'
 import Image from './ui/image'
-import { type Record, EmptyRecord } from '../record'
+import { Record, EmptyRecord } from '../record'
 
-type Props = {
+interface Props {
   item: Record
 }
 

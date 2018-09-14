@@ -1,16 +1,15 @@
 /**
  * SelectionText
- * @flow
  */
 
-import React from 'react'
+import * as React from 'react'
 import articleFor from '../utils/article-for'
 import pluralize from '../utils/pluralize'
 
-type Props = {
-  resource: string,
-  fetching: boolean,
-  item: boolean,
+interface Props {
+  resource: string
+  fetching: boolean
+  item: boolean
   isPlural: boolean
 }
 

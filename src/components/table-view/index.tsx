@@ -1,17 +1,37 @@
-import React from 'react'
+import * as React from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import TableHeading from './table-heading'
 import Checker from './checker'
 import cx from 'classnames'
+import { ArsColumn } from '../../options'
+import { Record, ID } from '../../record'
 
-class TableView extends React.Component {
-  static defaultProps = {
+interface Props {
+  picked: ID[]
+  items: Record[]
+  columns: ArsColumn[]
+  multiselect: boolean
+  onKeyDown: (event: React.SyntheticEvent) => void
+  onPicked: (slugs: ID | ID[]) => void
+}
+
+interface State {
+  sortBy: keyof Record
+}
+
+class TableView extends React.Component<Props, State> {
+  mounted?: boolean
+
+  static defaultProps: Props = {
     picked: [],
     items: [],
-    columns: ['id', 'name', 'caption', 'attribution', 'preview']
+    columns: ['id', 'name', 'caption', 'attribution', 'preview'],
+    multiselect: false,
+    onKeyDown: event => {},
+    onPicked: slugs => {}
   }
 
-  state = {
+  state: State = {
     sortBy: 'id'
   }
 
@@ -19,13 +39,13 @@ class TableView extends React.Component {
     this.mounted = true
   }
 
-  isPicked(id) {
+  isPicked(id: ID) {
     const { picked } = this.props
 
     return Array.isArray(picked) ? picked.indexOf(id) >= 0 : id === picked
   }
 
-  renderRow(item, index) {
+  renderRow(item: Record, index: number) {
     const { id, name, attribution, caption, url } = item
     const { multiselect, onPicked } = this.props
 
@@ -48,7 +68,7 @@ class TableView extends React.Component {
             <Checker
               checked={checked}
               name={name}
-              id={id}
+              slug={id}
               multiselect={multiselect}
               onChange={onPicked}
             />
@@ -78,23 +98,26 @@ class TableView extends React.Component {
     )
   }
 
-  sortBy = sortBy => {
-    this.setState({ sortBy })
+  changeSort = (field: keyof Record) => {
+    this.setState({ sortBy: field })
   }
 
-  canRender(field) {
+  canRender(field: ArsColumn): boolean {
     return this.props.columns.indexOf(field) >= 0
+  }
+
+  sortItems(data: Record[], key: keyof Record) {
+    return data.concat().sort(function(a: Record, b: Record) {
+      return `${a[key]}` >= `${b[key]}` ? 1 : -1
+    })
   }
 
   render() {
     const { items, multiselect, onKeyDown, onPicked } = this.props
     const { sortBy } = this.state
 
-    let rows = items.concat().sort(function(a, b) {
-      return `${a[sortBy]}` >= `${b[sortBy]}` ? 1 : -1
-    })
-
-    let ids = items.map(i => i.id)
+    let rows = this.sortItems(items, sortBy)
+    let ids = items.map((record: Record) => record.id)
     let unselected = ids.filter(this.isPicked, this)
     let allPicked = unselected.length <= 0
 
@@ -109,7 +132,7 @@ class TableView extends React.Component {
                 </span>
 
                 <Checker
-                  id={allPicked ? ids : unselected}
+                  slug={allPicked ? ids : unselected}
                   name="all items"
                   checked={allPicked}
                   onChange={onPicked}
@@ -121,7 +144,7 @@ class TableView extends React.Component {
                 field="id"
                 active={sortBy === 'id'}
                 show={this.canRender('id')}
-                onSort={this.sortBy}
+                onSort={this.changeSort}
               >
                 ID
               </TableHeading>
@@ -129,7 +152,7 @@ class TableView extends React.Component {
                 field="name"
                 active={sortBy === 'name'}
                 show={this.canRender('name')}
-                onSort={this.sortBy}
+                onSort={this.changeSort}
               >
                 Name
               </TableHeading>
@@ -137,7 +160,7 @@ class TableView extends React.Component {
                 field="caption"
                 active={sortBy === 'caption'}
                 show={this.canRender('caption')}
-                onSort={this.sortBy}
+                onSort={this.changeSort}
               >
                 Caption
               </TableHeading>
@@ -145,13 +168,13 @@ class TableView extends React.Component {
                 field="attribution"
                 active={sortBy === 'attribution'}
                 show={this.canRender('attribution')}
-                onSort={this.sortBy}
+                onSort={this.changeSort}
               >
                 Attribution
               </TableHeading>
               <TableHeading
                 field="preview"
-                active={sortBy === 'preview'}
+                active={false}
                 show={this.canRender('preview')}
               >
                 Preview

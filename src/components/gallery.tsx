@@ -1,27 +1,26 @@
 /**
  * Gallery
  * Displays tiles of photos
- * @flow
  */
 
-import React from 'react'
+import * as React from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Figure from './figure'
 import cx from 'classnames'
-import { type Record } from '../record'
+import { Record, ID } from '../record'
 
-type Props = {
-  items: Record[],
-  onPicked: (string | number) => *,
-  onKeyDown: (SyntheticKeyboardEvent<*>) => *,
-  search: string,
+interface Props {
+  items: Record[]
+  onPicked?: (id: ID) => void
+  onKeyDown?: (event: React.KeyboardEvent) => void
+  search: string
   picked: Array<string | number>
 }
 
 export default class Gallery extends React.Component<Props> {
   mounted: boolean
 
-  static defaultProps = {
+  static defaultProps: Props = {
     items: [],
     picked: null,
     search: ''
