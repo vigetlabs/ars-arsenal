@@ -1,16 +1,30 @@
-BABEL = node_modules/.bin/babel
-SASS = node_modules/.bin/node-sass
+MAKEFLAGS += '-j 4'
 
-.PHONY: clean build package.json javascript docs release example sass css
+.PHONY: clean build package.json docs release example sass css
 
-build: clean javascript css package.json documentation
+build: clean javascript typescript css package.json documentation
 
-javascript: $(shell find src -name '*.js*' ! -name '*-test.js*')
-	@mkdir -p dist
-	@$(BABEL) -d dist $^
+javascript: $(subst src,dist,$(shell find src -name '*.js' ! -name '*-test.js'))
+
+typescript: $(subst src,dist,$(shell find src -name '*.ts*'))
+
+dist/%.js: src/%.js
+	@mkdir -p $(@D)
+	@yarn babel $< > dist/$*.js
+	@echo "[+] dist/$*.js"
+
+dist/%.ts: src/%.ts
+	@mkdir -p $(@D)
+	@yarn babel $< > dist/$*.js
+	@echo "[+] dist/$*.js"
+
+dist/%.tsx: src/%.tsx
+	@mkdir -p $(@D)
+	@yarn babel $< > dist/$*.js
+	@echo "[+] dist/$*.js"
 
 css: sass
-	$(SASS) ./dist/style/ars-arsenal.scss --stdout > dist/style.css
+	yarn node-sass ./dist/style/ars-arsenal.scss --stdout > dist/style.css
 
 sass:
 	@mkdir -p dist

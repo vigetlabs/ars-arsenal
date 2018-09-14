@@ -6,7 +6,7 @@ import * as React from 'react'
 import { Record } from '../record'
 
 interface Props {
-  id: string,
+  id: string
   items: Record[]
 }
 

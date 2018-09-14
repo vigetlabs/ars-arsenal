@@ -7,7 +7,7 @@ import { DataList } from './datalist'
 import { Record } from '../record'
 
 interface Props {
-  datalist: Record[],
+  datalist: Record[]
   onChange(search: string): void
 }
 
@@ -78,7 +78,6 @@ export default class Search extends React.Component<Props, State> {
       this.props.onChange(search.length >= THRESHOLD ? search : '')
     }, INTERVAL)
   }
-
 
   private onChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ search: event.target.value }, this.update.bind(this))
