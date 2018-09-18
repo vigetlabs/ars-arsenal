@@ -15,8 +15,8 @@ export interface CollectionResult {
 }
 
 interface Props {
-  slug?: ID,
-  search: string,
+  slug?: ID
+  search: string
   render: (result: CollectionResult) => React.ReactNode
 }
 

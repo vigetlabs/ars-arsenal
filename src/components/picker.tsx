@@ -30,7 +30,7 @@ interface State {
 }
 
 export default class Picker extends React.Component<Props, State> {
-  static defaultProps:Props = {
+  static defaultProps: Props = {
     mode: 'gallery',
     multiselect: false,
     onChange: () => {},
