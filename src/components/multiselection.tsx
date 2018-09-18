@@ -15,9 +15,9 @@ interface Props {
 }
 
 export default class MultiSelection extends React.Component<Props> {
-  static defaultProps:Props = {
+  static defaultProps: Props = {
     slugs: [],
-    onClick: (event) => {}
+    onClick: event => {}
   }
 
   getItems() {

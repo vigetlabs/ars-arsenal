@@ -10,7 +10,7 @@ interface Props {
   className: string
   raised: boolean
   type: 'button' | 'submit'
-  onClick: (event: React.SyntheticEvent) => void,
+  onClick: (event: React.SyntheticEvent) => void
   disabled?: boolean
 }
 
