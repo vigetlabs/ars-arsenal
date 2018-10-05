@@ -50,7 +50,7 @@ export const DEFAULT_OPTIONS: ArsOptions = {
   makeQuery(query: string) {
     return `q=${query}`
   },
-  rootAttributes: { classname: '' },
+  rootAttributes: { className: '' },
   onError: error => error.message,
   onFetch: data => data,
   onChange: picked => {},
