@@ -47,55 +47,6 @@ describe('Ars', () => {
     test('has a multiselection component', () => {
       expect(component.find('MultiSelection').exists()).toBe(true)
     })
-
-    describe('and a gallery item is picked', () => {
-      beforeEach(function() {
-        component.instance()._onGalleryPicked([9, 12])
-      })
-
-      test('sets the `picked` state to an array of chosen values', () => {
-        expect(component).toHaveState('picked', [9, 12])
-      })
-
-      test('calls the onChange event with the picked state', () => {
-        expect(onChange).toHaveBeenCalledWith(component.state('picked'))
-      })
-    })
-  })
-
-  describe('when a gallery item is picked', () => {
-    describe('and an onChange handler is provided', () => {
-      let component, onChange, picked
-
-      beforeEach(function() {
-        onChange = jest.fn()
-        component = mount(<Ars url="/test.json" onChange={onChange} />)
-        picked = [9]
-
-        component.instance()._onGalleryPicked(picked)
-      })
-
-      test('sets the `picked` state to an array of chosen values', () => {
-        expect(component).toHaveState('picked', picked)
-      })
-
-      test('calls the onChange event with the first item in the picked state', () => {
-        expect(onChange).toHaveBeenCalledWith(9)
-      })
-    })
-
-    describe('and an onChange handler is not provided', () => {
-      let component = null
-
-      beforeEach(() => {
-        component = mount(<Ars url="/test.json" />)
-        component.instance()._onGalleryPicked('slug')
-      })
-
-      test('sets the `picked` state to the chosen slug', () => {
-        expect(component).toHaveState('picked', 'slug')
-      })
-    })
   })
 
   describe("when the component's selection button is clicked", () => {
@@ -131,16 +82,6 @@ describe('Ars', () => {
 
     test('renders a picker component', () => {
       expect(component.find('Picker').exists()).toBe(true)
-    })
-
-    describe('when the picker exits', () => {
-      beforeEach(() => {
-        component.instance()._onExit()
-      })
-
-      test('sets the dialogOpen state to false', () => {
-        expect(component).toHaveState('dialogOpen', false)
-      })
     })
   })
 })
