@@ -5,7 +5,7 @@ const path = require('path')
 module.exports = {
   context: __dirname,
 
-  entry: ['./example.js'],
+  entry: ['./example.tsx'],
 
   output: {
     filename: '[name].[hash].js',

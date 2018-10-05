@@ -1,11 +1,11 @@
-import React from 'react'
-import DOM from 'react-dom'
-import ArsArsenal from 'ars-arsenal'
+import * as React from 'react'
+import * as DOM from 'react-dom'
+import { Ars, render } from '../src'
 import server from './server'
 
 import './style'
 
-let options = {
+const options = {
   url: '/api/photos',
 
   makeQuery(term) {
@@ -22,8 +22,6 @@ let options = {
 
   request: server
 }
-
-const Ars = ArsArsenal.component
 
 function Example({ title, options }) {
   return (
