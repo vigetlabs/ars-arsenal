@@ -51,7 +51,6 @@ export default class Selection extends React.Component<Props, {}> {
   render() {
     return (
       <LoadRecord
-        {...this.props}
         slug={this.props.slug}
         render={this.renderContent.bind(this)}
       />

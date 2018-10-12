@@ -8,8 +8,8 @@ import './style'
 const options = {
   url: '/api/photos',
 
-  makeQuery(term) {
-    return `term=${term}`
+  listQuery(options) {
+    return { term: options.term }
   },
 
   onError(response) {

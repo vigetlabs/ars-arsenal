@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 module.exports = {
+  devtool: 'sourcemap',
+
   context: __dirname,
 
   entry: ['./example.tsx'],
