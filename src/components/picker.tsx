@@ -184,30 +184,29 @@ export default class Picker extends React.Component<Props, State> {
     this.setState({ search })
   }
 
-  private onPicked(picked: ID) {
+  private onPicked(picked: ID, shouldAdd: Boolean) {
     this.setState({
       picked: this.props.multiselect
-        ? this.onMultiPicked([].concat(picked))
+        ? this.onMultiPicked([].concat(picked), shouldAdd)
         : [picked]
     })
   }
 
-  private onMultiPicked(picked: ID[]) {
+  private onMultiPicked(picked: ID[], shouldAdd: Boolean): ID[] {
     // Allow for multiple selections and toggling of selections
     let total = this.state.picked ? this.state.picked.slice() : []
     let pool = [].concat(picked)
 
     pool.forEach(function(item) {
-      let index = total.indexOf(item)
-
-      if (index === -1) {
-        total = total.concat(item)
+      if (shouldAdd) {
+        total.push(item)
       } else {
-        total.splice(index, 1)
+        total.splice(total.indexOf(item), 1)
       }
     })
 
-    return total
+    // Dedup selections
+    return total.filter((item, index) => total.indexOf(item) === index)
   }
 
   private onConfirm(event: React.SyntheticEvent) {

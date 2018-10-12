@@ -9,7 +9,11 @@ const options = {
   url: '/api/photos',
 
   listQuery(options) {
-    return { term: options.term }
+    return {
+      term: options.term,
+      limit: 10,
+      offset: options.page * 10
+    }
   },
 
   onError(response) {

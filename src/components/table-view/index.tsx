@@ -123,8 +123,8 @@ class TableView extends React.Component<Props, State> {
 
     let rows = this.sortItems(items, sortBy)
     let ids = items.map((record: Record) => record.id)
-    let unselected = ids.filter(this.isPicked, this)
-    let allPicked = unselected.length <= 0
+    let selected = ids.filter(this.isPicked, this)
+    let allPicked = selected.length === ids.length
 
     return (
       <div className="ars-table-wrapper" onKeyDown={onKeyDown}>
@@ -137,7 +137,7 @@ class TableView extends React.Component<Props, State> {
                 </span>
 
                 <Checker
-                  slug={allPicked ? ids : unselected}
+                  slug={allPicked ? selected : ids}
                   name="all items"
                   checked={allPicked}
                   onChange={onPicked}

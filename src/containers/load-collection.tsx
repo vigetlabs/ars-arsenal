@@ -40,16 +40,17 @@ class CollectionFetcher extends React.Component<Props, State> {
     ...DEFAULT_OPTIONS,
     search: '',
     render: (result: CollectionResult) => null,
-    page: 1
+    page: 0
   }
 
   static getDerivedStateFromProps(props: Props, lastState: State) {
     let { listEndpoint, listQuery, url, page, search } = props
 
     let query = { search, page }
+    let queryString = stringify(listQuery(query))
 
     return {
-      targetURL: listEndpoint(url, query) + '?' + listQuery(query)
+      targetURL: listEndpoint(url, query) + '?' + queryString
     }
   }
 

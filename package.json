@@ -66,9 +66,8 @@
   },
   "dependencies": {
     "classnames": "~2.2.6",
-    "lodash.sortby": "^4.7.0",
     "query-string": "^6.2.0",
-    "react-focus-trap": "^2.6.0",
+    "react-focus-trap": "^2.7.0",
     "react-ink": "^6.4.0",
     "react-transition-group": "^2.4.0",
     "xhr": "~2.5.0"

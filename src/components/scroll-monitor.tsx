@@ -52,7 +52,9 @@ class ScrollMonitor extends React.Component<Props, null> {
     let outer = container.getBoundingClientRect()
     let inner = nextChild.getBoundingClientRect()
 
-    if (inner.top < outer.bottom + outer.height * 0.5) {
+    let halfBelowPage = outer.bottom + outer.height * 1.5
+
+    if (inner.top < halfBelowPage) {
       this.page += 1
       this.props.onPage(this.page)
       this.lastChild = nextChild

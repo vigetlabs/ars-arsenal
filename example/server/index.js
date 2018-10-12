@@ -13,6 +13,8 @@ for (var i = 0; i < 20; i++) {
 export default function(url, success, error) {
   const { pathname, query } = Url.parse(url, true)
 
+  console.log('Fetching', url)
+
   const timeout = setTimeout(function() {
     let [_base, id] = pathname.match(/api\/photos\/(.+?)/) || []
 
@@ -46,8 +48,6 @@ function index(query, success, error) {
     let limit = parseInt(query.limit || 10)
 
     payload = payload.slice(offset, offset + limit)
-
-    console.log('Fetching %s %s', offset, offset + limit)
   }
 
   success(payload)

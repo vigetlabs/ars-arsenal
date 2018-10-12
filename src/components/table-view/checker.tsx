@@ -26,7 +26,7 @@ const Checker: React.SFC<Props> = props => {
       <input
         type={multiselect ? 'checkbox' : 'radio'}
         name="_ars_gallery_checker"
-        onChange={onChange.bind(null, slug)}
+        onChange={onChange.bind(null, slug, !checked)}
         checked={checked}
       />
     </label>
