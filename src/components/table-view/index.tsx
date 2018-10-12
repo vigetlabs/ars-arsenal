@@ -5,6 +5,7 @@ import Checker from './checker'
 import cx from 'classnames'
 import { ArsColumn } from '../../options'
 import { Record, ID } from '../../record'
+import { itemAnimationDelay } from '../animation'
 
 interface Props {
   picked: ID[]
@@ -45,7 +46,7 @@ class TableView extends React.Component<Props, State> {
     return Array.isArray(picked) ? picked.indexOf(id) >= 0 : id === picked
   }
 
-  renderRow(item: Record, index: number) {
+  renderRow(item: Record, index: number, list: Record[]) {
     const { id, name, attribution, caption, url } = item
     const { multiselect, onPicked } = this.props
 
@@ -53,7 +54,7 @@ class TableView extends React.Component<Props, State> {
       'ars-table-animate': !this.mounted
     })
 
-    let animationDelay = 150 + index * 60 + 'ms'
+    let animationDelay = itemAnimationDelay(index)
     let checked = this.isPicked(id)
 
     return (
@@ -63,7 +64,11 @@ class TableView extends React.Component<Props, State> {
         timeout={480}
         unmountOnExit={true}
       >
-        <tr className={className} style={{ animationDelay }}>
+        <tr
+          className={className}
+          style={{ animationDelay }}
+          data-scroll={index == list.length - 1}
+        >
           <td className="ars-table-selection">
             <Checker
               checked={checked}
@@ -108,7 +113,7 @@ class TableView extends React.Component<Props, State> {
 
   sortItems(data: Record[], key: keyof Record) {
     return data.concat().sort(function(a: Record, b: Record) {
-      return `${a[key]}` >= `${b[key]}` ? 1 : -1
+      return a[key] >= b[key] ? 1 : -1
     })
   }
 

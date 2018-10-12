@@ -13,6 +13,7 @@ import TableView from './table-view'
 import LoadCollection from '../containers/load-collection'
 import { ID, Record } from '../record'
 import { ArsColumn, ArsMode } from '../options'
+import ScrollMonitor from './scroll-monitor'
 
 interface Props {
   columns?: ArsColumn[]
@@ -27,6 +28,7 @@ interface State {
   picked: ID[]
   mode: 'gallery' | 'table'
   search: string
+  page: number
 }
 
 export default class Picker extends React.Component<Props, State> {
@@ -44,7 +46,8 @@ export default class Picker extends React.Component<Props, State> {
     this.state = {
       search: '',
       picked: props.picked,
-      mode: props.mode
+      mode: props.mode,
+      page: 1
     }
   }
 
@@ -93,6 +96,10 @@ export default class Picker extends React.Component<Props, State> {
     this.setState({ mode })
   }
 
+  onPage = (page: number) => {
+    this.setState({ page })
+  }
+
   renderContent({
     data,
     fetching,
@@ -129,7 +136,9 @@ export default class Picker extends React.Component<Props, State> {
 
         <ErrorMessage error={error} />
 
-        {this.renderItems(data)}
+        <ScrollMonitor onPage={this.onPage}>
+          {this.renderItems(data)}
+        </ScrollMonitor>
 
         <footer className="ars-dialog-footer">
           <div>
@@ -160,7 +169,7 @@ export default class Picker extends React.Component<Props, State> {
   render() {
     return (
       <LoadCollection
-        {...this.props}
+        page={this.state.page}
         search={this.state.search}
         render={this.renderContent.bind(this)}
       />

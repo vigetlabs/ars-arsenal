@@ -4,10 +4,12 @@
  */
 
 import * as React from 'react'
+import { findDOMNode } from 'react-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Figure from './figure'
 import cx from 'classnames'
 import { Record, ID } from '../record'
+import { itemAnimationDelay } from './animation'
 
 interface Props {
   items: Record[]
@@ -19,6 +21,7 @@ interface Props {
 
 export default class Gallery extends React.Component<Props> {
   mounted: boolean
+  container: HTMLElement
 
   static defaultProps: Props = {
     items: [],
@@ -30,31 +33,36 @@ export default class Gallery extends React.Component<Props> {
     this.mounted = true
   }
 
-  getItem(record: Record, index: number) {
-    let isPicked = this.props.picked
-      ? this.props.picked.indexOf(record.id) !== -1
-      : false
+  isPicked(id: ID) {
+    const { picked } = this.props
+
+    return Array.isArray(picked) ? picked.indexOf(id) >= 0 : id === picked
+  }
+
+  getItem(record: Record, index: number, list: Record[]) {
+    const { onPicked, picked } = this.props
+
+    let isPicked = this.isPicked(record.id)
 
     let className = cx('ars-gallery-item', {
       'ars-gallery-animate': !this.mounted
     })
 
-    let animationDelay = 150 + index * 60 + 'ms'
-    let key = String(record.id)
+    let animationDelay = itemAnimationDelay(index)
 
     return (
       <CSSTransition
-        key={key}
+        key={record.id}
         classNames="ars-figure"
         timeout={480}
         unmountOnExit={true}
       >
-        <div className={className} style={{ animationDelay }}>
-          <Figure
-            picked={isPicked}
-            record={record}
-            onClick={this.props.onPicked}
-          />
+        <div
+          className={className}
+          style={{ animationDelay }}
+          data-scroll={index == list.length - 1}
+        >
+          <Figure picked={isPicked} record={record} onClick={onPicked} />
         </div>
       </CSSTransition>
     )

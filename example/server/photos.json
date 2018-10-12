@@ -3,56 +3,30 @@
     "attribution": "League of Legends",
     "name": "Alistar",
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "id": 1,
     "url": "images/alistar.jpg"
   },
   {
     "attribution": "League of Legends",
     "name": "Brand",
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "id": 2,
     "url": "images/brand.jpg"
   },
   {
     "attribution": "League of Legends",
     "name": "Galio",
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "id": 3,
     "url": "images/galio.jpg"
   },
   {
     "attribution": "League of Legends",
     "name": "Jarvan",
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "id": 4,
     "url": "images/jarvan.jpg"
   },
   {
     "attribution": "League of Legends",
     "name": "Riven vs Shyvana",
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "id": 5,
     "url": "images/riven.jpg"
-  },
-  {
-    "attribution": "Failure",
-    "name": "Faily McFail",
-    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "id": 13,
-    "url": "http://Failure"
-  },
-  {
-    "attribution": "League of Legends",
-    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "name": "No caption",
-    "id": 14,
-    "url": "images/brand.jpg"
-  },
-  {
-    "attribution": "League of Legends",
-    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "id": 15,
-    "name": "Brand Copy",
-    "url": "images/brand.jpg"
   }
 ]

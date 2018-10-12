@@ -1,5 +1,14 @@
 import Url from 'url'
-import photos from './photos.json'
+import data from './photos.json'
+
+const photos = []
+
+var id = 0
+for (var i = 0; i < 20; i++) {
+  data.forEach(item => {
+    photos.push({ ...item, id: id++ })
+  })
+}
 
 export default function(url, success, error) {
   const { pathname, query } = Url.parse(url, true)
@@ -30,6 +39,15 @@ function index(query, success, error) {
     payload = photos.filter(function(photo) {
       return term.test(photo.name)
     })
+  }
+
+  if ('offset' in query || 'limit' in query) {
+    let offset = parseInt(query.offset || 0)
+    let limit = parseInt(query.limit || 10)
+
+    payload = payload.slice(offset, offset + limit)
+
+    console.log('Fetching %s %s', offset, offset + limit)
   }
 
   success(payload)
