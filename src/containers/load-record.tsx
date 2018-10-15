@@ -38,11 +38,19 @@ class RecordFetcher extends React.Component<Props, State> {
   }
 
   static getDerivedStateFromProps(props: Props, lastState: State) {
-    let { url, showEndpoint, slug } = props
+    let { url, showUrl, slug } = props
 
-    return {
-      targetURL: showEndpoint(url, slug)
+    let targetURL = showUrl(url, slug)
+
+    if ('makeURL' in props) {
+      targetURL = props.makeURL(url, slug)
+
+      console.warn(
+        'ArsArsenal option makeURL is deprecated. Use showUrl instead.'
+      )
     }
+
+    return { targetURL }
   }
 
   request: XMLHttpRequest | null = null

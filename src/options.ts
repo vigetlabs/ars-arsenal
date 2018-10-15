@@ -17,13 +17,12 @@ export type SearchQuery = {
 export interface ArsOptions {
   // The base URL for API interaction
   url: string
-  // Used to build the URL that fetches lists of records. This endpoint
-  // may be paginated using page based pagination
-  listEndpoint: (url: string, query: SearchQuery) => string
-  // Used to rename query parameters before building a listEndpoint URL
+  // Used to build the URL that fetches lists of records.
+  listUrl: (url: string) => string
+  // Used to rename query parameters before building a list endpoint URL
   listQuery: (query: SearchQuery) => Object
   // Used to build the URL that fetches a single record.
-  showEndpoint: (url: string, slug: ID) => string
+  showUrl: (url: string, slug: ID) => string
   // Configure the root element's HTML attributes
   rootAttributes: { [key: string]: number | string | boolean }
   // Format errors before they are sent as a "string" value
@@ -57,9 +56,9 @@ export interface ArsOptionsWithDeprecations extends ArsOptions {
 
 export const DEFAULT_OPTIONS: ArsOptions = {
   url: '',
-  listEndpoint: (url: string) => url,
+  listUrl: (url: string) => url,
   listQuery: query => ({ q: query.search }),
-  showEndpoint: (url: string, slug: ID) => url + '/' + slug,
+  showUrl: (url: string, slug: ID) => `${url}/${slug}`,
   rootAttributes: { className: '' },
   onError: error => error.message,
   onFetch: data => data,

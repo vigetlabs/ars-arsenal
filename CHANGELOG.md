@@ -1,5 +1,69 @@
 # CHANGELOG
 
+## 3.0.0
+
+This release adds pagination to ArsArsenal. In the process of doing this, we've made some breaking changes to the way URLs are constructed. For most users, this upgrade process should be minimal:
+
+### `makeURL` is now `listUrl` and `showUrl`
+
+The old `makeURL` option relied on a null check to determine if the requested url is for a list of items or a single record. To avoid that ambiguity, there are now two endpoints for URL construction:
+
+Instead of:
+
+```javascript
+function makeURL(url, slug) {
+  if (slug == null) {
+    return url
+  } else {
+    return `${url}/${slug}`
+  }
+}
+
+ArsArsenal.render({ makeURL })
+```
+
+Change this to:
+
+```javascript
+let listUrl = url => url
+let showUrl = (url, slug) => `${url}/${slug}`
+
+ArsArsenal.render({ listUrl, showUrl })
+```
+
+**These are the default implementations of each option.** We anticipate
+that this change affects very few users.
+
+### `makeQuery` is now `buildQuery` and returns an object
+
+With pagination, ArsArsenal must now manage multiple query
+parameters. For improved ergonomics, ArsArsenal now builds the query
+string on behalf of the user. Instead of returning a string, return an object of key/value pairs:
+
+Instead of:
+
+```javascript
+function makeQuery(term) {
+  return `q=${term}`
+}
+
+ArsArsenal.render({ makeQuery })
+```
+
+Return an object:
+
+```javascript
+const PAGE_SIZE = 10
+
+function makeQuery({ page, search }) {
+  // Return your pagination/search query implementation:
+  let offset = page * PAGE_SIZE
+  let limit = offset + PAGE_SIZE
+
+  return { q: search, offset, limit }
+}
+```
+
 ## 2.5.1
 
 - Handle `null` in captions and titles
@@ -66,14 +130,16 @@
 
 - Adds the ability to clear existing image selections.
 - Adds a `resource` option for customizing file type language. For changing the "Photos" reference in "Pick a photo" selection text:
-    - Setting `resource` to "File" renders "Pick a file"
-    - Setting `resource` to "Image" renders "Pick an image"
+
+  - Setting `resource` to "File" renders "Pick a file"
+  - Setting `resource` to "Image" renders "Pick an image"
 
 - Updates basic selection styles
-    - Centers the selection text, re-positions icons to reflect the loading state within the selection button.
-    - Adds "Loading" text while a selected image is fetching.
-    - Applies the "loaded" class to the image shortly after onload for image-to-image transitions.
-    - Adds an explicit `-webkit-transition` to workaround autoprefixr not generating `-webkit-filter` as a transition property.
+
+  - Centers the selection text, re-positions icons to reflect the loading state within the selection button.
+  - Adds "Loading" text while a selected image is fetching.
+  - Applies the "loaded" class to the image shortly after onload for image-to-image transitions.
+  - Adds an explicit `-webkit-transition` to workaround autoprefixr not generating `-webkit-filter` as a transition property.
 
 - Resets `isLoaded` state when the image re-renders with a different src.
 

@@ -24,9 +24,8 @@ by importing it from the node_modules folder:
 
 ```scss
 /* Sass stylesheet: */
-@import "./node_modules/ars-arsenal/style/ars-arsenal.scss"
-/* or CSS: */
-@import "./node_modules/ars-arsenal/style.css"
+@import './node_modules/ars-arsenal/style/ars-arsenal.scss' /* or CSS: */
+  @import './node_modules/ars-arsenal/style.css';
 ```
 
 ### Icons
@@ -41,7 +40,6 @@ var ArsArsenal = require('ars-arsenal')
 var app = document.getElementById('app')
 
 ArsArsenal.render(app, {
-
   resource: 'photo', // the noun used for selection, i.e. "Pick a photo"
 
   // Configure the root element's HTML attributes. default = {}
@@ -50,6 +48,7 @@ ArsArsenal.render(app, {
     'data-test': 'my-integration-selector-helper'
   },
 
+  // The base URL for API interaction
   url: 'photo/resource/endpoint',
 
   // How to display the items. Can be "table" or "gallery"
@@ -60,39 +59,45 @@ ArsArsenal.render(app, {
 
   multiselect: false,
 
-  makeURL: function (url, id) {
-    // define how the endpoint url is constructed
-    if (id) {
-      return url + "/" + id
-    }
-
+  listUrl: function(url) {
+    // Used to build the URL that fetches lists of records.
     return url
   },
 
-  makeQuery: function (term) {
-    // define how the search query string is built
-    return "q=" + term
+  listQuery: function({ search, page }) {
+    // Use this function to rename query parameters before building
+    // the listUrl URL
+    //
+    // Any data returned from this function will be stringified into
+    // query parameters
+    return { search, page }
+  },
+
+  showUrl: function(url, slug: ID) {
+    // Used to build the URL that fetches a single record
+    return `${url}/${id}`
   },
 
   onError: function(response) {
     // format errors before they are sent as a "string" value
     // to the component
-    return response.code + ": " + response.message
+    return response.code + ': ' + response.message
   },
 
-  onFetch: function (response) {
+  onFetch: function(response) {
     // format the response, useful if you do not control the JSON
     // response from your endpoint
     return data
   },
 
-  onChange: function (id) {
+  onChange: function(id) {
     // Whenever a new item is picked, this event is triggered
-    console.log("The value was changed to %s", id)
+    console.log('The value was changed to %s', id)
   },
 
-  request: function (url, success, error) {
+  request: function(url, callback) {
     // Behavior to configure networking. Return an XMLHTTPRequest
+    return xhr(url, callback)
   }
 })
 ```
@@ -107,13 +112,12 @@ ArsArsenal.render(app, {
     "name": "Alistar",
     "caption": "Lorem ipsum dolor sit amet",
     "url": "images/alistar.jpg"
-  },
+  }
   //...
 ]
 ```
 
 See [example](https://github.com/vigetlabs/ars-arsenal/tree/master/example)!
-
 
 ## Contributing
 
@@ -124,7 +128,7 @@ npm install -d
 npm start
 ```
 
-***
+---
 
 <a href="http://code.viget.com">
   <img src="http://code.viget.com/github-banner.png" alt="Code At Viget">
