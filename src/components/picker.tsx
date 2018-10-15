@@ -22,6 +22,7 @@ interface Props {
   onChange: (selection: ID[]) => void
   onExit: () => void
   picked: Array<string | number>
+  url?: string
 }
 
 interface State {
@@ -169,6 +170,7 @@ export default class Picker extends React.Component<Props, State> {
   render() {
     return (
       <LoadCollection
+        url={this.props.url}
         page={this.state.page}
         search={this.state.search}
         render={this.renderContent.bind(this)}
@@ -193,20 +195,20 @@ export default class Picker extends React.Component<Props, State> {
   }
 
   private onMultiPicked(picked: ID[], shouldAdd: Boolean): ID[] {
-    // Allow for multiple selections and toggling of selections
-    let total = this.state.picked ? this.state.picked.slice() : []
-    let pool = [].concat(picked)
+    let pool = new Set(this.state.picked || [])
 
-    pool.forEach(function(item) {
+    picked.forEach(function(item) {
       if (shouldAdd) {
-        total.push(item)
+        pool.add(item)
       } else {
-        total.splice(total.indexOf(item), 1)
+        pool.delete(item)
       }
     })
 
-    // Dedup selections
-    return total.filter((item, index) => total.indexOf(item) === index)
+    let next: ID[] = []
+    pool.forEach((item: ID) => next.push(item))
+
+    return next
   }
 
   private onConfirm(event: React.SyntheticEvent) {

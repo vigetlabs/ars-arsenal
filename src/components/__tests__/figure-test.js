@@ -1,5 +1,4 @@
 import React from 'react'
-import DOM from 'react-dom'
 import { mount } from 'enzyme'
 import Figure from '../figure'
 

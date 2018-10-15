@@ -11,7 +11,7 @@ import { Record, ID } from '../record'
 
 interface Props {
   record: Record
-  onClick: (id: ID) => void
+  onClick: (id: ID, picked: boolean) => void
   picked: boolean
 }
 
@@ -22,7 +22,7 @@ const Figure: React.SFC<Props> = ({ record, picked, onClick }) => {
 
   const clickHandler = (event: React.MouseEvent) => {
     event.preventDefault()
-    onClick(record.id)
+    onClick(record.id, !picked)
   }
 
   return (

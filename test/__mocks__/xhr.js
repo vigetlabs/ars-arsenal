@@ -1,6 +1,8 @@
+const url = require('url')
+
 module.exports = jest.fn((options, callback) => {
   let body = null
-  let path = '../' + options.url
+  let path = '../' + url.parse(options.url).pathname
   let statusCode = 200
 
   try {

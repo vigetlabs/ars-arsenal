@@ -14,6 +14,7 @@ interface Props {
   resource: string
   slug: ID | null
   onClick: (event: React.SyntheticEvent) => void
+  url?: string
 }
 
 export default class Selection extends React.Component<Props, {}> {
@@ -51,6 +52,7 @@ export default class Selection extends React.Component<Props, {}> {
   render() {
     return (
       <LoadRecord
+        url={this.props.url}
         slug={this.props.slug}
         render={this.renderContent.bind(this)}
       />

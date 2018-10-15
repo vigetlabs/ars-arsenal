@@ -50,6 +50,11 @@ export interface ArsOptions {
   request: typeof request
 }
 
+export interface ArsOptionsWithDeprecations extends ArsOptions {
+  makeURL?: (url: string, slug?: ID) => string
+  makeQuery?: (term: string) => string
+}
+
 export const DEFAULT_OPTIONS: ArsOptions = {
   url: '',
   listEndpoint: (url: string) => url,

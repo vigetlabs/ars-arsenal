@@ -31,17 +31,12 @@ describe('Picker', () => {
   describe("when a picker's gallery has a selection", () => {
     beforeEach(() => {
       component = mount(<Picker url="test.json" />)
-
       jest.runAllTimers()
       component.update()
-
-      component
-        .find('.ars-gallery-item button')
-        .first()
-        .simulate('click')
     })
 
     test('updates its picked state', () => {
+      clickGalleryItem(0)
       expect(component).toHaveState('picked', [0])
     })
   })

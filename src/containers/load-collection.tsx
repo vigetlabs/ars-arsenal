@@ -6,7 +6,7 @@
 import * as React from 'react'
 import OptionsContext from '../contexts/options'
 import { ID, Record } from '../record'
-import { DEFAULT_OPTIONS, ArsOptions } from '../options'
+import { DEFAULT_OPTIONS, ArsOptionsWithDeprecations } from '../options'
 import { stringify } from 'query-string'
 
 export interface CollectionResult {
@@ -15,7 +15,7 @@ export interface CollectionResult {
   error: string | null
 }
 
-interface Props extends ArsOptions {
+interface Props extends ArsOptionsWithDeprecations {
   search: string
   render: (result: CollectionResult) => React.ReactNode | null
   page: number
@@ -159,6 +159,7 @@ class CollectionFetcher extends React.Component<Props, State> {
 }
 
 type LoadCollectionProps = {
+  url?: string
   page: number
   search: string
   render: (result: CollectionResult) => React.ReactNode | null

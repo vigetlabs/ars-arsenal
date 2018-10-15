@@ -15,6 +15,7 @@ interface Props {
 
 export default class SelectionText extends React.Component<Props> {
   static defaultProps = {
+    resource: 'Photo',
     fetching: false,
     isPlural: false
   }

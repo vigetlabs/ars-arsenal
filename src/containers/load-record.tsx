@@ -6,7 +6,7 @@
 import * as React from 'react'
 import OptionsContext from '../contexts/options'
 import { ID, Record } from '../record'
-import { DEFAULT_OPTIONS, ArsOptions } from '../options'
+import { DEFAULT_OPTIONS, ArsOptionsWithDeprecations } from '../options'
 
 export interface RecordResult {
   data: Record | null
@@ -14,7 +14,7 @@ export interface RecordResult {
   fetching: boolean
 }
 
-interface Props extends ArsOptions {
+interface Props extends ArsOptionsWithDeprecations {
   slug: ID | null
   render: (result: RecordResult) => React.ReactNode | null
 }
@@ -114,6 +114,7 @@ class RecordFetcher extends React.Component<Props, State> {
 }
 
 type LoadRecordProps = {
+  url?: string
   slug: ID | null
   render: (result: RecordResult) => React.ReactNode | null
 }

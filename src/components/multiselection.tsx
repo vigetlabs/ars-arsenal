@@ -9,9 +9,10 @@ import SelectionText from './selection-text'
 import { ID } from '../record'
 
 interface Props {
-  onClick: (event: React.MouseEvent) => void
   resource?: string
   slugs: ID[]
+  onClick: (event: React.MouseEvent) => void
+  url?: string
 }
 
 export default class MultiSelection extends React.Component<Props> {
@@ -21,7 +22,7 @@ export default class MultiSelection extends React.Component<Props> {
   }
 
   getItems() {
-    let { slugs } = this.props
+    let { slugs, url } = this.props
 
     if (!slugs.length) {
       return null
@@ -30,7 +31,7 @@ export default class MultiSelection extends React.Component<Props> {
     return (
       <div className="ars-multiselection-grid">
         {slugs.map(slug => (
-          <MultiSelectionItem key={slug} slug={slug} />
+          <MultiSelectionItem key={slug} url={url} slug={slug} />
         ))}
       </div>
     )
@@ -60,4 +61,5 @@ export default class MultiSelection extends React.Component<Props> {
     event.preventDefault()
     this.props.onClick(event)
   }
+
 }
