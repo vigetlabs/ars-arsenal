@@ -8,37 +8,23 @@ import cx from 'classnames'
 
 interface Props {
   className: string
-  raised: boolean
-  type: 'button' | 'submit'
+  raised?: boolean
   onClick: (event: React.SyntheticEvent) => void
   disabled?: boolean
 }
 
-export default class Button extends React.Component<Props, {}> {
-  static defaultProps = {
-    className: '',
-    raised: false,
-    type: 'button'
-  }
+const Button: React.SFC<Props> = ({ children, raised, ...attrs }) => {
+  let className = cx(attrs.className, 'ars-button', {
+    'ars-button-raised': raised
+  })
 
-  getClassName(base: string) {
-    let { raised } = this.props
+  return (
+    <button type="button" {...attrs} className={className}>
+      {children}
+      <Ink />
+    </button>
 
-    let mods = cx('ars-button', {
-      'ars-button-raised': raised
-    })
-
-    return cx(base, mods)
-  }
-
-  render() {
-    let { className, children, raised: _raised, ...attrs } = this.props
-
-    return (
-      <button className={this.getClassName(className)} {...attrs}>
-        {children}
-        <Ink />
-      </button>
-    )
-  }
+  )
 }
+
+export default Button

@@ -13,21 +13,14 @@ import { itemAnimationDelay } from './animation'
 
 interface Props {
   items: Record[]
-  onPicked?: (id: ID) => void
-  onKeyDown?: (event: React.KeyboardEvent) => void
-  search: string
-  picked: Array<string | number>
+  picked: ID[]
+  onPicked: (id: ID) => void
+  onKeyDown: (event: React.KeyboardEvent) => void
 }
 
 export default class Gallery extends React.Component<Props> {
   mounted: boolean
   container: HTMLElement
-
-  static defaultProps: Props = {
-    items: [],
-    picked: null,
-    search: ''
-  }
 
   componentDidMount() {
     this.mounted = true

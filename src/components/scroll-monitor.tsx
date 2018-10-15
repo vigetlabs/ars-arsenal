@@ -6,7 +6,7 @@ interface Props {
 }
 
 class ScrollMonitor extends React.Component<Props, null> {
-  page = 1
+  page = 0
   threshold = 0
   teardown: () => void
   lastChild: Element = null

@@ -20,11 +20,6 @@ interface State {
 }
 
 export default class Image extends React.Component<Props, State> {
-  static defaultProps: Props = {
-    className: '',
-    src: null
-  }
-
   static getDerivedStateFromProps(next: Props, last: State) {
     return {
       prevSrc: next.src,

@@ -11,10 +11,6 @@ interface Props {
 }
 
 export default class SelectionFigure extends React.Component<Props> {
-  static defaultProps = {
-    item: EmptyRecord
-  }
-
   getTitle(title: string) {
     let trimmed = title ? title.trim() : ''
 
