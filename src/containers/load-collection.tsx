@@ -159,7 +159,6 @@ class CollectionFetcher extends React.Component<Props, State> {
 }
 
 type LoadCollectionProps = {
-  url?: string
   page: number
   search: string
   render: (result: CollectionResult) => React.ReactNode | null

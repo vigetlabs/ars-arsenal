@@ -13,8 +13,6 @@ for (var i = 0; i < 20; i++) {
 export default function(url, success, error) {
   const { pathname, query } = Url.parse(url, true)
 
-  console.log('Fetching', url)
-
   const timeout = setTimeout(function() {
     let [_base, id] = pathname.match(/api\/photos\/(.+?)/) || []
 

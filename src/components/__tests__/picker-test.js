@@ -1,5 +1,6 @@
 import React from 'react'
 import Picker from '../picker'
+import Options from '../../contexts/options'
 import { mount } from 'enzyme'
 
 jest.useFakeTimers()
@@ -16,7 +17,11 @@ describe('Picker', () => {
 
   describe("when a picker's search input is changed", () => {
     test('updates its search state', () => {
-      let component = mount(<Picker url="test.json" />)
+      let component = mount(
+        <Options.Provider value={{ url: 'test.json' }}>
+          <Picker />
+        </Options.Provider>
+      )
 
       component.find('Search input').simulate('change', {
         target: { value: 'test' }
@@ -30,7 +35,11 @@ describe('Picker', () => {
 
   describe("when a picker's gallery has a selection", () => {
     beforeEach(() => {
-      component = mount(<Picker url="test.json" />)
+      component = mount(
+        <Options.Provider value={{ url: 'test.json' }}>
+          <Picker />
+        </Options.Provider>
+      )
       jest.runAllTimers()
       component.update()
     })
@@ -43,7 +52,11 @@ describe('Picker', () => {
 
   describe("when a multiselect picker's gallery has a selection", () => {
     beforeEach(() => {
-      component = mount(<Picker url="test.json" multiselect={true} />)
+      component = mount(
+        <Options.Provider value={{ url: 'test.json' }}>
+          <Picker multiselect={true} />
+        </Options.Provider>
+      )
       jest.runAllTimers()
       component.update()
     })
@@ -69,7 +82,11 @@ describe('Picker', () => {
 
   describe("when a picker's clear selection button is clicked", () => {
     beforeEach(() => {
-      component = mount(<Picker url="test.json" />)
+      component = mount(
+        <Options.Provider value={{ url: 'test.json' }}>
+          <Picker />
+        </Options.Provider>
+      )
       component.setState({ picked: [0] })
       jest.runAllTimers()
       component.update()
@@ -87,7 +104,9 @@ describe('Picker', () => {
   describe("when a picker's confirm button is clicked", () => {
     beforeEach(() => {
       component = mount(
-        <Picker url="test.json" onExit={jest.fn()} onChange={jest.fn()} />
+        <Options.Provider value={{ url: 'test.json' }}>
+          <Picker onExit={jest.fn()} onChange={jest.fn()} />
+        </Options.Provider>
       )
 
       component
@@ -112,7 +131,9 @@ describe('Picker', () => {
       onExit = jest.fn()
       onChange = jest.fn()
       component = mount(
-        <Picker url="test.json" onExit={onExit} onChange={onChange} />
+        <Options.Provider value={{ url: 'test.json' }}>
+          <Picker onExit={onExit} onChange={onChange} />
+        </Options.Provider>
       )
       component
         .find('.ars-dialog-cancel')
@@ -135,7 +156,9 @@ describe('Picker', () => {
 
       beforeEach(() => {
         component = mount(
-          <Picker url="test.json" onExit={jest.fn()} onChange={jest.fn()} />
+          <Options.Provider value={{ url: 'test.json' }}>
+            <Picker onExit={jest.fn()} onChange={jest.fn()} />
+          </Options.Provider>
         )
 
         jest.runAllTimers()
@@ -161,7 +184,9 @@ describe('Picker', () => {
 
       beforeEach(() => {
         component = mount(
-          <Picker url="test.json" onExit={jest.fn()} onChange={jest.fn()} />
+          <Options.Provider value={{ url: 'test.json' }}>
+            <Picker onExit={jest.fn()} onChange={jest.fn()} />
+          </Options.Provider>
         )
 
         jest.runAllTimers()
@@ -187,7 +212,9 @@ describe('Picker', () => {
 
       beforeEach(() => {
         component = mount(
-          <Picker url="test.json" onExit={jest.fn()} onChange={jest.fn()} />
+          <Options.Provider value={{ url: 'test.json' }}>
+            <Picker onExit={jest.fn()} onChange={jest.fn()} />
+          </Options.Provider>
         )
 
         jest.runAllTimers()
@@ -211,7 +238,11 @@ describe('Picker', () => {
       let component = null
 
       beforeAll(() => {
-        component = mount(<Picker url="missing.json" />)
+        component = mount(
+          <Options.Provider value={{ url: 'missing.json' }}>
+            <Picker />
+          </Options.Provider>
+        )
         jest.runAllTimers()
         component.update()
       })

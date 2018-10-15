@@ -114,7 +114,6 @@ class RecordFetcher extends React.Component<Props, State> {
 }
 
 type LoadRecordProps = {
-  url?: string
   slug: ID | null
   render: (result: RecordResult) => React.ReactNode | null
 }

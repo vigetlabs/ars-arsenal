@@ -10,7 +10,6 @@ import { ID, Record } from '../record'
 
 interface Props {
   slug: ID | null
-  url?: string
 }
 
 export default class MultiSelectionItem extends React.Component<Props> {
@@ -42,7 +41,6 @@ export default class MultiSelectionItem extends React.Component<Props> {
   render() {
     return (
       <LoadRecord
-        url={this.props.url}
         slug={this.props.slug}
         render={this.renderContent.bind(this)}
       />

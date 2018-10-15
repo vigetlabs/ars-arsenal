@@ -22,7 +22,6 @@ interface Props {
   onChange: (selection: ID[]) => void
   onExit: () => void
   picked: Array<string | number>
-  url?: string
 }
 
 interface State {
@@ -48,7 +47,7 @@ export default class Picker extends React.Component<Props, State> {
       search: '',
       picked: props.picked,
       mode: props.mode,
-      page: 1
+      page: 0
     }
   }
 
@@ -170,7 +169,6 @@ export default class Picker extends React.Component<Props, State> {
   render() {
     return (
       <LoadCollection
-        url={this.props.url}
         page={this.state.page}
         search={this.state.search}
         render={this.renderContent.bind(this)}
