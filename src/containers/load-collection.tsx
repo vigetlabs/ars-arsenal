@@ -44,13 +44,30 @@ class CollectionFetcher extends React.Component<Props, State> {
   }
 
   static getDerivedStateFromProps(props: Props, lastState: State) {
-    let { listEndpoint, listQuery, url, page, search } = props
+    let { listUrl, listQuery, url, page, search } = props
 
+    let baseUrl = listUrl(url)
     let query = { search, page }
     let queryString = stringify(listQuery(query))
 
+    if ('makeURL' in props) {
+      baseUrl = props.makeURL(url)
+
+      console.warn(
+        'ArsArsenal option makeURL is deprecated. Use listUrl instead.'
+      )
+    }
+
+    if ('makeQuery' in props) {
+      queryString = props.makeQuery(search)
+
+      console.warn(
+        'ArsArsenal option makeQuery is deprecated. Use buildQuery instead.'
+      )
+    }
+
     return {
-      targetURL: listEndpoint(url, query) + '?' + queryString
+      targetURL: baseUrl + '?' + queryString
     }
   }
 

@@ -19,6 +19,6 @@ function render(el: HTMLElement, options: ArsOptions) {
   return component
 }
 
-export { Ars, Ars as component , render }
+export { Ars, Ars as component, render }
 
 export default { component: Ars, render }
