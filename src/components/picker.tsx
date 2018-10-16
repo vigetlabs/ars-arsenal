@@ -12,7 +12,7 @@ import Search from './search'
 import TableView from './table-view'
 import LoadCollection from '../containers/load-collection'
 import { ID, Record } from '../record'
-import { ArsColumn, ArsMode } from '../options'
+import { ArsColumn, SortableColumn, ArsMode } from '../options'
 import ScrollMonitor from './scroll-monitor'
 
 interface Props {
@@ -25,10 +25,10 @@ interface Props {
 }
 
 interface State {
-  picked: ID[]
   mode: 'gallery' | 'table'
+  picked: ID[]
   search: string
-  sort: keyof Record
+  sort: SortableColumn
 }
 
 export default class Picker extends React.Component<Props, State> {
@@ -44,10 +44,10 @@ export default class Picker extends React.Component<Props, State> {
     super(props)
 
     this.state = {
+      mode: props.mode,
+      picked: props.picked,
       search: '',
       sort: 'id',
-      picked: props.picked,
-      mode: props.mode
     }
   }
 
@@ -103,7 +103,7 @@ export default class Picker extends React.Component<Props, State> {
     )
   }
 
-  onSort(sort: keyof Record) {
+  onSort(sort: SortableColumn) {
     this.setState({ sort })
   }
 
