@@ -1,8 +1,9 @@
 .ars-table-wrapper {
   box-shadow: 0 -1px 0 rgba(#000, 0.12);
-  margin-top: 9px;
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
+  margin-top: 9px;
   overflow: auto;
   padding: 8px 9px;
 }

@@ -10,7 +10,8 @@ const options = {
 
   listQuery(options) {
     return {
-      term: options.term,
+      term: options.search,
+      sort: options.sort,
       limit: 10,
       offset: options.page * 10
     }

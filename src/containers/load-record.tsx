@@ -34,7 +34,7 @@ class RecordFetcher extends React.Component<Props, State> {
   static defaultProps: Props = {
     ...DEFAULT_OPTIONS,
     slug: null,
-    render: (result: RecordResult) => null
+    render: result => null
   }
 
   static getDerivedStateFromProps(props: Props, lastState: State) {

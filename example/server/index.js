@@ -1,5 +1,6 @@
 import Url from 'url'
 import data from './photos.json'
+import { sortBy } from 'lodash'
 
 const photos = []
 
@@ -21,7 +22,7 @@ export default function(url, success, error) {
     } else {
       index(query, success, error)
     }
-  }, 10)
+  }, 150)
 
   return {
     abort() {
@@ -33,10 +34,16 @@ export default function(url, success, error) {
 function index(query, success, error) {
   let payload = photos
 
+  if ('sort' in query) {
+    let key = query.sort
+
+    payload = sortBy(payload, [query.sort, 'id'], -1)
+  }
+
   if ('term' in query) {
     let term = new RegExp(escape(query.term), 'i')
 
-    payload = photos.filter(function(photo) {
+    payload = payload.filter(function(photo) {
       return term.test(photo.name)
     })
   }
