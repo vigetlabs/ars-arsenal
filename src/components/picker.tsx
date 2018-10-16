@@ -28,7 +28,7 @@ interface State {
   picked: ID[]
   mode: 'gallery' | 'table'
   search: string
-  page: number
+  sort: keyof Record
 }
 
 export default class Picker extends React.Component<Props, State> {
@@ -45,9 +45,9 @@ export default class Picker extends React.Component<Props, State> {
 
     this.state = {
       search: '',
+      sort: 'id',
       picked: props.picked,
-      mode: props.mode,
-      page: 0
+      mode: props.mode
     }
   }
 
@@ -56,25 +56,37 @@ export default class Picker extends React.Component<Props, State> {
     this.props.onExit()
   }
 
-  renderItems(data: Record[]) {
-    const { columns, multiselect } = this.props
-    const { mode, picked, search } = this.state
+  renderEmpty(fetching: Boolean) {
+    const { search } = this.state
 
-    if (data.length <= 0) {
+    if (fetching) {
+      return <p className="ars-empty">Awaiting data...</p>
+    } else {
       return (
         <p className="ars-empty">
           No items exist {search ? `for “${search}”.` : ''}
         </p>
       )
     }
+  }
+
+  renderItems(data: Record[], fetching: Boolean) {
+    const { columns, multiselect } = this.props
+    const { mode, picked, search, sort } = this.state
+
+    if (data.length === 0) {
+      return this.renderEmpty(fetching)
+    }
 
     if (mode === 'table') {
       return (
         <TableView
-          items={data}
-          picked={picked}
           columns={columns}
+          items={data}
           multiselect={multiselect}
+          picked={picked}
+          sort={sort}
+          onSort={this.onSort.bind(this)}
           onPicked={this.onPicked.bind(this)}
           onKeyDown={this.onKeyDown.bind(this)}
         />
@@ -91,13 +103,13 @@ export default class Picker extends React.Component<Props, State> {
     )
   }
 
+  onSort(sort: keyof Record) {
+    this.setState({ sort })
+  }
+
   setMode(mode: 'gallery' | 'table', event: React.SyntheticEvent) {
     event.preventDefault()
     this.setState({ mode })
-  }
-
-  onPage = (page: number) => {
-    this.setState({ page })
   }
 
   renderContent({
@@ -115,7 +127,7 @@ export default class Picker extends React.Component<Props, State> {
     return (
       <FocusTrap className="ars-dialog" onExit={onExit}>
         <header className="ars-dialog-header">
-          <Search datalist={data} onChange={this.onSearchChange.bind(this)} />
+          <Search data={data} onChange={this.onSearchChange.bind(this)} />
 
           <Button
             className="ars-dialog-gallery"
@@ -136,9 +148,7 @@ export default class Picker extends React.Component<Props, State> {
 
         <ErrorMessage error={error} />
 
-        <ScrollMonitor onPage={this.onPage}>
-          {this.renderItems(data)}
-        </ScrollMonitor>
+        {this.renderItems(data, fetching)}
 
         <footer className="ars-dialog-footer">
           <div>
@@ -167,10 +177,12 @@ export default class Picker extends React.Component<Props, State> {
   }
 
   render() {
+    let { sort, search } = this.state
+
     return (
       <LoadCollection
-        page={this.state.page}
-        search={this.state.search}
+        sort={sort}
+        search={search}
         render={this.renderContent.bind(this)}
       />
     )

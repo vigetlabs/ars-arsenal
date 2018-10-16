@@ -25,7 +25,7 @@ by importing it from the node_modules folder:
 ```scss
 /* Sass stylesheet: */
 @import './node_modules/ars-arsenal/style/ars-arsenal.scss' /* or CSS: */
-  @import './node_modules/ars-arsenal/style.css';
+@import './node_modules/ars-arsenal/style.css';
 ```
 
 ### Icons
@@ -64,13 +64,13 @@ ArsArsenal.render(app, {
     return url
   },
 
-  listQuery: function({ search, page }) {
+  listQuery: function({ search, page, sort }) {
     // Use this function to rename query parameters before building
     // the listUrl URL
     //
     // Any data returned from this function will be stringified into
     // query parameters
-    return { search, page }
+    return { search, page, sort }
   },
 
   showUrl: function(url, slug: ID) {

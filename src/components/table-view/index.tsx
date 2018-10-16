@@ -8,19 +8,17 @@ import { Record, ID } from '../../record'
 import { itemAnimationDelay } from '../animation'
 
 interface Props {
-  picked: ID[]
-  items: Record[]
   columns: ArsColumn[]
+  items: Record[]
   multiselect: boolean
+  picked: ID[]
+  sort: keyof Record
   onKeyDown: (event: React.SyntheticEvent) => void
   onPicked: (slugs: ID | ID[]) => void
+  onSort: (field: keyof Record) => void
 }
 
-interface State {
-  sortBy: keyof Record
-}
-
-class TableView extends React.Component<Props, State> {
+class TableView extends React.Component<Props, null> {
   mounted?: boolean
 
   static defaultProps: Props = {
@@ -29,11 +27,9 @@ class TableView extends React.Component<Props, State> {
     columns: ['id', 'name', 'caption', 'attribution', 'preview'],
     multiselect: false,
     onKeyDown: event => {},
-    onPicked: slugs => {}
-  }
-
-  state: State = {
-    sortBy: 'id'
+    onPicked: slugs => {},
+    onSort: field => {},
+    sort: 'id'
   }
 
   componentDidMount() {
@@ -58,76 +54,66 @@ class TableView extends React.Component<Props, State> {
     let checked = this.isPicked(id)
 
     return (
-      <CSSTransition
+      <tr
         key={id}
-        classNames="ars-table"
-        timeout={480}
-        unmountOnExit={true}
+        className={className}
+        style={{ animationDelay }}
+        data-scroll={index == list.length - 1}
       >
-        <tr
-          className={className}
-          style={{ animationDelay }}
-          data-scroll={index == list.length - 1}
+        <td className="ars-table-selection">
+          <Checker
+            checked={checked}
+            name={name}
+            slug={id}
+            multiselect={multiselect}
+            onChange={onPicked}
+          />
+        </td>
+        <td className="ars-table-id" hidden={!this.canRender('id')}>
+          {id}
+        </td>
+        <td className="ars-table-name" hidden={!this.canRender('name')}>
+          {name}
+        </td>
+        <td className="ars-table-caption" hidden={!this.canRender('caption')}>
+          {caption}
+        </td>
+        <td
+          className="ars-table-attribution"
+          hidden={!this.canRender('attribution')}
         >
-          <td className="ars-table-selection">
-            <Checker
-              checked={checked}
-              name={name}
-              slug={id}
-              multiselect={multiselect}
-              onChange={onPicked}
-            />
-          </td>
-          <td className="ars-table-id" hidden={!this.canRender('id')}>
-            {id}
-          </td>
-          <td className="ars-table-name" hidden={!this.canRender('name')}>
-            {name}
-          </td>
-          <td className="ars-table-caption" hidden={!this.canRender('caption')}>
-            {caption}
-          </td>
-          <td
-            className="ars-table-attribution"
-            hidden={!this.canRender('attribution')}
-          >
-            {attribution}
-          </td>
-          <td className="ars-table-preview" hidden={!this.canRender('preview')}>
-            <div className="ars-table-imagebox">
-              <img src={url} />
-            </div>
-          </td>
-        </tr>
-      </CSSTransition>
+          {attribution}
+        </td>
+        <td className="ars-table-preview" hidden={!this.canRender('preview')}>
+          <div className="ars-table-imagebox">
+            <img src={url} />
+          </div>
+        </td>
+      </tr>
     )
   }
 
   changeSort = (field: keyof Record) => {
-    this.setState({ sortBy: field })
+    this.props.onSort(field)
   }
 
   canRender(field: ArsColumn): boolean {
     return this.props.columns.indexOf(field) >= 0
   }
 
-  sortItems(data: Record[], key: keyof Record) {
-    return data.concat().sort(function(a: Record, b: Record) {
-      return a[key] >= b[key] ? 1 : -1
-    })
-  }
-
   render() {
-    const { items, multiselect, onKeyDown, onPicked } = this.props
-    const { sortBy } = this.state
+    const { items, multiselect, sort, onKeyDown, onPicked } = this.props
 
-    let rows = this.sortItems(items, sortBy)
     let ids = items.map((record: Record) => record.id)
     let selected = ids.filter(this.isPicked, this)
     let allPicked = selected.length === ids.length
 
     return (
-      <div className="ars-table-wrapper" onKeyDown={onKeyDown}>
+      <div
+        className="ars-table-wrapper"
+        onKeyDown={onKeyDown}
+        data-scroll-container="true"
+      >
         <table className="ars-table">
           <thead>
             <tr>
@@ -147,7 +133,7 @@ class TableView extends React.Component<Props, State> {
               </th>
               <TableHeading
                 field="id"
-                active={sortBy === 'id'}
+                active={sort === 'id'}
                 show={this.canRender('id')}
                 onSort={this.changeSort}
               >
@@ -155,7 +141,7 @@ class TableView extends React.Component<Props, State> {
               </TableHeading>
               <TableHeading
                 field="name"
-                active={sortBy === 'name'}
+                active={sort === 'name'}
                 show={this.canRender('name')}
                 onSort={this.changeSort}
               >
@@ -163,7 +149,7 @@ class TableView extends React.Component<Props, State> {
               </TableHeading>
               <TableHeading
                 field="caption"
-                active={sortBy === 'caption'}
+                active={sort === 'caption'}
                 show={this.canRender('caption')}
                 onSort={this.changeSort}
               >
@@ -171,7 +157,7 @@ class TableView extends React.Component<Props, State> {
               </TableHeading>
               <TableHeading
                 field="attribution"
-                active={sortBy === 'attribution'}
+                active={sort === 'attribution'}
                 show={this.canRender('attribution')}
                 onSort={this.changeSort}
               >
@@ -186,9 +172,7 @@ class TableView extends React.Component<Props, State> {
               </TableHeading>
             </tr>
           </thead>
-          <TransitionGroup component="tbody">
-            {rows.map(this.renderRow, this)}
-          </TransitionGroup>
+          <tbody>{items.map(this.renderRow, this)}</tbody>
         </table>
       </div>
     )

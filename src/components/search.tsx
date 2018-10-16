@@ -7,7 +7,7 @@ import { DataList } from './datalist'
 import { Record } from '../record'
 
 interface Props {
-  datalist: Record[]
+  data: Record[]
   onChange(search: string): void
 }
 
@@ -60,7 +60,7 @@ export default class Search extends React.Component<Props, State> {
           onChange={this.onChange.bind(this)}
           onKeyUp={this.onKeyUp.bind(this)}
         />
-        <DataList id={listId} items={this.props.datalist} />
+        <DataList id={listId} items={this.props.data} />
         <button className="ars-hidden">Submit</button>
       </form>
     )

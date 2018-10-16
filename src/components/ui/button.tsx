@@ -23,7 +23,6 @@ const Button: React.SFC<Props> = ({ children, raised, ...attrs }) => {
       {children}
       <Ink />
     </button>
-
   )
 }
 
