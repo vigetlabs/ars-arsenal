@@ -1,6 +1,8 @@
 # Ars Arsenal
 
-A gallery picker
+A gallery picker.
+
+**Heads up!** we recently made some breaking changes to configuration in version 3.0.0. See the [CHANGELOG](CHANGELOG.md) for more information.
 
 ---
 
