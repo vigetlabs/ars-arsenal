@@ -6,10 +6,8 @@ interface Props {
   onPage: (number: number) => void
 }
 
-const noop = () => {}
-
 class ScrollMonitor extends React.Component<Props, null> {
-  teardown: () => void = noop
+  teardown: () => void
   lastChild: Element = null
 
   getElement(): Element {
