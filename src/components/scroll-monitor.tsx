@@ -7,7 +7,7 @@ interface Props {
 }
 
 class ScrollMonitor extends React.Component<Props, null> {
-  teardown: () => void
+  teardown = () => {}
   lastChild: Element = null
 
   getElement(): Element {
