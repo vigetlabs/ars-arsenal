@@ -55,12 +55,28 @@ Return an object:
 ```javascript
 const PAGE_SIZE = 10
 
-function makeQuery({ page, search }) {
+function buildQuery({ page, search, sort }) {
   // Return your pagination/search query implementation:
   let offset = page * PAGE_SIZE
   let limit = offset + PAGE_SIZE
 
-  return { q: search, offset, limit }
+  return { q: search, offset, limit, sort }
+}
+```
+
+### Sorting
+
+Adding pagination required us to remove client-side
+sorting. ArsArsenal can't know all of the records on your server, so
+sorting would cause a frustrating reordering of items as new data
+loads.
+
+To enable sorting, take advantage of the `sort` field in the
+`buildQuery` method:
+
+```javascript
+function buildQuery({ page, search, sort }) {
+  return { page, search, sort }
 }
 ```
 
