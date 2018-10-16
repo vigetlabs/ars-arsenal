@@ -7,11 +7,14 @@ import { ID, Record } from './record'
 
 export type ArsMode = 'gallery' | 'table'
 
-export type ArsColumn = keyof Record | 'preview'
+export type SortableColumn = keyof Record
+
+export type ArsColumn = SortableColumn | 'preview'
 
 export type SearchQuery = {
   page: number
   search: string
+  sort: SortableColumn
 }
 
 export interface ArsOptions {

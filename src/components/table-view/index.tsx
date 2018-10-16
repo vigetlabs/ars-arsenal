@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import TableHeading from './table-heading'
 import Checker from './checker'
 import cx from 'classnames'
-import { ArsColumn } from '../../options'
+import { ArsColumn, SortableColumn } from '../../options'
 import { Record, ID } from '../../record'
 import { itemAnimationDelay } from '../animation'
 
@@ -12,10 +12,10 @@ interface Props {
   items: Record[]
   multiselect: boolean
   picked: ID[]
-  sort: keyof Record
+  sort: SortableColumn
   onKeyDown: (event: React.SyntheticEvent) => void
   onPicked: (slugs: ID | ID[]) => void
-  onSort: (field: keyof Record) => void
+  onSort: (field: SortableColumn) => void
 }
 
 class TableView extends React.Component<Props, null> {
@@ -93,7 +93,7 @@ class TableView extends React.Component<Props, null> {
     )
   }
 
-  changeSort = (field: keyof Record) => {
+  changeSort = (field: SortableColumn) => {
     this.props.onSort(field)
   }
 

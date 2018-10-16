@@ -6,7 +6,11 @@
 import * as React from 'react'
 import OptionsContext from '../contexts/options'
 import { ID, Record } from '../record'
-import { DEFAULT_OPTIONS, ArsOptionsWithDeprecations } from '../options'
+import {
+  DEFAULT_OPTIONS,
+  SortableColumn,
+  ArsOptionsWithDeprecations
+} from '../options'
 import { stringify } from 'query-string'
 import ScrollMonitor from '../components/scroll-monitor'
 
@@ -17,7 +21,7 @@ export interface CollectionResult {
 }
 
 interface Props extends ArsOptionsWithDeprecations {
-  sort: keyof Record
+  sort: SortableColumn
   search: string
   render: (result: CollectionResult) => React.ReactNode | null
 }
@@ -28,7 +32,7 @@ interface State {
   fetching: boolean
   targetUrl: string
   search: string
-  sort: keyof Record
+  sort: SortableColumn
   page: number
 }
 
@@ -207,7 +211,7 @@ class CollectionFetcher extends React.Component<Props, State> {
 
 type LoadCollectionProps = {
   search: string
-  sort: keyof Record
+  sort: SortableColumn
   render: (result: CollectionResult) => React.ReactNode | null
 }
 
