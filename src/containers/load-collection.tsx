@@ -149,14 +149,6 @@ class CollectionFetcher extends React.Component<Props, State> {
       data.push(...requests[i].data)
     }
 
-    let ids = data.map(d => d.id)
-
-    ids.forEach(function(id, index) {
-      if (ids.indexOf(id) !== index) {
-        throw 'DUPS'
-      }
-    })
-
     return data
   }
 
