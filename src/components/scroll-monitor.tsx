@@ -2,48 +2,58 @@ import * as React from 'react'
 import { findDOMNode } from 'react-dom'
 
 interface Props {
+  page: number
   onPage: (number: number) => void
 }
 
+const noop = () => {}
+
 class ScrollMonitor extends React.Component<Props, null> {
-  page = 0
-  threshold = 0
-  teardown: () => void
+  teardown: () => void = noop
   lastChild: Element = null
 
   getElement(): Element {
     return findDOMNode(this) as Element
   }
 
-  subscribe() {
-    let element = this.getElement()
-
-    element.addEventListener('scroll', this.check, { passive: true })
-
-    this.teardown = () => element.removeEventListener('scroll', this.check)
-
-    this.check()
+  getScrollContainer(): Element {
+    return this.getElement().querySelector('[data-scroll-container]')
   }
 
-  ignore() {
-    this.teardown()
+  getScrollTrigger(): Element | null {
+    return this.getElement().querySelector('[data-scroll="true"]')
+  }
+
+  subscribe() {
+    let element = this.getScrollContainer()
+
+    if (element) {
+      element.addEventListener('scroll', this.check, { passive: true })
+      this.teardown = () => element.removeEventListener('scroll', this.check)
+      this.check()
+    }
   }
 
   componentDidMount() {
     this.subscribe()
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(lastProps: Props) {
+    if (this.props.page < lastProps.page) {
+      this.lastChild = null
+    }
+
+    this.teardown()
     this.subscribe()
   }
 
   componentWillUnmount() {
-    this.ignore()
+    this.teardown()
   }
 
   check = () => {
-    let container = this.getElement()
-    let nextChild = container.querySelector('[data-scroll="true"]')
+    let container = this.getScrollContainer()
+    let nextChild = this.getScrollTrigger()
 
     if (!nextChild || nextChild === this.lastChild) {
       return
@@ -55,9 +65,8 @@ class ScrollMonitor extends React.Component<Props, null> {
     let halfBelowPage = outer.bottom + outer.height * 1.5
 
     if (inner.top < halfBelowPage) {
-      this.page += 1
-      this.props.onPage(this.page)
       this.lastChild = nextChild
+      this.props.onPage(this.props.page + 1)
     }
   }
 

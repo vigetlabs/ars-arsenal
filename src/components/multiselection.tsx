@@ -12,7 +12,6 @@ interface Props {
   resource?: string
   slugs: ID[]
   onClick: (event: React.MouseEvent) => void
-  url?: string
 }
 
 export default class MultiSelection extends React.Component<Props> {
@@ -22,7 +21,7 @@ export default class MultiSelection extends React.Component<Props> {
   }
 
   getItems() {
-    let { slugs, url } = this.props
+    let { slugs } = this.props
 
     if (!slugs.length) {
       return null
@@ -31,7 +30,7 @@ export default class MultiSelection extends React.Component<Props> {
     return (
       <div className="ars-multiselection-grid">
         {slugs.map(slug => (
-          <MultiSelectionItem key={slug} url={url} slug={slug} />
+          <MultiSelectionItem key={slug} slug={slug} />
         ))}
       </div>
     )
@@ -61,5 +60,4 @@ export default class MultiSelection extends React.Component<Props> {
     event.preventDefault()
     this.props.onClick(event)
   }
-
 }
