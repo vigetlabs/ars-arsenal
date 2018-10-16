@@ -1,5 +1,3 @@
-MAKEFLAGS += '-j 4'
-
 .PHONY: clean build package.json docs release example sass css
 
 build: clean javascript typescript css package.json documentation
