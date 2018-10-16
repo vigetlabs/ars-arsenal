@@ -11,9 +11,10 @@ import Gallery from './gallery'
 import Search from './search'
 import TableView from './table-view'
 import LoadCollection from '../containers/load-collection'
+import ScrollMonitor from './scroll-monitor'
+import Empty from './empty'
 import { ID, Record } from '../record'
 import { ArsColumn, SortableColumn, ArsMode } from '../options'
-import ScrollMonitor from './scroll-monitor'
 
 interface Props {
   columns?: ArsColumn[]
@@ -47,7 +48,7 @@ export default class Picker extends React.Component<Props, State> {
       mode: props.mode,
       picked: props.picked,
       search: '',
-      sort: 'id',
+      sort: 'id'
     }
   }
 
@@ -56,26 +57,12 @@ export default class Picker extends React.Component<Props, State> {
     this.props.onExit()
   }
 
-  renderEmpty(fetching: Boolean) {
-    const { search } = this.state
-
-    if (fetching) {
-      return <p className="ars-empty">Awaiting data...</p>
-    } else {
-      return (
-        <p className="ars-empty">
-          No items exist {search ? `for “${search}”.` : ''}
-        </p>
-      )
-    }
-  }
-
-  renderItems(data: Record[], fetching: Boolean) {
+  renderItems(data: Record[], fetching: boolean) {
     const { columns, multiselect } = this.props
     const { mode, picked, search, sort } = this.state
 
     if (data.length === 0) {
-      return this.renderEmpty(fetching)
+      return <Empty search={search} fetching={fetching} />
     }
 
     if (mode === 'table') {
