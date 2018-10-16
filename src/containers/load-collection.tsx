@@ -58,7 +58,7 @@ function nextPage(nextProps: Props, lastState: State) {
 class CollectionFetcher extends React.Component<Props, State> {
   static defaultProps: Props = {
     ...DEFAULT_OPTIONS,
-    sort: SortableColumn.id,
+    sort: 'id',
     search: '',
     render: result => null
   }
