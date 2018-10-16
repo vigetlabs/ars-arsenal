@@ -65,15 +65,13 @@ export default class Gallery extends React.Component<Props> {
     let { items, onKeyDown } = this.props
 
     return (
-      <>
-        <TransitionGroup
-          className="ars-gallery"
-          onKeyDown={onKeyDown}
-          data-scroll-container="true"
-        >
-          {items.map(this.getItem, this)}
-        </TransitionGroup>
-      </>
+      <TransitionGroup
+        className="ars-gallery"
+        onKeyDown={onKeyDown}
+        data-scroll-container="true"
+      >
+        {items.map(this.getItem, this)}
+      </TransitionGroup>
     )
   }
 }
