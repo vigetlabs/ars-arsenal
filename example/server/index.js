@@ -35,8 +35,6 @@ function index(query, success, error) {
   let payload = photos
 
   if ('sort' in query) {
-    let key = query.sort
-
     payload = sortBy(payload, [query.sort, 'id'], -1)
   }
 
