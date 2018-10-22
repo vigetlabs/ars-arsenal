@@ -8,17 +8,17 @@ typescript: $(subst src,dist,$(shell find src -name '*.ts*'))
 
 dist/%.js: src/%.js
 	@mkdir -p $(@D)
-	@yarn babel $< > dist/$*.js
+	@yarn babel -o dist/$*.js $<
 	@echo "[+] dist/$*.js"
 
 dist/%.ts: src/%.ts
 	@mkdir -p $(@D)
-	@yarn babel $< > dist/$*.js
+	@yarn babel -o dist/$*.js $<
 	@echo "[+] dist/$*.js"
 
 dist/%.tsx: src/%.tsx
 	@mkdir -p $(@D)
-	@yarn babel $< > dist/$*.js
+	@yarn babel -o dist/$*.js $<
 	@echo "[+] dist/$*.js"
 
 css: sass
