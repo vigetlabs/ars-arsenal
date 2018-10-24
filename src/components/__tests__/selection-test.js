@@ -1,34 +1,30 @@
 import React from 'react'
 import Selection from '../selection'
-import Options from '../../contexts/options'
+import SelectionFigure from '../selection-figure'
 import { mount } from 'enzyme'
 
 jest.useFakeTimers()
 
 describe('Selection', () => {
-  test('renders a photo', () => {
-    let component = mount(
-      <Options.Provider value={{ url: 'data' }}>
-        <Selection url="data" slug="1.json" />
-      </Options.Provider>
-    )
+  test('renders a photo given a valid record slug', () => {
+    let component = mount(<Selection slug="data/1.json" />)
 
     jest.runAllTimers()
     component.update()
 
-    expect(component.find('img').exists()).toBe(true)
+    expect(component.find(SelectionFigure).exists()).toBe(true)
   })
 
-  test('does not render a photo', () => {
-    let component = mount(
-      <Options.Provider value={{ url: 'data' }}>
-        <Selection />
-      </Options.Provider>
-    )
+  test('does not render a photo when props.slug is falsey', () => {
+    let component = mount(<Selection slug="data/1.json" />)
 
     jest.runAllTimers()
     component.update()
 
-    expect(component.find('img').exists()).toBe(false)
+    expect(component.find(SelectionFigure).exists()).toBe(true)
+
+    component.setProps({ slug: null })
+
+    expect(component.find(SelectionFigure).exists()).toBe(false)
   })
 })
