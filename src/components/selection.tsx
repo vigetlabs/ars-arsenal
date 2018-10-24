@@ -18,7 +18,8 @@ interface Props {
 
 export default class Selection extends React.Component<Props, {}> {
   getPhoto(data: Record | null) {
-    return data != null ? <SelectionFigure item={data} /> : null
+    let showPhoto = data != null && this.props.slug
+    return showPhoto ? <SelectionFigure item={data} /> : null
   }
 
   renderContent({ data, fetching }: RecordResult) {
