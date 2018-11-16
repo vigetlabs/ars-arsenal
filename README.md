@@ -37,10 +37,14 @@ Copy over icons from `./example/public/icons` to your public directory.
 
 ## Usage
 
-```javascript
-var ArsArsenal = require('ars-arsenal')
+ArsArsenal can be rendered either as a stand-alone instance or as a React component:
 
-var app = document.getElementById('app')
+### Stand Alone
+
+```javascript
+import ArsArsenal from 'ars-arsenal'
+
+let app = document.getElementById('app')
 
 ArsArsenal.render(app, {
   resource: 'photo', // the noun used for selection, i.e. "Pick a photo"
@@ -90,7 +94,7 @@ ArsArsenal.render(app, {
   onFetch: function(response) {
     // format the response, useful if you do not control the JSON
     // response from your endpoint
-    return data
+    return response.data
   },
 
   onChange: function(id) {
@@ -105,14 +109,41 @@ ArsArsenal.render(app, {
 })
 ```
 
-### Response format
+### React
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Ars } from 'ars-arsenal'
+
+let app = document.getElementById('app')
+
+let options = { /* same options as above */ }
+
+ReactDOM.render(<Ars options={options} />, app)
+```
+
+## Response format
+
+APIs return different shapes of data. To account for this, ArsArsenal exposes the `onFetch` option. This option is called whenever data is fetched from your API:
+
+```javascript
+let options = {
+  onFetch: function(response) {
+    // format the response, useful if you do not control the JSON
+    // response from your endpoint
+    return response.data
+  }
+}
+```
+
+ArsArsenal expects the following data format:
 
 ```json
 [
   {
     "id": 1,
-    "attribution": "League of Legends",0
-
+    "attribution": "League of Legends",
     "name": "Alistar",
     "caption": "Lorem ipsum dolor sit amet",
     "url": "images/alistar.jpg"
@@ -121,7 +152,25 @@ ArsArsenal.render(app, {
 ]
 ```
 
-### Sorting
+To transpose data, map over it in `onFetch` like so:
+
+```javascript
+let options = {
+  onFetch: function(response) {
+    return response.data.map(function (record) {
+      return {
+        id: record.id,
+        attribution: record.credit,
+        name: record.title,
+        caption: record.caption,
+        url: record.imageSrc
+      }
+    })
+  }
+}
+```
+
+## Sorting
 
 To enable sorting, take advantage of the `sort` field passed into the `listQuery` option. `listQuery` will automatically stringify the returned object:
 
