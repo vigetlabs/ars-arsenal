@@ -75,7 +75,7 @@ ArsArsenal.render(app, {
     return { search, page, sort }
   },
 
-  showUrl: function(url, slug: ID) {
+  showUrl: function(url, id: ID) {
     // Used to build the URL that fetches a single record
     return `${url}/${id}`
   },

@@ -12,13 +12,13 @@ import { Record, ID } from '../record'
 
 interface Props {
   resource: string
-  slug: ID | null
+  id: ID | null
   onClick: (event: React.SyntheticEvent) => void
 }
 
 export default class Selection extends React.Component<Props, {}> {
   getPhoto(data: Record | null) {
-    let showPhoto = data != null && this.props.slug
+    let showPhoto = data != null && this.props.id
     return showPhoto ? <SelectionFigure item={data} /> : null
   }
 
@@ -52,7 +52,7 @@ export default class Selection extends React.Component<Props, {}> {
   render() {
     return (
       <LoadRecord
-        slug={this.props.slug}
+        id={this.props.id}
         render={this.renderContent.bind(this)}
       />
     )

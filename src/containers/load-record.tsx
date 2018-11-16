@@ -15,7 +15,7 @@ export interface RecordResult {
 }
 
 interface Props extends ArsOptionsWithDeprecations {
-  slug: ID | null
+  id: ID | null
   render: (result: RecordResult) => React.ReactNode | null
 }
 
@@ -26,24 +26,24 @@ interface State {
   targetURL: string
 }
 
-function isValidSlug(slug: ID): boolean {
-  return !!slug || slug === 0
+function isValidId(id: ID): boolean {
+  return !!id || id === 0
 }
 
 class RecordFetcher extends React.Component<Props, State> {
   static defaultProps: Props = {
     ...DEFAULT_OPTIONS,
-    slug: null,
+    id: null,
     render: result => null
   }
 
   static getDerivedStateFromProps(props: Props, lastState: State) {
-    let { url, showUrl, slug } = props
+    let { url, showUrl, id } = props
 
-    let targetURL = showUrl(url, slug)
+    let targetURL = showUrl(url, id)
 
     if ('makeURL' in props) {
-      targetURL = props.makeURL(url, slug)
+      targetURL = props.makeURL(url, id)
 
       console.warn(
         'ArsArsenal option makeURL is deprecated. Use showUrl instead.'
@@ -77,7 +77,7 @@ class RecordFetcher extends React.Component<Props, State> {
   }
 
   shouldFetch(nextURL: string, lastURL: string | null, props: Props) {
-    return nextURL !== lastURL && isValidSlug(props.slug)
+    return nextURL !== lastURL && isValidId(props.id)
   }
 
   fetch() {
@@ -122,7 +122,7 @@ class RecordFetcher extends React.Component<Props, State> {
 }
 
 type LoadRecordProps = {
-  slug: ID | null
+  id: ID | null
   render: (result: RecordResult) => React.ReactNode | null
 }
 

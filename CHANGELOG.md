@@ -11,11 +11,11 @@ The old `makeURL` option relied on a null check to determine if the requested ur
 Instead of:
 
 ```javascript
-function makeURL(url, slug) {
-  if (slug == null) {
+function makeURL(url, id) {
+  if (id == null) {
     return url
   } else {
-    return `${url}/${slug}`
+    return `${url}/${id}`
   }
 }
 
@@ -26,7 +26,7 @@ Change this to:
 
 ```javascript
 let listUrl = url => url
-let showUrl = (url, slug) => `${url}/${slug}`
+let showUrl = (url, id) => `${url}/${id}`
 
 ArsArsenal.render({ listUrl, showUrl })
 ```

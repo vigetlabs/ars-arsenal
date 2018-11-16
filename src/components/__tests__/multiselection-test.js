@@ -7,7 +7,7 @@ describe('MultiSelection', () => {
   test('renders multiple selections', () => {
     let component = mount(
       <Options.Provider value={{ url: 'test.json' }}>
-        <MultiSelection slugs={[0, 1]} />
+        <MultiSelection ids={[0, 1]} />
       </Options.Provider>
     )
 
@@ -17,7 +17,7 @@ describe('MultiSelection', () => {
   test('renders an empty state', () => {
     let component = mount(
       <Options.Provider value={{ url: 'test.json' }}>
-        <MultiSelection slugs={[]} />
+        <MultiSelection ids={[]} />
       </Options.Provider>
     )
 

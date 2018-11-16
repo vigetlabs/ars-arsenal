@@ -9,7 +9,7 @@ describe('MultiSelectionItem', () => {
   test('renders a photo', () => {
     let component = mount(
       <Options.Provider value={{ url: 'data' }}>
-        <MultiSelectionItem slug="1.json" />
+        <MultiSelectionItem id="1.json" />
       </Options.Provider>
     )
 

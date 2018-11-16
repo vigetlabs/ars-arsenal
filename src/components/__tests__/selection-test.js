@@ -6,8 +6,8 @@ import { mount } from 'enzyme'
 jest.useFakeTimers()
 
 describe('Selection', () => {
-  test('renders a photo given a valid record slug', () => {
-    let component = mount(<Selection slug="data/1.json" />)
+  test('renders a photo given a valid record id', () => {
+    let component = mount(<Selection id="data/1.json" />)
 
     jest.runAllTimers()
     component.update()
@@ -15,15 +15,15 @@ describe('Selection', () => {
     expect(component.find(SelectionFigure).exists()).toBe(true)
   })
 
-  test('does not render a photo when props.slug is falsey', () => {
-    let component = mount(<Selection slug="data/1.json" />)
+  test('does not render a photo when props.id is falsey', () => {
+    let component = mount(<Selection id="data/1.json" />)
 
     jest.runAllTimers()
     component.update()
 
     expect(component.find(SelectionFigure).exists()).toBe(true)
 
-    component.setProps({ slug: null })
+    component.setProps({ id: null })
 
     expect(component.find(SelectionFigure).exists()).toBe(false)
   })
