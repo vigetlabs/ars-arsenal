@@ -7,7 +7,6 @@ A gallery picker.
 ---
 
 [![CircleCI](https://circleci.com/gh/vigetlabs/ars-arsenal.svg?style=svg)](https://circleci.com/gh/vigetlabs/ars-arsenal)
-[![Code Climate](https://codeclimate.com/github/vigetlabs/ars-arsenal/badges/gpa.svg)](https://codeclimate.com/github/vigetlabs/ars-arsenal)
 
 ---
 
@@ -118,8 +117,6 @@ ArsArsenal.render(app, {
   //...
 ]
 ```
-
-See [example](https://github.com/vigetlabs/ars-arsenal/tree/master/example)!
 
 ### Sorting
 
