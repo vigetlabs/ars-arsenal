@@ -76,7 +76,13 @@ To enable sorting, take advantage of the `sort` field in the
 
 ```javascript
 function listQuery({ page, search, sort }) {
-  return { page, search, sort }
+  // Assuming your API requires a call like:
+  // /photos?page=1&q=Dogs&sortKey=breed
+  return {
+    page: page,
+    q: search,
+    sortKey: sort
+  }
 }
 ```
 

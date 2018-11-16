@@ -121,6 +121,24 @@ ArsArsenal.render(app, {
 
 See [example](https://github.com/vigetlabs/ars-arsenal/tree/master/example)!
 
+### Sorting
+
+To enable sorting, take advantage of the `sort` field passed into the
+`listQuery` option. `listQuery` will automatically stringify the
+returned object:
+
+```javascript
+function listQuery({ page, search, sort }) {
+  // Assuming your API requires a call like:
+  // /photos?page=1&q=Dogs&sortKey=breed
+  return {
+    page: page,
+    q: search,
+    sortKey: sort
+  }
+}
+```
+
 ## Contributing
 
 ### Setup
