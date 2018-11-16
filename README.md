@@ -1,27 +1,26 @@
 # Ars Arsenal
 
-A gallery picker.
-
-**Heads up!** we recently made some breaking changes to configuration in version 3.0.0. See the [CHANGELOG](CHANGELOG.md) for more information.
-
----
-
 [![CircleCI](https://circleci.com/gh/vigetlabs/ars-arsenal.svg?style=svg)](https://circleci.com/gh/vigetlabs/ars-arsenal)
 
 ---
 
-![Example](http://f.cl.ly/items/2Z442e3B3o2D2k1j410I/ars.gif)
+A gallery picker. We use ArsArsenal as the primary means to select photos and other resources for our content management projects.
+
+**Heads up!** we recently made some breaking changes to configuration in version 3.0.0. See the [CHANGELOG](CHANGELOG.md) for more information.
+
+![Example](./screenshots/listview.png)
 
 ## Installation
 
 ```shell
 npm install --save ars-arsenal
+# or use yarn
+yarn add ars-arsenal
 ```
 
 ### Styles
 
-Ars Arsenal ships with a stylesheet. The easiest way to include it is
-by importing it from the node_modules folder:
+Ars Arsenal ships with a stylesheet. The easiest way to include it is by importing it from the node_modules folder:
 
 ```scss
 /* Sass stylesheet: */
@@ -109,7 +108,8 @@ ArsArsenal.render(app, {
 [
   {
     "id": 1,
-    "attribution": "League of Legends",
+    "attribution": "League of Legends",0
+
     "name": "Alistar",
     "caption": "Lorem ipsum dolor sit amet",
     "url": "images/alistar.jpg"
@@ -120,9 +120,7 @@ ArsArsenal.render(app, {
 
 ### Sorting
 
-To enable sorting, take advantage of the `sort` field passed into the
-`listQuery` option. `listQuery` will automatically stringify the
-returned object:
+To enable sorting, take advantage of the `sort` field passed into the `listQuery` option. `listQuery` will automatically stringify the returned object:
 
 ```javascript
 function listQuery({ page, search, sort }) {
@@ -138,11 +136,13 @@ function listQuery({ page, search, sort }) {
 
 ## Contributing
 
-### Setup
+Take a look at our [contributing guide](./CONTRIBUTING.md), but the gist of it is:
 
-```bash
-npm install -d
-npm start
+```shell
+# Install dependencies
+yarn install
+# Spin up the example server with:
+yarn start
 ```
 
 ---
