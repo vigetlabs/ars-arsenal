@@ -2,7 +2,12 @@
 
 [![CircleCI](https://circleci.com/gh/vigetlabs/ars-arsenal.svg?style=svg)](https://circleci.com/gh/vigetlabs/ars-arsenal)
 
-A gallery picker. We use ArsArsenal as the primary means to select photos and other resources for our content management projects.
+A gallery picker. ArsArsenal makes it easy to quickly select photos and other resources for content management purposes. Additionally, it supports features such as:
+
+- Table/Gallery view
+- Pagination
+- Sorting
+- Search
 
 **Heads up!** we recently made some breaking changes to configuration in version 3.0.0. See the [CHANGELOG](CHANGELOG.md) for more information.
 
