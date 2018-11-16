@@ -12,6 +12,9 @@ import Search from './search'
 import TableView from './table-view'
 import LoadCollection, { CollectionResult } from '../containers/load-collection'
 import Empty from './empty'
+import ClearButton from './clear-button'
+import GalleryButton from './gallery-button'
+import TableButton from './table-button'
 import { ID, Record } from '../record'
 import { ArsColumn, SortableColumn, ArsMode } from '../options'
 
@@ -107,21 +110,15 @@ export default class Picker extends React.PureComponent<Props, State> {
             onQuery={this.onQueryChange}
           />
 
-          <Button
-            className="ars-dialog-gallery"
-            onClick={this.setMode.bind(this, 'gallery')}
+          <GalleryButton
+            onClick={this.setMode.bind(this)}
             disabled={mode === 'gallery'}
-          >
-            <span className="ars-hidden">Gallery</span>
-          </Button>
+          />
 
-          <Button
-            className="ars-dialog-table"
-            onClick={this.setMode.bind(this, 'table')}
+          <TableButton
+            onClick={this.setMode.bind(this)}
             disabled={mode === 'table'}
-          >
-            <span className="ars-hidden">Table</span>
-          </Button>
+          />
         </header>
 
         <ErrorMessage error={error} />
@@ -129,14 +126,8 @@ export default class Picker extends React.PureComponent<Props, State> {
         {this.renderItems(data, fetching)}
 
         <footer className="ars-dialog-footer">
-          <div>
-            <Button
-              className="ars-dialog-clear"
-              onClick={this.onClear.bind(this)}
-            >
-              <span className="ars-dialog-clear-text">Clear</span>
-            </Button>
-          </div>
+          <ClearButton onClick={this.onClear.bind(this)} />
+
           <div>
             <Button className="ars-dialog-cancel" onClick={onExit}>
               Cancel

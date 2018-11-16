@@ -1,5 +1,4 @@
 .ars-button {
-  @extend %focusable;
   background-color: #fff;
   border-radius: 3px;
   border: 0;
@@ -11,6 +10,7 @@
   line-height: 16px;
   margin: 6px 8px;
   padding: 10px 16px;
+  position: relative;
   text-align: center;
   text-shadow: none;
   transition: 0.3s all;
@@ -53,6 +53,12 @@
   opacity: 0.64;
   border-radius: 50%;
   margin: 2px;
+  padding: 0;
+
+  .ars-icon {
+    display: block;
+    margin: 0 auto;
+  }
 
   &:hover,
   &:focus {

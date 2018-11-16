@@ -94,7 +94,7 @@ describe('Picker', () => {
 
     test('clears its picked state', () => {
       component
-        .find('.ars-dialog-footer Button.ars-dialog-clear')
+        .find('ClearButton')
         .simulate('click')
 
       expect(component).toHaveState('picked', [])

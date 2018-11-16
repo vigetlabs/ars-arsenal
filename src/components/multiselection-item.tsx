@@ -5,6 +5,7 @@
 import * as React from 'react'
 import cx from 'classnames'
 import Image from './ui/image'
+import RefreshIcon from '../icons/refresh-icon'
 import LoadRecord from '../containers/load-record'
 import { ID, Record } from '../record'
 
@@ -35,7 +36,12 @@ export default class MultiSelectionItem extends React.Component<Props> {
       'ars-has-photo': data
     })
 
-    return <div className={className}>{this.getPhoto(data)}</div>
+    return (
+      <div className={className}>
+        {fetching ? <RefreshIcon /> : null}
+        {this.getPhoto(data)}
+      </div>
+    )
   }
 
   render() {

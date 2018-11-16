@@ -24,10 +24,9 @@
   &.ars-is-loading {
     min-height: 64px;
 
-    &:after {
+    .ars-icon {
       animation-timing-function: linear;
       animation: 0.7s ars-spin infinite;
-      background: url('/icons/refresh.svg') 50% 50% no-repeat;
       border-radius: 50%;
       box-shadow: 0 0 1px rgba(#000, 0.12);
       content: '';
