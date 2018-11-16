@@ -6,6 +6,7 @@ import * as React from 'react'
 import Button from './ui/button'
 import MultiSelectionItem from './multiselection-item'
 import SelectionText from './selection-text'
+import EditIcon from '../icons/edit-icon'
 import { ID } from '../record'
 
 interface Props {
@@ -50,7 +51,8 @@ export default class MultiSelection extends React.Component<Props> {
             item={this.props.ids.length > 0}
             isPlural={true}
           />
-          <span className="ars-selection-button-icon" aria-hidden="true" />
+
+          <EditIcon />
         </Button>
       </div>
     )

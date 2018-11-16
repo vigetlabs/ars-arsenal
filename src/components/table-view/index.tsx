@@ -140,7 +140,7 @@ class TableView extends React.PureComponent<Props, null> {
         onKeyDown={onKeyDown}
         data-scroll-container="true"
       >
-        <table className="ars-table">
+        <table className="ars-table ars-paper">
           <thead>
             <tr>
               <th className="ars-table-selection">

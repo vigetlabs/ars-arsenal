@@ -73,19 +73,17 @@
   display: block;
   line-height: 24px;
   margin: 0;
-  padding: 16px;
+  padding: 16px 8px 16px 16px;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-}
 
-.ars-selection-button-icon {
-  background: url('/icons/edit.svg') 50% 50% no-repeat;
-  display: inline-block;
-  height: 18px;
-  padding: 3px;
-  margin-left: 12px;
-  vertical-align: middle;
-  width: 18px;
+  .ars-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    position: relative;
+    top: 2px;
+  }
 }

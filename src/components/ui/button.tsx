@@ -11,6 +11,7 @@ interface Props {
   raised?: boolean
   onClick: (event: React.SyntheticEvent) => void
   disabled?: boolean
+  title?: string
 }
 
 const Button: React.SFC<Props> = ({ children, raised, ...attrs }) => {

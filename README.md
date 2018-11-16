@@ -31,10 +31,6 @@ Ars Arsenal ships with a stylesheet. The easiest way to include it is by importi
 @import './node_modules/ars-arsenal/style.css';
 ```
 
-### Icons
-
-Copy over icons from `./example/public/icons` to your public directory.
-
 ## Usage
 
 ArsArsenal can be rendered either as a stand-alone instance or as a React component:

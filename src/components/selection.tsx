@@ -7,6 +7,7 @@ import cx from 'classnames'
 import Button from './ui/button'
 import SelectionFigure from './selection-figure'
 import SelectionText from './selection-text'
+import EditIcon from '../icons/edit-icon'
 import LoadRecord, { RecordResult } from '../containers/load-record'
 import { Record, ID } from '../record'
 
@@ -42,7 +43,7 @@ export default class Selection extends React.Component<Props, {}> {
               resource={resource}
             />
 
-            <span className="ars-selection-button-icon" aria-hidden="true" />
+            <EditIcon />
           </Button>
         </div>
       </div>

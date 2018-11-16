@@ -8,16 +8,19 @@
 }
 
 .ars-search-label {
-  clip: rect(0, 0, 0, 0);
-  position: absolute;
+  padding: 4px 12px;
+
+  .ars-icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 .ars-search-input {
-  background: url('/icons/search.svg') 12px 50% no-repeat;
   border: 0;
   font-size: 16px;
   line-height: 32px;
-  padding: 0 12px 0 40px;
+  padding: 0 12px 0 0;
   width: 100%;
   -webkit-appearance: none;
 
