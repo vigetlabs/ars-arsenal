@@ -10,27 +10,27 @@ import { ID } from '../record'
 
 interface Props {
   resource?: string
-  slugs: ID[]
+  ids: ID[]
   onClick: (event: React.MouseEvent) => void
 }
 
 export default class MultiSelection extends React.Component<Props> {
   static defaultProps: Props = {
-    slugs: [],
+    ids: [],
     onClick: event => {}
   }
 
   getItems() {
-    let { slugs } = this.props
+    let { ids } = this.props
 
-    if (!slugs.length) {
+    if (!ids.length) {
       return null
     }
 
     return (
       <div className="ars-multiselection-grid">
-        {slugs.map(slug => (
-          <MultiSelectionItem key={slug} slug={slug} />
+        {ids.map(id => (
+          <MultiSelectionItem key={id} id={id} />
         ))}
       </div>
     )
@@ -47,7 +47,7 @@ export default class MultiSelection extends React.Component<Props> {
         >
           <SelectionText
             resource={this.props.resource}
-            item={this.props.slugs.length > 0}
+            item={this.props.ids.length > 0}
             isPlural={true}
           />
           <span className="ars-selection-button-icon" aria-hidden="true" />

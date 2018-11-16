@@ -25,7 +25,7 @@ export interface ArsOptions {
   // Used to rename query parameters before building a list endpoint URL
   listQuery: (query: SearchQuery) => Object
   // Used to build the URL that fetches a single record.
-  showUrl: (url: string, slug: ID) => string
+  showUrl: (url: string, id: ID) => string
   // Configure the root element's HTML attributes
   rootAttributes: { [key: string]: number | string | boolean }
   // Format errors before they are sent as a "string" value
@@ -36,7 +36,7 @@ export interface ArsOptions {
   onFetch: (response: Object) => Object
   // Whenever a new item is picked, this event is triggered
   // When using multiselect: true, this is an array of values
-  onChange: (slug: ID | ID[]) => void
+  onChange: (id: ID | ID[]) => void
   // Are multiple selections possible?
   multiselect: boolean
   // The noun used for selection, i.e. "photo" or "file"
@@ -53,7 +53,7 @@ export interface ArsOptions {
 }
 
 export interface ArsOptionsWithDeprecations extends ArsOptions {
-  makeURL?: (url: string, slug?: ID) => string
+  makeURL?: (url: string, id?: ID) => string
   makeQuery?: (term: string) => string
 }
 
@@ -61,7 +61,7 @@ export const DEFAULT_OPTIONS: ArsOptions = {
   url: '',
   listUrl: (url: string) => url,
   listQuery: query => ({ q: query.search }),
-  showUrl: (url: string, slug: ID) => `${url}/${slug}`,
+  showUrl: (url: string, id: ID) => `${url}/${id}`,
   rootAttributes: { className: '' },
   onError: error => error.message,
   onFetch: data => data,

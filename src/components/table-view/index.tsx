@@ -14,7 +14,7 @@ interface Props {
   picked: ID[]
   sort: SortableColumn
   onKeyDown: (event: React.SyntheticEvent) => void
-  onPicked: (slugs: ID | ID[]) => void
+  onPicked: (ids: ID | ID[]) => void
   onSort: (field: SortableColumn) => void
 }
 
@@ -27,7 +27,7 @@ class TableView extends React.Component<Props, null> {
     columns: ['id', 'name', 'caption', 'attribution', 'preview'],
     multiselect: false,
     onKeyDown: event => {},
-    onPicked: slugs => {},
+    onPicked: ids => {},
     onSort: field => {},
     sort: 'id'
   }
@@ -64,7 +64,7 @@ class TableView extends React.Component<Props, null> {
           <Checker
             checked={checked}
             name={name}
-            slug={id}
+            id={id}
             multiselect={multiselect}
             onChange={onPicked}
           />
@@ -123,7 +123,7 @@ class TableView extends React.Component<Props, null> {
                 </span>
 
                 <Checker
-                  slug={allPicked ? selected : ids}
+                  id={allPicked ? selected : ids}
                   name="all items"
                   checked={allPicked}
                   onChange={onPicked}

@@ -9,7 +9,7 @@ import LoadRecord from '../containers/load-record'
 import { ID, Record } from '../record'
 
 interface Props {
-  slug: ID | null
+  id: ID | null
 }
 
 export default class MultiSelectionItem extends React.Component<Props> {
@@ -41,7 +41,7 @@ export default class MultiSelectionItem extends React.Component<Props> {
   render() {
     return (
       <LoadRecord
-        slug={this.props.slug}
+        id={this.props.id}
         render={this.renderContent.bind(this)}
       />
     )

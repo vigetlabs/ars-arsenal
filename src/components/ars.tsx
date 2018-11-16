@@ -53,7 +53,7 @@ export default class Ars extends React.Component<ArsOptions, State> {
       return (
         <MultiSelection
           resource={resource}
-          slugs={picked}
+          ids={picked}
           onClick={this.onOpenClick.bind(this)}
         />
       )
@@ -62,7 +62,7 @@ export default class Ars extends React.Component<ArsOptions, State> {
     return (
       <Selection
         resource={resource}
-        slug={picked && picked[0]}
+        id={picked && picked[0]}
         onClick={this.onOpenClick.bind(this)}
       />
     )

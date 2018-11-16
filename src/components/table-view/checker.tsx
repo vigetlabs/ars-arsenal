@@ -4,14 +4,14 @@ import { ID } from '../../record'
 interface Props {
   checked: boolean
   disabled?: boolean
-  slug: ID | ID[]
+  id: ID | ID[]
   multiselect: boolean
   name: string
-  onChange: (slug: ID | ID[]) => void
+  onChange: (id: ID | ID[]) => void
 }
 
 const Checker: React.SFC<Props> = props => {
-  const { multiselect, checked, disabled, slug, name, onChange } = props
+  const { multiselect, checked, disabled, id, name, onChange } = props
 
   if (disabled) {
     return null
@@ -26,7 +26,7 @@ const Checker: React.SFC<Props> = props => {
       <input
         type={multiselect ? 'checkbox' : 'radio'}
         name="_ars_gallery_checker"
-        onChange={onChange.bind(null, slug, !checked)}
+        onChange={onChange.bind(null, id, !checked)}
         checked={checked}
       />
     </label>
