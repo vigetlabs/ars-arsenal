@@ -83,7 +83,7 @@ class CollectionFetcher extends React.Component<Props, State> {
       queryString = nextProps.makeQuery(search)
 
       console.warn(
-        'ArsArsenal option makeQuery is deprecated. Use buildQuery instead.'
+        'ArsArsenal option makeQuery is deprecated. Use listQuery instead.'
       )
     }
 

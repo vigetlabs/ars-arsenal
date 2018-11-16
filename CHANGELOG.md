@@ -34,7 +34,7 @@ ArsArsenal.render({ listUrl, showUrl })
 **These are the default implementations of each option.** We anticipate
 that this change affects very few users.
 
-### `makeQuery` is now `buildQuery` and returns an object
+### `makeQuery` is now `listQuery` and returns an object
 
 With pagination, ArsArsenal must now manage multiple query
 parameters. For improved ergonomics, ArsArsenal now builds the query
@@ -55,7 +55,7 @@ Return an object:
 ```javascript
 const PAGE_SIZE = 10
 
-function buildQuery({ page, search, sort }) {
+function listQuery({ page, search, sort }) {
   // Return your pagination/search query implementation:
   let offset = page * PAGE_SIZE
   let limit = offset + PAGE_SIZE
@@ -72,10 +72,10 @@ sorting would cause a frustrating reordering of items as new data
 loads.
 
 To enable sorting, take advantage of the `sort` field in the
-`buildQuery` method:
+`listQuery` method:
 
 ```javascript
-function buildQuery({ page, search, sort }) {
+function listQuery({ page, search, sort }) {
   return { page, search, sort }
 }
 ```
