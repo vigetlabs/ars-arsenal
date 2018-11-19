@@ -93,9 +93,7 @@ describe('Picker', () => {
     })
 
     test('clears its picked state', () => {
-      component
-        .find('ClearButton')
-        .simulate('click')
+      component.find('ClearButton').simulate('click')
 
       expect(component).toHaveState('picked', [])
     })

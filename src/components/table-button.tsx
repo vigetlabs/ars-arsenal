@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Button from './ui/button'
-import TableIcon from '../icons/table-icon'
+import { TableIcon } from '../icons'
 
 interface Props {
   onClick: (type: String) => void

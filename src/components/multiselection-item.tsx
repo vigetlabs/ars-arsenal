@@ -5,8 +5,8 @@
 import * as React from 'react'
 import cx from 'classnames'
 import Image from './ui/image'
-import RefreshIcon from '../icons/refresh-icon'
 import LoadRecord from '../containers/load-record'
+import { RefreshIcon } from '../icons'
 import { ID, Record } from '../record'
 
 interface Props {

@@ -6,7 +6,7 @@ import * as React from 'react'
 import Button from './ui/button'
 import MultiSelectionItem from './multiselection-item'
 import SelectionText from './selection-text'
-import EditIcon from '../icons/edit-icon'
+import { EditIcon } from '../icons'
 import { ID } from '../record'
 
 interface Props {
