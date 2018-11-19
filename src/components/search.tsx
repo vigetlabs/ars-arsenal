@@ -3,8 +3,8 @@
  */
 
 import * as React from 'react'
-import SearchIcon from '../icons/search-icon'
 import { DataList } from './datalist'
+import { SearchIcon } from '../icons'
 import { Record } from '../record'
 
 interface Props {

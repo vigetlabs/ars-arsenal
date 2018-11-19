@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Button from './ui/button'
-import ClearIcon from '../icons/clear-icon'
+import { ClearIcon } from '../icons'
 
 interface Props {
   onClick: () => void
