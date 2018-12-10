@@ -144,8 +144,16 @@ class CollectionFetcher extends React.Component<Props, State> {
 
   accumulate(requests: Request[]): Record[] {
     let data = []
+    let newContent = requests.some(request => request.valid && !request.fetching)
 
     for (var i = 0; i < requests.length; i += 1) {
+      // Should we hit a case where new content is mixed with old, invalid content,
+      // Filter out invalid requests. But only do this if there is new content,
+      // otherwise the collection will flash empty while new results load in
+      if (newContent && !requests[i].valid) {
+        continue
+      }
+
       if (requests[i].fetching) {
         break
       }
