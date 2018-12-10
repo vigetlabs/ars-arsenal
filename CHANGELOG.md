@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.1.0
+
+- Update dependencies
+- Fixed React key issue where stale content could load along-side
+  fresh content, resulting in a key error
+
 ## 3.0.0
 
 This release adds pagination to ArsArsenal. In the process of doing this, we've made some breaking changes to the way URLs are constructed. For most users, this upgrade process should be minimal:
