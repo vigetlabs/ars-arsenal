@@ -1,12 +1,6 @@
 [
   {
     "attribution": "League of Legends",
-    "name": "Alistar",
-    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
-    "url": "images/alistar.jpg"
-  },
-  {
-    "attribution": "League of Legends",
     "name": "Brand",
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "url": "images/brand.jpg"
@@ -16,6 +10,12 @@
     "name": "Galio",
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "url": "images/galio.jpg"
+  },
+  {
+    "attribution": "League of Legends",
+    "name": "Alistar",
+    "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
+    "url": "images/alistar.jpg"
   },
   {
     "attribution": "League of Legends",
