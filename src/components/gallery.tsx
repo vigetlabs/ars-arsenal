@@ -6,7 +6,7 @@
 import * as React from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Figure from './figure'
-import Tag from './tag'
+import GalleryPanel from './gallery-panel'
 import { Record, ID } from '../record'
 import { itemAnimationDelay } from './animation'
 
@@ -18,8 +18,16 @@ interface Props {
   onTagClick: (tag: String) => void
 }
 
-export default class Gallery extends React.PureComponent<Props> {
+interface State {
+  focus: Record | null
+}
+
+export default class Gallery extends React.PureComponent<Props, State> {
   offset: number = 0
+
+  state: State = {
+    focus: null
+  }
 
   isPicked(id: ID) {
     const { picked } = this.props
@@ -52,37 +60,43 @@ export default class Gallery extends React.PureComponent<Props> {
           style={{ transitionDelay: delay + 'ms' }}
         >
           <Figure picked={isPicked} record={record} onClick={onPicked} />
-          <button className="ars-gallery-info">i</button>
+          <button
+            className="ars-gallery-info"
+            onClick={this.setFocus.bind(this, record)}
+          >
+            i
+          </button>
         </div>
       </CSSTransition>
     )
   }
 
-  renderTagList(record: Record) {
-    if (Array.isArray(record.tags) === false) {
-      return null
-    }
+  render() {
+    let { items, onKeyDown, onTagClick } = this.props
+    let { focus } = this.state
 
     return (
-      <div className="ars-gallery-item-tags">
-        {record.tags.map((tag, i) => (
-          <Tag key={i} tag={tag} onClick={this.props.onTagClick} />
-        ))}
+      <div className="ars-gallery-wrapper" onKeyDown={onKeyDown}>
+        <TransitionGroup
+          className="ars-gallery"
+          data-scroll-container="true"
+        >
+          {items.map(this.getItem, this)}
+        </TransitionGroup>
+        <GalleryPanel
+          record={focus}
+          onTagClick={onTagClick}
+          onExit={this.clearFocus}
+        />
       </div>
     )
   }
 
-  render() {
-    let { items, onKeyDown } = this.props
+  setFocus = (focus: Record) => {
+    this.setState({ focus })
+  }
 
-    return (
-      <TransitionGroup
-        className="ars-gallery"
-        onKeyDown={onKeyDown}
-        data-scroll-container="true"
-      >
-        {items.map(this.getItem, this)}
-      </TransitionGroup>
-    )
+  clearFocus = () => {
+    this.setState({ focus: null })
   }
 }
