@@ -69,6 +69,6 @@ export const DEFAULT_OPTIONS: ArsOptions = {
   multiselect: false,
   resource: 'Photo',
   mode: 'gallery',
-  columns: ['id', 'name', 'caption', 'attribution', 'preview'],
+  columns: ['id', 'name', 'caption', 'attribution', 'tags', 'preview'],
   request: request
 }

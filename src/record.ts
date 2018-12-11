@@ -6,6 +6,7 @@ export interface Record {
   name: string
   attribution: string
   url: string
+  tags: string[]
 }
 
 export const EmptyRecord: Record = {
@@ -13,5 +14,6 @@ export const EmptyRecord: Record = {
   caption: '',
   name: '',
   attribution: '',
-  url: ''
+  url: '',
+  tags: []
 }

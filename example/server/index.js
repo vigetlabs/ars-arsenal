@@ -42,7 +42,7 @@ function index(query, success, error) {
     let term = new RegExp(escape(query.term), 'i')
 
     payload = payload.filter(function(photo) {
-      return term.test(photo.name)
+      return term.test(photo.name) || photo.tags.some(tag => term.test(tag))
     })
   }
 

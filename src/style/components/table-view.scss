@@ -1,7 +1,5 @@
 .ars-table-wrapper {
   box-shadow: 0 -1px 0 rgba(#000, 0.12);
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
   margin-top: 9px;
   overflow: auto;
@@ -32,9 +30,9 @@
 .ars-table td,
 .ars-table th {
   text-align: left;
-  padding: 8px 32px 8px 0;
+  padding: 8px 16px 8px 0;
   min-height: 48px;
-  min-width: 150px;
+  max-width: 200px;
 
   &[hidden] {
     display: none;
@@ -59,24 +57,24 @@
 
 .ars-table .ars-table-id {
   min-width: 0;
-  padding-right: 24px;
   width: 48px;
   text-align: center;
 }
 
 .ars-table .ars-table-preview,
 .ars-table .ars-table-selection {
-  min-width: 0;
   width: 48px;
 }
 
 .ars-table .ars-table-name {
-  width: auto;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .ars-table .ars-table-selection {
   min-width: 0;
-  padding: 16px 24px 16px 24px;
+  padding: 16px;
 }
 
 .ars-table-imagebox {

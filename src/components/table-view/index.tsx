@@ -2,8 +2,9 @@ import * as React from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import TableHeading from './table-heading'
 import Checker from './checker'
+import Tag from './tag'
 import cx from 'classnames'
-import { ArsColumn, SortableColumn } from '../../options'
+import { ArsColumn, SortableColumn, DEFAULT_OPTIONS } from '../../options'
 import { Record, ID } from '../../record'
 import { itemAnimationDelay } from '../animation'
 
@@ -16,6 +17,7 @@ interface Props {
   onKeyDown: (event: React.SyntheticEvent) => void
   onPicked: (ids: ID | ID[]) => void
   onSort: (field: SortableColumn) => void
+  onTagClick: (tag: String) => void
 }
 
 class TableView extends React.Component<Props, null> {
@@ -24,11 +26,12 @@ class TableView extends React.Component<Props, null> {
   static defaultProps: Props = {
     picked: [],
     items: [],
-    columns: ['id', 'name', 'caption', 'attribution', 'preview'],
+    columns: DEFAULT_OPTIONS.columns,
     multiselect: false,
     onKeyDown: event => {},
     onPicked: ids => {},
     onSort: field => {},
+    onTagClick: tag => {},
     sort: 'id'
   }
 
@@ -43,8 +46,8 @@ class TableView extends React.Component<Props, null> {
   }
 
   renderRow(item: Record, index: number, list: Record[]) {
-    const { id, name, attribution, caption, url } = item
-    const { multiselect, onPicked } = this.props
+    const { id, name, attribution, caption, url, tags } = item
+    const { multiselect, onPicked, onTagClick } = this.props
 
     let className = cx({
       'ars-table-animate': !this.mounted
@@ -72,7 +75,11 @@ class TableView extends React.Component<Props, null> {
         <td className="ars-table-id" hidden={!this.canRender('id')}>
           {id}
         </td>
-        <td className="ars-table-name" hidden={!this.canRender('name')}>
+        <td
+          className="ars-table-name"
+          hidden={!this.canRender('name')}
+          title={name}
+        >
           {name}
         </td>
         <td className="ars-table-caption" hidden={!this.canRender('caption')}>
@@ -83,6 +90,11 @@ class TableView extends React.Component<Props, null> {
           hidden={!this.canRender('attribution')}
         >
           {attribution}
+        </td>
+        <td className="ars-table-caption" hidden={!this.canRender('tags')}>
+          {tags.map((tag, i) => (
+            <Tag tag={tag} key={i} onClick={this.props.onTagClick} />
+          ))}
         </td>
         <td className="ars-table-preview" hidden={!this.canRender('preview')}>
           <div className="ars-table-imagebox">
@@ -162,6 +174,13 @@ class TableView extends React.Component<Props, null> {
                 onSort={this.changeSort}
               >
                 Attribution
+              </TableHeading>
+              <TableHeading
+                field="tags"
+                active={false}
+                show={this.canRender('tags')}
+              >
+                Tags
               </TableHeading>
               <TableHeading
                 field="preview"

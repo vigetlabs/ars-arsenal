@@ -40,10 +40,7 @@ export default class MultiSelectionItem extends React.Component<Props> {
 
   render() {
     return (
-      <LoadRecord
-        id={this.props.id}
-        render={this.renderContent.bind(this)}
-      />
+      <LoadRecord id={this.props.id} render={this.renderContent.bind(this)} />
     )
   }
 }

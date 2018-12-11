@@ -19,14 +19,14 @@ const TableHeading: React.SFC<Props> = props => {
   })
 
   return (
-    <th className={className} onClick={onSort.bind(null, field)} hidden={!show}>
+    <th
+      className={className}
+      onClick={onSort && onSort.bind(null, field)}
+      hidden={!show}
+    >
       {children}
     </th>
   )
-}
-
-TableHeading.defaultProps = {
-  onSort: (string: ArsColumn) => {}
 }
 
 export default TableHeading

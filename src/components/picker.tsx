@@ -28,7 +28,8 @@ interface Props {
 interface State {
   mode: 'gallery' | 'table'
   picked: ID[]
-  search: string
+  currentSearch: string
+  queriedSearch: string
   sort: SortableColumn
 }
 
@@ -47,7 +48,8 @@ export default class Picker extends React.Component<Props, State> {
     this.state = {
       mode: props.mode,
       picked: props.picked,
-      search: '',
+      currentSearch: '',
+      queriedSearch: '',
       sort: 'id'
     }
   }
@@ -59,10 +61,10 @@ export default class Picker extends React.Component<Props, State> {
 
   renderItems(data: Record[], fetching: boolean) {
     const { columns, multiselect } = this.props
-    const { mode, picked, search, sort } = this.state
+    const { mode, picked, currentSearch, queriedSearch, sort } = this.state
 
     if (data.length === 0) {
-      return <Empty search={search} fetching={fetching} />
+      return <Empty search={queriedSearch} fetching={fetching} />
     }
 
     if (mode === 'table') {
@@ -76,6 +78,7 @@ export default class Picker extends React.Component<Props, State> {
           onSort={this.onSort.bind(this)}
           onPicked={this.onPicked.bind(this)}
           onKeyDown={this.onKeyDown.bind(this)}
+          onTagClick={this.onTagClick.bind(this)}
         />
       )
     }
@@ -88,6 +91,10 @@ export default class Picker extends React.Component<Props, State> {
         onKeyDown={this.onKeyDown.bind(this)}
       />
     )
+  }
+
+  onTagClick(tag: string) {
+    this.setState({ currentSearch: tag, queriedSearch: tag })
   }
 
   onSort(sort: SortableColumn) {
@@ -109,12 +116,17 @@ export default class Picker extends React.Component<Props, State> {
     error: Error | null
   }) {
     const { onExit } = this.props
-    const { mode } = this.state
+    const { mode, currentSearch } = this.state
 
     return (
       <FocusTrap className="ars-dialog" onExit={onExit}>
         <header className="ars-dialog-header">
-          <Search data={data} onChange={this.onSearchChange.bind(this)} />
+          <Search
+            data={data}
+            search={currentSearch}
+            onChange={this.onSearchChange.bind(this)}
+            onQuery={this.onQueryChange.bind(this)}
+          />
 
           <Button
             className="ars-dialog-gallery"
@@ -164,12 +176,12 @@ export default class Picker extends React.Component<Props, State> {
   }
 
   render() {
-    let { sort, search } = this.state
+    let { sort, queriedSearch } = this.state
 
     return (
       <LoadCollection
         sort={sort}
-        search={search}
+        search={queriedSearch}
         render={this.renderContent.bind(this)}
       />
     )
@@ -179,8 +191,12 @@ export default class Picker extends React.Component<Props, State> {
     this.setState({ picked: [] })
   }
 
-  private onSearchChange(search: string) {
-    this.setState({ search })
+  private onSearchChange(currentSearch: string) {
+    this.setState({ currentSearch })
+  }
+
+  private onQueryChange(queriedSearch: string) {
+    this.setState({ queriedSearch })
   }
 
   private onPicked(picked: ID, shouldAdd: Boolean) {
