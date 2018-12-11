@@ -1,6 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
@@ -29,8 +28,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css'
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
   ],
 
   module: {
@@ -67,6 +65,6 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
     publicPath: '/',
-    port: process.env.PORT || 3000
+    port: 3000
   }
 }

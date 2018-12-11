@@ -11,7 +11,7 @@
     "name": "Galio has a very long title of which gets truncated",
     "caption": "Lorem ipsum dolor sit amet, in nec nulla dolor, ea oratio prompta invenire mel, has eu hinc semper. ",
     "url": "images/galio.jpg",
-    "tags": ["league", "tag-2"]
+    "tags": ["league", "tag-2", "lots-of-chars-what-even", "more-keys", "even-more-tags"]
   },
   {
     "attribution": "League of Legends",

@@ -18,7 +18,7 @@ interface Props {
 
 export default class Selection extends React.Component<Props, {}> {
   getPhoto(data: Record | null) {
-    let showPhoto = data != null && this.props.id
+    let showPhoto = data != null && this.props.id != null
     return showPhoto ? <SelectionFigure item={data} /> : null
   }
 
