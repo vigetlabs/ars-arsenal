@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.2.2
+
+- Fix cases where truncated text broke operating on nully values
+
 ## 3.2.1
 
 - New buttons are now typed as "button" to prevent form submission

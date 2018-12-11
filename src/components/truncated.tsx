@@ -6,7 +6,7 @@ interface TruncatedProps {
 }
 
 const Truncated: React.SFC<TruncatedProps> = ({ text, limit }) => {
-  let shortText = text.slice(0, limit)
+  let shortText = (text || '').slice(0, limit)
 
   if (shortText === text) {
     return <>{text}</>
