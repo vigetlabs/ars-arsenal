@@ -190,17 +190,6 @@ class CollectionFetcher extends React.Component<Props, State> {
     return errors ? errors.pop() : null
   }
 
-  dataDidChange(last: Record[], next: Record[]) {
-    if (last.length != next.length) {
-      return true
-    }
-
-    return last.every((left, i) => {
-      let right = next[i]
-      return right && right.id !== left.id
-    })
-  }
-
   commit() {
     this.setState({
       data: this.accumulate(this.requests),
