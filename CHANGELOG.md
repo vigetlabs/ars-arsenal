@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.2.3
+
+- Do not show ellipsis for nully text values
+
 ## 3.2.2
 
 - Fix cases where truncated text broke operating on nully values

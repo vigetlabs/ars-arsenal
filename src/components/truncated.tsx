@@ -6,15 +6,16 @@ interface TruncatedProps {
 }
 
 const Truncated: React.SFC<TruncatedProps> = ({ text, limit }) => {
-  let shortText = (text || '').slice(0, limit)
+  let fullText = `${text || ''}`.trim()
+  let shortText = fullText.slice(0, limit)
 
-  if (shortText === text) {
-    return <>{text}</>
+  if (shortText === fullText) {
+    return <span>{fullText}</span>
   }
 
   return (
-    <abbr className="ars-truncated" title={text}>
-      {shortText}…
+    <abbr className="ars-truncated" title={fullText}>
+      {shortText.trim()}…
     </abbr>
   )
 }
