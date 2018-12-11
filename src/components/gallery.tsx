@@ -77,10 +77,7 @@ export default class Gallery extends React.PureComponent<Props, State> {
 
     return (
       <div className="ars-gallery-wrapper" onKeyDown={onKeyDown}>
-        <TransitionGroup
-          className="ars-gallery"
-          data-scroll-container="true"
-        >
+        <TransitionGroup className="ars-gallery" data-scroll-container="true">
           {items.map(this.getItem, this)}
         </TransitionGroup>
         <GalleryPanel

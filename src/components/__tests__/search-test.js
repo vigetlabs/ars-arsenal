@@ -7,7 +7,9 @@ jest.useFakeTimers()
 describe('Search', () => {
   test('triggers a blank search below 2 characters', () => {
     let callback = jest.fn()
-    let component = mount(<Search onQuery={callback} onChange={jest.fn()} search="" />)
+    let component = mount(
+      <Search onQuery={callback} onChange={jest.fn()} search="" />
+    )
 
     component.find('input').simulate('change')
 
@@ -19,7 +21,9 @@ describe('Search', () => {
 
   test('triggers the full term above 2 characters', () => {
     let callback = jest.fn()
-    let component = mount(<Search onQuery={callback} onChange={jest.fn()} search="Large Enough" />)
+    let component = mount(
+      <Search onQuery={callback} onChange={jest.fn()} search="Large Enough" />
+    )
 
     component
       .find('input')
@@ -33,7 +37,9 @@ describe('Search', () => {
 
   test('traps submit events and calls onQuery', () => {
     let callback = jest.fn()
-    let component = mount(<Search onQuery={callback} onChange={jest.fn()} search="Large Enough" />)
+    let component = mount(
+      <Search onQuery={callback} onChange={jest.fn()} search="Large Enough" />
+    )
 
     component
       .find('input')
@@ -49,7 +55,9 @@ describe('Search', () => {
 
   test('clears search on escape', () => {
     let callback = jest.fn()
-    let component = mount(<Search onQuery={callback} onChange={jest.fn()} search="" />)
+    let component = mount(
+      <Search onQuery={callback} onChange={jest.fn()} search="" />
+    )
 
     component.find('input').simulate('keyup', { key: 'Escape' })
 
