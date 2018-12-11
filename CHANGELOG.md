@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.2.1
+
+- New buttons are now typed as "button" to prevent form submission
+
 ## 3.2.0
 
 In this release, we've made some updates to improve animations and have introduced the concept of tags.

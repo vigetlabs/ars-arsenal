@@ -62,6 +62,7 @@ export default class Gallery extends React.PureComponent<Props, State> {
           <Figure picked={isPicked} record={record} onClick={onPicked} />
           <button
             className="ars-gallery-info"
+            type="button"
             onClick={this.setFocus.bind(this, record)}
           >
             i

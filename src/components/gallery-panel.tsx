@@ -42,6 +42,7 @@ const GalleryPanel: React.SFC<GalleryPanelProps> = ({
       <button
         className="ars-gallery-panel-close"
         title="Close this panel"
+        type="button"
         onClick={onExit}
       >
         <span className="ars-hidden">Close this panel</span>
