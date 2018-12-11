@@ -8,11 +8,9 @@ import { Record } from '../record'
 
 interface Props {
   data: Record[]
-  onChange(search: string): void
-}
-
-interface State {
   search: string
+  onChange(search: string): void
+  onQuery(search: string): void
 }
 
 let uid = 0
@@ -23,19 +21,9 @@ const THRESHOLD = 2
 // The minimum time between change events
 const INTERVAL = 150
 
-export default class Search extends React.Component<Props, State> {
-  id: number
-  timer?: number
-
-  constructor(props: Props) {
-    super(props)
-
-    this.id = uid++
-
-    this.state = {
-      search: ''
-    }
-  }
+export default class Search extends React.Component<Props> {
+  id: number = uid++
+  timer: number = null
 
   componentWillUnmount() {
     window.clearTimeout(this.timer)
@@ -56,7 +44,7 @@ export default class Search extends React.Component<Props, State> {
           type="search"
           className="ars-search-input"
           placeholder="Search"
-          value={this.state.search}
+          value={this.props.search}
           onChange={this.onChange.bind(this)}
           onKeyUp={this.onKeyUp.bind(this)}
         />
@@ -70,13 +58,14 @@ export default class Search extends React.Component<Props, State> {
     clearTimeout(this.timer)
 
     this.timer = window.setTimeout(() => {
-      const { search } = this.state
-      this.props.onChange(search.length >= THRESHOLD ? search : '')
+      const { search } = this.props
+      this.props.onQuery(search.length >= THRESHOLD ? search : '')
     }, INTERVAL)
   }
 
   private onChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ search: event.target.value }, this.update.bind(this))
+    this.props.onChange(event.target.value)
+    this.update()
   }
 
   private onSubmit(event: React.FormEvent) {

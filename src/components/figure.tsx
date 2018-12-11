@@ -27,7 +27,7 @@ const Figure: React.SFC<Props> = ({ record, picked, onClick }) => {
 
   return (
     <button className={className} onClick={clickHandler}>
-      <Image className="ars-fig-img" src={record.url} />
+      <Image key={record.url} className="ars-fig-img" src={record.url} />
       <span className="ars-fig-caption">{record.name}</span>
       <Ink opacity={0.4} />
     </button>

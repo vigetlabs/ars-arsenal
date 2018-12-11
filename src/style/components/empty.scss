@@ -3,3 +3,9 @@
   padding: 24px 12px;
   flex-grow: 1;
 }
+
+.ars-empty.ars-lag {
+  animation: 0.3s ars-fade-in 200ms;
+  animation-fill-mode: both;
+  opacity: 0;
+}

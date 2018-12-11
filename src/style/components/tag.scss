@@ -1,0 +1,23 @@
+/**
+ * Tags appear on the table view. They make it easy to search by a particular category.
+ * Follows https://material.io/design/components/chips.html
+ */
+
+.ars-tag {
+  background: #e3e3e3;
+  border-radius: 24px;
+  border: 1px solid #dddddd;
+  cursor: pointer;
+  font-size: 12px;
+  color: $ars-text-dark;
+  margin: 0 4px 4px 0;
+  padding: 4px 8px;
+  transition: 0.2s all;
+}
+
+.ars-tag:hover,
+.ars-tag:focus {
+  background: $ars-primary;
+  border-color: darken($ars-primary, 5%);
+  color: $ars-text-light;
+}

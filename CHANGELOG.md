@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 3.2.0
+
+In this release, we've made some updates to improve animations and have introduced the concept of tags.
+
+Tags allow a user to quickly search by a particular term. They can click a tag to pre-populate search
+with the given tag.
+
+Additionally, we've added a panel to the gallery view that allows a user to see more information about
+a picture without needing to go to the table view.
+
 ## 3.1.0
 
 - Update dependencies

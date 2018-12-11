@@ -144,7 +144,9 @@ class CollectionFetcher extends React.Component<Props, State> {
 
   accumulate(requests: Request[]): Record[] {
     let data = []
-    let newContent = requests.some(request => request.valid && !request.fetching)
+    let newContent = requests.some(
+      request => request.valid && !request.fetching
+    )
 
     for (var i = 0; i < requests.length; i += 1) {
       // Should we hit a case where new content is mixed with old, invalid content,

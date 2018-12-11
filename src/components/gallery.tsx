@@ -4,10 +4,9 @@
  */
 
 import * as React from 'react'
-import { findDOMNode } from 'react-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Figure from './figure'
-import cx from 'classnames'
+import GalleryPanel from './gallery-panel'
 import { Record, ID } from '../record'
 import { itemAnimationDelay } from './animation'
 
@@ -16,62 +15,85 @@ interface Props {
   picked: ID[]
   onPicked: (id: ID) => void
   onKeyDown: (event: React.KeyboardEvent) => void
+  onTagClick: (tag: String) => void
 }
 
-export default class Gallery extends React.Component<Props> {
-  mounted: boolean
-  container: HTMLElement
+interface State {
+  focus: Record | null
+}
 
-  componentDidMount() {
-    this.mounted = true
+export default class Gallery extends React.PureComponent<Props, State> {
+  offset: number = 0
+
+  state: State = {
+    focus: null
   }
 
   isPicked(id: ID) {
     const { picked } = this.props
 
-    return Array.isArray(picked) ? picked.indexOf(id) >= 0 : id === picked
+    return picked.indexOf(id) >= 0
+  }
+
+  trackMount = (index: number) => {
+    this.offset = Math.max(this.offset, itemAnimationDelay(index))
   }
 
   getItem(record: Record, index: number, list: Record[]) {
-    const { onPicked, picked } = this.props
+    const { onPicked } = this.props
 
     let isPicked = this.isPicked(record.id)
-
-    let className = cx('ars-gallery-item', {
-      'ars-gallery-animate': !this.mounted
-    })
-
-    let animationDelay = itemAnimationDelay(index)
+    let delay = Math.max(0, itemAnimationDelay(index) - this.offset)
 
     return (
       <CSSTransition
-        key={record.id}
-        classNames="ars-figure"
-        timeout={480}
+        key={index}
+        appear={true}
+        classNames="ars-gallery"
+        timeout={delay + 400}
+        onEntered={this.trackMount.bind(this, index)}
         unmountOnExit={true}
       >
         <div
-          className={className}
-          style={{ animationDelay }}
+          className="ars-gallery-item"
           data-scroll={index == list.length - 1}
+          style={{ transitionDelay: delay + 'ms' }}
         >
           <Figure picked={isPicked} record={record} onClick={onPicked} />
+          <button
+            className="ars-gallery-info"
+            onClick={this.setFocus.bind(this, record)}
+          >
+            i
+          </button>
         </div>
       </CSSTransition>
     )
   }
 
   render() {
-    let { items, onKeyDown } = this.props
+    let { items, onKeyDown, onTagClick } = this.props
+    let { focus } = this.state
 
     return (
-      <TransitionGroup
-        className="ars-gallery"
-        onKeyDown={onKeyDown}
-        data-scroll-container="true"
-      >
-        {items.map(this.getItem, this)}
-      </TransitionGroup>
+      <div className="ars-gallery-wrapper" onKeyDown={onKeyDown}>
+        <TransitionGroup className="ars-gallery" data-scroll-container="true">
+          {items.map(this.getItem, this)}
+        </TransitionGroup>
+        <GalleryPanel
+          record={focus}
+          onTagClick={onTagClick}
+          onExit={this.clearFocus}
+        />
+      </div>
     )
+  }
+
+  setFocus = (focus: Record) => {
+    this.setState({ focus })
+  }
+
+  clearFocus = () => {
+    this.setState({ focus: null })
   }
 }

@@ -10,8 +10,7 @@ import FocusTrap from 'react-focus-trap'
 import Gallery from './gallery'
 import Search from './search'
 import TableView from './table-view'
-import LoadCollection from '../containers/load-collection'
-import ScrollMonitor from './scroll-monitor'
+import LoadCollection, { CollectionResult } from '../containers/load-collection'
 import Empty from './empty'
 import { ID, Record } from '../record'
 import { ArsColumn, SortableColumn, ArsMode } from '../options'
@@ -28,11 +27,12 @@ interface Props {
 interface State {
   mode: 'gallery' | 'table'
   picked: ID[]
-  search: string
+  currentSearch: string
+  queriedSearch: string
   sort: SortableColumn
 }
 
-export default class Picker extends React.Component<Props, State> {
+export default class Picker extends React.PureComponent<Props, State> {
   static defaultProps: Props = {
     mode: 'gallery',
     multiselect: false,
@@ -47,7 +47,8 @@ export default class Picker extends React.Component<Props, State> {
     this.state = {
       mode: props.mode,
       picked: props.picked,
-      search: '',
+      currentSearch: '',
+      queriedSearch: '',
       sort: 'id'
     }
   }
@@ -59,10 +60,10 @@ export default class Picker extends React.Component<Props, State> {
 
   renderItems(data: Record[], fetching: boolean) {
     const { columns, multiselect } = this.props
-    const { mode, picked, search, sort } = this.state
+    const { mode, picked, queriedSearch, sort } = this.state
 
     if (data.length === 0) {
-      return <Empty search={search} fetching={fetching} />
+      return <Empty search={queriedSearch} fetching={fetching} />
     }
 
     if (mode === 'table') {
@@ -73,9 +74,10 @@ export default class Picker extends React.Component<Props, State> {
           multiselect={multiselect}
           picked={picked}
           sort={sort}
-          onSort={this.onSort.bind(this)}
-          onPicked={this.onPicked.bind(this)}
-          onKeyDown={this.onKeyDown.bind(this)}
+          onSort={this.onSort}
+          onPicked={this.onPicked}
+          onKeyDown={this.onKeyDown}
+          onTagClick={this.onTagClick}
         />
       )
     }
@@ -84,37 +86,26 @@ export default class Picker extends React.Component<Props, State> {
       <Gallery
         items={data}
         picked={picked}
-        onPicked={this.onPicked.bind(this)}
-        onKeyDown={this.onKeyDown.bind(this)}
+        onPicked={this.onPicked}
+        onKeyDown={this.onKeyDown}
+        onTagClick={this.onTagClick}
       />
     )
   }
 
-  onSort(sort: SortableColumn) {
-    this.setState({ sort })
-  }
-
-  setMode(mode: 'gallery' | 'table', event: React.SyntheticEvent) {
-    event.preventDefault()
-    this.setState({ mode })
-  }
-
-  renderContent({
-    data,
-    fetching,
-    error
-  }: {
-    data: Record[]
-    fetching: boolean
-    error: Error | null
-  }) {
+  renderContent = ({ data, fetching, error }: CollectionResult) => {
     const { onExit } = this.props
-    const { mode } = this.state
+    const { mode, currentSearch } = this.state
 
     return (
       <FocusTrap className="ars-dialog" onExit={onExit}>
         <header className="ars-dialog-header">
-          <Search data={data} onChange={this.onSearchChange.bind(this)} />
+          <Search
+            data={data}
+            search={currentSearch}
+            onChange={this.onSearchChange}
+            onQuery={this.onQueryChange}
+          />
 
           <Button
             className="ars-dialog-gallery"
@@ -147,7 +138,7 @@ export default class Picker extends React.Component<Props, State> {
             </Button>
           </div>
           <div>
-            <Button className="ars-dialog-cancel" onClick={this.props.onExit}>
+            <Button className="ars-dialog-cancel" onClick={onExit}>
               Cancel
             </Button>
             <Button
@@ -164,34 +155,51 @@ export default class Picker extends React.Component<Props, State> {
   }
 
   render() {
-    let { sort, search } = this.state
+    let { sort, queriedSearch } = this.state
 
     return (
       <LoadCollection
         sort={sort}
-        search={search}
-        render={this.renderContent.bind(this)}
+        search={queriedSearch}
+        render={this.renderContent}
       />
     )
   }
 
-  private onClear() {
+  onTagClick = (tag: string) => {
+    this.setState({ currentSearch: tag, queriedSearch: tag })
+  }
+
+  onSort = (sort: SortableColumn) => {
+    this.setState({ sort })
+  }
+
+  setMode = (mode: 'gallery' | 'table', event: React.SyntheticEvent) => {
+    event.preventDefault()
+    this.setState({ mode })
+  }
+
+  onClear = () => {
     this.setState({ picked: [] })
   }
 
-  private onSearchChange(search: string) {
-    this.setState({ search })
+  onSearchChange = (currentSearch: string) => {
+    this.setState({ currentSearch })
   }
 
-  private onPicked(picked: ID, shouldAdd: Boolean) {
-    this.setState({
-      picked: this.props.multiselect
-        ? this.onMultiPicked([].concat(picked), shouldAdd)
-        : [picked]
-    })
+  onQueryChange = (queriedSearch: string) => {
+    this.setState({ queriedSearch })
   }
 
-  private onMultiPicked(picked: ID[], shouldAdd: Boolean): ID[] {
+  onPicked = (picked: ID, shouldAdd?: Boolean) => {
+    let next = this.props.multiselect
+      ? this.onMultiPicked([].concat(picked), shouldAdd)
+      : [picked]
+
+    this.setState({ picked: next })
+  }
+
+  onMultiPicked(picked: ID[], shouldAdd: Boolean): ID[] {
     let pool = new Set(this.state.picked || [])
 
     picked.forEach(function(item) {
@@ -208,12 +216,12 @@ export default class Picker extends React.Component<Props, State> {
     return next
   }
 
-  private onConfirm(event: React.SyntheticEvent) {
+  onConfirm = (event: React.SyntheticEvent) => {
     event.preventDefault()
     this.confirm()
   }
 
-  private onKeyDown(event: React.KeyboardEvent) {
+  onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
       event.preventDefault()
       event.stopPropagation()

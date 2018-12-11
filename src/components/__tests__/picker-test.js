@@ -10,7 +10,7 @@ describe('Picker', () => {
 
   function clickGalleryItem(index) {
     component
-      .find('Gallery .ars-gallery-item button')
+      .find('Gallery .ars-gallery-item Figure')
       .at(index)
       .simulate('click')
   }
@@ -29,7 +29,7 @@ describe('Picker', () => {
 
       jest.runAllTimers()
 
-      expect(component).toHaveState('search', 'test')
+      expect(component).toHaveState('currentSearch', 'test')
     })
   })
 

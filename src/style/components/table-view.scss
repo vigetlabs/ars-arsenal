@@ -1,40 +1,44 @@
 .ars-table-wrapper {
   box-shadow: 0 -1px 0 rgba(#000, 0.12);
-  display: flex;
-  flex-direction: column;
   flex-grow: 1;
   margin-top: 9px;
   overflow: auto;
-  padding: 8px 9px;
 }
 
 .ars-table {
-  @extend %ars-paper;
+  background: white;
   border-collapse: collapse;
   color: $ars-text-dark;
   font-size: 13px;
   width: 100%;
 }
 
-.ars-table tbody tr {
-  box-shadow: 0 -1px 0 rgba(#000, 0.08);
+.ars-table-row {
+  box-shadow: 0 -1px 0 rgba(#000, 0.12);
   transition: 0.2s all;
   position: relative;
   will-change: all;
 
   &:hover {
     background: $ars-grey-200;
-    box-shadow: inset 0 1px 0 rgba(#000, 0.08);
+    box-shadow: inset 0 1px 0 rgba(#000, 0.12);
     z-index: 1;
   }
+}
+
+.ars-table-selected,
+.ars-table-selected:hover {
+  background: rgba($ars-primary, 0.2);
+  box-shadow: inset 0 1px 0 rgba(darken($ars-primary, 20%), 0.2);
+  z-index: 1;
 }
 
 .ars-table td,
 .ars-table th {
   text-align: left;
-  padding: 8px 32px 8px 0;
+  padding: 8px 16px 8px 0;
   min-height: 48px;
-  min-width: 150px;
+  width: 150px;
 
   &[hidden] {
     display: none;
@@ -42,15 +46,15 @@
 }
 
 .ars-table td:last-child {
-  padding-right: 24px;
+  padding-right: 16px;
 }
 
 .ars-table thead th {
   color: $ars-muted-dark;
   font-size: 12px;
-  text-align: left;
   padding-top: 16px;
   padding-bottom: 16px;
+  text-align: left;
 }
 
 .ars-table-stretch {
@@ -59,24 +63,19 @@
 
 .ars-table .ars-table-id {
   min-width: 0;
-  padding-right: 24px;
   width: 48px;
   text-align: center;
 }
 
 .ars-table .ars-table-preview,
 .ars-table .ars-table-selection {
-  min-width: 0;
   width: 48px;
-}
-
-.ars-table .ars-table-name {
-  width: auto;
 }
 
 .ars-table .ars-table-selection {
   min-width: 0;
-  padding: 16px 24px 16px 24px;
+  padding: 16px 20px;
+  width: 24px;
 }
 
 .ars-table-imagebox {
@@ -121,6 +120,8 @@
 
   input {
     cursor: pointer;
+    display: block;
+    margin: 0;
     position: relative;
     z-index: 1;
   }

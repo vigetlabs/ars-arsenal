@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import TableHeading from './table-heading'
 import Checker from './checker'
+import Tag from '../tag'
+import Truncated from '../truncated'
 import cx from 'classnames'
-import { ArsColumn, SortableColumn } from '../../options'
+import { ArsColumn, SortableColumn, DEFAULT_OPTIONS } from '../../options'
 import { Record, ID } from '../../record'
 import { itemAnimationDelay } from '../animation'
 
@@ -14,44 +15,54 @@ interface Props {
   picked: ID[]
   sort: SortableColumn
   onKeyDown: (event: React.SyntheticEvent) => void
-  onPicked: (ids: ID | ID[]) => void
+  onPicked: (ids: ID) => void
   onSort: (field: SortableColumn) => void
+  onTagClick: (tag: String) => void
 }
 
-class TableView extends React.Component<Props, null> {
-  mounted?: boolean
+class TableView extends React.PureComponent<Props, null> {
+  mounted?: boolean = false
+  timer?: NodeJS.Timeout = null
 
   static defaultProps: Props = {
     picked: [],
     items: [],
-    columns: ['id', 'name', 'caption', 'attribution', 'preview'],
+    columns: DEFAULT_OPTIONS.columns,
     multiselect: false,
     onKeyDown: event => {},
     onPicked: ids => {},
     onSort: field => {},
-    sort: 'id'
+    onTagClick: tag => {},
+    sort: null
   }
 
-  componentDidMount() {
-    this.mounted = true
+  componentDidUpdate() {
+    if (this.mounted) {
+      return true
+    }
+
+    clearTimeout(this.timer)
+
+    this.timer = setTimeout(() => {
+      this.mounted = true
+    }, itemAnimationDelay(this.props.items.length))
   }
 
   isPicked(id: ID) {
-    const { picked } = this.props
-
-    return Array.isArray(picked) ? picked.indexOf(id) >= 0 : id === picked
+    return this.props.picked.indexOf(id) >= 0
   }
 
   renderRow(item: Record, index: number, list: Record[]) {
-    const { id, name, attribution, caption, url } = item
-    const { multiselect, onPicked } = this.props
+    const { id, name, attribution, caption, url, tags } = item
+    const { multiselect, onPicked, onTagClick } = this.props
 
-    let className = cx({
-      'ars-table-animate': !this.mounted
-    })
-
-    let animationDelay = itemAnimationDelay(index)
+    let animationDelay = itemAnimationDelay(index) + 'ms'
     let checked = this.isPicked(id)
+
+    let className = cx('ars-table-row', {
+      'ars-table-animate': !this.mounted,
+      'ars-table-selected': checked
+    })
 
     return (
       <tr
@@ -72,17 +83,24 @@ class TableView extends React.Component<Props, null> {
         <td className="ars-table-id" hidden={!this.canRender('id')}>
           {id}
         </td>
-        <td className="ars-table-name" hidden={!this.canRender('name')}>
-          {name}
+        <td
+          className="ars-table-name"
+          hidden={!this.canRender('name')}
+          title={name}
+        >
+          <Truncated text={name} />
         </td>
         <td className="ars-table-caption" hidden={!this.canRender('caption')}>
-          {caption}
+          <Truncated text={caption} />
         </td>
         <td
           className="ars-table-attribution"
           hidden={!this.canRender('attribution')}
         >
-          {attribution}
+          <Truncated text={attribution} />
+        </td>
+        <td className="ars-table-tags" hidden={!this.canRender('tags')}>
+          {this.renderTagList(item)}
         </td>
         <td className="ars-table-preview" hidden={!this.canRender('preview')}>
           <div className="ars-table-imagebox">
@@ -92,7 +110,15 @@ class TableView extends React.Component<Props, null> {
       </tr>
     )
   }
+  renderTagList(record: Record) {
+    if (Array.isArray(record.tags) === false) {
+      return null
+    }
 
+    return record.tags.map((tag, i) => (
+      <Tag key={i} tag={tag} onClick={this.props.onTagClick} />
+    ))
+  }
   changeSort = (field: SortableColumn) => {
     this.props.onSort(field)
   }
@@ -162,6 +188,13 @@ class TableView extends React.Component<Props, null> {
                 onSort={this.changeSort}
               >
                 Attribution
+              </TableHeading>
+              <TableHeading
+                field="tags"
+                active={false}
+                show={this.canRender('tags')}
+              >
+                Tags
               </TableHeading>
               <TableHeading
                 field="preview"
