@@ -146,7 +146,8 @@ ArsArsenal expects the following data format:
     "attribution": "League of Legends",
     "name": "Alistar",
     "caption": "Lorem ipsum dolor sit amet",
-    "url": "images/alistar.jpg"
+    "url": "images/alistar.jpg",
+    "tags": ["blue", "cunning"]
   }
   //...
 ]
@@ -163,7 +164,8 @@ let options = {
         attribution: record.credit,
         name: record.title,
         caption: record.caption,
-        url: record.imageSrc
+        url: record.imageSrc,
+        tags: record.tags
       }
     })
   }
