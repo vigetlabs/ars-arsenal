@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.2.4
+
+- Fix an overflow bug in Chrome 72 where gallery items extended past container
+
 ## 3.2.3
 
 - Do not show ellipsis for nully text values
