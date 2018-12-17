@@ -2,6 +2,9 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  // Note: this is important to avoid an overflow bug in Chrome 72 where gallery
+  // items incorrectly extend further than their container.
+  overflow: hidden;
 }
 
 .ars-gallery {
