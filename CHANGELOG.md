@@ -3,6 +3,7 @@
 ## 3.2.4
 
 - Fix an overflow bug in Chrome 72 where gallery items extended past container
+- Remove incorrect border on search box in Safari
 
 ## 3.2.3
 
