@@ -8,24 +8,26 @@ interface Props {
 
 class ScrollMonitor extends React.Component<Props, null> {
   teardown = () => {}
-  lastChild: Element = null
+  lastChild: HTMLElement = null
+  container: HTMLElement = null
 
-  getElement(): Element {
-    return findDOMNode(this) as Element
+  getElement(): HTMLElement {
+    return findDOMNode(this) as HTMLElement
   }
 
-  getScrollContainer(): Element {
+  getScrollContainer(): HTMLElement {
     return this.getElement().querySelector('[data-scroll-container]')
   }
 
-  getScrollTrigger(): Element | null {
+  getScrollTrigger(): HTMLElement | null {
     return this.getElement().querySelector('[data-scroll="true"]')
   }
 
   subscribe() {
     let element = this.getScrollContainer()
 
-    if (element) {
+    if (element !== this.container) {
+      this.container = element
       element.addEventListener('scroll', this.check, { passive: true })
       this.teardown = () => element.removeEventListener('scroll', this.check)
       this.check()
@@ -41,7 +43,6 @@ class ScrollMonitor extends React.Component<Props, null> {
       this.lastChild = null
     }
 
-    this.teardown()
     this.subscribe()
   }
 
@@ -50,20 +51,25 @@ class ScrollMonitor extends React.Component<Props, null> {
   }
 
   check = () => {
-    let container = this.getScrollContainer()
-    let nextChild = this.getScrollTrigger()
+    let endChild = this.getScrollTrigger()
 
-    if (!nextChild || nextChild === this.lastChild) {
+    if (!endChild || endChild === this.lastChild) {
       return
     }
 
-    let outer = container.getBoundingClientRect()
-    let inner = nextChild.getBoundingClientRect()
+    // This value represents the lower fence a child element a child must
+    // cross through to trigger a new page
+    let lowerFence = this.container.scrollTop
 
-    let halfBelowPage = outer.bottom + outer.height * 1.25
+    // Start by pushing the fence to the bottom of the container element
+    // Then add the look ahead value; how far below the viewable window to
+    // proactively fetch a new page.
+    lowerFence += this.container.offsetHeight * 2
 
-    if (inner.top < halfBelowPage) {
-      this.lastChild = nextChild
+    // If the end child's offset in the container is less than the lower
+    // fence, trigger pagination
+    if (lowerFence > endChild.offsetTop) {
+      this.lastChild = endChild
       this.props.onPage(this.props.page + 1)
     }
   }
