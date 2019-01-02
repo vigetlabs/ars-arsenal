@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.3.0
+
+- Safely handle duplicate record entries returned from API responses
+- Add `logger` option to customize errors and warnings emitted from ArsArsenal
+
 ## 3.2.4
 
 - Fix an overflow bug in Chrome 72 where gallery items extended past container
