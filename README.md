@@ -28,7 +28,7 @@ Ars Arsenal ships with a stylesheet. The easiest way to include it is by importi
 ```scss
 /* Sass stylesheet: */
 @import './node_modules/ars-arsenal/style/ars-arsenal.scss' /* or CSS: */
-@import './node_modules/ars-arsenal/style.css';
+  @import './node_modules/ars-arsenal/style.css';
 ```
 
 ### Icons
@@ -105,6 +105,23 @@ ArsArsenal.render(app, {
   request: function(url, callback) {
     // Behavior to configure networking. Return an XMLHTTPRequest
     return xhr(url, callback)
+  },
+
+  logger: function(level, message) {
+    // Override this method to handle usage warnings and issues
+    // ArsArsenal considers errors with API interaction. Useful
+    // for monitoring.
+    switch (level) {
+      case 'warning':
+        console.warn(message)
+        break
+      case 'error':
+        console.error(message)
+        break
+      default:
+        console.log(message)
+        break
+    }
   }
 })
 ```
@@ -118,7 +135,9 @@ import { Ars } from 'ars-arsenal'
 
 let app = document.getElementById('app')
 
-let options = { /* same options as above */ }
+let options = {
+  /* same options as above */
+}
 
 ReactDOM.render(<Ars options={options} />, app)
 ```
@@ -158,7 +177,7 @@ To transpose data, map over it in `onFetch` like so:
 ```javascript
 let options = {
   onFetch: function(response) {
-    return response.data.map(function (record) {
+    return response.data.map(function(record) {
       return {
         id: record.id,
         attribution: record.credit,
