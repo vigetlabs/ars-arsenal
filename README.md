@@ -27,8 +27,8 @@ Ars Arsenal ships with a stylesheet. The easiest way to include it is by importi
 
 ```scss
 /* Sass stylesheet: */
-@import './node_modules/ars-arsenal/style/ars-arsenal.scss' /* or CSS: */
-  @import './node_modules/ars-arsenal/style.css';
+@import './node_modules/ars-arsenal/style/ars-arsenal.scss'; /* or CSS: */
+@import './node_modules/ars-arsenal/style.css';
 ```
 
 ### Icons
