@@ -14,6 +14,7 @@ import {
 import { stringify } from 'query-string'
 import ScrollMonitor from '../components/scroll-monitor'
 import { dedupe } from '../utils/collection'
+import { LogLevel } from '../logger'
 
 export interface CollectionResult {
   data: Record[]
@@ -65,7 +66,7 @@ class CollectionFetcher extends React.Component<Props, State> {
   }
 
   static getDerivedStateFromProps(nextProps: Props, lastState: State) {
-    let { listUrl, listQuery, url, sort, search } = nextProps
+    let { listUrl, listQuery, url, sort, search, logger } = nextProps
 
     let page = nextPage(nextProps, lastState)
     let baseUrl = listUrl(url)
@@ -75,7 +76,8 @@ class CollectionFetcher extends React.Component<Props, State> {
     if ('makeURL' in nextProps) {
       baseUrl = nextProps.makeURL(url)
 
-      console.warn(
+      logger(
+        LogLevel.Warning,
         'ArsArsenal option makeURL is deprecated. Use listUrl instead.'
       )
     }
@@ -83,8 +85,9 @@ class CollectionFetcher extends React.Component<Props, State> {
     if ('makeQuery' in nextProps) {
       queryString = nextProps.makeQuery(search)
 
-      console.warn(
-        'ArsArsenal option makeQuery is deprecated. Use listQuery instead.'
+      logger(
+        LogLevel.Warning,
+        'ArsArsenal option makeURL is deprecated. Use listUrl instead.'
       )
     }
 
@@ -164,7 +167,18 @@ class CollectionFetcher extends React.Component<Props, State> {
       data.push(...requests[i].data)
     }
 
-    return dedupe(data, 'id')
+    let unique = dedupe(data, 'id')
+
+    if (unique.length < data.length) {
+      this.props.logger(
+        LogLevel.Error,
+        `Duplicate records were returned from ${this.state.targetUrl}. ` +
+          'ArsArsenal has deduplicated them, however verify that your API response is ' +
+          'returning unique results.'
+      )
+    }
+
+    return unique
   }
 
   onSuccess(request: Request, body: Object) {

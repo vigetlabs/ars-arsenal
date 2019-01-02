@@ -2,6 +2,7 @@
  * These are all options available to Ars Arsenal
  */
 
+import { logger } from './logger'
 import { request } from './request'
 import { ID, Record } from './record'
 
@@ -50,6 +51,9 @@ export interface ArsOptions {
   picked?: ID | ID[]
   // What utility should Ars use for network requests?
   request: typeof request
+  // Method to report issues with Ars Arsenal. Use this method to
+  // provide custom error reporting.
+  logger: (level: String, message: String) => void
 }
 
 export interface ArsOptionsWithDeprecations extends ArsOptions {
@@ -70,5 +74,6 @@ export const DEFAULT_OPTIONS: ArsOptions = {
   resource: 'Photo',
   mode: 'gallery',
   columns: ['id', 'name', 'caption', 'attribution', 'tags', 'preview'],
-  request: request
+  request: request,
+  logger: logger
 }
