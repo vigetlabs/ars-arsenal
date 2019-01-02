@@ -5,7 +5,7 @@
 
 import * as React from 'react'
 import OptionsContext from '../contexts/options'
-import { ID, Record } from '../record'
+import { Record } from '../record'
 import {
   DEFAULT_OPTIONS,
   SortableColumn,
@@ -13,6 +13,7 @@ import {
 } from '../options'
 import { stringify } from 'query-string'
 import ScrollMonitor from '../components/scroll-monitor'
+import { dedupe } from '../utils/collection'
 
 export interface CollectionResult {
   data: Record[]
@@ -163,7 +164,7 @@ class CollectionFetcher extends React.Component<Props, State> {
       data.push(...requests[i].data)
     }
 
-    return data
+    return dedupe(data, 'id')
   }
 
   onSuccess(request: Request, body: Object) {
