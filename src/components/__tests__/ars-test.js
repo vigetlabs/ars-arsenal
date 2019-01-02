@@ -84,4 +84,24 @@ describe('Ars', () => {
       expect(component.find('Picker').exists()).toBe(true)
     })
   })
+
+  test('warns about duplicate API responses', () => {
+    let logger = jest.fn()
+
+    let request = (_url, success, _error) => {
+      success([{ id: 1 }, { id: 1 }])
+      return { abort() {} }
+    }
+
+    let component = mount(
+      <Ars url="/test.json" request={request} logger={logger} />
+    )
+
+    component.setState({ dialogOpen: true })
+
+    expect(logger).toHaveBeenCalledWith(
+      'error',
+      expect.stringContaining('Duplicate records were returned from /test.json')
+    )
+  })
 })
