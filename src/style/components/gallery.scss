@@ -23,6 +23,7 @@
 }
 
 .ars-gallery-item {
+  align-self: flex-start;
   padding: 2px 4px;
   position: relative;
   width: 33%;
@@ -87,7 +88,7 @@
   }
 }
 .ars-gallery-panel-fields {
-flex: 1 1;
+  flex: 1 1;
 }
 
 .ars-gallery-tags {
@@ -106,7 +107,7 @@ flex: 1 1;
   font-weight: bold;
   font-family: auto;
   transition: 0.2s;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .ars-gallery-panel-close:focus,
