@@ -26,7 +26,7 @@ class ScrollMonitor extends React.Component<Props, null> {
   subscribe() {
     let element = this.getScrollContainer()
 
-    if (element !== this.container) {
+    if (element != null && element !== this.container) {
       this.container = element
       element.addEventListener('scroll', this.check, { passive: true })
       this.teardown = () => element.removeEventListener('scroll', this.check)

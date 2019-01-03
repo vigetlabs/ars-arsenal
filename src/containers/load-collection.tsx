@@ -173,7 +173,7 @@ class CollectionFetcher extends React.Component<Props, State> {
       this.props.logger(
         LogLevel.Error,
         `Duplicate records were returned from ${this.state.targetUrl}. ` +
-          'ArsArsenal has deduplicated them, however verify that your API response is ' +
+          'ArsArsenal has deduplicated them, however check that your API response is ' +
           'returning unique results.'
       )
     }
