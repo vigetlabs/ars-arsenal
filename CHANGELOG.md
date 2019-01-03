@@ -3,7 +3,10 @@
 ## 3.3.0
 
 - Safely handle duplicate record entries returned from API responses
-- Add `logger` option to customize errors and warnings emitted from ArsArsenal
+- Add `logger` option to customize errors and warnings emitted from
+  ArsArsenal
+- Add CSS flexbox fix to prevent a single row of gallery items from
+  stretching to bottom of container.
 
 ## 3.2.4
 
