@@ -224,8 +224,16 @@ class CollectionFetcher extends React.Component<Props, State> {
   }
 
   render() {
+    // Refresh scrolling when these fields change. This causes the monitor to
+    // start from a clean slate whenever new results come in.
+    let token = [this.state.search, this.state.sort].join(':')
+
     return (
-      <ScrollMonitor page={this.state.page} onPage={this.onPage}>
+      <ScrollMonitor
+        refresh={token}
+        page={this.state.page}
+        onPage={this.onPage}
+      >
         {this.props.render(this.state)}
       </ScrollMonitor>
     )

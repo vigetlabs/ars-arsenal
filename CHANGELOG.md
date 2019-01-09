@@ -5,6 +5,8 @@
 - Remove exit animation from gallery, which was resulting in an
   undesired visual effect where gallery items flickered into new
   results
+- Fix case where searching broke pagination.
+- Scroll resets upon search
 
 ## 3.3.0
 
