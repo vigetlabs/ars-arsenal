@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 3.4.1
+## 3.3.1
 
 - Remove exit animation from gallery, which was resulting in an
   undesired visual effect where gallery items flickered into new
