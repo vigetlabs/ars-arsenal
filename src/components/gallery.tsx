@@ -49,6 +49,7 @@ export default class Gallery extends React.PureComponent<Props, State> {
       <CSSTransition
         key={index}
         appear={true}
+        exit={false}
         classNames="ars-gallery"
         timeout={delay + 400}
         onEntered={this.trackMount.bind(this, index)}

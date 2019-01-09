@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.4.1
+
+- Remove exit animation from gallery, which was resulting in an
+  undesired visual effect where gallery items flickered into new
+  results
+
 ## 3.3.0
 
 - Safely handle duplicate record entries returned from API responses
