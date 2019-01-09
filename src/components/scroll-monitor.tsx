@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom'
 
 interface Props {
   page: number
+  refresh: string
   onPage: (number: number) => void
 }
 
@@ -43,11 +44,22 @@ class ScrollMonitor extends React.Component<Props, null> {
       this.lastChild = null
     }
 
+    if (this.props.refresh != lastProps.refresh) {
+      this.resetScroll()
+      this.check()
+    }
+
     this.subscribe()
   }
 
   componentWillUnmount() {
     this.teardown()
+  }
+
+  resetScroll() {
+    if (this.container) {
+      this.container.scrollTop = 0
+    }
   }
 
   check = () => {
