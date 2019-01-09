@@ -62,7 +62,7 @@ class CollectionFetcher extends React.Component<Props, State> {
     ...DEFAULT_OPTIONS,
     sort: 'id',
     search: '',
-    render: result => null
+    render: () => null
   }
 
   static getDerivedStateFromProps(nextProps: Props, lastState: State) {
