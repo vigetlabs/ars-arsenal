@@ -87,6 +87,7 @@
     min-width: 100%;
   }
 }
+
 .ars-gallery-panel-fields {
   flex: 1 1;
 }
@@ -96,7 +97,6 @@
 }
 
 .ars-gallery-panel-close {
-  @extend %focusable;
   background: none;
   border: 0;
   font-size: 32px;
