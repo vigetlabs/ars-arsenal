@@ -121,6 +121,7 @@ export default class Picker extends React.PureComponent<Props, State> {
           <Button
             className="ars-button-muted ars-dialog-clear"
             onClick={this.onClear}
+            title="Clear selection"
           >
             Clear
           </Button>
@@ -129,12 +130,14 @@ export default class Picker extends React.PureComponent<Props, State> {
             <Button
               className="ars-button-muted ars-dialog-cancel"
               onClick={onExit}
+              title="Discard changes"
             >
               Cancel
             </Button>
             <Button
               className="ars-dialog-confirm"
               onClick={this.onConfirm}
+              title="Confirm changes"
               raised
             >
               Okay

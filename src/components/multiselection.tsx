@@ -58,12 +58,15 @@ export default class MultiSelection extends React.Component<Props> {
         {this.getItems()}
 
         <footer className="ars-selection-actions">
-          <Button onClick={onEdit}>{hasPicked ? 'Edit' : title}</Button>
+          <Button onClick={onEdit} title={title}>
+            {hasPicked ? 'Edit' : title}
+          </Button>
 
           <Button
             className="ars-button-muted"
             onClick={onClear}
             hidden={!hasPicked}
+            title="Clear selection"
           >
             Clear
           </Button>

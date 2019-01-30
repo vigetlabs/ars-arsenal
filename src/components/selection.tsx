@@ -38,20 +38,21 @@ export default class Selection extends React.Component<Props, {}> {
 
     return (
       <div className={className}>
-        <div className="ars-selection-inner">
-          {this.getPhoto(data)}
+        {this.getPhoto(data)}
 
-          <footer className="ars-selection-actions">
-            <Button onClick={onEdit}>{hasPicked ? 'Edit' : title}</Button>
-            <Button
-              className="ars-button-muted"
-              onClick={onClear}
-              hidden={!hasPicked}
-            >
-              Clear
-            </Button>
-          </footer>
-        </div>
+        <footer className="ars-selection-actions">
+          <Button onClick={onEdit} title={title}>
+            {hasPicked ? 'Edit' : title}
+          </Button>
+          <Button
+            className="ars-button-muted"
+            onClick={onClear}
+            hidden={!hasPicked}
+            title="Clear selection"
+          >
+            Clear
+          </Button>
+        </footer>
       </div>
     )
   }
