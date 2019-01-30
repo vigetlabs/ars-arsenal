@@ -5,11 +5,11 @@
   color: $ars-primary;
   cursor: pointer;
   display: inline-block;
-  font: 500 14px/16px $ars-font-family;
-  letter-spacing: 0.05em;
+  font: bold 14px/16px $ars-font-family;
+  letter-spacing: 0.07em;
   line-height: 16px;
-  margin: 6px 8px;
-  padding: 10px 16px;
+  margin: 6px 0;
+  padding: 10px 8px;
   position: relative;
   text-align: center;
   text-shadow: none;
@@ -45,6 +45,15 @@
   &:focus {
     background-color: $ars-primary;
   }
+}
+
+.ars-button + .ars-button-raised {
+  margin-left: 12px;
+}
+
+.ars-button-muted {
+  color: gray;
+  font-weight: normal;
 }
 
 .ars-button-icon {

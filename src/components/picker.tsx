@@ -12,7 +12,6 @@ import Search from './search'
 import TableView from './table-view'
 import LoadCollection, { CollectionResult } from '../containers/load-collection'
 import Empty from './empty'
-import ClearButton from './clear-button'
 import GalleryButton from './gallery-button'
 import TableButton from './table-button'
 import { ID, Record } from '../record'
@@ -110,15 +109,8 @@ export default class Picker extends React.PureComponent<Props, State> {
             onQuery={this.onQueryChange}
           />
 
-          <GalleryButton
-            onClick={this.setMode.bind(this)}
-            disabled={mode === 'gallery'}
-          />
-
-          <TableButton
-            onClick={this.setMode.bind(this)}
-            disabled={mode === 'table'}
-          />
+          <GalleryButton onClick={this.setMode} disabled={mode === 'gallery'} />
+          <TableButton onClick={this.setMode} disabled={mode === 'table'} />
         </header>
 
         <ErrorMessage error={error} />
@@ -126,15 +118,23 @@ export default class Picker extends React.PureComponent<Props, State> {
         {this.renderItems(data, fetching)}
 
         <footer className="ars-dialog-footer">
-          <ClearButton onClick={this.onClear.bind(this)} />
+          <Button
+            className="ars-button-muted ars-dialog-clear"
+            onClick={this.onClear}
+          >
+            Clear
+          </Button>
 
           <div>
-            <Button className="ars-dialog-cancel" onClick={onExit}>
+            <Button
+              className="ars-button-muted ars-dialog-cancel"
+              onClick={onExit}
+            >
               Cancel
             </Button>
             <Button
               className="ars-dialog-confirm"
-              onClick={this.onConfirm.bind(this)}
+              onClick={this.onConfirm}
               raised
             >
               Okay

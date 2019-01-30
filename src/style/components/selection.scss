@@ -40,7 +40,6 @@
 }
 
 .ars-selection-title {
-  box-shadow: 0 -1px 0 0 solid rgba(#000, 0.12);
   font-weight: 500;
   line-height: 48px;
   margin: 0;
@@ -64,26 +63,19 @@
 }
 
 .ars-selection-figure {
-  border-bottom: 1px solid rgba(#000, 0.12);
   margin: 0;
   padding: 0;
 }
 
-.ars-button.ars-selection-edit {
-  display: block;
-  line-height: 24px;
-  margin: 0;
-  padding: 16px 8px 16px 16px;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
+.ars-selection-actions {
+  text-align: left;
+  padding: 0 12px;
+}
 
-  .ars-icon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 10px;
-    position: relative;
-    top: 2px;
-  }
+.ars-has-photo .ars-selection-actions {
+  border-top: 1px solid rgba(#000, 0.12);
+}
+
+.ars-selection-actions .ars-button {
+  display: inline-block;
 }

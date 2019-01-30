@@ -6,15 +6,16 @@ import * as React from 'react'
 import cx from 'classnames'
 import Button from './ui/button'
 import SelectionFigure from './selection-figure'
-import SelectionText from './selection-text'
-import { EditIcon } from '../icons'
+import selectionText from './selection-text'
+import { EditIcon, ClearIcon } from '../icons'
 import LoadRecord, { RecordResult } from '../containers/load-record'
 import { Record, ID } from '../record'
 
 interface Props {
   resource: string
   id: ID | null
-  onClick: (event: React.SyntheticEvent) => void
+  onEdit: (event: React.SyntheticEvent) => void
+  onClear: () => void
 }
 
 export default class Selection extends React.Component<Props, {}> {
@@ -24,27 +25,32 @@ export default class Selection extends React.Component<Props, {}> {
   }
 
   renderContent({ data, fetching }: RecordResult) {
-    let { resource, onClick } = this.props
+    let { resource, onEdit, onClear } = this.props
+
+    let hasPicked = this.props.id != null
 
     let className = cx('ars-selection', {
       'ars-is-loading': fetching,
-      'ars-has-photo': data
+      'ars-has-photo': hasPicked
     })
+
+    let title = selectionText({ item: hasPicked, fetching, resource })
 
     return (
       <div className={className}>
         <div className="ars-selection-inner">
           {this.getPhoto(data)}
 
-          <Button onClick={onClick} className="ars-selection-edit">
-            <SelectionText
-              item={!!data}
-              fetching={fetching}
-              resource={resource}
-            />
-
-            <EditIcon aria-hidden="true" />
-          </Button>
+          <footer className="ars-selection-actions">
+            <Button onClick={onEdit}>{hasPicked ? 'Edit' : title}</Button>
+            <Button
+              className="ars-button-muted"
+              onClick={onClear}
+              hidden={!hasPicked}
+            >
+              Clear
+            </Button>
+          </footer>
         </div>
       </div>
     )

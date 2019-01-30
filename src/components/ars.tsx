@@ -39,8 +39,8 @@ export default class Ars extends React.Component<ArsOptions, State> {
         mode={mode}
         multiselect={multiselect}
         columns={columns}
-        onChange={this.onGalleryPicked.bind(this)}
-        onExit={this.onExit.bind(this)}
+        onChange={this.onGalleryPicked}
+        onExit={this.onExit}
       />
     )
   }
@@ -54,7 +54,8 @@ export default class Ars extends React.Component<ArsOptions, State> {
         <MultiSelection
           resource={resource}
           ids={picked}
-          onClick={this.onOpenClick.bind(this)}
+          onEdit={this.onOpenClick}
+          onClear={this.onClear}
         />
       )
     }
@@ -63,7 +64,8 @@ export default class Ars extends React.Component<ArsOptions, State> {
       <Selection
         resource={resource}
         id={picked && picked[0]}
-        onClick={this.onOpenClick.bind(this)}
+        onEdit={this.onOpenClick}
+        onClear={this.onClear}
       />
     )
   }
@@ -84,20 +86,24 @@ export default class Ars extends React.Component<ArsOptions, State> {
     )
   }
 
-  private triggerChange() {
+  private triggerChange = () => {
     let { picked } = this.state
     this.props.onChange(this.props.multiselect ? picked : picked[0])
   }
 
-  private onOpenClick() {
+  private onOpenClick = () => {
     this.setState({ dialogOpen: true })
   }
 
-  private onGalleryPicked(picked: ID[]) {
-    this.setState({ picked }, this.triggerChange.bind(this))
+  private onGalleryPicked = (picked: ID[]) => {
+    this.setState({ picked }, this.triggerChange)
   }
 
-  private onExit(event?: React.SyntheticEvent) {
+  private onClear = () => {
+    this.setState({ picked: [] }, this.triggerChange)
+  }
+
+  private onExit = (event?: React.SyntheticEvent) => {
     if (event) {
       event.preventDefault()
     }
