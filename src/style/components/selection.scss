@@ -35,6 +35,29 @@
   max-height: 225px;
 }
 
+.ars-selection-failed-banner {
+  align-items: center;
+  box-shadow: 0 0 0 1px $ars-danger;
+  border-radius: 1px;
+  background: rgba($ars-danger, 0.3);
+  color: darken($ars-danger, 40%);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.ars-selection-failed-title {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+.ars-selection-failed-body {
+  font-size: 10px;
+  margin: 0;
+}
+
 .ars-selection-desc {
   transition: 0.55s opacity;
 }

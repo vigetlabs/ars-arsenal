@@ -46,7 +46,7 @@ DOM.render(
     <Example title="Basic Use: Table" options={{ ...options, mode: 'table' }} />
     <Example
       title="Basic Use: Pre-selected"
-      options={{ ...options, picked: [1] }}
+      options={{ ...options, picked: [-1] }}
     />
     <Example
       title="Multiselect: Basic"
@@ -54,7 +54,7 @@ DOM.render(
     />
     <Example
       title="Multiselect: Pre-selected"
-      options={{ ...options, multiselect: true, picked: [2, 3] }}
+      options={{ ...options, multiselect: true, picked: [2, 3, -1] }}
     />
     <Example
       title="Multiselect: Table"

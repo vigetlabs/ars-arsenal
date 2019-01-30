@@ -6,6 +6,7 @@ import * as React from 'react'
 import cx from 'classnames'
 import Button from './ui/button'
 import SelectionFigure from './selection-figure'
+import SelectionNotFound from './ui/selection-not-found'
 import selectionText from './selection-text'
 import { EditIcon, ClearIcon } from '../icons'
 import LoadRecord, { RecordResult } from '../containers/load-record'
@@ -19,12 +20,17 @@ interface Props {
 }
 
 export default class Selection extends React.Component<Props, {}> {
-  getPhoto(data: Record | null) {
+  getPhoto(data: Record | null, fetching: Boolean, initialized: Boolean) {
+    if (initialized && !fetching && data == null) {
+      return <SelectionNotFound resource={this.props.resource} />
+    }
+
     let showPhoto = data != null && this.props.id != null
+
     return showPhoto ? <SelectionFigure item={data} /> : null
   }
 
-  renderContent({ data, fetching }: RecordResult) {
+  renderContent({ data, fetching, initialized }: RecordResult) {
     let { resource, onEdit, onClear } = this.props
 
     let hasPicked = this.props.id != null
@@ -38,7 +44,7 @@ export default class Selection extends React.Component<Props, {}> {
 
     return (
       <div className={className}>
-        {this.getPhoto(data)}
+        {this.getPhoto(data, fetching, initialized)}
 
         <footer className="ars-selection-actions">
           <Button onClick={onEdit} title={title}>
