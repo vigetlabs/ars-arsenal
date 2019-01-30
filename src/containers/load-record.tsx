@@ -12,6 +12,7 @@ export interface RecordResult {
   data: Record | null
   error: string | null
   fetching: boolean
+  initialized: boolean
 }
 
 interface Props extends ArsOptionsWithDeprecations {
@@ -24,6 +25,7 @@ interface State {
   error: string | null
   fetching: boolean
   targetURL: string
+  initialized: false
 }
 
 function isValidId(id: ID): boolean {
@@ -59,7 +61,8 @@ class RecordFetcher extends React.Component<Props, State> {
     data: null,
     error: null,
     fetching: false,
-    targetURL: ''
+    targetURL: '',
+    initialized: false
   }
 
   componentDidMount() {
@@ -94,7 +97,8 @@ class RecordFetcher extends React.Component<Props, State> {
     this.setState({
       data: this.props.onFetch(data) as Record,
       error: null,
-      fetching: false
+      fetching: false,
+      initialized: true
     })
   }
 
@@ -102,7 +106,8 @@ class RecordFetcher extends React.Component<Props, State> {
     this.setState({
       data: null,
       error: this.props.onError(error),
-      fetching: false
+      fetching: false,
+      initialized: true
     })
   }
 

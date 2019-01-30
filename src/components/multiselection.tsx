@@ -23,7 +23,7 @@ export default class MultiSelection extends React.Component<Props> {
   }
 
   getItems() {
-    let { ids } = this.props
+    let { ids, resource } = this.props
 
     if (!ids.length) {
       return null
@@ -32,7 +32,7 @@ export default class MultiSelection extends React.Component<Props> {
     return (
       <div className="ars-multiselection-grid">
         {ids.map(id => (
-          <MultiSelectionItem key={id} id={id} />
+          <MultiSelectionItem key={id} id={id} resource={resource} />
         ))}
       </div>
     )

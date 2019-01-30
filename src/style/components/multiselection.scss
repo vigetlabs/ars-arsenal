@@ -6,6 +6,12 @@
   max-width: 400px;
 }
 
+.ars-multiselection .ars-selection-failed {
+  padding: 4px;
+  height: 100px;
+  width: 50%;
+}
+
 .ars-multiselection-grid {
   display: flex;
   flex-wrap: wrap;
