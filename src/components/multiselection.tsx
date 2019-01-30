@@ -3,16 +3,17 @@
  */
 
 import * as React from 'react'
+import cx from 'classnames'
 import Button from './ui/button'
 import MultiSelectionItem from './multiselection-item'
-import SelectionText from './selection-text'
-import { EditIcon } from '../icons'
+import selectionText from './selection-text'
 import { ID } from '../record'
 
 interface Props {
   resource?: string
   ids: ID[]
-  onClick: (event: React.MouseEvent) => void
+  onEdit: (event: React.MouseEvent) => void
+  onClear: () => void
 }
 
 export default class MultiSelection extends React.Component<Props> {
@@ -38,27 +39,40 @@ export default class MultiSelection extends React.Component<Props> {
   }
 
   render() {
+    const { resource, ids, onEdit, onClear } = this.props
+
+    let hasPicked = ids.length
+
+    let title = selectionText({
+      resource: resource,
+      item: hasPicked,
+      isPlural: true
+    })
+
+    let className = cx('ars-multiselection', {
+      'ars-has-photo': hasPicked
+    })
+
     return (
-      <div className="ars-multiselection">
+      <div className={className}>
         {this.getItems()}
 
-        <Button
-          onClick={this.onClick.bind(this)}
-          className="ars-selection-edit"
-        >
-          <SelectionText
-            resource={this.props.resource}
-            item={this.props.ids.length > 0}
-            isPlural={true}
-          />
+        <footer className="ars-selection-actions">
+          <Button onClick={onEdit}>{hasPicked ? 'Edit' : title}</Button>
 
-          <EditIcon />
-        </Button>
+          <Button
+            className="ars-button-muted"
+            onClick={onClear}
+            hidden={!hasPicked}
+          >
+            Clear
+          </Button>
+        </footer>
       </div>
     )
   }
 
-  onClick(event: React.MouseEvent) {
+  onClick = (event: React.MouseEvent) => {
     event.preventDefault()
     this.props.onClick(event)
   }

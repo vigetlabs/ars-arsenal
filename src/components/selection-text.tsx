@@ -2,58 +2,55 @@
  * SelectionText
  */
 
-import * as React from 'react'
 import articleFor from '../utils/article-for'
 import pluralize from '../utils/pluralize'
 
-interface Props {
+interface Options {
   resource: string
   fetching: boolean
   item: boolean
   isPlural: boolean
 }
 
-export default class SelectionText extends React.Component<Props> {
-  static defaultProps = {
-    resource: 'Photo',
-    fetching: false,
-    isPlural: false
+export default function selectionText(options: Options) {
+  let resource = options.resource || 'Photo'
+  let fetching = options.fetching
+  let isPlural = options.isPlural
+  let item = options.item
+
+  let noun = getNoun(resource, isPlural)
+
+  if (fetching) {
+    return getLoadingText(noun)
   }
 
-  getNoun(resource: string, isPlural: boolean) {
-    let noun = resource.toLowerCase()
-
-    if (isPlural) {
-      noun = pluralize(noun)
-    }
-
-    return noun
+  if (item) {
+    return getSelectedText(noun, isPlural)
   }
 
-  getEmptyText(article: string, noun: string, isPlural: boolean) {
-    let a = isPlural ? ' ' : ` ${article} `
-    return `Pick${a}${noun}`
+  return getEmptyText(articleFor(noun), noun, isPlural)
+}
+
+function getNoun(resource: string, isPlural: boolean) {
+  let noun = resource.toLowerCase()
+
+  if (isPlural) {
+    noun = pluralize(noun)
   }
 
-  getSelectedText(noun: string, isPlural: boolean) {
-    let a = isPlural ? ' ' : ' a '
-    return `Pick${a}different ${noun}`
-  }
+  return noun
+}
 
-  getLoadingText(noun: string) {
-    return `Loading ${noun}`
-  }
+function getEmptyText(article: string, noun: string, isPlural: boolean) {
+  let a = isPlural ? ' ' : ` ${article} `
+  return `Pick${a}${noun}`
+}
 
-  render() {
-    let { resource, fetching, item, isPlural } = this.props
-    let noun = this.getNoun(resource, isPlural)
+function getSelectedText(noun: string, isPlural: boolean) {
+  let a = isPlural ? ' ' : ' a '
+  return `Pick${a}different ${noun}`
+}
 
-    if (fetching) {
-      return this.getLoadingText(noun)
-    } else if (item) {
-      return this.getSelectedText(noun, isPlural)
-    } else {
-      return this.getEmptyText(articleFor(noun), noun, isPlural)
-    }
-  }
+function getLoadingText(noun: string) {
+  return `Loading ${noun}`
 }
