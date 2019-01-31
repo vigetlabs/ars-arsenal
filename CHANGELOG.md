@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.4.0
+
+- Add failure state when data for an image can not be loaded
+- Add clear button to selected state
+- Updates to UI to support more compact usage
+
 ## 3.3.1
 
 - Remove exit animation from gallery, which was resulting in an
