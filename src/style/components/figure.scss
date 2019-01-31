@@ -13,32 +13,42 @@
 
   &:before {
     border: 0 solid transparent;
+    bottom: -4px;
+    border-radius: 2px;
     content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
+    left: -4px;
     pointer-events: none;
-    top: 0;
+    position: absolute;
+    right: -4px;
+    top: -4px;
     transition: 0.28s all;
-    width: 100%;
     z-index: 3;
   }
 
   &:focus {
-    box-shadow: 0 1px 2px rgba(#000, 0.25);
     outline: none;
 
     &:before {
-      border: 4px solid $ars-accent;
+      border: 2px solid $ars-focus;
+      background: rgba($ars-focus, 0.12);
     }
+  }
+
+  &:active:before {
+    border-width: 4px;
   }
 
   &.ars-fig-picked:before {
     border: 4px solid gold;
+    background: rgba(gold, 0.12);
+    box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.45);
+    top: -3px;
+    bottom: - 3px;
+    left: -3px;
+    right: -3px;
   }
 
-  .ink {
-    color: $ars-accent;
+  canvas {
     z-index: 4;
   }
 }
