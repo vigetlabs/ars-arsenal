@@ -83,20 +83,13 @@ class TableView extends React.PureComponent<Props, null> {
         <td className="ars-table-id" hidden={!this.canRender('id')}>
           {id}
         </td>
-        <td
-          className="ars-table-name"
-          hidden={!this.canRender('name')}
-          title={name}
-        >
+        <td className="ars-table-name" hidden={!this.canRender('name')} title={name}>
           <Truncated text={name} />
         </td>
         <td className="ars-table-caption" hidden={!this.canRender('caption')}>
           <Truncated text={caption} />
         </td>
-        <td
-          className="ars-table-attribution"
-          hidden={!this.canRender('attribution')}
-        >
+        <td className="ars-table-attribution" hidden={!this.canRender('attribution')}>
           <Truncated text={attribution} />
         </td>
         <td className="ars-table-tags" hidden={!this.canRender('tags')}>
@@ -115,9 +108,7 @@ class TableView extends React.PureComponent<Props, null> {
       return null
     }
 
-    return record.tags.map((tag, i) => (
-      <Tag key={i} tag={tag} onClick={this.props.onTagClick} />
-    ))
+    return record.tags.map((tag, i) => <Tag key={i} tag={tag} onClick={this.props.onTagClick} />)
   }
   changeSort = (field: SortableColumn) => {
     this.props.onSort(field)
@@ -135,18 +126,12 @@ class TableView extends React.PureComponent<Props, null> {
     let allPicked = selected.length === ids.length
 
     return (
-      <div
-        className="ars-table-wrapper"
-        onKeyDown={onKeyDown}
-        data-scroll-container="true"
-      >
+      <div className="ars-table-wrapper" onKeyDown={onKeyDown} data-scroll-container="true">
         <table className="ars-table ars-paper">
           <thead>
             <tr>
               <th className="ars-table-selection">
-                <span className="ars-hidden">
-                  Use this column to select items
-                </span>
+                <span className="ars-hidden">Use this column to select items</span>
 
                 <Checker
                   id={allPicked ? selected : ids}
@@ -189,18 +174,10 @@ class TableView extends React.PureComponent<Props, null> {
               >
                 Attribution
               </TableHeading>
-              <TableHeading
-                field="tags"
-                active={false}
-                show={this.canRender('tags')}
-              >
+              <TableHeading field="tags" active={false} show={this.canRender('tags')}>
                 Tags
               </TableHeading>
-              <TableHeading
-                field="preview"
-                active={false}
-                show={this.canRender('preview')}
-              >
+              <TableHeading field="preview" active={false} show={this.canRender('preview')}>
                 Preview
               </TableHeading>
             </tr>

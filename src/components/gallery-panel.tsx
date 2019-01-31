@@ -9,11 +9,7 @@ interface GalleryPanelProps {
   onExit: () => void
 }
 
-const GalleryPanel: React.SFC<GalleryPanelProps> = ({
-  onTagClick,
-  onExit,
-  record
-}) => {
+const GalleryPanel: React.SFC<GalleryPanelProps> = ({ onTagClick, onExit, record }) => {
   if (!record) {
     return null
   }
@@ -32,11 +28,7 @@ const GalleryPanel: React.SFC<GalleryPanelProps> = ({
       <div className="ars-gallery-panel-fields">
         <h3 className="ars-selection-title">{record.name}</h3>
         <p className="ars-selection-caption">{record.caption}</p>
-        <TagList
-          className="ars-gallery-tags"
-          record={record}
-          onTagClick={onTagClick}
-        />
+        <TagList className="ars-gallery-tags" record={record} onTagClick={onTagClick} />
       </div>
 
       <button

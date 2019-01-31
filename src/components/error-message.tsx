@@ -14,11 +14,7 @@ const ErrorMessage: React.SFC<Props> = ({ error }) => {
     return null
   }
 
-  return (
-    <div className="ars-error">
-      {error instanceof Error ? error.message : error}
-    </div>
-  )
+  return <div className="ars-error">{error instanceof Error ? error.message : error}</div>
 }
 
 export default ErrorMessage

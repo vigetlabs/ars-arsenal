@@ -6,11 +6,7 @@
 import * as React from 'react'
 import OptionsContext from '../contexts/options'
 import { Record } from '../record'
-import {
-  DEFAULT_OPTIONS,
-  SortableColumn,
-  ArsOptionsWithDeprecations
-} from '../options'
+import { DEFAULT_OPTIONS, SortableColumn, ArsOptionsWithDeprecations } from '../options'
 import { stringify } from 'query-string'
 import ScrollMonitor from '../components/scroll-monitor'
 import { dedupe } from '../utils/collection'
@@ -47,10 +43,7 @@ type Request = {
 }
 
 function nextPage(nextProps: Props, lastState: State) {
-  if (
-    nextProps.search !== lastState.search ||
-    nextProps.sort !== lastState.sort
-  ) {
+  if (nextProps.search !== lastState.search || nextProps.sort !== lastState.sort) {
     return 0
   }
 
@@ -76,19 +69,13 @@ class CollectionFetcher extends React.Component<Props, State> {
     if ('makeURL' in nextProps) {
       baseUrl = nextProps.makeURL(url)
 
-      logger(
-        LogLevel.Warning,
-        'ArsArsenal option makeURL is deprecated. Use listUrl instead.'
-      )
+      logger(LogLevel.Warning, 'ArsArsenal option makeURL is deprecated. Use listUrl instead.')
     }
 
     if ('makeQuery' in nextProps) {
       queryString = nextProps.makeQuery(search)
 
-      logger(
-        LogLevel.Warning,
-        'ArsArsenal option makeURL is deprecated. Use listUrl instead.'
-      )
+      logger(LogLevel.Warning, 'ArsArsenal option makeURL is deprecated. Use listUrl instead.')
     }
 
     return { page, sort, search, targetUrl: baseUrl + '?' + queryString }
@@ -111,10 +98,7 @@ class CollectionFetcher extends React.Component<Props, State> {
   }
 
   componentDidUpdate(lastProps: Props, lastState: State) {
-    if (
-      lastState.search !== this.state.search ||
-      lastState.sort !== this.state.sort
-    ) {
+    if (lastState.search !== this.state.search || lastState.sort !== this.state.sort) {
       this.abort()
     }
 
@@ -148,9 +132,7 @@ class CollectionFetcher extends React.Component<Props, State> {
 
   accumulate(requests: Request[]): Record[] {
     let data = []
-    let newContent = requests.some(
-      request => request.valid && !request.fetching
-    )
+    let newContent = requests.some(request => request.valid && !request.fetching)
 
     for (var i = 0; i < requests.length; i += 1) {
       // Should we hit a case where new content is mixed with old, invalid content,
@@ -229,11 +211,7 @@ class CollectionFetcher extends React.Component<Props, State> {
     let token = [this.state.search, this.state.sort].join(':')
 
     return (
-      <ScrollMonitor
-        refresh={token}
-        page={this.state.page}
-        onPage={this.onPage}
-      >
+      <ScrollMonitor refresh={token} page={this.state.page} onPage={this.onPage}>
         {this.props.render(this.state)}
       </ScrollMonitor>
     )

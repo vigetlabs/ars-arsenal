@@ -73,9 +73,7 @@ describe('LoadRecord', () => {
 
     test('sets the item state to the returned value of onFetch', () => {
       let onFetch = () => 'fetched'
-      let component = mount(
-        <LoadRecord url="/data" id="1.json" onFetch={onFetch} />
-      )
+      let component = mount(<LoadRecord url="/data" id="1.json" onFetch={onFetch} />)
 
       jest.runAllTimers()
 
@@ -86,9 +84,7 @@ describe('LoadRecord', () => {
   describe('responseDidFail', () => {
     test('sets the error state to the returned value of onError, and item to false', () => {
       let onError = () => 'terrible error!'
-      let component = mount(
-        <LoadRecord url="/data" id="missing.json" onError={onError} />
-      )
+      let component = mount(<LoadRecord url="/data" id="missing.json" onError={onError} />)
 
       jest.runAllTimers()
 

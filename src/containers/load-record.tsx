@@ -47,9 +47,7 @@ class RecordFetcher extends React.Component<Props, State> {
     if ('makeURL' in props) {
       targetURL = props.makeURL(url, id)
 
-      console.warn(
-        'ArsArsenal option makeURL is deprecated. Use showUrl instead.'
-      )
+      console.warn('ArsArsenal option makeURL is deprecated. Use showUrl instead.')
     }
 
     return { targetURL }
@@ -72,9 +70,7 @@ class RecordFetcher extends React.Component<Props, State> {
   }
 
   componentDidUpdate(lastProps: Props, lastState: State) {
-    if (
-      this.shouldFetch(this.state.targetURL, lastState.targetURL, this.props)
-    ) {
+    if (this.shouldFetch(this.state.targetURL, lastState.targetURL, this.props)) {
       this.fetch()
     }
   }

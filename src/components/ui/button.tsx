@@ -6,12 +6,9 @@ import * as React from 'react'
 import Ink from 'react-ink'
 import cx from 'classnames'
 
-interface Props {
-  className: string
+interface Props extends React.HTMLProps<HTMLButtonElement> {
   raised?: boolean
   onClick: (event: React.SyntheticEvent) => void
-  disabled?: boolean
-  title?: string
 }
 
 const Button: React.SFC<Props> = ({ children, raised, hidden, ...attrs }) => {

@@ -14,17 +14,13 @@ export default class SelectionFigure extends React.Component<Props> {
   getTitle(title: string) {
     let trimmed = title ? title.trim() : ''
 
-    return trimmed.length ? (
-      <p className="ars-selection-title">{trimmed}</p>
-    ) : null
+    return trimmed.length ? <p className="ars-selection-title">{trimmed}</p> : null
   }
 
   getCaption(caption: string) {
     let trimmed = caption ? caption.trim() : ''
 
-    return trimmed.length ? (
-      <p className="ars-selection-caption">{trimmed}</p>
-    ) : null
+    return trimmed.length ? <p className="ars-selection-caption">{trimmed}</p> : null
   }
 
   render() {

@@ -8,11 +8,7 @@ interface TagListProps {
   onTagClick: (tag: string) => void
 }
 
-const TagList: React.SFC<TagListProps> = ({
-  className,
-  record,
-  onTagClick
-}) => {
+const TagList: React.SFC<TagListProps> = ({ className, record, onTagClick }) => {
   if (Array.isArray(record.tags) === false) {
     return null
   }

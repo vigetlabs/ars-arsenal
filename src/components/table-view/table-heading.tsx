@@ -19,11 +19,7 @@ const TableHeading: React.SFC<Props> = props => {
   })
 
   return (
-    <th
-      className={className}
-      onClick={onSort && onSort.bind(null, field)}
-      hidden={!show}
-    >
+    <th className={className} onClick={onSort && onSort.bind(null, field)} hidden={!show}>
       {children}
     </th>
   )

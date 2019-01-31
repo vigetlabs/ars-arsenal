@@ -82,11 +82,7 @@ export default class Gallery extends React.PureComponent<Props, State> {
         <TransitionGroup className="ars-gallery" data-scroll-container="true">
           {items.map(this.getItem, this)}
         </TransitionGroup>
-        <GalleryPanel
-          record={focus}
-          onTagClick={onTagClick}
-          onExit={this.clearFocus}
-        />
+        <GalleryPanel record={focus} onTagClick={onTagClick} onExit={this.clearFocus} />
       </div>
     )
   }

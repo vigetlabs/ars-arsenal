@@ -14,9 +14,7 @@ describe('Truncated', () => {
   })
 
   test('limits text', () => {
-    let component = mount(
-      <Truncated text="This will be truncated" limit={10} />
-    )
+    let component = mount(<Truncated text="This will be truncated" limit={10} />)
     expect(component.text()).toBe('This will…')
   })
 

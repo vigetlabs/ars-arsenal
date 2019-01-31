@@ -64,8 +64,6 @@ export default class Selection extends React.Component<Props, {}> {
   }
 
   render() {
-    return (
-      <LoadRecord id={this.props.id} render={this.renderContent.bind(this)} />
-    )
+    return <LoadRecord id={this.props.id} render={this.renderContent.bind(this)} />
   }
 }

@@ -17,9 +17,7 @@ interface Props {
 
 export default class MultiSelectionItem extends React.Component<Props> {
   getPhoto(photo: Record | null) {
-    return photo ? (
-      <Image className="ars-selection-photo" alt={photo.name} src={photo.url} />
-    ) : null
+    return photo ? <Image className="ars-selection-photo" alt={photo.name} src={photo.url} /> : null
   }
 
   renderContent({ data, fetching, initialized }: RecordResult) {
@@ -41,8 +39,6 @@ export default class MultiSelectionItem extends React.Component<Props> {
   }
 
   render() {
-    return (
-      <LoadRecord id={this.props.id} render={this.renderContent.bind(this)} />
-    )
+    return <LoadRecord id={this.props.id} render={this.renderContent.bind(this)} />
   }
 }

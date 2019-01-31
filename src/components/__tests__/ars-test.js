@@ -25,9 +25,7 @@ describe('Ars', () => {
         'data-test': 'ars-resource-photo',
         className: 'my-custom-class'
       }
-      let component = mount(
-        <Ars url="/test.json" rootAttributes={rootAttributes} />
-      )
+      let component = mount(<Ars url="/test.json" rootAttributes={rootAttributes} />)
       let htmlNode = component.find('.my-custom-class')
 
       expect(htmlNode.prop('data-test')).toBe('ars-resource-photo')
@@ -39,9 +37,7 @@ describe('Ars', () => {
 
     beforeEach(function() {
       onChange = jest.fn()
-      component = mount(
-        <Ars url="/test.json" onChange={onChange} multiselect={true} />
-      )
+      component = mount(<Ars url="/test.json" onChange={onChange} multiselect={true} />)
     })
 
     test('has a multiselection component', () => {
@@ -93,9 +89,7 @@ describe('Ars', () => {
       return { abort() {} }
     }
 
-    let component = mount(
-      <Ars url="/test.json" request={request} logger={logger} />
-    )
+    let component = mount(<Ars url="/test.json" request={request} logger={logger} />)
 
     component.setState({ dialogOpen: true })
 
