@@ -5,6 +5,8 @@
 - Add failure state when data for an image can not be loaded
 - Add clear button to selected state
 - Updates to UI to support more compact usage
+- Improved gallery focus styles
+- Inlined icons
 
 ## 3.3.1
 
