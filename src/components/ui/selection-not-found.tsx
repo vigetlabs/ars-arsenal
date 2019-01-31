@@ -1,9 +1,3 @@
-/**
- * Image
- * A wrapper around image elements to handle loading states and
- * transitions
- */
-
 import * as React from 'react'
 
 interface Props {
