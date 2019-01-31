@@ -245,10 +245,37 @@ describe('Picker', () => {
       })
 
       test('displays the error', () => {
-        expect(component.find('.ars-error').text()).toContain(
-          'Unable to load URL'
-        )
+        expect(component.find('.ars-error').text()).toContain('Unable to load URL')
       })
+    })
+  })
+
+  describe('Display Modes', () => {
+    let component = null
+
+    beforeEach(() => {
+      component = mount(
+        <Options.Provider value={{ url: 'test.json' }}>
+          <Picker />
+        </Options.Provider>
+      )
+      jest.runAllTimers()
+      component.update()
+    })
+
+    it('can switch to table mode', () => {
+      component.find('TableButton').simulate('click')
+
+      expect(component.find('TableButton').prop('disabled')).toBe(true)
+      expect(component.exists('TableView')).toBe(true)
+    })
+
+    it('can switch to gallery mode', () => {
+      component.find('TableButton').simulate('click')
+      component.find('GalleryButton').simulate('click')
+
+      expect(component.find('GalleryButton').prop('disabled')).toBe(true)
+      expect(component.exists('Gallery')).toBe(true)
     })
   })
 })

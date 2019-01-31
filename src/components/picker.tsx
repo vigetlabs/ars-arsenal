@@ -17,6 +17,8 @@ import TableButton from './table-button'
 import { ID, Record } from '../record'
 import { ArsColumn, SortableColumn, ArsMode } from '../options'
 
+type Mode = 'gallery' | 'table'
+
 interface Props {
   columns?: ArsColumn[]
   mode: ArsMode
@@ -27,7 +29,7 @@ interface Props {
 }
 
 interface State {
-  mode: 'gallery' | 'table'
+  mode: Mode
   picked: ID[]
   currentSearch: string
   queriedSearch: string
@@ -151,13 +153,7 @@ export default class Picker extends React.PureComponent<Props, State> {
   render() {
     let { sort, queriedSearch } = this.state
 
-    return (
-      <LoadCollection
-        sort={sort}
-        search={queriedSearch}
-        render={this.renderContent}
-      />
-    )
+    return <LoadCollection sort={sort} search={queriedSearch} render={this.renderContent} />
   }
 
   onTagClick = (tag: string) => {
@@ -168,8 +164,7 @@ export default class Picker extends React.PureComponent<Props, State> {
     this.setState({ sort })
   }
 
-  setMode = (mode: 'gallery' | 'table', event: React.SyntheticEvent) => {
-    event.preventDefault()
+  setMode = mode => {
     this.setState({ mode })
   }
 
@@ -186,9 +181,7 @@ export default class Picker extends React.PureComponent<Props, State> {
   }
 
   onPicked = (picked: ID, shouldAdd?: Boolean) => {
-    let next = this.props.multiselect
-      ? this.onMultiPicked([].concat(picked), shouldAdd)
-      : [picked]
+    let next = this.props.multiselect ? this.onMultiPicked([].concat(picked), shouldAdd) : [picked]
 
     this.setState({ picked: next })
   }
