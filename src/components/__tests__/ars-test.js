@@ -98,4 +98,14 @@ describe('Ars', () => {
       expect.stringContaining('Duplicate records were returned from /test.json')
     )
   })
+
+  test('updates picked state when receiving new props', () => {
+    let component = mount(<Ars url="/test.json" picked={9} />)
+
+    expect(component.state('picked')).toEqual([9])
+
+    component.setProps({ picked: 10 })
+
+    expect(component.state('picked')).toEqual([10])
+  })
 })

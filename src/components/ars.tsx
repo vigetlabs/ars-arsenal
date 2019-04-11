@@ -29,6 +29,14 @@ export default class Ars extends React.Component<ArsOptions, State> {
     }
   }
 
+  componentDidUpdate(lastProps: ArsOptions) {
+    if (lastProps.picked != this.props.picked) {
+      this.setState({
+        picked: [].concat(this.props.picked || [])
+      })
+    }
+  }
+
   getPicker() {
     let { picked } = this.state
     let { columns, multiselect, mode } = this.props
