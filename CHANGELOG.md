@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.5.0
+
+- Update picked state when receiving a new picked value. This allows ArsArsenal
+  to be controlled.
+
 ## 3.4.0
 
 - Add failure state when data for an image can not be loaded
