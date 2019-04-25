@@ -22,7 +22,7 @@ dist/%.tsx: src/%.tsx
 	@echo "[+] dist/$*.js"
 
 css: sass
-	yarn node-sass ./dist/style/ars-arsenal.scss --stdout > dist/style.css
+	node_modules/.bin/node-sass ./dist/style/ars-arsenal.scss --stdout > dist/style.css
 
 sass:
 	@mkdir -p dist
