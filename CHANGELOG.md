@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.5.1
+
+- Fix bug where yarn output reported to stylesheet (#76)
+
 ## 3.5.0
 
 - Update picked state when receiving a new picked value. This allows ArsArsenal
