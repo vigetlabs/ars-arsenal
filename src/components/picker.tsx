@@ -16,7 +16,7 @@ import GalleryButton from './gallery-button'
 import TableButton from './table-button'
 import { ID, Record } from '../record'
 import { ArsColumn, SortableColumn, ArsMode } from '../options'
-import OptionsContext from '../contexts/options';
+import OptionsContext from '../contexts/options'
 
 type Mode = 'gallery' | 'table'
 
