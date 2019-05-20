@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.6.0
+
+- Add autocomplete option to disable autocomplete in search bar
+
 ## 3.5.1
 
 - Fix bug where yarn output reported to stylesheet (#76)
