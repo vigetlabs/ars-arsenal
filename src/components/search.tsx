@@ -10,6 +10,7 @@ import { Record } from '../record'
 interface Props {
   data: Record[]
   search: string
+  autoComplete: boolean
   onChange(search: string): void
   onQuery(search: string): void
 }
@@ -31,6 +32,7 @@ export default class Search extends React.Component<Props> {
   }
 
   render() {
+    let { search, autoComplete, data } = this.props
     let inputId = `ars_search_${this.id}`
     let listId = `ars_search_list_${this.id}`
 
@@ -41,15 +43,15 @@ export default class Search extends React.Component<Props> {
         </label>
         <input
           id={inputId}
-          list={listId}
+          list={autoComplete ? listId : null}
           type="search"
           className="ars-search-input"
           placeholder="Search"
-          value={this.props.search}
+          value={search}
           onChange={this.onChange.bind(this)}
           onKeyUp={this.onKeyUp.bind(this)}
         />
-        <DataList id={listId} items={this.props.data} />
+        {autoComplete && <DataList id={listId} items={data} />}
         <button className="ars-hidden">Submit</button>
       </form>
     )

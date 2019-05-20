@@ -278,4 +278,14 @@ describe('Picker', () => {
       expect(component.exists('Gallery')).toBe(true)
     })
   })
+
+  test('disable autocomplete through options', () => {
+    let component = mount(
+      <Options.Provider value={{ url: 'test.json', autoComplete: false }}>
+        <Picker />
+      </Options.Provider>
+    )
+
+    expect(component.exists('datalist')).toEqual(false)
+  })
 })

@@ -43,6 +43,8 @@ import ArsArsenal from 'ars-arsenal'
 let app = document.getElementById('app')
 
 ArsArsenal.render(app, {
+  autoComplete: true, // Show or hide autocomplete results
+
   resource: 'photo', // the noun used for selection, i.e. "Pick a photo"
 
   // Configure the root element's HTML attributes. default = {}
