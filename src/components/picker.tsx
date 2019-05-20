@@ -16,6 +16,7 @@ import GalleryButton from './gallery-button'
 import TableButton from './table-button'
 import { ID, Record } from '../record'
 import { ArsColumn, SortableColumn, ArsMode } from '../options'
+import OptionsContext from '../contexts/options';
 
 type Mode = 'gallery' | 'table'
 
@@ -37,6 +38,7 @@ interface State {
 }
 
 export default class Picker extends React.PureComponent<Props, State> {
+  static contextType = OptionsContext
   static defaultProps: Props = {
     mode: 'gallery',
     multiselect: false,
@@ -107,6 +109,7 @@ export default class Picker extends React.PureComponent<Props, State> {
           <Search
             data={data}
             search={currentSearch}
+            autoComplete={this.context.autoComplete}
             onChange={this.onSearchChange}
             onQuery={this.onQueryChange}
           />

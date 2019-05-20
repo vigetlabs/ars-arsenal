@@ -19,6 +19,8 @@ export type SearchQuery = {
 }
 
 export interface ArsOptions {
+  // Show or hide autocomplete results
+  autoComplete: boolean
   // The base URL for API interaction
   url: string
   // Used to build the URL that fetches lists of records.
@@ -62,6 +64,7 @@ export interface ArsOptionsWithDeprecations extends ArsOptions {
 }
 
 export const DEFAULT_OPTIONS: ArsOptions = {
+  autoComplete: true,
   url: '',
   listUrl: (url: string) => url,
   listQuery: query => ({ q: query.search }),

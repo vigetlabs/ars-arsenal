@@ -54,4 +54,9 @@ describe('Search', () => {
     expect(callback).toHaveBeenCalledTimes(1)
     expect(callback).toHaveBeenCalledWith('')
   })
+
+  test('when created with autoComplete false', () => {
+    let component = mount(<Search autoComplete={false} search="" />)
+    expect(component.exists('datalist')).toEqual(false)
+  })
 })
