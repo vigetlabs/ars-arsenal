@@ -48,6 +48,7 @@ export default class Search extends React.Component<Props> {
         </label>
         <input
           {...autoCompleteOpts}
+          id={inputId}
           list={autoComplete ? listId : null}
           type="search"
           className="ars-search-input"
