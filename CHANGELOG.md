@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.6.0
+
+- Removes browser autocomplete when autocomplete is disabled
+
 ## 3.5.1
 
 - Fix bug where yarn output reported to stylesheet (#76)
