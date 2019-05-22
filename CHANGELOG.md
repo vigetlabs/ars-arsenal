@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.7.0
+
+- Disable browser autocomplete when autocomplete feature is disabled
+
 ## 3.6.0
 
 - Add autocomplete setting to control autocomplete
