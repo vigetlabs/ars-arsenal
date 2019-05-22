@@ -38,7 +38,7 @@ export default class Search extends React.Component<Props> {
 
     let autoCompleteOpts = {}
     if (!autoComplete) {
-      autoCompleteOpts['autoComplete'] = 'none'
+      autoCompleteOpts['autoComplete'] = 'off'
     }
 
     return (
