@@ -36,9 +36,11 @@ documentation: README.md LICENSE.md
 	cp -r $^ dist
 
 release: clean build
+	yarn test
 	npm publish dist
 
 prerelease: clean build
+	yarn test
 	npm publish dist --tag beta
 
 clean:
