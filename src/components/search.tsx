@@ -36,13 +36,18 @@ export default class Search extends React.Component<Props> {
     let inputId = `ars_search_${this.id}`
     let listId = `ars_search_list_${this.id}`
 
+    let autoCompleteOpts = {}
+    if (!autoComplete) {
+      autoCompleteOpts['autoComplete'] = 'none'
+    }
+
     return (
       <form className="ars-search" onSubmit={this.onSubmit.bind(this)}>
         <label className="ars-search-label" htmlFor={inputId}>
           <SearchIcon />
         </label>
         <input
-          id={inputId}
+          {...autoCompleteOpts}
           list={autoComplete ? listId : null}
           type="search"
           className="ars-search-input"
