@@ -2,7 +2,7 @@
 
 ## 3.6.0
 
-- Removes browser autocomplete when autocomplete is disabled
+- Add autocomplete setting to control autocomplete
 
 ## 3.5.1
 
