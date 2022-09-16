@@ -3,7 +3,7 @@
   "version": "3.8.0",
   "private": true,
   "description": "A gallery picker",
-  "main": "build/ars-arsenal.js",
+  "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config example/webpack.config.js --mode=development",
     "build": "make build",

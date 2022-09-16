@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.9.0
+
+- Make `index.js` the main entry point
+
 ## 3.8.0
 
 - Merge security updates from dependabot
