@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.8.0
+
+- Merge security updates from dependabot
+
 ## 3.7.0
 
 - Disable browser autocomplete when autocomplete feature is disabled
